@@ -16,6 +16,10 @@ class CrudMakeCommandTest extends TestCase
 
         $this->assertFileExists(app_path('Test.php'));
         $this->assertFileExists(app_path('Http/Controllers/TestsController.php'));
+
+        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_tests_table.php');
+        $this->assertFileExists($migrationFilePath);
+
         $this->assertFileExists(resource_path('views/tests/index.blade.php'));
         $this->assertFileExists(resource_path('views/tests/forms.blade.php'));
         $this->assertFileExists(base_path('tests/Feature/ManageTestsTest.php'));
@@ -23,6 +27,7 @@ class CrudMakeCommandTest extends TestCase
 
         exec('rm '.app_path('Test.php'));
         exec('rm -r '.app_path('Http'));
+        exec('rm '.$migrationFilePath);
         exec('rm -r '.resource_path('views/tests'));
         exec('rm -r '.base_path('tests/Feature'));
         exec('rm -r '.base_path('tests/Unit'));

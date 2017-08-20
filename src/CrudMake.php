@@ -42,19 +42,23 @@ class CrudMake extends Command
         $pluralModel = str_plural($model);
         $lowerCasePluralModel = strtolower($pluralModel);
 
-
         $this->callSilent('make:model', ['name' => $model]);
         $this->info($model.' model generated.');
         $this->callSilent('make:controller', ['name' => $pluralModel.'Controller']);
         $this->info($pluralModel.'Controller generated.');
 
-        $path = resource_path('views/'.$lowerCasePluralModel);
-        if (! $this->files->isDirectory($path)) {
-            $this->files->makeDirectory($path, 0777, true, true);
+        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$lowerCasePluralModel.'_table.php');
+        $this->files->put($migrationFilePath, $this->files->get(__DIR__.'/stubs/migration-create.stub'));
+        $this->info($model.' table migration generated.');
+
+        $viewPath = resource_path('views/'.$lowerCasePluralModel);
+        if (! $this->files->isDirectory($viewPath)) {
+            $this->files->makeDirectory($viewPath, 0777, true, true);
         }
 
-        $this->files->put($path.'/index.blade.php', $this->files->get(__DIR__.'/stubs/view-index.stub'));
-        $this->files->put($path.'/forms.blade.php', $this->files->get(__DIR__.'/stubs/view-forms.stub'));
+        $this->files->put($viewPath.'/index.blade.php', $this->files->get(__DIR__.'/stubs/view-index.stub'));
+        $this->files->put($viewPath.'/forms.blade.php', $this->files->get(__DIR__.'/stubs/view-forms.stub'));
+        $this->info($model.' view files generated.');
 
         $this->callSilent('make:test', ['name' => 'Manage'.$pluralModel.'Test']);
         $this->info('Manage'.$pluralModel.'Test generated.');
