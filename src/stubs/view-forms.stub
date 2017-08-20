@@ -1,0 +1,33 @@
+@if (Request::get('action') == 'create')
+    {!! Form::open(['route' => 'masters.store']) !!}
+    {!! FormField::text('name') !!}
+    {!! FormField::textarea('description') !!}
+    {!! Form::submit(trans('master.create'), ['class' => 'btn btn-success']) !!}
+    {!! Form::hidden('cat', 'master') !!}
+    {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    {!! Form::close() !!}
+@endif
+@if (Request::get('action') == 'edit' && $editableMaster)
+    {!! Form::model($editableMaster, ['route' => ['masters.update', $editableMaster->id],'method' => 'patch']) !!}
+    {!! FormField::text('name') !!}
+    {!! FormField::textarea('description') !!}
+    {!! Form::submit(trans('master.update'), ['class' => 'btn btn-success']) !!}
+    {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    {!! Form::close() !!}
+@endif
+@if (Request::get('action') == 'delete' && $editableMaster)
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">{{ trans('master.delete') }}</h3></div>
+        <div class="panel-body">
+            <label class="control-label">{{ trans('master.name') }}</label>
+            <p>{{ $editableMaster->name }}</p>
+            {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
+        </div>
+        <hr style="margin:0">
+        <div class="panel-body">{{ trans('app.delete_confirm') }}</div>
+        <div class="panel-footer">
+            {!! FormField::delete(['route'=>['masters.destroy',$editableMaster->id]], trans('app.delete_confirm_button'), ['class'=>'btn btn-danger'], ['master_id' => $editableMaster->id]) !!}
+            {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+        </div>
+    </div>
+@endif

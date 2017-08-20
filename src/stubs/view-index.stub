@@ -1,0 +1,40 @@
+@extends('layouts.app')
+
+@section('title', trans('master.list'))
+
+@section('content')
+{{ link_to_route('masters.index', trans('master.create'), ['action' => 'create'], ['class' => 'btn btn-success pull-right']) }}
+<h3 class="page-header">{{ trans('master.list') }}</h3>
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default table-responsive">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th class="text-center">{{ trans('app.table_no') }}</th>
+                        <th>{{ trans('master.name') }}</th>
+                        <th>{{ trans('master.description') }}</th>
+                        <th class="text-center">{{ trans('app.action') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($masters as $key => $master)
+                    <tr>
+                        <td class="text-center">{{ 1 + $key }}</td>
+                        <td>{{ $master->name }}</td>
+                        <td>{{ $master->description }}</td>
+                        <td class="text-center">
+                            {!! link_to_route('masters.index', trans('app.edit'), ['action' => 'edit', 'id' => $master->id], ['id' => 'edit-master-' . $master->id]) !!} |
+                            {!! link_to_route('masters.index', trans('app.delete'), ['action' => 'delete', 'id' => $master->id], ['id' => 'del-master-' . $master->id]) !!}
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+        @includeWhen(Request::has('action'), 'masters.forms')
+    </div>
+</div>
+@endsection
