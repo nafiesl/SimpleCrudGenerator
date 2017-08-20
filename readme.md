@@ -1,4 +1,5 @@
 # Laravel Simple CRUD Generator
+[![Build Status](https://travis-ci.org/nafiesl/SimpleCrudGenerator.svg?branch=master)](https://travis-ci.org/nafiesl/SimpleCrudGenerator)
 
 An artisan `make:crud` command to create a simple CRUD feature on your Laravel 5.4 application.
 
