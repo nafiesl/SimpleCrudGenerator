@@ -1,0 +1,24 @@
+{
+    "name": "luthfi/simple-crud-generator",
+    "description": "A simple CRUD generator for Laravel 5.4.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nafies Luthfi",
+            "email": "nafiesl@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Luthfi\\CrudGenerator\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "dev-master"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0"
+    }
+}
