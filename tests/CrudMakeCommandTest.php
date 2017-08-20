@@ -15,16 +15,16 @@ class CrudMakeCommandTest extends TestCase
         $this->artisan('make:crud', ['name' => 'Test', '--no-interaction' => true]);
 
         $this->assertFileExists(app_path('Test.php'));
-        // $this->assertFileExists(app_path('Http/Controllers/TestsController.php'));
+        $this->assertFileExists(app_path('Http/Controllers/TestsController.php'));
         // $this->assertFileExists(resource_path('views/tests/index.blade.php'));
         // $this->assertFileExists(resource_path('views/tests/forms.blade.php'));
-        // $this->assertFileExists(base_path('tests/Feature/ManageTestsTest.php'));
-        // $this->assertFileExists(base_path('tests/Unit/Models/TestTest.php'));
+        $this->assertFileExists(base_path('tests/Feature/ManageTestsTest.php'));
+        $this->assertFileExists(base_path('tests/Unit/Models/TestTest.php'));
 
         exec('rm '.app_path('Test.php'));
-        // exec('rm -r '.app_path('Http/Controllers'));
+        exec('rm -r '.app_path('Http'));
         // exec('rm -r '.resource_path('views/tests'));
-        // exec('rm '.base_path('tests/Feature/ManageTestsTest.php'));
-        // exec('rm '.base_path('tests/Unit/ModelsTestTest.php'));
+        exec('rm -r '.base_path('tests/Feature'));
+        exec('rm -r '.base_path('tests/Unit'));
     }
 }

@@ -33,6 +33,10 @@ class CrudMake extends Command
 
         $this->callSilent('make:model', ['name' => $model]);
         $this->info($model.' model generated.');
+        $this->callSilent('make:controller', ['name' => $pluralModel.'Controller']);
+        $this->info($pluralModel.'Controller generated.');
+        $this->callSilent('make:test', ['name' => 'Manage'.$pluralModel.'Test']);
+        $this->callSilent('make:test', ['name' => 'Models/'.$model.'Test', '--unit' => true]);
 
         $this->info('CRUD files generated successfully!');
     }
