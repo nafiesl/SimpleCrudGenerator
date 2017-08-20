@@ -44,7 +44,13 @@ class CrudMake extends Command
 
         $this->callSilent('make:model', ['name' => $model]);
         $this->info($model.' model generated.');
-        $this->callSilent('make:controller', ['name' => $pluralModel.'Controller']);
+
+        if (! $this->files->isDirectory(app_path('Http/Controllers'))) {
+            $this->files->makeDirectory(app_path('Http/Controllers'), 0777, true, true);
+        }
+
+        $controllerPath = app_path('Http/Controllers/'.$pluralModel.'Controller.php');
+        $this->files->put($controllerPath, $this->files->get(__DIR__.'/stubs/controller.model.stub'));
         $this->info($pluralModel.'Controller generated.');
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$lowerCasePluralModel.'_table.php');

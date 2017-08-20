@@ -58,4 +58,85 @@ class Item extends Model
         exec('rm -r '.base_path('tests/Feature'));
         exec('rm -r '.base_path('tests/Unit'));
     }
+
+    /** @test */
+    public function it_creates_correct_controller_class_content()
+    {
+        $this->artisan('make:crud', ['name' => 'Item', '--no-interaction' => true]);
+
+        $this->assertFileExists(app_path('Item.php'));
+        $ctrlClassContent = "<?php
+
+namespace DummyNamespace;
+
+use DummyFullModelClass;
+use Illuminate\Http\Request;
+use DummyRootNamespaceHttp\Controllers\Controller;
+
+class DummyClass extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  \$request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request \$request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \DummyFullModelClass  \$DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function show(DummyModelClass \$DummyModelVariable)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  \$request
+     * @param  \DummyFullModelClass  \$DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request \$request, DummyModelClass \$DummyModelVariable)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \DummyFullModelClass  \$DummyModelVariable
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(DummyModelClass \$DummyModelVariable)
+    {
+        //
+    }
+}
+";
+        $this->assertEquals($ctrlClassContent, file_get_contents(app_path('Http/Controllers/ItemsController.php')));
+        exec('rm '.app_path('Item.php'));
+        exec('rm -r '.app_path('Http'));
+        exec('rm '.database_path('migrations/*'));
+        exec('rm -r '.resource_path('views/items'));
+        exec('rm -r '.base_path('tests/Feature'));
+        exec('rm -r '.base_path('tests/Unit'));
+    }
 }

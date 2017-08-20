@@ -1,6 +1,6 @@
 # Laravel Simple CRUD Generator
 
-This is a package to create simple CRUD on your Laravel 5.4 application.
+An artisan `make:crud` command to create a simple CRUD feature on your Laravel 5.4 application.
 
 > **Development in progress**
 
