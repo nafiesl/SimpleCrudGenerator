@@ -42,21 +42,43 @@ class CrudMake extends Command
         $pluralModel = str_plural($model);
         $lowerCasePluralModel = strtolower($pluralModel);
 
-        $this->callSilent('make:model', ['name' => $model]);
-        $this->info($model.' model generated.');
+        $this->generateModel($model);
+        $this->generateController($pluralModel);
+        $this->generateMigration($model, $lowerCasePluralModel);
+        $this->generateViews($model, $lowerCasePluralModel);
+        $this->generateTests($model, $pluralModel);
 
+        $this->info('CRUD files generated successfully!');
+    }
+
+    public function generateModel($model)
+    {
+        $this->callSilent('make:model', ['name' => $model]);;
+
+        $this->info($model.' model generated.');
+    }
+
+    public function generateController($pluralModelName)
+    {
         if (! $this->files->isDirectory(app_path('Http/Controllers'))) {
             $this->files->makeDirectory(app_path('Http/Controllers'), 0777, true, true);
         }
 
-        $controllerPath = app_path('Http/Controllers/'.$pluralModel.'Controller.php');
+        $controllerPath = app_path('Http/Controllers/'.$pluralModelName.'Controller.php');
         $this->files->put($controllerPath, $this->files->get(__DIR__.'/stubs/controller.model.stub'));
-        $this->info($pluralModel.'Controller generated.');
 
+        $this->info($pluralModelName.'Controller generated.');
+    }
+    public function generateMigration($model, $lowerCasePluralModel)
+    {
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$lowerCasePluralModel.'_table.php');
         $this->files->put($migrationFilePath, $this->files->get(__DIR__.'/stubs/migration-create.stub'));
-        $this->info($model.' table migration generated.');
 
+        $this->info($model.' table migration generated.');
+    }
+
+    public function generateViews($model, $lowerCasePluralModel)
+    {
         $viewPath = resource_path('views/'.$lowerCasePluralModel);
         if (! $this->files->isDirectory($viewPath)) {
             $this->files->makeDirectory($viewPath, 0777, true, true);
@@ -64,13 +86,16 @@ class CrudMake extends Command
 
         $this->files->put($viewPath.'/index.blade.php', $this->files->get(__DIR__.'/stubs/view-index.stub'));
         $this->files->put($viewPath.'/forms.blade.php', $this->files->get(__DIR__.'/stubs/view-forms.stub'));
-        $this->info($model.' view files generated.');
 
-        $this->callSilent('make:test', ['name' => 'Manage'.$pluralModel.'Test']);
-        $this->info('Manage'.$pluralModel.'Test generated.');
+        $this->info($model.' view files generated.');
+    }
+
+    public function generateTests($model, $pluralModelName)
+    {
+        $this->callSilent('make:test', ['name' => 'Manage'.$pluralModelName.'Test']);
+        $this->info('Manage'.$pluralModelName.'Test generated.');
+
         $this->callSilent('make:test', ['name' => 'Models/'.$model.'Test', '--unit' => true]);
         $this->info($model.'Test (model) generated.');
-
-        $this->info('CRUD files generated successfully!');
     }
 }
