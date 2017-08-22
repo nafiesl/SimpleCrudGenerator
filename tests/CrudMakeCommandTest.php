@@ -67,13 +67,13 @@ class Item extends Model
         $this->assertFileExists(app_path('Item.php'));
         $ctrlClassContent = "<?php
 
-namespace DummyNamespace;
+namespace App\Http\Controllers;
 
-use DummyFullModelClass;
+use App\Item;
 use Illuminate\Http\Request;
-use DummyRootNamespaceHttp\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
-class DummyClass extends Controller
+class ItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -99,10 +99,10 @@ class DummyClass extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \DummyFullModelClass  \$DummyModelVariable
+     * @param  \App\Item  \$item
      * @return \Illuminate\Http\Response
      */
-    public function show(DummyModelClass \$DummyModelVariable)
+    public function show(Item \$item)
     {
         //
     }
@@ -111,10 +111,10 @@ class DummyClass extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  \$request
-     * @param  \DummyFullModelClass  \$DummyModelVariable
+     * @param  \App\Item  \$item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request \$request, DummyModelClass \$DummyModelVariable)
+    public function update(Request \$request, Item \$item)
     {
         //
     }
@@ -122,10 +122,10 @@ class DummyClass extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \DummyFullModelClass  \$DummyModelVariable
+     * @param  \App\Item  \$item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DummyModelClass \$DummyModelVariable)
+    public function destroy(Item \$item)
     {
         //
     }

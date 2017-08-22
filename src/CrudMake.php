@@ -76,6 +76,7 @@ class CrudMake extends Command
 
         $this->info($this->pluralModelName.'Controller generated.');
     }
+
     public function generateMigration()
     {
         $prefix = date('Y_m_d_His');
@@ -109,7 +110,8 @@ class CrudMake extends Command
 
     public function getControllerContent()
     {
-        return $this->files->get(__DIR__.'/stubs/controller.model.stub');
+        $stub = $this->files->get(__DIR__.'/stubs/controller.model.stub');
+        return $this->replaceDummyStrings($stub)->replaceClass($stub);
     }
 
     private function getMigrationContent()
@@ -144,5 +146,28 @@ class CrudMake extends Command
         }
 
         return $path;
+    }
+
+    protected function replaceDummyStrings(&$stub)
+    {
+        $stub = str_replace(
+            ['DummyNamespace', 'DummyFullModelClass', 'DummyModelVariable', 'DummyModelClass'],
+            [$this->getNamespace($this->modelName), 'App\\'.$this->modelName, strtolower($this->modelName), $this->modelName],
+            $stub
+        );
+
+        return $this;
+    }
+
+    protected function replaceClass($stub)
+    {
+        $class = str_plural($this->modelName);
+
+        return str_replace('DummyClass', $class, $stub);
+    }
+
+    protected function getNamespace($name)
+    {
+        return trim(implode('\\', array_slice(explode('\\', $name), 0, -1)), '\\');
     }
 }
