@@ -74,14 +74,14 @@ class CrudMake extends Command
         }
 
         $controllerPath = app_path('Http/Controllers/'.$this->pluralModelName.'Controller.php');
-        $this->files->put($controllerPath, $this->files->get(__DIR__.'/stubs/controller.model.stub'));
+        $this->files->put($controllerPath, $this->getControllerStub());
 
         $this->info($this->pluralModelName.'Controller generated.');
     }
     public function generateMigration()
     {
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->lowerCasePluralModel.'_table.php');
-        $this->files->put($migrationFilePath, $this->files->get(__DIR__.'/stubs/migration-create.stub'));
+        $this->files->put($migrationFilePath, $this->getMigrationStub());
 
         $this->info($this->modelName.' table migration generated.');
     }
@@ -93,18 +93,57 @@ class CrudMake extends Command
             $this->files->makeDirectory($viewPath, 0777, true, true);
         }
 
-        $this->files->put($viewPath.'/index.blade.php', $this->files->get(__DIR__.'/stubs/view-index.stub'));
-        $this->files->put($viewPath.'/forms.blade.php', $this->files->get(__DIR__.'/stubs/view-forms.stub'));
+        $this->files->put($viewPath.'/index.blade.php', $this->getIndexViewStub());
+        $this->files->put($viewPath.'/forms.blade.php', $this->getFormsViewStub());
 
         $this->info($this->modelName.' view files generated.');
     }
 
     public function generateTests()
     {
-        $this->callSilent('make:test', ['name' => 'Manage'.$this->pluralModelName.'Test']);
+        $featureTestPath = base_path('tests/Feature');
+        if (! $this->files->isDirectory($featureTestPath)) {
+            $this->files->makeDirectory($featureTestPath, 0777, true, true);
+        }
+        $this->files->put($featureTestPath.'/Manage'.$this->pluralModelName.'Test.php', $this->getFeatureTestStub());
         $this->info('Manage'.$this->pluralModelName.'Test generated.');
 
-        $this->callSilent('make:test', ['name' => 'Models/'.$this->modelName.'Test', '--unit' => true]);
+        $unitTestPath = base_path('tests/Unit/Models');
+        if (! $this->files->isDirectory($unitTestPath)) {
+            $this->files->makeDirectory($unitTestPath, 0777, true, true);
+        }
+
+        $this->files->put($unitTestPath.'/'.$this->modelName.'Test.php', $this->getUnitTestStub());
         $this->info($this->modelName.'Test (model) generated.');
+    }
+
+    public function getControllerStub()
+    {
+        return $this->files->get(__DIR__.'/stubs/controller.model.stub');
+    }
+
+    private function getMigrationStub()
+    {
+        return $this->files->get(__DIR__.'/stubs/migration-create.stub');
+    }
+
+    public function getIndexViewStub()
+    {
+        return $this->files->get(__DIR__.'/stubs/view-index.stub');
+    }
+
+    public function getFormsViewStub()
+    {
+        return $this->files->get(__DIR__.'/stubs/view-forms.stub');
+    }
+
+    public function getFeatureTestStub()
+    {
+        return $this->files->get(__DIR__.'/stubs/test.stub');
+    }
+
+    public function getUnitTestStub()
+    {
+        return $this->files->get(__DIR__.'/stubs/unit-test.stub');
     }
 }
