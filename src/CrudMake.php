@@ -44,8 +44,8 @@ class CrudMake extends Command
         $this->getModelName();
 
         $this->generateModel();
-        $this->generateController();
         $this->generateMigration();
+        $this->generateController();
         $this->generateViews();
         $this->generateTests();
 
@@ -69,81 +69,80 @@ class CrudMake extends Command
 
     public function generateController()
     {
-        if (! $this->files->isDirectory(app_path('Http/Controllers'))) {
-            $this->files->makeDirectory(app_path('Http/Controllers'), 0777, true, true);
-        }
+        $controllerPath = $this->makeDirectory(app_path('Http/Controllers'));
 
-        $controllerPath = app_path('Http/Controllers/'.$this->pluralModelName.'Controller.php');
-        $this->files->put($controllerPath, $this->getControllerStub());
+        $controllerPath = $controllerPath.'/'.$this->pluralModelName.'Controller.php';
+        $this->files->put($controllerPath, $this->getControllerContent());
 
         $this->info($this->pluralModelName.'Controller generated.');
     }
     public function generateMigration()
     {
-        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->lowerCasePluralModel.'_table.php');
-        $this->files->put($migrationFilePath, $this->getMigrationStub());
+        $prefix = date('Y_m_d_His');
+        $tableName = $this->lowerCasePluralModel;
+        $migrationFilePath = database_path("migrations/{$prefix}_create_{$tableName}_table.php");
+        $this->files->put($migrationFilePath, $this->getMigrationContent());
 
         $this->info($this->modelName.' table migration generated.');
     }
 
     public function generateViews()
     {
-        $viewPath = resource_path('views/'.$this->lowerCasePluralModel);
-        if (! $this->files->isDirectory($viewPath)) {
-            $this->files->makeDirectory($viewPath, 0777, true, true);
-        }
+        $viewPath = $this->makeDirectory(resource_path('views/'.$this->lowerCasePluralModel));
 
-        $this->files->put($viewPath.'/index.blade.php', $this->getIndexViewStub());
-        $this->files->put($viewPath.'/forms.blade.php', $this->getFormsViewStub());
+        $this->files->put($viewPath.'/index.blade.php', $this->getIndexViewContent());
+        $this->files->put($viewPath.'/forms.blade.php', $this->getFormsViewContent());
 
         $this->info($this->modelName.' view files generated.');
     }
 
     public function generateTests()
     {
-        $featureTestPath = base_path('tests/Feature');
-        if (! $this->files->isDirectory($featureTestPath)) {
-            $this->files->makeDirectory($featureTestPath, 0777, true, true);
-        }
-        $this->files->put($featureTestPath.'/Manage'.$this->pluralModelName.'Test.php', $this->getFeatureTestStub());
+        $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
+        $this->files->put("{$featureTestPath}/Manage{$this->pluralModelName}Test.php", $this->getFeatureTestContent());
         $this->info('Manage'.$this->pluralModelName.'Test generated.');
 
-        $unitTestPath = base_path('tests/Unit/Models');
-        if (! $this->files->isDirectory($unitTestPath)) {
-            $this->files->makeDirectory($unitTestPath, 0777, true, true);
-        }
-
-        $this->files->put($unitTestPath.'/'.$this->modelName.'Test.php', $this->getUnitTestStub());
+        $unitTestPath = $this->makeDirectory(base_path('tests/Unit/Models'));
+        $this->files->put("{$unitTestPath}/{$this->modelName}Test.php", $this->getUnitTestContent());
         $this->info($this->modelName.'Test (model) generated.');
     }
 
-    public function getControllerStub()
+    public function getControllerContent()
     {
         return $this->files->get(__DIR__.'/stubs/controller.model.stub');
     }
 
-    private function getMigrationStub()
+    private function getMigrationContent()
     {
         return $this->files->get(__DIR__.'/stubs/migration-create.stub');
     }
 
-    public function getIndexViewStub()
+    public function getIndexViewContent()
     {
         return $this->files->get(__DIR__.'/stubs/view-index.stub');
     }
 
-    public function getFormsViewStub()
+    public function getFormsViewContent()
     {
         return $this->files->get(__DIR__.'/stubs/view-forms.stub');
     }
 
-    public function getFeatureTestStub()
+    public function getFeatureTestContent()
     {
         return $this->files->get(__DIR__.'/stubs/test.stub');
     }
 
-    public function getUnitTestStub()
+    public function getUnitTestContent()
     {
         return $this->files->get(__DIR__.'/stubs/unit-test.stub');
+    }
+
+    protected function makeDirectory($path)
+    {
+        if (! $this->files->isDirectory($path)) {
+            $this->files->makeDirectory($path, 0777, true, true);
+        }
+
+        return $path;
     }
 }
