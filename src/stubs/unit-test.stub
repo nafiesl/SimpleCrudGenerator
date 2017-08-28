@@ -1,11 +1,11 @@
 <?php
 
-namespace DummyNamespace;
+namespace Tests\Unit\Models;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class DummyClass extends TestCase
+class MasterTest extends TestCase
 {
     /**
      * A basic test example.

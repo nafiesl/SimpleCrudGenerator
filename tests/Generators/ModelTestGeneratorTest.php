@@ -14,7 +14,7 @@ class ModelTestGeneratorTest extends TestCase
         $this->assertFileExists(base_path("tests/Unit/Models/{$this->modelName}Test.php"));
         $modelClassContent = "<?php
 
-namespace DummyNamespace;
+namespace Tests\Unit\Models;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

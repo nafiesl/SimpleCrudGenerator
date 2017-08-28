@@ -167,8 +167,8 @@ class CrudMake extends Command
     protected function replaceFeatureTestDummyStrings(&$stub)
     {
         $stub = str_replace(
-            ['DummyClass'],
-            ['Manage'.$this->pluralModelName.'Test'],
+            ['Masters'],
+            [$this->pluralModelName],
             $stub
         );
 
@@ -178,8 +178,8 @@ class CrudMake extends Command
     protected function replaceUnitTestDummyStrings(&$stub)
     {
         $stub = str_replace(
-            ['DummyClass'],
-            [$this->modelName.'Test'],
+            ['Master'],
+            [$this->modelName],
             $stub
         );
 
@@ -189,8 +189,8 @@ class CrudMake extends Command
     protected function replaceMigrationDummyStrings(&$stub)
     {
         $stub = str_replace(
-            ['DummyTable', 'DummyClass'],
-            [$this->lowerCasePluralModel, 'Create'.$this->pluralModelName.'Table'],
+            ['masters', 'Masters'],
+            [$this->lowerCasePluralModel, $this->pluralModelName],
             $stub
         );
 
