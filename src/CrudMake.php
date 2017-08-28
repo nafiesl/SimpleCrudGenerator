@@ -122,12 +122,14 @@ class CrudMake extends Command
 
     public function getIndexViewContent()
     {
-        return $this->files->get(__DIR__.'/stubs/view-index.stub');
+        $stub = $this->files->get(__DIR__.'/stubs/view-index.stub');
+        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
     }
 
     public function getFormsViewContent()
     {
-        return $this->files->get(__DIR__.'/stubs/view-forms.stub');
+        $stub = $this->files->get(__DIR__.'/stubs/view-forms.stub');
+        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
     }
 
     public function getFeatureTestContent()
@@ -189,6 +191,17 @@ class CrudMake extends Command
         $stub = str_replace(
             ['DummyTable', 'DummyClass'],
             [$this->lowerCasePluralModel, 'Create'.$this->pluralModelName.'Table'],
+            $stub
+        );
+
+        return $this;
+    }
+
+    protected function replaceViewDummyStrings(&$stub)
+    {
+        $stub = str_replace(
+            ['Master', 'master', 'masters'],
+            [$this->modelName, strtolower($this->modelName), $this->lowerCasePluralModel],
             $stub
         );
 

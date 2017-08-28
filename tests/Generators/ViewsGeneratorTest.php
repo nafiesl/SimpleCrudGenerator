@@ -15,11 +15,11 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($indexViewPath);
         $indexViewContent = "@extends('layouts.app')
 
-@section('title', trans('master.list'))
+@section('title', trans('item.list'))
 
 @section('content')
-{{ link_to_route('masters.index', trans('master.create'), ['action' => 'create'], ['class' => 'btn btn-success pull-right']) }}
-<h3 class=\"page-header\">{{ trans('master.list') }}</h3>
+{{ link_to_route('items.index', trans('item.create'), ['action' => 'create'], ['class' => 'btn btn-success pull-right']) }}
+<h3 class=\"page-header\">{{ trans('item.list') }}</h3>
 <div class=\"row\">
     <div class=\"col-md-8\">
         <div class=\"panel panel-default table-responsive\">
@@ -27,20 +27,20 @@ class ViewsGeneratorTest extends TestCase
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ trans('app.table_no') }}</th>
-                        <th>{{ trans('master.name') }}</th>
-                        <th>{{ trans('master.description') }}</th>
+                        <th>{{ trans('item.name') }}</th>
+                        <th>{{ trans('item.description') }}</th>
                         <th class=\"text-center\">{{ trans('app.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(\$masters as \$key => \$master)
+                    @foreach(\$items as \$key => \$item)
                     <tr>
                         <td class=\"text-center\">{{ 1 + \$key }}</td>
-                        <td>{{ \$master->name }}</td>
-                        <td>{{ \$master->description }}</td>
+                        <td>{{ \$item->name }}</td>
+                        <td>{{ \$item->description }}</td>
                         <td class=\"text-center\">
-                            {!! link_to_route('masters.index', trans('app.edit'), ['action' => 'edit', 'id' => \$master->id], ['id' => 'edit-master-' . \$master->id]) !!} |
-                            {!! link_to_route('masters.index', trans('app.delete'), ['action' => 'delete', 'id' => \$master->id], ['id' => 'del-master-' . \$master->id]) !!}
+                            {!! link_to_route('items.index', trans('app.edit'), ['action' => 'edit', 'id' => \$item->id], ['id' => 'edit-item-' . \$item->id]) !!} |
+                            {!! link_to_route('items.index', trans('app.delete'), ['action' => 'delete', 'id' => \$item->id], ['id' => 'del-item-' . \$item->id]) !!}
                         </td>
                     </tr>
                     @endforeach
@@ -49,7 +49,7 @@ class ViewsGeneratorTest extends TestCase
         </div>
     </div>
     <div class=\"col-md-4\">
-        @includeWhen(Request::has('action'), 'masters.forms')
+        @includeWhen(Request::has('action'), 'items.forms')
     </div>
 </div>
 @endsection
@@ -65,35 +65,35 @@ class ViewsGeneratorTest extends TestCase
         $formViewPath = resource_path("views/{$this->tableName}/forms.blade.php");
         $this->assertFileExists($formViewPath);
         $formViewContent = "@if (Request::get('action') == 'create')
-    {!! Form::open(['route' => 'masters.store']) !!}
+    {!! Form::open(['route' => 'items.store']) !!}
     {!! FormField::text('name') !!}
     {!! FormField::textarea('description') !!}
-    {!! Form::submit(trans('master.create'), ['class' => 'btn btn-success']) !!}
-    {!! Form::hidden('cat', 'master') !!}
-    {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    {!! Form::submit(trans('item.create'), ['class' => 'btn btn-success']) !!}
+    {!! Form::hidden('cat', 'item') !!}
+    {{ link_to_route('items.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
 @endif
-@if (Request::get('action') == 'edit' && \$editableMaster)
-    {!! Form::model(\$editableMaster, ['route' => ['masters.update', \$editableMaster->id],'method' => 'patch']) !!}
+@if (Request::get('action') == 'edit' && \$editableItem)
+    {!! Form::model(\$editableItem, ['route' => ['items.update', \$editableItem->id],'method' => 'patch']) !!}
     {!! FormField::text('name') !!}
     {!! FormField::textarea('description') !!}
-    {!! Form::submit(trans('master.update'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    {!! Form::submit(trans('item.update'), ['class' => 'btn btn-success']) !!}
+    {{ link_to_route('items.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
 @endif
-@if (Request::get('action') == 'delete' && \$editableMaster)
+@if (Request::get('action') == 'delete' && \$editableItem)
     <div class=\"panel panel-default\">
-        <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('master.delete') }}</h3></div>
+        <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('item.delete') }}</h3></div>
         <div class=\"panel-body\">
-            <label class=\"control-label\">{{ trans('master.name') }}</label>
-            <p>{{ \$editableMaster->name }}</p>
-            {!! \$errors->first('master_id', '<span class=\"form-error small\">:message</span>') !!}
+            <label class=\"control-label\">{{ trans('item.name') }}</label>
+            <p>{{ \$editableItem->name }}</p>
+            {!! \$errors->first('item_id', '<span class=\"form-error small\">:message</span>') !!}
         </div>
         <hr style=\"margin:0\">
         <div class=\"panel-body\">{{ trans('app.delete_confirm') }}</div>
         <div class=\"panel-footer\">
-            {!! FormField::delete(['route'=>['masters.destroy',\$editableMaster->id]], trans('app.delete_confirm_button'), ['class'=>'btn btn-danger'], ['master_id' => \$editableMaster->id]) !!}
-            {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+            {!! FormField::delete(['route'=>['items.destroy',\$editableItem->id]], trans('app.delete_confirm_button'), ['class'=>'btn btn-danger'], ['item_id' => \$editableItem->id]) !!}
+            {{ link_to_route('items.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
         </div>
     </div>
 @endif
