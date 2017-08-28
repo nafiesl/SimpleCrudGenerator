@@ -9,9 +9,9 @@ class FeatureTestGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_feature_test_class_content()
     {
-        $this->artisan('make:crud', ['name' => 'Item', '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->modelName, '--no-interaction' => true]);
 
-        $this->assertFileExists(base_path('tests/Feature/ManageItemsTest.php'));
+        $this->assertFileExists(base_path("tests/Feature/Manage{$this->pluralModelName}Test.php"));
         $modelClassContent = "<?php
 
 namespace Tests\Feature;
@@ -32,12 +32,6 @@ class ManageItemsTest extends TestCase
     }
 }
 ";
-        $this->assertEquals($modelClassContent, file_get_contents(base_path('tests/Feature/ManageItemsTest.php')));
-        exec('rm '.app_path('Item.php'));
-        exec('rm -r '.app_path('Http'));
-        exec('rm '.database_path('migrations/*'));
-        exec('rm -r '.resource_path('views/items'));
-        exec('rm -r '.base_path('tests/Feature'));
-        exec('rm -r '.base_path('tests/Unit'));
+        $this->assertEquals($modelClassContent, file_get_contents(base_path("tests/Feature/Manage{$this->pluralModelName}Test.php")));
     }
 }

@@ -9,9 +9,9 @@ class ControllerGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_controller_class_content()
     {
-        $this->artisan('make:crud', ['name' => 'Item', '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->modelName, '--no-interaction' => true]);
 
-        $this->assertFileExists(app_path('Item.php'));
+        $this->assertFileExists(app_path("Http/Controllers/{$this->pluralModelName}Controller.php"));
         $ctrlClassContent = "<?php
 
 namespace App\Http\Controllers;
@@ -78,12 +78,6 @@ class ItemsController extends Controller
     }
 }
 ";
-        $this->assertEquals($ctrlClassContent, file_get_contents(app_path('Http/Controllers/ItemsController.php')));
-        exec('rm '.app_path('Item.php'));
-        exec('rm -r '.app_path('Http'));
-        exec('rm '.database_path('migrations/*'));
-        exec('rm -r '.resource_path('views/items'));
-        exec('rm -r '.base_path('tests/Feature'));
-        exec('rm -r '.base_path('tests/Unit'));
+        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->pluralModelName}Controller.php")));
     }
 }

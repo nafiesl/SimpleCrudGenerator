@@ -9,9 +9,9 @@ class MigrationGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_migration_class_content()
     {
-        $this->artisan('make:crud', ['name' => 'Item', '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->modelName, '--no-interaction' => true]);
 
-        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_items_table.php');
+        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->tableName.'_table.php');
         $this->assertFileExists($migrationFilePath);
         $modelClassContent = "<?php
 
@@ -48,11 +48,5 @@ class CreateItemsTable extends Migration
 }
 ";
         $this->assertEquals($modelClassContent, file_get_contents($migrationFilePath));
-        exec('rm '.app_path('Item.php'));
-        exec('rm -r '.app_path('Http'));
-        exec('rm '.database_path('migrations/*'));
-        exec('rm -r '.resource_path('views/items'));
-        exec('rm -r '.base_path('tests/Feature'));
-        exec('rm -r '.base_path('tests/Unit'));
     }
 }
