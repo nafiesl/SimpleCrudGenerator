@@ -13,6 +13,11 @@
             "Luthfi\\CrudGenerator\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=7.0",
         "illuminate/support": "5.4.*"
