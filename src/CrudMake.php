@@ -116,7 +116,8 @@ class CrudMake extends Command
 
     private function getMigrationContent()
     {
-        return $this->files->get(__DIR__.'/stubs/migration-create.stub');
+        $stub = $this->files->get(__DIR__.'/stubs/migration-create.stub');
+        return $this->replaceMigrationDummyStrings($stub)->replaceClass($stub);
     }
 
     public function getIndexViewContent()
@@ -177,6 +178,17 @@ class CrudMake extends Command
         $stub = str_replace(
             ['DummyClass'],
             [$this->modelName.'Test'],
+            $stub
+        );
+
+        return $this;
+    }
+
+    protected function replaceMigrationDummyStrings(&$stub)
+    {
+        $stub = str_replace(
+            ['DummyTable', 'DummyClass'],
+            [$this->lowerCasePluralModel, 'Create'.$this->pluralModelName.'Table'],
             $stub
         );
 

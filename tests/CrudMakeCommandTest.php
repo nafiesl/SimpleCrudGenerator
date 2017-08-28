@@ -223,7 +223,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DummyClass extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -232,7 +232,7 @@ class DummyClass extends Migration
      */
     public function up()
     {
-        Schema::create('DummyTable', function (Blueprint \$table) {
+        Schema::create('items', function (Blueprint \$table) {
             \$table->increments('id');
             \$table->string('name', 60);
             \$table->string('description');
@@ -247,7 +247,7 @@ class DummyClass extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('DummyTable');
+        Schema::dropIfExists('items');
     }
 }
 ";
