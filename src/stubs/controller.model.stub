@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use DummyFullModelClass;
+use App\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -32,10 +32,10 @@ class DummyClassController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @param  \App\Master  $master
      * @return \Illuminate\Http\Response
      */
-    public function show(DummyModelClass $DummyModelVariable)
+    public function show(Master $master)
     {
         //
     }
@@ -44,10 +44,10 @@ class DummyClassController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @param  \App\Master  $master
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DummyModelClass $DummyModelVariable)
+    public function update(Request $request, Master $master)
     {
         //
     }
@@ -55,10 +55,10 @@ class DummyClassController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @param  \App\Master  $master
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DummyModelClass $DummyModelVariable)
+    public function destroy(Master $master)
     {
         //
     }

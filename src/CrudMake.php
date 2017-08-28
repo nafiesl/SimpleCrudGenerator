@@ -111,7 +111,7 @@ class CrudMake extends Command
     public function getControllerContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/controller.model.stub');
-        return $this->replaceDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceControllerDummyStrings($stub)->replaceClass($stub);
     }
 
     private function getMigrationContent()
@@ -153,11 +153,11 @@ class CrudMake extends Command
         return $path;
     }
 
-    protected function replaceDummyStrings(&$stub)
+    protected function replaceControllerDummyStrings(&$stub)
     {
         $stub = str_replace(
-            ['DummyNamespace', 'DummyFullModelClass', 'DummyModelVariable', 'DummyModelClass'],
-            [$this->getNamespace($this->modelName), 'App\\'.$this->modelName, strtolower($this->modelName), $this->modelName],
+            ['master', 'Master'],
+            [strtolower($this->modelName), $this->modelName],
             $stub
         );
 
