@@ -131,7 +131,8 @@ class CrudMake extends Command
 
     public function getFeatureTestContent()
     {
-        return $this->files->get(__DIR__.'/stubs/test.stub');
+        $stub = $this->files->get(__DIR__.'/stubs/test.stub');
+        return $this->replaceFeatureTestDummyStrings($stub)->replaceClass($stub);
     }
 
     public function getUnitTestContent()
@@ -153,6 +154,17 @@ class CrudMake extends Command
         $stub = str_replace(
             ['DummyNamespace', 'DummyFullModelClass', 'DummyModelVariable', 'DummyModelClass'],
             [$this->getNamespace($this->modelName), 'App\\'.$this->modelName, strtolower($this->modelName), $this->modelName],
+            $stub
+        );
+
+        return $this;
+    }
+
+    protected function replaceFeatureTestDummyStrings(&$stub)
+    {
+        $stub = str_replace(
+            ['DummyClass'],
+            ['Manage'.$this->pluralModelName.'Test'],
             $stub
         );
 

@@ -148,14 +148,12 @@ class ItemsController extends Controller
         $this->assertFileExists(base_path('tests/Feature/ManageItemsTest.php'));
         $modelClassContent = "<?php
 
-namespace DummyNamespace;
+namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class DummyClass extends TestCase
+class ManageItemsTest extends TestCase
 {
     /**
      * A basic test example.
