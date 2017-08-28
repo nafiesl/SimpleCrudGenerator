@@ -137,7 +137,8 @@ class CrudMake extends Command
 
     public function getUnitTestContent()
     {
-        return $this->files->get(__DIR__.'/stubs/unit-test.stub');
+        $stub = $this->files->get(__DIR__.'/stubs/unit-test.stub');
+        return $this->replaceUnitTestDummyStrings($stub)->replaceClass($stub);
     }
 
     protected function makeDirectory($path)
@@ -165,6 +166,17 @@ class CrudMake extends Command
         $stub = str_replace(
             ['DummyClass'],
             ['Manage'.$this->pluralModelName.'Test'],
+            $stub
+        );
+
+        return $this;
+    }
+
+    protected function replaceUnitTestDummyStrings(&$stub)
+    {
+        $stub = str_replace(
+            ['DummyClass'],
+            [$this->modelName.'Test'],
             $stub
         );
 

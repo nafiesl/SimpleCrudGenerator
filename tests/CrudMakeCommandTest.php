@@ -187,9 +187,8 @@ namespace DummyNamespace;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class DummyClass extends TestCase
+class ItemTest extends TestCase
 {
     /**
      * A basic test example.
