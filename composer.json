@@ -1,6 +1,6 @@
 {
     "name": "luthfi/simple-crud-generator",
-    "description": "A simple CRUD generator for Laravel 5.4.",
+    "description": "A simple CRUD generator for Laravel 5.5.",
     "license": "MIT",
     "authors": [
         {
@@ -20,10 +20,17 @@
     },
     "require": {
         "php": ">=7.0",
-        "illuminate/support": "5.4.*"
+        "illuminate/support": "5.5.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~5.7",
+        "phpunit/phpunit": "~6.0",
         "orchestra/testbench": "~3.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Luthfi\\CrudGenerator\\ServiceProvider"
+            ]
+        }
     }
 }
