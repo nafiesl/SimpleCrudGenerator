@@ -141,55 +141,55 @@ class CrudMake extends Command
     public function getControllerContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/controller.model.stub');
-        return $this->replaceControllerDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceStubString($stub);
     }
 
     private function getMigrationContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/migration-create.stub');
-        return $this->replaceMigrationDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceStubString($stub);
     }
 
     public function getIndexViewContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/view-index.stub');
-        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceStubString($stub);
     }
 
     public function getFormsViewContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/view-forms.stub');
-        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceStubString($stub);
     }
 
     public function getLangFileContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/lang.stub');
-        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceStubString($stub);
     }
 
     public function getModelFactoryContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/model-factory.stub');
-        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceStubString($stub);
     }
 
     public function getFeatureTestContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/test.stub');
-        return $this->replaceFeatureTestDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceStubString($stub);
     }
 
     public function getUnitTestContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/unit-test.stub');
-        return $this->replaceUnitTestDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceStubString($stub);
     }
 
     public function getWebRouteContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/route-web.stub');
-        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
+        return $this->replaceStubString($stub);
     }
 
     protected function makeDirectory($path)
@@ -214,66 +214,15 @@ class CrudMake extends Command
         return $routeDirPath.'/'.$filename;
     }
 
-    protected function replaceControllerDummyStrings(&$stub)
+    protected function replaceStubString($stub)
     {
         $stub = str_replace(
-            ['master', 'Master'],
-            [$this->singleModelName, $this->modelName],
+            ['Masters', 'Master', 'master', 'masters'],
+            [$this->pluralModelName, $this->modelName, $this->singleModelName, $this->lowerCasePluralModel],
             $stub
         );
 
-        return $this;
-    }
-
-    protected function replaceFeatureTestDummyStrings(&$stub)
-    {
-        $stub = str_replace(
-            ['Masters'],
-            [$this->pluralModelName],
-            $stub
-        );
-
-        return $this;
-    }
-
-    protected function replaceUnitTestDummyStrings(&$stub)
-    {
-        $stub = str_replace(
-            ['Master'],
-            [$this->modelName],
-            $stub
-        );
-
-        return $this;
-    }
-
-    protected function replaceMigrationDummyStrings(&$stub)
-    {
-        $stub = str_replace(
-            ['masters', 'Masters'],
-            [$this->lowerCasePluralModel, $this->pluralModelName],
-            $stub
-        );
-
-        return $this;
-    }
-
-    protected function replaceViewDummyStrings(&$stub)
-    {
-        $stub = str_replace(
-            ['Master', 'master', 'masters'],
-            [$this->modelName, $this->singleModelName, $this->lowerCasePluralModel],
-            $stub
-        );
-
-        return $this;
-    }
-
-    protected function replaceClass($stub)
-    {
-        $class = str_plural($this->modelName);
-
-        return str_replace('DummyClass', $class, $stub);
+        return $stub;
     }
 
     protected function getNamespace($name)
