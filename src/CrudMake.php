@@ -49,6 +49,7 @@ class CrudMake extends Command
         $this->generateController();
         $this->generateViews();
         $this->generateLangFile();
+        $this->generateModelFactory();
         $this->generateTests();
 
         $this->info('CRUD files generated successfully!');
@@ -109,6 +110,15 @@ class CrudMake extends Command
         $this->info($this->singleModelName.' lang files generated.');
     }
 
+    public function generateModelFactory()
+    {
+        $modelFactoryPath = $this->makeDirectory(database_path('factories'));
+
+        $this->files->put($modelFactoryPath.'/'.$this->modelName.'Factory.php', $this->getModelFactoryContent());
+
+        $this->info($this->singleModelName.' model factory generated.');
+    }
+
     public function generateTests()
     {
         $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
@@ -147,6 +157,12 @@ class CrudMake extends Command
     public function getLangFileContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/lang.stub');
+        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
+    }
+
+    public function getModelFactoryContent()
+    {
+        $stub = $this->files->get(__DIR__.'/stubs/model-factory.stub');
         return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
     }
 

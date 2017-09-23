@@ -51,6 +51,8 @@ Item model generated.
 Item table migration generated.
 ItemsController generated.
 Item view files generated.
+item lang files generated.
+item model factory generated.
 ManageItemsTest generated.
 ItemTest (model) generated.
 CRUD files generated successfully!
