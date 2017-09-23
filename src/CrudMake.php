@@ -43,6 +43,7 @@ class CrudMake extends Command
     public function handle()
     {
         $this->getModelName();
+        $this->generateResourceRoute();
 
         $this->generateModel();
         $this->generateMigration();
@@ -130,6 +131,13 @@ class CrudMake extends Command
         $this->info($this->modelName.'Test (model) generated.');
     }
 
+    public function generateResourceRoute()
+    {
+        $webRoutePath = $this->makeRouteFile(base_path('routes'), 'web.php');
+        $this->files->append($webRoutePath, $this->getWebRouteContent());
+        $this->info($this->modelName.' resource route generated on routes/web.php.');
+    }
+
     public function getControllerContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/controller.model.stub');
@@ -178,6 +186,12 @@ class CrudMake extends Command
         return $this->replaceUnitTestDummyStrings($stub)->replaceClass($stub);
     }
 
+    public function getWebRouteContent()
+    {
+        $stub = $this->files->get(__DIR__.'/stubs/route-web.stub');
+        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
+    }
+
     protected function makeDirectory($path)
     {
         if (! $this->files->isDirectory($path)) {
@@ -185,6 +199,19 @@ class CrudMake extends Command
         }
 
         return $path;
+    }
+
+    protected function makeRouteFile($routeDirPath, $filename)
+    {
+        if (! $this->files->isDirectory($routeDirPath)) {
+            $this->files->makeDirectory($routeDirPath, 0777, true, true);
+        }
+
+        if (! $this->files->exists($routeDirPath.'/'.$filename)) {
+            $this->files->put($routeDirPath.'/'.$filename, "<?php\n");
+        }
+
+        return $routeDirPath.'/'.$filename;
     }
 
     protected function replaceControllerDummyStrings(&$stub)
