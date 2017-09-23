@@ -37,8 +37,8 @@ return [
     'undeleted'      => 'Item not deleted.',
 
     // Attributes
-    'title'          => 'Item Title',
-    'body'           => 'Item Content',
+    'name'           => 'Item Name',
+    'description'    => 'Item Description',
 ];
 ";
         $this->assertEquals($langFileContent, file_get_contents($langPath));
