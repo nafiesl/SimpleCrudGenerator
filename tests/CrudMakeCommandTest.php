@@ -17,6 +17,7 @@ class CrudMakeCommandTest extends TestCase
 
         $this->assertFileExists(resource_path("views/{$this->tableName}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$this->tableName}/forms.blade.php"));
+        $this->assertFileExists(resource_path("lang/en/{$this->singleModelName}.php"));
         $this->assertFileExists(base_path("tests/Feature/Manage{$this->pluralModelName}Test.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$this->modelName}Test.php"));
     }

@@ -1,0 +1,27 @@
+<?php
+
+return [
+    // Labels
+    'item'           => 'Master',
+    'list'           => 'Master List',
+    'search'         => 'Search Master',
+    'not_found'      => 'Master not found.',
+    'empty'          => 'Master is empty.',
+    'back_to_show'   => 'Back to Master Detail',
+    'back_to_index'  => 'Back to Master List',
+
+    // Actions
+    'create'         => 'Create new Master',
+    'created'        => 'Create new Master succeded.',
+    'edit'           => 'Edit Master',
+    'update'         => 'Update Master',
+    'updated'        => 'Update Master succeded.',
+    'delete'         => 'Delete Master',
+    'delete_confirm' => 'Are you sure to delete this Master?',
+    'deleted'        => 'Delete Master succeded.',
+    'undeleted'      => 'Master not deleted.',
+
+    // Attributes
+    'name'           => 'Master Name',
+    'description'    => 'Master Description',
+];

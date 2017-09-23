@@ -9,6 +9,7 @@ abstract class TestCase extends BaseTestCase
     protected $modelName;
     protected $pluralModelName;
     protected $tableName;
+    protected $singleModelName;
 
     public function setUp()
     {
@@ -17,6 +18,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->pluralModelName = str_plural($this->modelName);
         $this->tableName = strtolower($this->pluralModelName);
+        $this->singleModelName = strtolower($this->modelName);
     }
 
     public function tearDown()

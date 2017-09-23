@@ -12,6 +12,7 @@ class CrudMake extends Command
     private $modelName;
     private $pluralModelName;
     private $lowerCasePluralModel;
+    private $singleModelName;
 
     public function __construct(Filesystem $files)
     {
@@ -47,6 +48,7 @@ class CrudMake extends Command
         $this->generateMigration();
         $this->generateController();
         $this->generateViews();
+        $this->generateLangFile();
         $this->generateTests();
 
         $this->info('CRUD files generated successfully!');
@@ -58,6 +60,7 @@ class CrudMake extends Command
 
         $this->pluralModelName = str_plural($this->modelName);
         $this->lowerCasePluralModel = strtolower($this->pluralModelName);
+        $this->singleModelName = strtolower($this->modelName);
     }
 
     public function generateModel()
@@ -97,6 +100,15 @@ class CrudMake extends Command
         $this->info($this->modelName.' view files generated.');
     }
 
+    public function generateLangFile()
+    {
+        $langPath = $this->makeDirectory(resource_path('lang/en'));
+
+        $this->files->put($langPath.'/'.$this->singleModelName.'.php', $this->getLangFileContent());
+
+        $this->info($this->singleModelName.' lang files generated.');
+    }
+
     public function generateTests()
     {
         $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
@@ -132,6 +144,12 @@ class CrudMake extends Command
         return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
     }
 
+    public function getLangFileContent()
+    {
+        $stub = $this->files->get(__DIR__.'/stubs/lang.stub');
+        return $this->replaceViewDummyStrings($stub)->replaceClass($stub);
+    }
+
     public function getFeatureTestContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/test.stub');
@@ -157,7 +175,7 @@ class CrudMake extends Command
     {
         $stub = str_replace(
             ['master', 'Master'],
-            [strtolower($this->modelName), $this->modelName],
+            [$this->singleModelName, $this->modelName],
             $stub
         );
 
@@ -201,7 +219,7 @@ class CrudMake extends Command
     {
         $stub = str_replace(
             ['Master', 'master', 'masters'],
-            [$this->modelName, strtolower($this->modelName), $this->lowerCasePluralModel],
+            [$this->modelName, $this->singleModelName, $this->lowerCasePluralModel],
             $stub
         );
 
