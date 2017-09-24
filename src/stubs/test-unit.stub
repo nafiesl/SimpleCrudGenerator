@@ -2,10 +2,18 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
+use App\Master;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class MasterTest extends TestCase
 {
     use DatabaseMigrations;
+
+    /** @test */
+    public function it_has_name_attribute()
+    {
+        $item = factory(Master::class)->create(['name' => 'Master 1 name']);
+        $this->assertEquals('Master 1 name', $item->name);
+    }
 }

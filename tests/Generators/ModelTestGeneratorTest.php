@@ -16,12 +16,20 @@ class ModelTestGeneratorTest extends TestCase
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
+use App\Item;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class ItemTest extends TestCase
 {
     use DatabaseMigrations;
+
+    /** @test */
+    public function it_has_name_attribute()
+    {
+        \$item = factory(Item::class)->create(['name' => 'Item 1 name']);
+        \$this->assertEquals('Item 1 name', \$item->name);
+    }
 }
 ";
         $this->assertEquals($modelClassContent, file_get_contents(base_path("tests/Unit/Models/{$this->modelName}Test.php")));
