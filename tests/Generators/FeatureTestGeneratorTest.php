@@ -19,7 +19,7 @@ namespace Tests;
 use App\User;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
-abstract class BrowserKitTestCase extends BaseTestCase
+abstract class BrowserKitTest extends BaseTestCase
 {
     use CreatesApplication;
 
@@ -48,7 +48,7 @@ abstract class BrowserKitTestCase extends BaseTestCase
 namespace Tests\Feature;
 
 use App\Item;
-use Tests\BrowserKitTestCase as TestCase;
+use Tests\BrowserKitTest as TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

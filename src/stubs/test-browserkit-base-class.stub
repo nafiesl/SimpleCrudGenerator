@@ -5,7 +5,7 @@ namespace Tests;
 use App\User;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
-abstract class BrowserKitTestCase extends BaseTestCase
+abstract class BrowserKitTest extends BaseTestCase
 {
     use CreatesApplication;
 

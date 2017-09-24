@@ -67,7 +67,7 @@ class CrudMake extends Command
 
     public function generateModel()
     {
-        $this->callSilent('make:model', ['name' => $this->modelName]);;
+        $this->files->put(app_path($this->modelName.'.php'), $this->getModelContent());
 
         $this->info($this->modelName.' model generated.');
     }
@@ -157,6 +157,12 @@ class CrudMake extends Command
     public function getControllerContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/controller.model.stub');
+        return $this->replaceStubString($stub);
+    }
+
+    public function getModelContent()
+    {
+        $stub = $this->files->get(__DIR__.'/stubs/model.stub');
         return $this->replaceStubString($stub);
     }
 
