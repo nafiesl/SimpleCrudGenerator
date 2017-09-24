@@ -39,8 +39,6 @@ class MastersController extends Controller
 
         Master::create($request->only('name', 'description'));
 
-        flash(trans('master.created'), 'success');
-
         return redirect()->route('masters.index');
     }
 
@@ -58,11 +56,11 @@ class MastersController extends Controller
             'description' => 'required|max:255',
         ]);
 
+        $routeParam = request()->only('page', 'q');
+
         $master = $master->update($request->only('name', 'description'));
 
-        flash(trans('master.updated'), 'success');
-
-        return redirect()->route('masters.index');
+        return redirect()->route('masters.index', $routeParam);
     }
 
     /**
@@ -77,13 +75,11 @@ class MastersController extends Controller
             'master_id' => 'required',
         ]);
 
+        $routeParam = request()->only('page', 'q');
+
         if (request('master_id') == $master->id && $master->delete()) {
-            flash(trans('master.deleted'), 'success');
-
-            return redirect()->route('masters.index');
+            return redirect()->route('masters.index', $routeParam);
         }
-
-        flash(trans('master.undeleted'), 'error');
 
         return back();
     }

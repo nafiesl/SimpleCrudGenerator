@@ -59,7 +59,7 @@ class ManageMastersTest extends TestCase
         $this->type('Master 1 description', 'description');
         $this->press(trans('master.update'));
 
-        $this->visit(route('masters.index', ['q' => '123']));
+        $this->seePageIs(route('masters.index', ['q' => '123']));
 
         $this->seeInDatabase('masters', [
             'name'   => 'Master 1 name',

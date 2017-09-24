@@ -110,7 +110,7 @@ class ManageItemsTest extends TestCase
         \$this->type('Item 1 description', 'description');
         \$this->press(trans('item.update'));
 
-        \$this->visit(route('items.index', ['q' => '123']));
+        \$this->seePageIs(route('items.index', ['q' => '123']));
 
         \$this->seeInDatabase('items', [
             'name'   => 'Item 1 name',

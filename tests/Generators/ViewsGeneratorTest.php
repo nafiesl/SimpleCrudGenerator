@@ -39,8 +39,18 @@ class ViewsGeneratorTest extends TestCase
                         <td>{{ \$item->name }}</td>
                         <td>{{ \$item->description }}</td>
                         <td class=\"text-center\">
-                            {!! link_to_route('items.index', trans('app.edit'), ['action' => 'edit', 'id' => \$item->id], ['id' => 'edit-item-' . \$item->id]) !!} |
-                            {!! link_to_route('items.index', trans('app.delete'), ['action' => 'delete', 'id' => \$item->id], ['id' => 'del-item-' . \$item->id]) !!}
+                            {!! link_to_route(
+                                'items.index',
+                                trans('app.edit'),
+                                ['action' => 'edit', 'id' => \$item->id] + Request::only('page', 'q'),
+                                ['id' => 'edit-item-' . \$item->id]
+                            ) !!} |
+                            {!! link_to_route(
+                                'items.index',
+                                trans('app.delete'),
+                                ['action' => 'delete', 'id' => \$item->id] + Request::only('page', 'q'),
+                                ['id' => 'del-item-' . \$item->id]
+                            ) !!}
                         </td>
                     </tr>
                     @endforeach
@@ -77,6 +87,12 @@ class ViewsGeneratorTest extends TestCase
     {!! Form::model(\$editableItem, ['route' => ['items.update', \$editableItem->id],'method' => 'patch']) !!}
     {!! FormField::text('name') !!}
     {!! FormField::textarea('description') !!}
+    @if (request('q'))
+        {{ Form::hidden('q', request('q')) }}
+    @endif
+    @if (request('page'))
+        {{ Form::hidden('page', request('page')) }}
+    @endif
     {!! Form::submit(trans('item.update'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('items.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
@@ -92,7 +108,16 @@ class ViewsGeneratorTest extends TestCase
         <hr style=\"margin:0\">
         <div class=\"panel-body\">{{ trans('app.delete_confirm') }}</div>
         <div class=\"panel-footer\">
-            {!! FormField::delete(['route'=>['items.destroy',\$editableItem->id]], trans('app.delete_confirm_button'), ['class'=>'btn btn-danger'], ['item_id' => \$editableItem->id]) !!}
+            {!! FormField::delete(
+                ['route'=>['items.destroy',\$editableItem->id]],
+                trans('app.delete_confirm_button'),
+                ['class'=>'btn btn-danger'],
+                [
+                    'item_id' => \$editableItem->id,
+                    'page' => request('page'),
+                    'q' => request('q'),
+                ]
+            ) !!}
             {{ link_to_route('items.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
         </div>
     </div>

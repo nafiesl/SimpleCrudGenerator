@@ -53,8 +53,6 @@ class ItemsController extends Controller
 
         Item::create(\$request->only('name', 'description'));
 
-        flash(trans('item.created'), 'success');
-
         return redirect()->route('items.index');
     }
 
@@ -72,11 +70,11 @@ class ItemsController extends Controller
             'description' => 'required|max:255',
         ]);
 
+        \$routeParam = request()->only('page', 'q');
+
         \$item = \$item->update(\$request->only('name', 'description'));
 
-        flash(trans('item.updated'), 'success');
-
-        return redirect()->route('items.index');
+        return redirect()->route('items.index', \$routeParam);
     }
 
     /**
@@ -91,13 +89,11 @@ class ItemsController extends Controller
             'item_id' => 'required',
         ]);
 
+        \$routeParam = request()->only('page', 'q');
+
         if (request('item_id') == \$item->id && \$item->delete()) {
-            flash(trans('item.deleted'), 'success');
-
-            return redirect()->route('items.index');
+            return redirect()->route('items.index', \$routeParam);
         }
-
-        flash(trans('item.undeleted'), 'error');
 
         return back();
     }

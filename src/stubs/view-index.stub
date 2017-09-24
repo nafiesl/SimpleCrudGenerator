@@ -24,8 +24,18 @@
                         <td>{{ $master->name }}</td>
                         <td>{{ $master->description }}</td>
                         <td class="text-center">
-                            {!! link_to_route('masters.index', trans('app.edit'), ['action' => 'edit', 'id' => $master->id], ['id' => 'edit-master-' . $master->id]) !!} |
-                            {!! link_to_route('masters.index', trans('app.delete'), ['action' => 'delete', 'id' => $master->id], ['id' => 'del-master-' . $master->id]) !!}
+                            {!! link_to_route(
+                                'items.index',
+                                trans('app.edit'),
+                                ['action' => 'edit', 'id' => $item->id] + Request::only('page', 'q'),
+                                ['id' => 'edit-item-' . $item->id]
+                            ) !!} |
+                            {!! link_to_route(
+                                'items.index',
+                                trans('app.delete'),
+                                ['action' => 'delete', 'id' => $item->id] + Request::only('page', 'q'),
+                                ['id' => 'del-item-' . $item->id]
+                            ) !!}
                         </td>
                     </tr>
                     @endforeach
