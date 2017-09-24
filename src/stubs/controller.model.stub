@@ -4,44 +4,48 @@ namespace App\Http\Controllers;
 
 use App\Master;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class MastersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the master.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $editableMaster = null;
+        $masters = Master::paginate(25);
+
+        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
+            $editableMaster = Master::find(request('id'));
+        }
+
+        return view('masters.index', compact('masters', 'editableMaster'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created master in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:60',
+            'description' => 'required|max:255',
+        ]);
+
+        Master::create($request->only('name', 'description'));
+
+        flash(trans('master.created'), 'success');
+
+        return redirect()->route('masters.index');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Master  $master
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Master $master)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified master in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Master  $master
@@ -49,17 +53,38 @@ class MastersController extends Controller
      */
     public function update(Request $request, Master $master)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:60',
+            'description' => 'required|max:255',
+        ]);
+
+        $master = $master->update($request->only('name', 'description'));
+
+        flash(trans('master.updated'), 'success');
+
+        return redirect()->route('masters.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified master from storage.
      *
      * @param  \App\Master  $master
      * @return \Illuminate\Http\Response
      */
     public function destroy(Master $master)
     {
-        //
+        $this->validate(request(), [
+            'master_id' => 'required',
+        ]);
+
+        if (request('master_id') == $master->id && $master->delete()) {
+            flash(trans('master.deleted'), 'success');
+
+            return redirect()->route('masters.index');
+        }
+
+        flash(trans('master.undeleted'), 'error');
+
+        return back();
     }
 }

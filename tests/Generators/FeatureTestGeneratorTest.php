@@ -16,19 +16,90 @@ class FeatureTestGeneratorTest extends TestCase
 
 namespace Tests\Feature;
 
+use App\Item;
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ManageItemsTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    use DatabaseMigrations;
+
+    /** @test */
+    public function user_can_see_item_list_in_item_index_page()
     {
-        \$this->assertTrue(true);
+        \$item1 = factory(Item::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
+        \$item2 = factory(Item::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+
+        \$this->loginAsUser();
+        \$this->visit(route('items.index'));
+        \$this->see(\$item1->name);
+        \$this->see(\$item2->name);
+    }
+
+    /** @test */
+    public function user_can_create_a_item()
+    {
+        \$this->loginAsUser();
+        \$this->visit(route('items.index'));
+
+        \$this->click(trans('item.create'));
+        \$this->seePageIs(route('items.index', ['action' => 'create']));
+
+        \$this->type('Item 1 name', 'name');
+        \$this->type('Item 1 description', 'description');
+        \$this->press(trans('item.create'));
+
+        \$this->seePageIs(route('items.index'));
+
+        \$this->seeInDatabase('items', [
+            'name'   => 'Item 1 name',
+            'description'   => 'Item 1 description',
+        ]);
+    }
+
+    /** @test */
+    public function user_can_edit_a_item_within_search_query()
+    {
+        \$this->loginAsUser();
+        \$item = factory(Item::class)->create(['description' => 'Testing 123']);
+
+        \$this->visit(route('items.index', ['q' => '123']));
+        \$this->click('edit-item-'.\$item->id);
+        \$this->seePageIs(route('items.index', ['action' => 'edit', 'id' => \$item->id, 'q' => '123']));
+
+        \$this->type('Item 1 name', 'name');
+        \$this->type('Item 1 description', 'description');
+        \$this->press(trans('item.update'));
+
+        \$this->visit(route('items.index', ['q' => '123']));
+
+        \$this->seeInDatabase('items', [
+            'name'   => 'Item 1 name',
+            'description'   => 'Item 1 description',
+        ]);
+    }
+
+    /** @test */
+    public function user_can_delete_a_item()
+    {
+        \$this->loginAsUser();
+        \$item = factory(Item::class)->create();
+
+        \$this->visit(route('items.index', [\$item->id]));
+        \$this->click('del-item-'.\$item->id);
+        \$this->seePageIs(route('items.index', ['action' => 'delete', 'id' => \$item->id]));
+
+        \$this->seeInDatabase('items', [
+            'id' => \$item->id,
+        ]);
+
+        \$this->press(trans('app.delete_confirm_button'));
+
+        \$this->dontSeeInDatabase('items', [
+            'id' => \$item->id,
+        ]);
     }
 }
 ";

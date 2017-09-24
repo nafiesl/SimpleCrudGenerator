@@ -1,0 +1,90 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Master;
+use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+
+class ManageMastersTest extends TestCase
+{
+    use DatabaseMigrations;
+
+    /** @test */
+    public function user_can_see_master_list_in_master_index_page()
+    {
+        $master1 = factory(Master::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
+        $master2 = factory(Master::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+
+        $this->loginAsUser();
+        $this->visit(route('masters.index'));
+        $this->see($master1->name);
+        $this->see($master2->name);
+    }
+
+    /** @test */
+    public function user_can_create_a_master()
+    {
+        $this->loginAsUser();
+        $this->visit(route('masters.index'));
+
+        $this->click(trans('master.create'));
+        $this->seePageIs(route('masters.index', ['action' => 'create']));
+
+        $this->type('Master 1 name', 'name');
+        $this->type('Master 1 description', 'description');
+        $this->press(trans('master.create'));
+
+        $this->seePageIs(route('masters.index'));
+
+        $this->seeInDatabase('masters', [
+            'name'   => 'Master 1 name',
+            'description'   => 'Master 1 description',
+        ]);
+    }
+
+    /** @test */
+    public function user_can_edit_a_master_within_search_query()
+    {
+        $this->loginAsUser();
+        $master = factory(Master::class)->create(['description' => 'Testing 123']);
+
+        $this->visit(route('masters.index', ['q' => '123']));
+        $this->click('edit-master-'.$master->id);
+        $this->seePageIs(route('masters.index', ['action' => 'edit', 'id' => $master->id, 'q' => '123']));
+
+        $this->type('Master 1 name', 'name');
+        $this->type('Master 1 description', 'description');
+        $this->press(trans('master.update'));
+
+        $this->visit(route('masters.index', ['q' => '123']));
+
+        $this->seeInDatabase('masters', [
+            'name'   => 'Master 1 name',
+            'description'   => 'Master 1 description',
+        ]);
+    }
+
+    /** @test */
+    public function user_can_delete_a_master()
+    {
+        $this->loginAsUser();
+        $master = factory(Master::class)->create();
+
+        $this->visit(route('masters.index', [$master->id]));
+        $this->click('del-master-'.$master->id);
+        $this->seePageIs(route('masters.index', ['action' => 'delete', 'id' => $master->id]));
+
+        $this->seeInDatabase('masters', [
+            'id' => $master->id,
+        ]);
+
+        $this->press(trans('app.delete_confirm_button'));
+
+        $this->dontSeeInDatabase('masters', [
+            'id' => $master->id,
+        ]);
+    }
+}

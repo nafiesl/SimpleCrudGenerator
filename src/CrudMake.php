@@ -176,13 +176,13 @@ class CrudMake extends Command
 
     public function getFeatureTestContent()
     {
-        $stub = $this->files->get(__DIR__.'/stubs/test.stub');
+        $stub = $this->files->get(__DIR__.'/stubs/test-feature.stub');
         return $this->replaceStubString($stub);
     }
 
     public function getUnitTestContent()
     {
-        $stub = $this->files->get(__DIR__.'/stubs/unit-test.stub');
+        $stub = $this->files->get(__DIR__.'/stubs/test-unit.stub');
         return $this->replaceStubString($stub);
     }
 
