@@ -47,12 +47,14 @@ We will find the `make:crud` command, it will `Create simple Laravel CRUD files 
 ```bash
 $ php artisan make:crud Item
 
+Item resource route generated on routes/web.php.
 Item model generated.
 Item table migration generated.
 ItemsController generated.
 Item view files generated.
 item lang files generated.
 item model factory generated.
+BrowserKitTest generated.
 ManageItemsTest generated.
 ItemTest (model) generated.
 CRUD files generated successfully!
