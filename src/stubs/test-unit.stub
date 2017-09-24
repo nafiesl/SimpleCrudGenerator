@@ -7,13 +7,5 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class MasterTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $this->assertTrue(true);
-    }
+    use DatabaseMigrations;
 }

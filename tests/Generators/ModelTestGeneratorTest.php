@@ -21,15 +21,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ItemTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        \$this->assertTrue(true);
-    }
+    use DatabaseMigrations;
 }
 ";
         $this->assertEquals($modelClassContent, file_get_contents(base_path("tests/Unit/Models/{$this->modelName}Test.php")));
