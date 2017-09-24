@@ -28,6 +28,7 @@ abstract class TestCase extends BaseTestCase
         exec('rm '.database_path('migrations/*'));
         exec('rm -r '.resource_path('views/'.$this->tableName));
         exec('rm -r '.base_path('routes'));
+        exec('rm '.base_path('tests/BrowserKitTest.php'));
         exec('rm -r '.base_path('tests/Feature'));
         exec('rm -r '.base_path('tests/Unit'));
 

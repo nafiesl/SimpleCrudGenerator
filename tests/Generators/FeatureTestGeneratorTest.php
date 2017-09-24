@@ -7,6 +7,37 @@ use Tests\TestCase;
 class FeatureTestGeneratorTest extends TestCase
 {
     /** @test */
+    public function it_creates_browser_kit_base_test_class()
+    {
+        $this->artisan('make:crud', ['name' => $this->modelName, '--no-interaction' => true]);
+
+        $this->assertFileExists(base_path("tests/BrowserKitTest.php"));
+        $browserKitTestClassContent = "<?php
+
+namespace Tests;
+
+use App\User;
+use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
+
+abstract class BrowserKitTestCase extends BaseTestCase
+{
+    use CreatesApplication;
+
+    protected \$baseUrl = 'http://localhost';
+
+    protected function loginAsUser()
+    {
+        \$user = factory(User::class)->create();
+        \$this->actingAs(\$user);
+
+        return \$user;
+    }
+}
+";
+        $this->assertEquals($browserKitTestClassContent, file_get_contents(base_path("tests/BrowserKitTest.php")));
+    }
+
+    /** @test */
     public function it_creates_correct_feature_test_class_content()
     {
         $this->artisan('make:crud', ['name' => $this->modelName, '--no-interaction' => true]);
@@ -17,7 +48,7 @@ class FeatureTestGeneratorTest extends TestCase
 namespace Tests\Feature;
 
 use App\Item;
-use Tests\TestCase;
+use Tests\BrowserKitTestCase as TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

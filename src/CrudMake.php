@@ -122,6 +122,8 @@ class CrudMake extends Command
 
     public function generateTests()
     {
+        $this->createBrowserKitBaseTestClass();
+
         $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
         $this->files->put("{$featureTestPath}/Manage{$this->pluralModelName}Test.php", $this->getFeatureTestContent());
         $this->info('Manage'.$this->pluralModelName.'Test generated.');
@@ -129,6 +131,20 @@ class CrudMake extends Command
         $unitTestPath = $this->makeDirectory(base_path('tests/Unit/Models'));
         $this->files->put("{$unitTestPath}/{$this->modelName}Test.php", $this->getUnitTestContent());
         $this->info($this->modelName.'Test (model) generated.');
+    }
+
+    public function createBrowserKitBaseTestClass()
+    {
+        $testsPath = base_path('tests');
+        if (! $this->files->isDirectory($testsPath)) {
+            $this->files->makeDirectory($testsPath, 0777, true, true);
+        }
+
+        if (! $this->files->exists($testsPath.'/BrowserKitTest.php')) {
+            $this->files->put($testsPath.'/BrowserKitTest.php', $this->getBrowserKitBaseTestContent());
+        }
+
+        $this->info('BrowserKitTest generated.');
     }
 
     public function generateResourceRoute()
@@ -172,6 +188,11 @@ class CrudMake extends Command
     {
         $stub = $this->files->get(__DIR__.'/stubs/model-factory.stub');
         return $this->replaceStubString($stub);
+    }
+
+    public function getBrowserKitBaseTestContent()
+    {
+        return $this->files->get(__DIR__.'/stubs/test-browserkit-base-class.stub');
     }
 
     public function getFeatureTestContent()
