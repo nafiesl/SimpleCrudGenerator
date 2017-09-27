@@ -100,7 +100,7 @@ class ManageItemsTest extends TestCase
     public function user_can_edit_a_item_within_search_query()
     {
         \$this->loginAsUser();
-        \$item = factory(Item::class)->create(['description' => 'Testing 123']);
+        \$item = factory(Item::class)->create(['name' => 'Testing 123']);
 
         \$this->visit(route('items.index', ['q' => '123']));
         \$this->click('edit-item-'.\$item->id);

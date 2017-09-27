@@ -49,7 +49,7 @@ class ManageMastersTest extends TestCase
     public function user_can_edit_a_master_within_search_query()
     {
         $this->loginAsUser();
-        $master = factory(Master::class)->create(['description' => 'Testing 123']);
+        $master = factory(Master::class)->create(['name' => 'Testing 123']);
 
         $this->visit(route('masters.index', ['q' => '123']));
         $this->click('edit-master-'.$master->id);

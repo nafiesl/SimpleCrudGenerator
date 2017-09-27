@@ -29,7 +29,9 @@ class ItemsController extends Controller
     public function index()
     {
         \$editableItem = null;
-        \$items = Item::paginate(25);
+        \$items = Item::where(function (\$query) {
+            \$query->where('name', 'like', '%'.request('q').'%');
+        })->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             \$editableItem = Item::find(request('id'));
@@ -48,7 +50,7 @@ class ItemsController extends Controller
     {
         \$this->validate(\$request, [
             'name' => 'required|max:60',
-            'description' => 'required|max:255',
+            'description' => 'nullable|max:255',
         ]);
 
         Item::create(\$request->only('name', 'description'));
@@ -67,7 +69,7 @@ class ItemsController extends Controller
     {
         \$this->validate(\$request, [
             'name' => 'required|max:60',
-            'description' => 'required|max:255',
+            'description' => 'nullable|max:255',
         ]);
 
         \$routeParam = request()->only('page', 'q');

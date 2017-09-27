@@ -47,7 +47,7 @@ class ViewsGeneratorTest extends TestCase
                 <tbody>
                     @foreach(\$items as \$key => \$item)
                     <tr>
-                        <td class=\"text-center\">{{ 1 + \$key }}</td>
+                        <td class=\"text-center\">{{ \$items->firstItem() + \$key }}</td>
                         <td>{{ \$item->name }}</td>
                         <td>{{ \$item->description }}</td>
                         <td class=\"text-center\">
@@ -68,6 +68,7 @@ class ViewsGeneratorTest extends TestCase
                     @endforeach
                 </tbody>
             </table>
+            <div class=\"panel-body\">{{ \$items->appends(Request::except('page'))->render() }}</div>
         </div>
     </div>
     <div class=\"col-md-4\">
@@ -88,16 +89,15 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($formViewPath);
         $formViewContent = "@if (Request::get('action') == 'create')
     {!! Form::open(['route' => 'items.store']) !!}
-    {!! FormField::text('name') !!}
+    {!! FormField::text('name', ['required' => true]) !!}
     {!! FormField::textarea('description') !!}
     {!! Form::submit(trans('item.create'), ['class' => 'btn btn-success']) !!}
-    {!! Form::hidden('cat', 'item') !!}
     {{ link_to_route('items.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
 @endif
 @if (Request::get('action') == 'edit' && \$editableItem)
     {!! Form::model(\$editableItem, ['route' => ['items.update', \$editableItem->id],'method' => 'patch']) !!}
-    {!! FormField::text('name') !!}
+    {!! FormField::text('name', ['required' => true]) !!}
     {!! FormField::textarea('description') !!}
     @if (request('q'))
         {{ Form::hidden('q', request('q')) }}

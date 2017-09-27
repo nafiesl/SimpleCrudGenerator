@@ -32,7 +32,7 @@
                 <tbody>
                     @foreach($masters as $key => $master)
                     <tr>
-                        <td class="text-center">{{ 1 + $key }}</td>
+                        <td class="text-center">{{ $items->firstItem() + $key }}</td>
                         <td>{{ $master->name }}</td>
                         <td>{{ $master->description }}</td>
                         <td class="text-center">
@@ -53,6 +53,7 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="panel-body">{{ $masters->appends(Request::except('page'))->render() }}</div>
         </div>
     </div>
     <div class="col-md-4">
