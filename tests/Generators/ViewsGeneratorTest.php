@@ -18,11 +18,23 @@ class ViewsGeneratorTest extends TestCase
 @section('title', trans('item.list'))
 
 @section('content')
-{{ link_to_route('items.index', trans('item.create'), ['action' => 'create'], ['class' => 'btn btn-success pull-right']) }}
-<h3 class=\"page-header\">{{ trans('item.list') }}</h3>
+<div class=\"pull-right\">
+    {{ link_to_route('items.index', trans('item.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+</div>
+<h3 class=\"page-header\">
+    {{ trans('item.list') }}
+    <small>{{ trans('app.total') }} : {{ \$items->total() }} {{ trans('item.item') }}</small>
+</h3>
 <div class=\"row\">
     <div class=\"col-md-8\">
         <div class=\"panel panel-default table-responsive\">
+            <div class=\"panel-heading\">
+                {{ Form::open(['method' => 'get','class' => 'form-inline']) }}
+                {!! FormField::text('q', ['value' => request('q'), 'label' => trans('item.search'), 'class' => 'input-sm']) !!}
+                {{ Form::submit(trans('item.search'), ['class' => 'btn btn-sm']) }}
+                {{ link_to_route('items.index', trans('app.reset')) }}
+                {{ Form::close() }}
+            </div>
             <table class=\"table table-condensed\">
                 <thead>
                     <tr>
