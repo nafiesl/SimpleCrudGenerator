@@ -16,32 +16,18 @@ class CrudMake extends Command
     private $files;
 
     /**
-     * Model name that will be generated
+     * Array of defined model names
      *
-     * @var string
+     * @var array
      */
-    private $modelName;
+    private $modelNames = [];
 
     /**
-     * Model name in plural
+     * Array of stub's model names
      *
-     * @var string
+     * @var array
      */
-    private $pluralModelName;
-
-    /**
-     * Lowercased plural model name, used as table name and collection variable name
-     *
-     * @var string
-     */
-    private $lowerCasePluralModel;
-
-    /**
-     * Lowercased model name, used for single model variable.
-     *
-     * @var string
-     */
-    private $singleModelName;
+    private $stubModelNames = ['Master', 'Masters', 'master', 'masters'];
 
     /**
      * Construct CrudMake class
@@ -66,7 +52,7 @@ class CrudMake extends Command
      *
      * @var string
      */
-    protected $description = 'Create simple Laravel CRUD files of given model name.';
+    protected $description = 'Create simple Laravel complate CRUD files of given model name.';
 
     /**
      * Execute the console command.
@@ -96,11 +82,14 @@ class CrudMake extends Command
      */
     public function getModelName()
     {
-        $this->modelName = $this->argument('name');
+        $modelName = $this->argument('name');
 
-        $this->pluralModelName = str_plural($this->modelName);
-        $this->lowerCasePluralModel = strtolower($this->pluralModelName);
-        $this->singleModelName = strtolower($this->modelName);
+        $this->modelNames = [
+            'model_name' => $modelName,
+            'plural_model_name' => str_plural($modelName),
+            'lowercase_single_model_name' => strtolower($modelName),
+            'lowercase_plural_model_name' => strtolower(str_plural($modelName)),
+        ];
     }
 
     /**
@@ -110,9 +99,9 @@ class CrudMake extends Command
      */
     public function generateModel()
     {
-        $this->files->put(app_path($this->modelName.'.php'), $this->getModelContent());
+        $this->generateFile(app_path($this->modelNames['model_name'].'.php'), $this->getModelContent());
 
-        $this->info($this->modelName.' model generated.');
+        $this->info($this->modelNames['model_name'].' model generated.');
     }
 
     /**
@@ -124,10 +113,10 @@ class CrudMake extends Command
     {
         $controllerPath = $this->makeDirectory(app_path('Http/Controllers'));
 
-        $controllerPath = $controllerPath.'/'.$this->pluralModelName.'Controller.php';
-        $this->files->put($controllerPath, $this->getControllerContent());
+        $controllerPath = $controllerPath.'/'.$this->modelNames['plural_model_name'].'Controller.php';
+        $this->generateFile($controllerPath, $this->getControllerContent());
 
-        $this->info($this->pluralModelName.'Controller generated.');
+        $this->info($this->modelNames['plural_model_name'].'Controller generated.');
     }
 
     /**
@@ -138,11 +127,11 @@ class CrudMake extends Command
     public function generateMigration()
     {
         $prefix = date('Y_m_d_His');
-        $tableName = $this->lowerCasePluralModel;
+        $tableName = $this->modelNames['lowercase_plural_model_name'];
         $migrationFilePath = database_path("migrations/{$prefix}_create_{$tableName}_table.php");
-        $this->files->put($migrationFilePath, $this->getMigrationContent());
+        $this->generateFile($migrationFilePath, $this->getMigrationContent());
 
-        $this->info($this->modelName.' table migration generated.');
+        $this->info($this->modelNames['model_name'].' table migration generated.');
     }
 
     /**
@@ -152,12 +141,12 @@ class CrudMake extends Command
      */
     public function generateViews()
     {
-        $viewPath = $this->makeDirectory(resource_path('views/'.$this->lowerCasePluralModel));
+        $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['lowercase_plural_model_name']));
 
-        $this->files->put($viewPath.'/index.blade.php', $this->getIndexViewContent());
-        $this->files->put($viewPath.'/forms.blade.php', $this->getFormsViewContent());
+        $this->generateFile($viewPath.'/index.blade.php', $this->getIndexViewContent());
+        $this->generateFile($viewPath.'/forms.blade.php', $this->getFormsViewContent());
 
-        $this->info($this->modelName.' view files generated.');
+        $this->info($this->modelNames['model_name'].' view files generated.');
     }
 
     /**
@@ -169,9 +158,9 @@ class CrudMake extends Command
     {
         $langPath = $this->makeDirectory(resource_path('lang/en'));
 
-        $this->files->put($langPath.'/'.$this->singleModelName.'.php', $this->getLangFileContent());
+        $this->generateFile($langPath.'/'.$this->modelNames['lowercase_single_model_name'].'.php', $this->getLangFileContent());
 
-        $this->info($this->singleModelName.' lang files generated.');
+        $this->info($this->modelNames['lowercase_single_model_name'].' lang files generated.');
     }
 
     /**
@@ -183,9 +172,9 @@ class CrudMake extends Command
     {
         $modelFactoryPath = $this->makeDirectory(database_path('factories'));
 
-        $this->files->put($modelFactoryPath.'/'.$this->modelName.'Factory.php', $this->getModelFactoryContent());
+        $this->generateFile($modelFactoryPath.'/'.$this->modelNames['model_name'].'Factory.php', $this->getModelFactoryContent());
 
-        $this->info($this->singleModelName.' model factory generated.');
+        $this->info($this->modelNames['lowercase_single_model_name'].' model factory generated.');
     }
 
     /**
@@ -197,12 +186,12 @@ class CrudMake extends Command
         $this->createBrowserKitBaseTestClass();
 
         $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
-        $this->files->put("{$featureTestPath}/Manage{$this->pluralModelName}Test.php", $this->getFeatureTestContent());
-        $this->info('Manage'.$this->pluralModelName.'Test generated.');
+        $this->generateFile("{$featureTestPath}/Manage{$this->modelNames['plural_model_name']}Test.php", $this->getFeatureTestContent());
+        $this->info('Manage'.$this->modelNames['plural_model_name'].'Test generated.');
 
         $unitTestPath = $this->makeDirectory(base_path('tests/Unit/Models'));
-        $this->files->put("{$unitTestPath}/{$this->modelName}Test.php", $this->getUnitTestContent());
-        $this->info($this->modelName.'Test (model) generated.');
+        $this->generateFile("{$unitTestPath}/{$this->modelNames['model_name']}Test.php", $this->getUnitTestContent());
+        $this->info($this->modelNames['model_name'].'Test (model) generated.');
     }
 
     /**
@@ -218,7 +207,7 @@ class CrudMake extends Command
         }
 
         if (! $this->files->exists($testsPath.'/BrowserKitTest.php')) {
-            $this->files->put($testsPath.'/BrowserKitTest.php', $this->getBrowserKitBaseTestContent());
+            $this->generateFile($testsPath.'/BrowserKitTest.php', $this->getBrowserKitBaseTestContent());
         }
 
         $this->info('BrowserKitTest generated.');
@@ -233,7 +222,7 @@ class CrudMake extends Command
         $webRoutePath = $this->makeRouteFile(base_path('routes'), 'web.php');
         $this->files->append($webRoutePath, $this->getWebRouteContent());
 
-        $this->info($this->modelName.' resource route generated on routes/web.php.');
+        $this->info($this->modelNames['model_name'].' resource route generated on routes/web.php.');
     }
 
     /**
@@ -383,7 +372,7 @@ class CrudMake extends Command
         }
 
         if (! $this->files->exists($routeDirPath.'/'.$filename)) {
-            $this->files->put($routeDirPath.'/'.$filename, "<?php\n");
+            $this->generateFile($routeDirPath.'/'.$filename, "<?php\n");
         }
 
         return $routeDirPath.'/'.$filename;
@@ -397,12 +386,19 @@ class CrudMake extends Command
      */
     protected function replaceStubString($stub)
     {
-        $stub = str_replace(
-            ['Masters', 'Master', 'master', 'masters'],
-            [$this->pluralModelName, $this->modelName, $this->singleModelName, $this->lowerCasePluralModel],
-            $stub
-        );
+        return str_replace($this->stubModelNames, $this->modelNames, $stub );
+    }
 
-        return $stub;
+    /**
+     * Generate file on filesystem
+     * @param  string $path    Absoute path of file
+     * @param  string $content Generated file content
+     * @return string          Absolute path of file
+     */
+    protected function generateFile($path, $content)
+    {
+        $this->files->put($path, $content);
+
+        return $path;
     }
 }
