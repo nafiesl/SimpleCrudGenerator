@@ -19,7 +19,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class {$this->modelName} extends Model
 {
     protected \$fillable = ['name', 'description'];
 }

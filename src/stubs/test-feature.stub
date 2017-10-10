@@ -4,8 +4,6 @@ namespace Tests\Feature;
 
 use App\Master;
 use Tests\BrowserKitTest as TestCase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ManageMastersTest extends TestCase

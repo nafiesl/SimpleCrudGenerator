@@ -14,7 +14,7 @@ abstract class TestCase extends BaseTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->modelName = 'Item';
+        $this->modelName = 'Category';
 
         $this->pluralModelName = str_plural($this->modelName);
         $this->tableName = strtolower($this->pluralModelName);

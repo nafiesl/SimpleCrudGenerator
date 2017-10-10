@@ -16,32 +16,32 @@ class ControllerGeneratorTest extends TestCase
 
 namespace App\Http\Controllers;
 
-use App\Item;
+use App\\{$this->modelName};
 use Illuminate\Http\Request;
 
-class ItemsController extends Controller
+class {$this->pluralModelName}Controller extends Controller
 {
     /**
-     * Display a listing of the item.
+     * Display a listing of the {$this->singleModelName}.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        \$editableItem = null;
-        \$items = Item::where(function (\$query) {
+        \$editable{$this->modelName} = null;
+        \${$this->tableName} = {$this->modelName}::where(function (\$query) {
             \$query->where('name', 'like', '%'.request('q').'%');
         })->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            \$editableItem = Item::find(request('id'));
+            \$editable{$this->modelName} = {$this->modelName}::find(request('id'));
         }
 
-        return view('items.index', compact('items', 'editableItem'));
+        return view('{$this->tableName}.index', compact('{$this->tableName}', 'editable{$this->modelName}'));
     }
 
     /**
-     * Store a newly created item in storage.
+     * Store a newly created {$this->singleModelName} in storage.
      *
      * @param  \Illuminate\Http\Request  \$request
      * @return \Illuminate\Http\Response
@@ -53,19 +53,19 @@ class ItemsController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        Item::create(\$request->only('name', 'description'));
+        {$this->modelName}::create(\$request->only('name', 'description'));
 
-        return redirect()->route('items.index');
+        return redirect()->route('{$this->tableName}.index');
     }
 
     /**
-     * Update the specified item in storage.
+     * Update the specified {$this->singleModelName} in storage.
      *
      * @param  \Illuminate\Http\Request  \$request
-     * @param  \App\Item  \$item
+     * @param  \App\\{$this->modelName}  \${$this->singleModelName}
      * @return \Illuminate\Http\Response
      */
-    public function update(Request \$request, Item \$item)
+    public function update(Request \$request, {$this->modelName} \${$this->singleModelName})
     {
         \$this->validate(\$request, [
             'name' => 'required|max:60',
@@ -74,27 +74,27 @@ class ItemsController extends Controller
 
         \$routeParam = request()->only('page', 'q');
 
-        \$item = \$item->update(\$request->only('name', 'description'));
+        \${$this->singleModelName} = \${$this->singleModelName}->update(\$request->only('name', 'description'));
 
-        return redirect()->route('items.index', \$routeParam);
+        return redirect()->route('{$this->tableName}.index', \$routeParam);
     }
 
     /**
-     * Remove the specified item from storage.
+     * Remove the specified {$this->singleModelName} from storage.
      *
-     * @param  \App\Item  \$item
+     * @param  \App\\{$this->modelName}  \${$this->singleModelName}
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item \$item)
+    public function destroy({$this->modelName} \${$this->singleModelName})
     {
         \$this->validate(request(), [
-            'item_id' => 'required',
+            '{$this->singleModelName}_id' => 'required',
         ]);
 
         \$routeParam = request()->only('page', 'q');
 
-        if (request('item_id') == \$item->id && \$item->delete()) {
-            return redirect()->route('items.index', \$routeParam);
+        if (request('{$this->singleModelName}_id') == \${$this->singleModelName}->id && \${$this->singleModelName}->delete()) {
+            return redirect()->route('{$this->tableName}.index', \$routeParam);
         }
 
         return back();

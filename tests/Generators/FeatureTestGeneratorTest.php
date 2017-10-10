@@ -53,89 +53,87 @@ abstract class BrowserKitTest extends BaseTestCase
 
 namespace Tests\Feature;
 
-use App\Item;
+use App\\{$this->modelName};
 use Tests\BrowserKitTest as TestCase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ManageItemsTest extends TestCase
+class Manage{$this->pluralModelName}Test extends TestCase
 {
     use DatabaseMigrations;
 
     /** @test */
-    public function user_can_see_item_list_in_item_index_page()
+    public function user_can_see_{$this->singleModelName}_list_in_{$this->singleModelName}_index_page()
     {
-        \$item1 = factory(Item::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
-        \$item2 = factory(Item::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+        \${$this->singleModelName}1 = factory({$this->modelName}::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
+        \${$this->singleModelName}2 = factory({$this->modelName}::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
 
         \$this->loginAsUser();
-        \$this->visit(route('items.index'));
-        \$this->see(\$item1->name);
-        \$this->see(\$item2->name);
+        \$this->visit(route('{$this->tableName}.index'));
+        \$this->see(\${$this->singleModelName}1->name);
+        \$this->see(\${$this->singleModelName}2->name);
     }
 
     /** @test */
-    public function user_can_create_a_item()
+    public function user_can_create_a_{$this->singleModelName}()
     {
         \$this->loginAsUser();
-        \$this->visit(route('items.index'));
+        \$this->visit(route('{$this->tableName}.index'));
 
-        \$this->click(trans('item.create'));
-        \$this->seePageIs(route('items.index', ['action' => 'create']));
+        \$this->click(trans('{$this->singleModelName}.create'));
+        \$this->seePageIs(route('{$this->tableName}.index', ['action' => 'create']));
 
-        \$this->type('Item 1 name', 'name');
-        \$this->type('Item 1 description', 'description');
-        \$this->press(trans('item.create'));
+        \$this->type('{$this->modelName} 1 name', 'name');
+        \$this->type('{$this->modelName} 1 description', 'description');
+        \$this->press(trans('{$this->singleModelName}.create'));
 
-        \$this->seePageIs(route('items.index'));
+        \$this->seePageIs(route('{$this->tableName}.index'));
 
-        \$this->seeInDatabase('items', [
-            'name'   => 'Item 1 name',
-            'description'   => 'Item 1 description',
+        \$this->seeInDatabase('{$this->tableName}', [
+            'name'   => '{$this->modelName} 1 name',
+            'description'   => '{$this->modelName} 1 description',
         ]);
     }
 
     /** @test */
-    public function user_can_edit_a_item_within_search_query()
+    public function user_can_edit_a_{$this->singleModelName}_within_search_query()
     {
         \$this->loginAsUser();
-        \$item = factory(Item::class)->create(['name' => 'Testing 123']);
+        \${$this->singleModelName} = factory({$this->modelName}::class)->create(['name' => 'Testing 123']);
 
-        \$this->visit(route('items.index', ['q' => '123']));
-        \$this->click('edit-item-'.\$item->id);
-        \$this->seePageIs(route('items.index', ['action' => 'edit', 'id' => \$item->id, 'q' => '123']));
+        \$this->visit(route('{$this->tableName}.index', ['q' => '123']));
+        \$this->click('edit-{$this->singleModelName}-'.\${$this->singleModelName}->id);
+        \$this->seePageIs(route('{$this->tableName}.index', ['action' => 'edit', 'id' => \${$this->singleModelName}->id, 'q' => '123']));
 
-        \$this->type('Item 1 name', 'name');
-        \$this->type('Item 1 description', 'description');
-        \$this->press(trans('item.update'));
+        \$this->type('{$this->modelName} 1 name', 'name');
+        \$this->type('{$this->modelName} 1 description', 'description');
+        \$this->press(trans('{$this->singleModelName}.update'));
 
-        \$this->seePageIs(route('items.index', ['q' => '123']));
+        \$this->seePageIs(route('{$this->tableName}.index', ['q' => '123']));
 
-        \$this->seeInDatabase('items', [
-            'name'   => 'Item 1 name',
-            'description'   => 'Item 1 description',
+        \$this->seeInDatabase('{$this->tableName}', [
+            'name'   => '{$this->modelName} 1 name',
+            'description'   => '{$this->modelName} 1 description',
         ]);
     }
 
     /** @test */
-    public function user_can_delete_a_item()
+    public function user_can_delete_a_{$this->singleModelName}()
     {
         \$this->loginAsUser();
-        \$item = factory(Item::class)->create();
+        \${$this->singleModelName} = factory({$this->modelName}::class)->create();
 
-        \$this->visit(route('items.index', [\$item->id]));
-        \$this->click('del-item-'.\$item->id);
-        \$this->seePageIs(route('items.index', ['action' => 'delete', 'id' => \$item->id]));
+        \$this->visit(route('{$this->tableName}.index', [\${$this->singleModelName}->id]));
+        \$this->click('del-{$this->singleModelName}-'.\${$this->singleModelName}->id);
+        \$this->seePageIs(route('{$this->tableName}.index', ['action' => 'delete', 'id' => \${$this->singleModelName}->id]));
 
-        \$this->seeInDatabase('items', [
-            'id' => \$item->id,
+        \$this->seeInDatabase('{$this->tableName}', [
+            'id' => \${$this->singleModelName}->id,
         ]);
 
         \$this->press(trans('app.delete_confirm_button'));
 
-        \$this->dontSeeInDatabase('items', [
-            'id' => \$item->id,
+        \$this->dontSeeInDatabase('{$this->tableName}', [
+            'id' => \${$this->singleModelName}->id,
         ]);
     }
 }

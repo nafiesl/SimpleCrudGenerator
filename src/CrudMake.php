@@ -27,7 +27,7 @@ class CrudMake extends Command
      *
      * @var array
      */
-    private $stubModelNames = ['Master', 'Masters', 'master', 'masters'];
+    private $stubModelNames = ['Masters', 'Master', 'masters', 'master'];
 
     /**
      * Construct CrudMake class
@@ -85,10 +85,10 @@ class CrudMake extends Command
         $modelName = $this->argument('name');
 
         $this->modelNames = [
-            'model_name' => $modelName,
             'plural_model_name' => str_plural($modelName),
-            'lowercase_single_model_name' => strtolower($modelName),
+            'model_name' => $modelName,
             'lowercase_plural_model_name' => strtolower(str_plural($modelName)),
+            'lowercase_single_model_name' => strtolower($modelName),
         ];
     }
 

@@ -15,10 +15,10 @@ class ModelFactoryGeneratorTest extends TestCase
         $this->assertFileExists($modelFactoryPath);
         $modelFactoryContent = "<?php
 
-use App\Item;
+use App\\{$this->modelName};
 use Faker\Generator as Faker;
 
-\$factory->define(Item::class, function (Faker \$faker) {
+\$factory->define({$this->modelName}::class, function (Faker \$faker) {
 
     return [
         'name' => \$faker->word,

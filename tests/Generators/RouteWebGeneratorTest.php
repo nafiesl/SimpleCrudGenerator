@@ -15,7 +15,7 @@ class RouteWebGeneratorTest extends TestCase
         $this->assertFileExists($routeWebPath);
         $routeWebFileContent = "<?php
 
-Route::apiResource('items', 'ItemsController');
+Route::apiResource('{$this->tableName}', '{$this->pluralModelName}Controller');
 ";
         $this->assertEquals($routeWebFileContent, file_get_contents($routeWebPath));
     }

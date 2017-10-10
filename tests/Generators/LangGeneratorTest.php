@@ -17,28 +17,28 @@ class LangGeneratorTest extends TestCase
 
 return [
     // Labels
-    'item'         => 'Item',
-    'list'           => 'Item List',
-    'search'         => 'Search Item',
-    'not_found'      => 'Item not found.',
-    'empty'          => 'Item is empty.',
-    'back_to_show'   => 'Back to Item Detail',
-    'back_to_index'  => 'Back to Item List',
+    '{$this->singleModelName}'         => '{$this->modelName}',
+    'list'           => '{$this->modelName} List',
+    'search'         => 'Search {$this->modelName}',
+    'not_found'      => '{$this->modelName} not found.',
+    'empty'          => '{$this->modelName} is empty.',
+    'back_to_show'   => 'Back to {$this->modelName} Detail',
+    'back_to_index'  => 'Back to {$this->modelName} List',
 
     // Actions
-    'create'         => 'Create new Item',
-    'created'        => 'Create new Item succeded.',
-    'edit'           => 'Edit Item',
-    'update'         => 'Update Item',
-    'updated'        => 'Update Item succeded.',
-    'delete'         => 'Delete Item',
-    'delete_confirm' => 'Are you sure to delete this Item?',
-    'deleted'        => 'Delete Item succeded.',
-    'undeleted'      => 'Item not deleted.',
+    'create'         => 'Create new {$this->modelName}',
+    'created'        => 'Create new {$this->modelName} succeded.',
+    'edit'           => 'Edit {$this->modelName}',
+    'update'         => 'Update {$this->modelName}',
+    'updated'        => 'Update {$this->modelName} succeded.',
+    'delete'         => 'Delete {$this->modelName}',
+    'delete_confirm' => 'Are you sure to delete this {$this->modelName}?',
+    'deleted'        => 'Delete {$this->modelName} succeded.',
+    'undeleted'      => '{$this->modelName} not deleted.',
 
     // Attributes
-    'name'           => 'Item Name',
-    'description'    => 'Item Description',
+    'name'           => '{$this->modelName} Name',
+    'description'    => '{$this->modelName} Description',
 ];
 ";
         $this->assertEquals($langFileContent, file_get_contents($langPath));
