@@ -32,11 +32,11 @@
         <div class="panel-body">{{ trans('app.delete_confirm') }}</div>
         <div class="panel-footer">
             {!! FormField::delete(
-                ['route'=>['items.destroy',$editableItem->id]],
+                ['route'=>['masters.destroy',$editableMaster->id]],
                 trans('app.delete_confirm_button'),
                 ['class'=>'btn btn-danger'],
                 [
-                    'item_id' => $editableItem->id,
+                    'master_id' => $editableMaster->id,
                     'page' => request('page'),
                     'q' => request('q'),
                 ]

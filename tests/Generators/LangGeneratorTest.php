@@ -17,7 +17,7 @@ class LangGeneratorTest extends TestCase
 
 return [
     // Labels
-    'item'           => 'Item',
+    'item'         => 'Item',
     'list'           => 'Item List',
     'search'         => 'Search Item',
     'not_found'      => 'Item not found.',

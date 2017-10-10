@@ -32,21 +32,21 @@
                 <tbody>
                     @foreach($masters as $key => $master)
                     <tr>
-                        <td class="text-center">{{ $items->firstItem() + $key }}</td>
+                        <td class="text-center">{{ $masters->firstItem() + $key }}</td>
                         <td>{{ $master->name }}</td>
                         <td>{{ $master->description }}</td>
                         <td class="text-center">
                             {!! link_to_route(
-                                'items.index',
+                                'masters.index',
                                 trans('app.edit'),
-                                ['action' => 'edit', 'id' => $item->id] + Request::only('page', 'q'),
-                                ['id' => 'edit-item-' . $item->id]
+                                ['action' => 'edit', 'id' => $master->id] + Request::only('page', 'q'),
+                                ['id' => 'edit-master-' . $master->id]
                             ) !!} |
                             {!! link_to_route(
-                                'items.index',
+                                'masters.index',
                                 trans('app.delete'),
-                                ['action' => 'delete', 'id' => $item->id] + Request::only('page', 'q'),
-                                ['id' => 'del-item-' . $item->id]
+                                ['action' => 'delete', 'id' => $master->id] + Request::only('page', 'q'),
+                                ['id' => 'del-master-' . $master->id]
                             ) !!}
                         </td>
                     </tr>
