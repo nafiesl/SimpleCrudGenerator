@@ -37,6 +37,8 @@ class CrudMakeCommandTest extends TestCase
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
+        $this->assertNotRegExp("/{$this->model_name} model already exists./", app(Kernel::class)->output());
+
         $this->assertFileExists(app_path($this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->plural_model_name}Controller.php"));
 

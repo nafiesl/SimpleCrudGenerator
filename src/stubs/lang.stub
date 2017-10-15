@@ -2,7 +2,7 @@
 
 return [
     // Labels
-    'master'         => 'Master',
+    'master'     => 'Master',
     'list'           => 'Master List',
     'search'         => 'Search Master',
     'not_found'      => 'Master not found.',

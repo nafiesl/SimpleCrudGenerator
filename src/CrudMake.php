@@ -2,7 +2,6 @@
 
 namespace Luthfi\CrudGenerator;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
@@ -63,7 +62,7 @@ class CrudMake extends Command
     {
         $this->getModelName();
 
-        if ( ! $this->modelExists()) {
+        if (! $this->modelExists()) {
             $this->generateResourceRoute();
 
             $this->generateModel();
@@ -75,9 +74,9 @@ class CrudMake extends Command
             $this->generateTests();
 
             $this->info('CRUD files generated successfully!');
+        } else {
+            $this->error("{$this->modelNames['model_name']} model already exists.");
         }
-
-        $this->error("{$this->modelNames['model_name']} model already exists.");
     }
 
     /**
@@ -313,7 +312,16 @@ class CrudMake extends Command
     public function getLangFileContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/lang.stub');
-        return $this->replaceStubString($stub);
+
+        $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->modelNames['model_name'])));
+
+        $properLangFileContent = str_replace(
+            $this->modelNames['model_name'],
+            $displayModelName,
+            $this->replaceStubString($stub)
+        );
+
+        return $properLangFileContent;
     }
 
     /**
@@ -411,7 +419,7 @@ class CrudMake extends Command
      */
     protected function replaceStubString($stub)
     {
-        return str_replace($this->stubModelNames, $this->modelNames, $stub );
+        return str_replace($this->stubModelNames, $this->modelNames, $stub);
     }
 
     /**
