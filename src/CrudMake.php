@@ -88,12 +88,16 @@ class CrudMake extends Command
     public function getModelName($modelName = null)
     {
         $modelName = is_null($modelName) ? $this->argument('name') : $modelName;
+        $model_name = ucfirst($modelName);
+        $plural_model_name = str_plural($model_name);
 
         return $this->modelNames = [
-            'plural_model_name' => str_plural($modelName),
-            'model_name' => $modelName,
-            'lowercase_plural_model_name' => strtolower(str_plural($modelName)),
-            'lowercase_single_model_name' => strtolower($modelName),
+            'plural_model_name' => $plural_model_name,
+            'model_name' => $model_name,
+            'table_name' => snake_case($plural_model_name),
+            'lang_name' => snake_case($model_name),
+            'collection_model_var_name' => camel_case($plural_model_name),
+            'single_model_var_name' => camel_case($model_name),
         ];
     }
 
@@ -142,7 +146,7 @@ class CrudMake extends Command
     public function generateMigration()
     {
         $prefix = date('Y_m_d_His');
-        $tableName = $this->modelNames['lowercase_plural_model_name'];
+        $tableName = $this->modelNames['table_name'];
 
         $migrationPath = $this->makeDirectory(database_path('migrations'));
 
@@ -159,7 +163,7 @@ class CrudMake extends Command
      */
     public function generateViews()
     {
-        $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['lowercase_plural_model_name']));
+        $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
 
         $this->generateFile($viewPath.'/index.blade.php', $this->getIndexViewContent());
         $this->generateFile($viewPath.'/forms.blade.php', $this->getFormsViewContent());
@@ -176,9 +180,9 @@ class CrudMake extends Command
     {
         $langPath = $this->makeDirectory(resource_path('lang/en'));
 
-        $this->generateFile($langPath.'/'.$this->modelNames['lowercase_single_model_name'].'.php', $this->getLangFileContent());
+        $this->generateFile($langPath.'/'.$this->modelNames['lang_name'].'.php', $this->getLangFileContent());
 
-        $this->info($this->modelNames['lowercase_single_model_name'].' lang files generated.');
+        $this->info($this->modelNames['lang_name'].' lang files generated.');
     }
 
     /**
@@ -195,7 +199,7 @@ class CrudMake extends Command
             $this->getModelFactoryContent()
         );
 
-        $this->info($this->modelNames['lowercase_single_model_name'].' model factory generated.');
+        $this->info($this->modelNames['lang_name'].' model factory generated.');
     }
 
     /**

@@ -29,7 +29,7 @@ class {$this->plural_model_name}Controller extends Controller
     public function index()
     {
         \$editable{$this->model_name} = null;
-        \${$this->table_name} = {$this->model_name}::where(function (\$query) {
+        \${$this->collection_model_var_name} = {$this->model_name}::where(function (\$query) {
             \$query->where('name', 'like', '%'.request('q').'%');
         })->paginate(25);
 

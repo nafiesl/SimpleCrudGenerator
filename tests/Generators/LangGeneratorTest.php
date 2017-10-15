@@ -11,13 +11,13 @@ class LangGeneratorTest extends TestCase
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $langPath = resource_path('lang/en/'.$this->single_model_var_name.'.php');
+        $langPath = resource_path('lang/en/'.$this->lang_name.'.php');
         $this->assertFileExists($langPath);
         $langFileContent = "<?php
 
 return [
     // Labels
-    '{$this->single_model_var_name}'         => '{$this->model_name}',
+    '{$this->lang_name}'         => '{$this->model_name}',
     'list'           => '{$this->model_name} List',
     'search'         => 'Search {$this->model_name}',
     'not_found'      => '{$this->model_name} not found.',

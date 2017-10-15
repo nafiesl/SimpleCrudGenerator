@@ -25,9 +25,11 @@ class CrudMakeCommandTest extends TestCase
         $this->assertEquals([
             'plural_model_name' => 'Categories',
             'model_name' => 'Category',
-            'lowercase_plural_model_name' => 'categories',
-            'lowercase_single_model_name' => 'category',
-        ], $crudMaker->getModelName('Category'));
+            'table_name' => 'categories',
+            'lang_name' => 'category',
+            'collection_model_var_name' => 'categories',
+            'single_model_var_name' => 'category',
+        ], $crudMaker->getModelName('category'));
     }
 
     /** @test */
