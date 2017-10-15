@@ -6,19 +6,23 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    protected $modelName;
-    protected $pluralModelName;
-    protected $tableName;
-    protected $singleModelName;
+    protected $model_name;
+    protected $plural_model_name;
+    protected $table_name;
+    protected $lang_name;
+    protected $collection_model_var_name;
+    protected $single_model_var_name;
 
     public function setUp()
     {
         parent::setUp();
-        $this->modelName = 'Category';
+        $this->model_name = 'Category';
 
-        $this->pluralModelName = str_plural($this->modelName);
-        $this->tableName = strtolower($this->pluralModelName);
-        $this->singleModelName = strtolower($this->modelName);
+        $this->plural_model_name = str_plural($this->model_name);
+        $this->table_name = snake_case($this->plural_model_name);
+        $this->lang_name = snake_case($this->model_name);
+        $this->collection_model_var_name = camel_case($this->plural_model_name);
+        $this->single_model_var_name = camel_case($this->model_name);
     }
 
     public function tearDown()
@@ -30,12 +34,12 @@ abstract class TestCase extends BaseTestCase
 
     protected function cleanUpGeneratedFiles()
     {
-        $this->removeFileOrDir(app_path($this->modelName.'.php'));
+        $this->removeFileOrDir(app_path($this->model_name.'.php'));
         $this->removeFileOrDir(app_path('Http'));
         $this->removeFileOrDir(database_path('migrations'));
         $this->removeFileOrDir(database_path('factories'));
-        $this->removeFileOrDir(resource_path('views/'.$this->tableName));
-        $this->removeFileOrDir(resource_path("lang/en/{$this->singleModelName}.php"));
+        $this->removeFileOrDir(resource_path('views/'.$this->table_name));
+        $this->removeFileOrDir(resource_path("lang/en/{$this->single_model_var_name}.php"));
         $this->removeFileOrDir(base_path('routes'));
         $this->removeFileOrDir(base_path('tests/BrowserKitTest.php'));
         $this->removeFileOrDir(base_path('tests/Feature'));

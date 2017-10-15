@@ -9,16 +9,16 @@ class ModelFactoryGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_model_factory_content()
     {
-        $this->artisan('make:crud', ['name' => $this->modelName, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $modelFactoryPath = database_path('factories/'.$this->modelName.'Factory.php');
+        $modelFactoryPath = database_path('factories/'.$this->model_name.'Factory.php');
         $this->assertFileExists($modelFactoryPath);
         $modelFactoryContent = "<?php
 
-use App\\{$this->modelName};
+use App\\{$this->model_name};
 use Faker\Generator as Faker;
 
-\$factory->define({$this->modelName}::class, function (Faker \$faker) {
+\$factory->define({$this->model_name}::class, function (Faker \$faker) {
 
     return [
         'name' => \$faker->word,

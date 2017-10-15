@@ -9,9 +9,9 @@ class MigrationGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_migration_class_content()
     {
-        $this->artisan('make:crud', ['name' => $this->modelName, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->tableName.'_table.php');
+        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
         $this->assertFileExists($migrationFilePath);
         $modelClassContent = "<?php
 
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Create{$this->pluralModelName}Table extends Migration
+class Create{$this->plural_model_name}Table extends Migration
 {
     /**
      * Run the migrations.
@@ -28,7 +28,7 @@ class Create{$this->pluralModelName}Table extends Migration
      */
     public function up()
     {
-        Schema::create('{$this->tableName}', function (Blueprint \$table) {
+        Schema::create('{$this->table_name}', function (Blueprint \$table) {
             \$table->increments('id');
             \$table->string('name', 60);
             \$table->string('description')->nullable();
@@ -43,7 +43,7 @@ class Create{$this->pluralModelName}Table extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('{$this->tableName}');
+        Schema::dropIfExists('{$this->table_name}');
     }
 }
 ";

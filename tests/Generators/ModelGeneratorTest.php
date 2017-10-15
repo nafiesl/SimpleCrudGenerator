@@ -9,9 +9,9 @@ class ModelGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_model_class_content()
     {
-        $this->artisan('make:crud', ['name' => $this->modelName, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $modelPath = app_path($this->modelName.'.php');
+        $modelPath = app_path($this->model_name.'.php');
         $this->assertFileExists($modelPath);
         $modelClassContent = "<?php
 
@@ -19,7 +19,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class {$this->modelName} extends Model
+class {$this->model_name} extends Model
 {
     protected \$fillable = ['name', 'description'];
 }

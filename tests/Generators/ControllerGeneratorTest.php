@@ -9,39 +9,39 @@ class ControllerGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_controller_class_content()
     {
-        $this->artisan('make:crud', ['name' => $this->modelName, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertFileExists(app_path("Http/Controllers/{$this->pluralModelName}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/{$this->plural_model_name}Controller.php"));
         $ctrlClassContent = "<?php
 
 namespace App\Http\Controllers;
 
-use App\\{$this->modelName};
+use App\\{$this->model_name};
 use Illuminate\Http\Request;
 
-class {$this->pluralModelName}Controller extends Controller
+class {$this->plural_model_name}Controller extends Controller
 {
     /**
-     * Display a listing of the {$this->singleModelName}.
+     * Display a listing of the {$this->single_model_var_name}.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        \$editable{$this->modelName} = null;
-        \${$this->tableName} = {$this->modelName}::where(function (\$query) {
+        \$editable{$this->model_name} = null;
+        \${$this->table_name} = {$this->model_name}::where(function (\$query) {
             \$query->where('name', 'like', '%'.request('q').'%');
         })->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            \$editable{$this->modelName} = {$this->modelName}::find(request('id'));
+            \$editable{$this->model_name} = {$this->model_name}::find(request('id'));
         }
 
-        return view('{$this->tableName}.index', compact('{$this->tableName}', 'editable{$this->modelName}'));
+        return view('{$this->table_name}.index', compact('{$this->table_name}', 'editable{$this->model_name}'));
     }
 
     /**
-     * Store a newly created {$this->singleModelName} in storage.
+     * Store a newly created {$this->single_model_var_name} in storage.
      *
      * @param  \Illuminate\Http\Request  \$request
      * @return \Illuminate\Http\Response
@@ -53,19 +53,19 @@ class {$this->pluralModelName}Controller extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        {$this->modelName}::create(\$request->only('name', 'description'));
+        {$this->model_name}::create(\$request->only('name', 'description'));
 
-        return redirect()->route('{$this->tableName}.index');
+        return redirect()->route('{$this->table_name}.index');
     }
 
     /**
-     * Update the specified {$this->singleModelName} in storage.
+     * Update the specified {$this->single_model_var_name} in storage.
      *
      * @param  \Illuminate\Http\Request  \$request
-     * @param  \App\\{$this->modelName}  \${$this->singleModelName}
+     * @param  \App\\{$this->model_name}  \${$this->single_model_var_name}
      * @return \Illuminate\Http\Response
      */
-    public function update(Request \$request, {$this->modelName} \${$this->singleModelName})
+    public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->validate(\$request, [
             'name' => 'required|max:60',
@@ -74,33 +74,33 @@ class {$this->pluralModelName}Controller extends Controller
 
         \$routeParam = request()->only('page', 'q');
 
-        \${$this->singleModelName} = \${$this->singleModelName}->update(\$request->only('name', 'description'));
+        \${$this->single_model_var_name} = \${$this->single_model_var_name}->update(\$request->only('name', 'description'));
 
-        return redirect()->route('{$this->tableName}.index', \$routeParam);
+        return redirect()->route('{$this->table_name}.index', \$routeParam);
     }
 
     /**
-     * Remove the specified {$this->singleModelName} from storage.
+     * Remove the specified {$this->single_model_var_name} from storage.
      *
-     * @param  \App\\{$this->modelName}  \${$this->singleModelName}
+     * @param  \App\\{$this->model_name}  \${$this->single_model_var_name}
      * @return \Illuminate\Http\Response
      */
-    public function destroy({$this->modelName} \${$this->singleModelName})
+    public function destroy({$this->model_name} \${$this->single_model_var_name})
     {
         \$this->validate(request(), [
-            '{$this->singleModelName}_id' => 'required',
+            '{$this->single_model_var_name}_id' => 'required',
         ]);
 
         \$routeParam = request()->only('page', 'q');
 
-        if (request('{$this->singleModelName}_id') == \${$this->singleModelName}->id && \${$this->singleModelName}->delete()) {
-            return redirect()->route('{$this->tableName}.index', \$routeParam);
+        if (request('{$this->single_model_var_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
+            return redirect()->route('{$this->table_name}.index', \$routeParam);
         }
 
         return back();
     }
 }
 ";
-        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->pluralModelName}Controller.php")));
+        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->plural_model_name}Controller.php")));
     }
 }
