@@ -44,4 +44,34 @@ return [
 ";
         $this->assertEquals($langFileContent, file_get_contents($langPath));
     }
+
+    /** @test */
+    public function it_creates_app_lang_if_it_doesnt_exists()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $langPath = resource_path('lang/en/app.php');
+        $this->assertFileExists($langPath);
+        $appLangContent = "<?php
+
+return [
+    // Labels
+    'table_no'  => '#',
+    'total'     => 'Total',
+    'action'    => 'Actions',
+    'views'     => 'Views',
+    'downloads' => 'Downloads',
+
+    // Actions
+    'show'           => 'View Detail',
+    'edit'           => 'Edit',
+    'delete'         => 'Delete',
+    'cancel'         => 'Cancel',
+    'reset'          => 'Reset',
+    'delete_confirm' => 'Are you sure to delete this?',
+    'delete_confirm_button' => 'YES, delete it!',
+];
+";
+        $this->assertEquals($appLangContent, file_get_contents($langPath));
+    }
 }

@@ -179,9 +179,34 @@ class CrudMake extends Command
     {
         $langPath = $this->makeDirectory(resource_path('lang/en'));
 
+        $this->createAppLangFile($langPath);
         $this->generateFile($langPath.'/'.$this->modelNames['lang_name'].'.php', $this->getLangFileContent());
 
         $this->info($this->modelNames['lang_name'].' lang files generated.');
+    }
+
+    /**
+     * Generate lang/app.php file if it doesn't exists
+     *
+     * @param  string $langPath Directory path of lang files
+     * @return void
+     */
+    public function createAppLangFile($langPath)
+    {
+        if (! $this->files->exists($langPath.'/app.php')) {
+            $this->generateFile($langPath.'/app.php', $this->getAppLangFileContent());
+            $this->info('lang/app.php generated.');
+        }
+    }
+
+    /**
+     * Get lang/app.php file content
+     *
+     * @return string
+     */
+    public function getAppLangFileContent()
+    {
+        return $this->files->get(__DIR__.'/stubs/lang-app.stub');
     }
 
     /**
@@ -232,14 +257,15 @@ class CrudMake extends Command
 
         if (! $this->files->exists($testsPath.'/BrowserKitTest.php')) {
             $this->generateFile($testsPath.'/BrowserKitTest.php', $this->getBrowserKitBaseTestContent());
-        }
 
-        $this->info('BrowserKitTest generated.');
+            $this->info('BrowserKitTest generated.');
+        }
     }
 
     /**
      * Generate API resource version route for CRUD Operation
-     * @return [type] [description]
+     *
+     * @return void
      */
     public function generateResourceRoute()
     {
