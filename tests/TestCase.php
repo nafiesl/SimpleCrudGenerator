@@ -23,16 +23,34 @@ abstract class TestCase extends BaseTestCase
 
     public function tearDown()
     {
-        exec('rm '.app_path($this->modelName.'.php'));
-        exec('rm -r '.app_path('Http'));
-        exec('rm '.database_path('migrations/*'));
-        exec('rm -r '.resource_path('views/'.$this->tableName));
-        exec('rm -r '.base_path('routes'));
-        exec('rm '.base_path('tests/BrowserKitTest.php'));
-        exec('rm -r '.base_path('tests/Feature'));
-        exec('rm -r '.base_path('tests/Unit'));
+        $this->cleanUpGeneratedFiles();
 
         parent::tearDown();
+    }
+
+    protected function cleanUpGeneratedFiles()
+    {
+        $this->removeFileOrDir(app_path($this->modelName.'.php'));
+        $this->removeFileOrDir(app_path('Http'));
+        $this->removeFileOrDir(database_path('migrations'));
+        $this->removeFileOrDir(database_path('factories'));
+        $this->removeFileOrDir(resource_path('views/'.$this->tableName));
+        $this->removeFileOrDir(resource_path("lang/en/{$this->singleModelName}.php"));
+        $this->removeFileOrDir(base_path('routes'));
+        $this->removeFileOrDir(base_path('tests/BrowserKitTest.php'));
+        $this->removeFileOrDir(base_path('tests/Feature'));
+        $this->removeFileOrDir(base_path('tests/Unit'));
+    }
+
+    protected function removeFileOrDir($path)
+    {
+        if (file_exists($path) && is_file($path)) {
+            exec('rm '.$path);
+        }
+
+        if (file_exists($path) && is_dir($path)) {
+            exec('rm  -r '.$path);
+        }
     }
 
     protected function getPackageProviders($app)

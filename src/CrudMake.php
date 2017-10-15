@@ -62,17 +62,22 @@ class CrudMake extends Command
     public function handle()
     {
         $this->getModelName();
-        $this->generateResourceRoute();
 
-        $this->generateModel();
-        $this->generateMigration();
-        $this->generateController();
-        $this->generateViews();
-        $this->generateLangFile();
-        $this->generateModelFactory();
-        $this->generateTests();
+        if ( ! $this->modelExists()) {
+            $this->generateResourceRoute();
 
-        $this->info('CRUD files generated successfully!');
+            $this->generateModel();
+            $this->generateMigration();
+            $this->generateController();
+            $this->generateViews();
+            $this->generateLangFile();
+            $this->generateModelFactory();
+            $this->generateTests();
+
+            $this->info('CRUD files generated successfully!');
+        }
+
+        $this->error("{$this->modelNames['model_name']} model already exists.");
     }
 
     /**
@@ -90,6 +95,16 @@ class CrudMake extends Command
             'lowercase_plural_model_name' => strtolower(str_plural($modelName)),
             'lowercase_single_model_name' => strtolower($modelName),
         ];
+    }
+
+    /**
+     * Check for Model file existance
+     *
+     * @return void
+     */
+    public function modelExists()
+    {
+        return $this->files->exists(app_path($this->modelNames['model_name'].'.php'));
     }
 
     /**
@@ -128,7 +143,10 @@ class CrudMake extends Command
     {
         $prefix = date('Y_m_d_His');
         $tableName = $this->modelNames['lowercase_plural_model_name'];
-        $migrationFilePath = database_path("migrations/{$prefix}_create_{$tableName}_table.php");
+
+        $migrationPath = $this->makeDirectory(database_path('migrations'));
+
+        $migrationFilePath = $migrationPath.'/'.$prefix."_create_{$tableName}_table.php";
         $this->generateFile($migrationFilePath, $this->getMigrationContent());
 
         $this->info($this->modelNames['model_name'].' table migration generated.');
@@ -172,7 +190,10 @@ class CrudMake extends Command
     {
         $modelFactoryPath = $this->makeDirectory(database_path('factories'));
 
-        $this->generateFile($modelFactoryPath.'/'.$this->modelNames['model_name'].'Factory.php', $this->getModelFactoryContent());
+        $this->generateFile(
+            $modelFactoryPath.'/'.$this->modelNames['model_name'].'Factory.php',
+            $this->getModelFactoryContent()
+        );
 
         $this->info($this->modelNames['lowercase_single_model_name'].' model factory generated.');
     }
