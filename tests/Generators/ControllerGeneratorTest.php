@@ -37,7 +37,7 @@ class {$this->plural_model_name}Controller extends Controller
             \$editable{$this->model_name} = {$this->model_name}::find(request('id'));
         }
 
-        return view('{$this->table_name}.index', compact('{$this->table_name}', 'editable{$this->model_name}'));
+        return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}', 'editable{$this->model_name}'));
     }
 
     /**
@@ -88,12 +88,12 @@ class {$this->plural_model_name}Controller extends Controller
     public function destroy({$this->model_name} \${$this->single_model_var_name})
     {
         \$this->validate(request(), [
-            '{$this->single_model_var_name}_id' => 'required',
+            '{$this->lang_name}_id' => 'required',
         ]);
 
         \$routeParam = request()->only('page', 'q');
 
-        if (request('{$this->single_model_var_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
+        if (request('{$this->lang_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
             return redirect()->route('{$this->table_name}.index', \$routeParam);
         }
 

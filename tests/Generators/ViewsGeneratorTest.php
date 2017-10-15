@@ -23,7 +23,7 @@ class ViewsGeneratorTest extends TestCase
 </div>
 <h3 class=\"page-header\">
     {{ trans('{$this->lang_name}.list') }}
-    <small>{{ trans('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ trans('{$this->lang_name}.{$this->single_model_var_name}') }}</small>
+    <small>{{ trans('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ trans('{$this->lang_name}.{$this->lang_name}') }}</small>
 </h3>
 <div class=\"row\">
     <div class=\"col-md-8\">
@@ -115,7 +115,7 @@ class ViewsGeneratorTest extends TestCase
         <div class=\"panel-body\">
             <label class=\"control-label\">{{ trans('{$this->lang_name}.name') }}</label>
             <p>{{ \$editable{$this->model_name}->name }}</p>
-            {!! \$errors->first('{$this->single_model_var_name}_id', '<span class=\"form-error small\">:message</span>') !!}
+            {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
         </div>
         <hr style=\"margin:0\">
         <div class=\"panel-body\">{{ trans('app.delete_confirm') }}</div>
@@ -125,7 +125,7 @@ class ViewsGeneratorTest extends TestCase
                 trans('app.delete_confirm_button'),
                 ['class'=>'btn btn-danger'],
                 [
-                    '{$this->single_model_var_name}_id' => \$editable{$this->model_name}->id,
+                    '{$this->lang_name}_id' => \$editable{$this->model_name}->id,
                     'page' => request('page'),
                     'q' => request('q'),
                 ]

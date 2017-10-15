@@ -13,7 +13,7 @@ class CrudMakeCommandTest extends TestCase
         $crudMaker = app(CrudMake::class);
 
         $this->assertEquals([
-            'Masters', 'Master', 'masters', 'master',
+            'Masters', 'Master', 'masters', 'master', 'mstrCollections', 'singleMstr',
         ], $crudMaker->stubModelNames);
     }
 
@@ -45,7 +45,7 @@ class CrudMakeCommandTest extends TestCase
 
         $this->assertFileExists(resource_path("views/{$this->table_name}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$this->table_name}/forms.blade.php"));
-        $this->assertFileExists(resource_path("lang/en/{$this->single_model_var_name}.php"));
+        $this->assertFileExists(resource_path("lang/en/{$this->lang_name}.php"));
         $this->assertFileExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileExists(base_path("routes/web.php"));
         $this->assertFileExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
@@ -68,7 +68,7 @@ class CrudMakeCommandTest extends TestCase
 
         $this->assertFileNotExists(resource_path("views/{$this->table_name}/index.blade.php"));
         $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
-        $this->assertFileNotExists(resource_path("lang/en/{$this->single_model_var_name}.php"));
+        $this->assertFileNotExists(resource_path("lang/en/{$this->lang_name}.php"));
         $this->assertFileNotExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileNotExists(base_path("routes/web.php"));
         $this->assertFileNotExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));

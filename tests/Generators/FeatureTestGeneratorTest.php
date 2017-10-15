@@ -62,7 +62,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function user_can_see_{$this->single_model_var_name}_list_in_{$this->single_model_var_name}_index_page()
+    public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
     {
         \${$this->single_model_var_name}1 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
         \${$this->single_model_var_name}2 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
@@ -74,17 +74,17 @@ class Manage{$this->plural_model_name}Test extends TestCase
     }
 
     /** @test */
-    public function user_can_create_a_{$this->single_model_var_name}()
+    public function user_can_create_a_{$this->lang_name}()
     {
         \$this->loginAsUser();
         \$this->visit(route('{$this->table_name}.index'));
 
-        \$this->click(trans('{$this->single_model_var_name}.create'));
+        \$this->click(trans('{$this->lang_name}.create'));
         \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'create']));
 
         \$this->type('{$this->model_name} 1 name', 'name');
         \$this->type('{$this->model_name} 1 description', 'description');
-        \$this->press(trans('{$this->single_model_var_name}.create'));
+        \$this->press(trans('{$this->lang_name}.create'));
 
         \$this->seePageIs(route('{$this->table_name}.index'));
 
@@ -95,7 +95,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
     }
 
     /** @test */
-    public function user_can_edit_a_{$this->single_model_var_name}_within_search_query()
+    public function user_can_edit_a_{$this->lang_name}_within_search_query()
     {
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
@@ -106,7 +106,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
 
         \$this->type('{$this->model_name} 1 name', 'name');
         \$this->type('{$this->model_name} 1 description', 'description');
-        \$this->press(trans('{$this->single_model_var_name}.update'));
+        \$this->press(trans('{$this->lang_name}.update'));
 
         \$this->seePageIs(route('{$this->table_name}.index', ['q' => '123']));
 
@@ -117,7 +117,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
     }
 
     /** @test */
-    public function user_can_delete_a_{$this->single_model_var_name}()
+    public function user_can_delete_a_{$this->lang_name}()
     {
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();

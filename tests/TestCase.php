@@ -16,7 +16,7 @@ abstract class TestCase extends BaseTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->model_name = 'Category';
+        $this->model_name = 'PaymentMethod';
 
         $this->plural_model_name = str_plural($this->model_name);
         $this->table_name = snake_case($this->plural_model_name);
@@ -39,7 +39,7 @@ abstract class TestCase extends BaseTestCase
         $this->removeFileOrDir(database_path('migrations'));
         $this->removeFileOrDir(database_path('factories'));
         $this->removeFileOrDir(resource_path('views/'.$this->table_name));
-        $this->removeFileOrDir(resource_path("lang/en/{$this->single_model_var_name}.php"));
+        $this->removeFileOrDir(resource_path("lang/en/{$this->lang_name}.php"));
         $this->removeFileOrDir(base_path('routes'));
         $this->removeFileOrDir(base_path('tests/BrowserKitTest.php'));
         $this->removeFileOrDir(base_path('tests/Feature'));

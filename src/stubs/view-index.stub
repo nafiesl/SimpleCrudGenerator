@@ -8,7 +8,7 @@
 </div>
 <h3 class="page-header">
     {{ trans('master.list') }}
-    <small>{{ trans('app.total') }} : {{ $masters->total() }} {{ trans('master.master') }}</small>
+    <small>{{ trans('app.total') }} : {{ $mstrCollections->total() }} {{ trans('master.master') }}</small>
 </h3>
 <div class="row">
     <div class="col-md-8">
@@ -30,30 +30,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($masters as $key => $master)
+                    @foreach($mstrCollections as $key => $singleMstr)
                     <tr>
-                        <td class="text-center">{{ $masters->firstItem() + $key }}</td>
-                        <td>{{ $master->name }}</td>
-                        <td>{{ $master->description }}</td>
+                        <td class="text-center">{{ $mstrCollections->firstItem() + $key }}</td>
+                        <td>{{ $singleMstr->name }}</td>
+                        <td>{{ $singleMstr->description }}</td>
                         <td class="text-center">
                             {!! link_to_route(
                                 'masters.index',
                                 trans('app.edit'),
-                                ['action' => 'edit', 'id' => $master->id] + Request::only('page', 'q'),
-                                ['id' => 'edit-master-' . $master->id]
+                                ['action' => 'edit', 'id' => $singleMstr->id] + Request::only('page', 'q'),
+                                ['id' => 'edit-singleMstr-' . $singleMstr->id]
                             ) !!} |
                             {!! link_to_route(
                                 'masters.index',
                                 trans('app.delete'),
-                                ['action' => 'delete', 'id' => $master->id] + Request::only('page', 'q'),
-                                ['id' => 'del-master-' . $master->id]
+                                ['action' => 'delete', 'id' => $singleMstr->id] + Request::only('page', 'q'),
+                                ['id' => 'del-singleMstr-' . $singleMstr->id]
                             ) !!}
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="panel-body">{{ $masters->appends(Request::except('page'))->render() }}</div>
+            <div class="panel-body">{{ $mstrCollections->appends(Request::except('page'))->render() }}</div>
         </div>
     </div>
     <div class="col-md-4">

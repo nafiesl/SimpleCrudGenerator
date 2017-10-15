@@ -27,7 +27,7 @@ class CrudMake extends Command
      *
      * @var array
      */
-    public $stubModelNames = ['Masters', 'Master', 'masters', 'master'];
+    public $stubModelNames = ['Masters', 'Master', 'masters', 'master', 'mstrCollections', 'singleMstr'];
 
     /**
      * Construct CrudMake class

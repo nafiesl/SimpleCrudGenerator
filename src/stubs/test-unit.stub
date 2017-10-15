@@ -13,7 +13,7 @@ class MasterTest extends TestCase
     /** @test */
     public function it_has_name_attribute()
     {
-        $master = factory(Master::class)->create(['name' => 'Master 1 name']);
-        $this->assertEquals('Master 1 name', $master->name);
+        $singleMstr = factory(Master::class)->create(['name' => 'Master 1 name']);
+        $this->assertEquals('Master 1 name', $singleMstr->name);
     }
 }
