@@ -26,7 +26,7 @@ class CrudMake extends Command
      *
      * @var array
      */
-    public $stubModelNames = ['Masters', 'Master', 'masters', 'master', 'mstrCollections', 'singleMstr'];
+    public $stubModelNames;
 
     /**
      * Construct CrudMake class
@@ -37,6 +37,15 @@ class CrudMake extends Command
         parent::__construct();
 
         $this->files = $files;
+        $this->stubModelNames = [
+            'full_model_name' => 'fullMstr',
+            'plural_model_name' => 'Masters',
+            'model_name' => 'Master',
+            'table_name' => 'masters',
+            'lang_name' => 'master',
+            'collection_model_var_name' => 'mstrCollections',
+            'single_model_var_name' => 'singleMstr',
+        ];
     }
 
     /**
@@ -91,6 +100,7 @@ class CrudMake extends Command
         $plural_model_name = str_plural($model_name);
 
         return $this->modelNames = [
+            'full_model_name' => 'App\\'.$model_name,
             'plural_model_name' => $plural_model_name,
             'model_name' => $model_name,
             'table_name' => snake_case($plural_model_name),

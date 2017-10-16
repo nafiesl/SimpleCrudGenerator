@@ -1,6 +1,6 @@
 <?php
 
-use App\Master;
+use fullMstr;
 use Faker\Generator as Faker;
 
 $factory->define(Master::class, function (Faker $faker) {

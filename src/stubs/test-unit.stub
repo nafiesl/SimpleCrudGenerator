@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Models;
 
-use App\Master;
+use fullMstr;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 

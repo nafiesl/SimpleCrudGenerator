@@ -53,7 +53,7 @@ abstract class BrowserKitTest extends BaseTestCase
 
 namespace Tests\Feature;
 
-use App\\{$this->model_name};
+use {$this->full_model_name};
 use Tests\BrowserKitTest as TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 

@@ -6,6 +6,7 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    protected $full_model_name;
     protected $model_name;
     protected $plural_model_name;
     protected $table_name;
@@ -18,6 +19,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         $this->model_name = 'PaymentMethod';
 
+        $this->full_model_name = 'App\\'.$this->model_name;
         $this->plural_model_name = str_plural($this->model_name);
         $this->table_name = snake_case($this->plural_model_name);
         $this->lang_name = snake_case($this->model_name);

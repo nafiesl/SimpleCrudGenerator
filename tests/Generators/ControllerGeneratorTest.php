@@ -16,7 +16,7 @@ class ControllerGeneratorTest extends TestCase
 
 namespace App\Http\Controllers;
 
-use App\\{$this->model_name};
+use {$this->full_model_name};
 use Illuminate\Http\Request;
 
 class {$this->plural_model_name}Controller extends Controller
@@ -62,7 +62,7 @@ class {$this->plural_model_name}Controller extends Controller
      * Update the specified {$this->single_model_var_name} in storage.
      *
      * @param  \Illuminate\Http\Request  \$request
-     * @param  \App\\{$this->model_name}  \${$this->single_model_var_name}
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
      * @return \Illuminate\Http\Response
      */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
@@ -82,7 +82,7 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Remove the specified {$this->single_model_var_name} from storage.
      *
-     * @param  \App\\{$this->model_name}  \${$this->single_model_var_name}
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
      * @return \Illuminate\Http\Response
      */
     public function destroy({$this->model_name} \${$this->single_model_var_name})

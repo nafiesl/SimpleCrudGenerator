@@ -16,7 +16,7 @@ class ModelTestGeneratorTest extends TestCase
 
 namespace Tests\Unit\Models;
 
-use App\\{$this->model_name};
+use {$this->full_model_name};
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 

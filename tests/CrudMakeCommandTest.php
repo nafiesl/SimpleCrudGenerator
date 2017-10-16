@@ -13,7 +13,13 @@ class CrudMakeCommandTest extends TestCase
         $crudMaker = app(CrudMake::class);
 
         $this->assertEquals([
-            'Masters', 'Master', 'masters', 'master', 'mstrCollections', 'singleMstr',
+            'full_model_name' => 'fullMstr',
+            'plural_model_name' => 'Masters',
+            'model_name' => 'Master',
+            'table_name' => 'masters',
+            'lang_name' => 'master',
+            'collection_model_var_name' => 'mstrCollections',
+            'single_model_var_name' => 'singleMstr',
         ], $crudMaker->stubModelNames);
     }
 
@@ -23,6 +29,7 @@ class CrudMakeCommandTest extends TestCase
         $crudMaker = app(CrudMake::class);
 
         $this->assertEquals([
+            'full_model_name' => 'App\Category',
             'plural_model_name' => 'Categories',
             'model_name' => 'Category',
             'table_name' => 'categories',
