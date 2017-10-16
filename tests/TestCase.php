@@ -17,7 +17,7 @@ abstract class TestCase extends BaseTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->model_name = 'PaymentMethod';
+        $this->model_name = class_basename('References/Category');
 
         $this->full_model_name = 'App\\'.$this->model_name;
         $this->plural_model_name = str_plural($this->model_name);

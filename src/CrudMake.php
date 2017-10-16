@@ -96,7 +96,7 @@ class CrudMake extends Command
     public function getModelName($modelName = null)
     {
         $modelName = is_null($modelName) ? $this->argument('name') : $modelName;
-        $model_name = ucfirst($modelName);
+        $model_name = ucfirst(class_basename($modelName));
         $plural_model_name = str_plural($model_name);
 
         return $this->modelNames = [

@@ -40,6 +40,22 @@ class CrudMakeCommandTest extends TestCase
     }
 
     /** @test */
+    public function it_set_proper_model_names_property_for_namespaced_model_name_entry()
+    {
+        $crudMaker = app(CrudMake::class);
+
+        $this->assertEquals([
+            'full_model_name' => 'App\Category',
+            'plural_model_name' => 'Categories',
+            'model_name' => 'Category',
+            'table_name' => 'categories',
+            'lang_name' => 'category',
+            'collection_model_var_name' => 'categories',
+            'single_model_var_name' => 'category',
+        ], $crudMaker->getModelName('References/Category'));
+    }
+
+    /** @test */
     public function it_can_generate_simple_crud_files()
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
