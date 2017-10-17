@@ -37,7 +37,9 @@ class CrudMake extends Command
         parent::__construct();
 
         $this->files = $files;
+
         $this->stubModelNames = [
+            'model_namespace' => 'mstrNmspc',
             'full_model_name' => 'fullMstr',
             'plural_model_name' => 'Masters',
             'model_name' => 'Master',
@@ -98,16 +100,34 @@ class CrudMake extends Command
         $modelName = is_null($modelName) ? $this->argument('name') : $modelName;
         $model_name = ucfirst(class_basename($modelName));
         $plural_model_name = str_plural($model_name);
+        $modelPath = $this->getModelPath($modelName);
+        $modelNamespace = $this->getModelNamespace($modelPath);
 
         return $this->modelNames = [
-            'full_model_name' => 'App\\'.$model_name,
+            'model_namespace' => $modelNamespace,
+            'full_model_name' => $modelNamespace.'\\'.$model_name,
             'plural_model_name' => $plural_model_name,
             'model_name' => $model_name,
             'table_name' => snake_case($plural_model_name),
             'lang_name' => snake_case($model_name),
             'collection_model_var_name' => camel_case($plural_model_name),
             'single_model_var_name' => camel_case($model_name),
+            'model_path' => $modelPath,
         ];
+    }
+
+    protected function getModelPath($modelName)
+    {
+        $inputName = explode('/', ucfirst($modelName));
+        array_pop($inputName);
+
+        return implode('/', $inputName);
+    }
+
+    protected function getModelNamespace($modelPath)
+    {
+        $modelNamespace = str_replace('/', '\\', 'App/'.ucfirst($modelPath));
+        return $modelNamespace == 'App\\' ? 'App' : $modelNamespace;
     }
 
     /**
@@ -127,7 +147,10 @@ class CrudMake extends Command
      */
     public function generateModel()
     {
-        $this->generateFile(app_path($this->modelNames['model_name'].'.php'), $this->getModelContent());
+        $modelPath = $this->modelNames['model_path'];
+        $modelDirectory = $this->makeDirectory(app_path($modelPath));
+
+        $this->generateFile($modelDirectory.'/'.$this->modelNames['model_name'].'.php', $this->getModelContent());
 
         $this->info($this->modelNames['model_name'].' model generated.');
     }

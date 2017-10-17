@@ -37,6 +37,7 @@ abstract class TestCase extends BaseTestCase
     protected function cleanUpGeneratedFiles()
     {
         $this->removeFileOrDir(app_path($this->model_name.'.php'));
+        $this->removeFileOrDir(app_path('Entities'));
         $this->removeFileOrDir(app_path('Http'));
         $this->removeFileOrDir(database_path('migrations'));
         $this->removeFileOrDir(database_path('factories'));
