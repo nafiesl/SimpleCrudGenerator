@@ -103,4 +103,102 @@ class {$this->plural_model_name}Controller extends Controller
 ";
         $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->plural_model_name}Controller.php")));
     }
+
+    /** @test */
+    public function it_creates_correct_controller_class_content_for_namespaced_model()
+    {
+        $this->artisan('make:crud', ['name' => 'Entities/References/Category', '--no-interaction' => true]);
+
+        $this->assertFileExists(app_path("Http/Controllers/CategoriesController.php"));
+        $ctrlClassContent = "<?php
+
+namespace App\Http\Controllers;
+
+use App\Entities\References\Category;
+use Illuminate\Http\Request;
+
+class CategoriesController extends Controller
+{
+    /**
+     * Display a listing of the category.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        \$editableCategory = null;
+        \$categories = Category::where(function (\$query) {
+            \$query->where('name', 'like', '%'.request('q').'%');
+        })->paginate(25);
+
+        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
+            \$editableCategory = Category::find(request('id'));
+        }
+
+        return view('categories.index', compact('categories', 'editableCategory'));
+    }
+
+    /**
+     * Store a newly created category in storage.
+     *
+     * @param  \Illuminate\Http\Request  \$request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request \$request)
+    {
+        \$this->validate(\$request, [
+            'name' => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ]);
+
+        Category::create(\$request->only('name', 'description'));
+
+        return redirect()->route('categories.index');
+    }
+
+    /**
+     * Update the specified category in storage.
+     *
+     * @param  \Illuminate\Http\Request  \$request
+     * @param  \App\Entities\References\Category  \$category
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request \$request, Category \$category)
+    {
+        \$this->validate(\$request, [
+            'name' => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ]);
+
+        \$routeParam = request()->only('page', 'q');
+
+        \$category = \$category->update(\$request->only('name', 'description'));
+
+        return redirect()->route('categories.index', \$routeParam);
+    }
+
+    /**
+     * Remove the specified category from storage.
+     *
+     * @param  \App\Entities\References\Category  \$category
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Category \$category)
+    {
+        \$this->validate(request(), [
+            'category_id' => 'required',
+        ]);
+
+        \$routeParam = request()->only('page', 'q');
+
+        if (request('category_id') == \$category->id && \$category->delete()) {
+            return redirect()->route('categories.index', \$routeParam);
+        }
+
+        return back();
+    }
+}
+";
+        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/CategoriesController.php")));
+    }
 }

@@ -256,7 +256,7 @@ class CrudMake extends Command
             $this->getModelFactoryContent()
         );
 
-        $this->info($this->modelNames['lang_name'].' model factory generated.');
+        $this->info($this->modelNames['model_name'].' model factory generated.');
     }
 
     /**
