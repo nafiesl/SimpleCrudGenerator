@@ -55,7 +55,7 @@ class CrudMake extends Command
      *
      * @var string
      */
-    protected $signature = 'make:crud {name}';
+    protected $signature = 'make:crud {name} {--parent=}';
 
     /**
      * The console command description.
@@ -162,7 +162,11 @@ class CrudMake extends Command
      */
     public function generateController()
     {
-        $controllerPath = $this->makeDirectory(app_path('Http/Controllers'));
+        $parentControllerDirectory = '';
+        if (! is_null($this->option('parent'))) {
+            $parentControllerDirectory = '/'.$this->option('parent');
+        }
+        $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
 
         $controllerPath = $controllerPath.'/'.$this->modelNames['plural_model_name'].'Controller.php';
         $this->generateFile($controllerPath, $this->getControllerContent());
@@ -316,7 +320,18 @@ class CrudMake extends Command
     public function getControllerContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/controller.model.stub');
-        return $this->replaceStubString($stub);
+
+        $controllerFileContent = $this->replaceStubString($stub);
+
+        if (! is_null($parentName = $this->option('parent'))) {
+            $controllerFileContent = str_replace(
+                'App\Http\Controllers',
+                'App\Http\Controllers\\'.$parentName,
+                $controllerFileContent
+            );
+        }
+
+        return $controllerFileContent;
     }
 
     /**
@@ -434,7 +449,21 @@ class CrudMake extends Command
     public function getWebRouteContent()
     {
         $stub = $this->files->get(__DIR__.'/stubs/route-web.stub');
-        return $this->replaceStubString($stub);
+
+        $webRouteFileContent = $this->replaceStubString($stub);
+
+        if (! is_null($parentName = $this->option('parent'))) {
+
+            $pluralModelName = $this->modelNames['plural_model_name'];
+
+            $webRouteFileContent = str_replace(
+                $pluralModelName.'Controller',
+                $parentName.'/'.$pluralModelName.'Controller',
+                $webRouteFileContent
+            );
+        }
+
+        return $webRouteFileContent;
     }
 
     /**

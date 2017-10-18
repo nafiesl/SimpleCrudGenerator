@@ -78,4 +78,33 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileExists(base_path("tests/Feature/Manage{$pluralModelName}Test.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
     }
+
+    /** @test */
+    public function it_can_generate_crud_files_with_parent_option()
+    {
+        $inputName = 'Entities/References/Category';
+        $modelName = 'Category';
+        $parentName = 'Projects';
+        $pluralModelName = 'Categories';
+        $tableName = 'categories';
+        $langName = 'category';
+        $modelPath = 'Entities/References';
+
+        $this->artisan('make:crud', ['name' => $inputName, '--parent' => $parentName, '--no-interaction' => true]);
+
+        $this->assertNotRegExp("/{$modelName} model already exists./", app(Kernel::class)->output());
+
+        $this->assertFileExists(app_path($modelPath.'/'.$modelName.'.php'));
+        $this->assertFileExists(app_path("Http/Controllers/{$parentName}/{$pluralModelName}Controller.php"));
+
+        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$tableName.'_table.php');
+        $this->assertFileExists($migrationFilePath);
+
+        $this->assertFileExists(resource_path("views/{$tableName}/index.blade.php"));
+        $this->assertFileExists(resource_path("views/{$tableName}/forms.blade.php"));
+        $this->assertFileExists(resource_path("lang/en/{$langName}.php"));
+        $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
+        $this->assertFileExists(base_path("tests/Feature/Manage{$pluralModelName}Test.php"));
+        $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
+    }
 }
