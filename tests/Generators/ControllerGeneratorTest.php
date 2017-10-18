@@ -213,6 +213,7 @@ class CategoriesController extends Controller
 namespace App\Http\Controllers\Projects;
 
 use App\Entities\References\Category;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller

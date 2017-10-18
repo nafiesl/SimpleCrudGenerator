@@ -324,9 +324,20 @@ class CrudMake extends Command
         $controllerFileContent = $this->replaceStubString($stub);
 
         if (! is_null($parentName = $this->option('parent'))) {
+
+            $searches = [
+                'App\Http\Controllers;',
+                "use {$this->modelNames['full_model_name']};\n"
+            ];
+
+            $replacements = [
+                "App\Http\Controllers\\{$parentName};",
+                "use {$this->modelNames['full_model_name']};\nuse App\Http\Controllers\Controller;\n"
+            ];
+
             $controllerFileContent = str_replace(
-                'App\Http\Controllers',
-                'App\Http\Controllers\\'.$parentName,
+                $searches,
+                $replacements,
                 $controllerFileContent
             );
         }
@@ -458,7 +469,7 @@ class CrudMake extends Command
 
             $webRouteFileContent = str_replace(
                 $pluralModelName.'Controller',
-                $parentName.'/'.$pluralModelName.'Controller',
+                $parentName.'\\'.$pluralModelName.'Controller',
                 $webRouteFileContent
             );
         }

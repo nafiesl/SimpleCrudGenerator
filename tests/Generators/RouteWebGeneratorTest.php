@@ -29,7 +29,7 @@ Route::apiResource('{$this->table_name}', '{$this->plural_model_name}Controller'
         $this->assertFileExists($routeWebPath);
         $routeWebFileContent = "<?php
 
-Route::apiResource('{$this->table_name}', 'Projects/{$this->plural_model_name}Controller');
+Route::apiResource('{$this->table_name}', 'Projects\\{$this->plural_model_name}Controller');
 ";
         $this->assertEquals($routeWebFileContent, file_get_contents($routeWebPath));
     }
