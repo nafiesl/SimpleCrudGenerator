@@ -4,6 +4,7 @@ namespace Luthfi\CrudGenerator;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Luthfi\CrudGenerator\Generators\ControllerGenerator;
 
 class CrudMake extends Command
 {
@@ -78,7 +79,7 @@ class CrudMake extends Command
 
             $this->generateModel();
             $this->generateMigration();
-            $this->generateController();
+            app(ControllerGenerator::class, ['modelNames' => $this->modelNames, 'command' => $this])->generate();
             $this->generateViews();
             $this->generateLangFile();
             $this->generateModelFactory();
@@ -153,25 +154,6 @@ class CrudMake extends Command
         $this->generateFile($modelDirectory.'/'.$this->modelNames['model_name'].'.php', $this->getModelContent());
 
         $this->info($this->modelNames['model_name'].' model generated.');
-    }
-
-    /**
-     * Generate controller for model CRUD operation
-     *
-     * @return void
-     */
-    public function generateController()
-    {
-        $parentControllerDirectory = '';
-        if (! is_null($this->option('parent'))) {
-            $parentControllerDirectory = '/'.$this->option('parent');
-        }
-        $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
-
-        $controllerPath = $controllerPath.'/'.$this->modelNames['plural_model_name'].'Controller.php';
-        $this->generateFile($controllerPath, $this->getControllerContent());
-
-        $this->info($this->modelNames['plural_model_name'].'Controller generated.');
     }
 
     /**
@@ -310,39 +292,6 @@ class CrudMake extends Command
         $this->files->append($webRoutePath, $this->getWebRouteContent());
 
         $this->info($this->modelNames['model_name'].' resource route generated on routes/web.php.');
-    }
-
-    /**
-     * Get controller content from controller stub
-     *
-     * @return string Replaced proper model names in controller file content
-     */
-    public function getControllerContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/controller.model.stub');
-
-        $controllerFileContent = $this->replaceStubString($stub);
-
-        if (! is_null($parentName = $this->option('parent'))) {
-
-            $searches = [
-                'App\Http\Controllers;',
-                "use {$this->modelNames['full_model_name']};\n"
-            ];
-
-            $replacements = [
-                "App\Http\Controllers\\{$parentName};",
-                "use {$this->modelNames['full_model_name']};\nuse App\Http\Controllers\Controller;\n"
-            ];
-
-            $controllerFileContent = str_replace(
-                $searches,
-                $replacements,
-                $controllerFileContent
-            );
-        }
-
-        return $controllerFileContent;
     }
 
     /**
