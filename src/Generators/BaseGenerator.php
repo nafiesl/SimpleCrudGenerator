@@ -38,15 +38,50 @@ abstract class BaseGenerator
      */
     protected $command;
 
-    public function __construct(Filesystem $files, array $modelNames, CrudMake $command)
+    public function __construct(Filesystem $files, CrudMake $command)
     {
         $this->files = $files;
 
         $this->command = $command;
 
-        $this->modelNames = $modelNames;
+        $this->getModelNames();
+        $this->getStubModelNames();
+    }
 
-        $this->stubModelNames = [
+    /**
+     * Generate class properties for model names in different usage
+     *
+     * @return array
+     */
+    public function getModelNames($modelName = null)
+    {
+        $modelName = is_null($modelName) ? $this->command->argument('name') : $modelName;
+        $model_name = ucfirst(class_basename($modelName));
+        $plural_model_name = str_plural($model_name);
+        $modelPath = $this->getModelPath($modelName);
+        $modelNamespace = $this->getModelNamespace($modelPath);
+
+        return $this->modelNames = [
+            'model_namespace' => $modelNamespace,
+            'full_model_name' => $modelNamespace.'\\'.$model_name,
+            'plural_model_name' => $plural_model_name,
+            'model_name' => $model_name,
+            'table_name' => snake_case($plural_model_name),
+            'lang_name' => snake_case($model_name),
+            'collection_model_var_name' => camel_case($plural_model_name),
+            'single_model_var_name' => camel_case($model_name),
+            'model_path' => $modelPath,
+        ];
+    }
+
+    /**
+     * Get stub's model names
+     *
+     * @return array
+     */
+    protected function getStubModelNames()
+    {
+        return $this->stubModelNames = [
             'model_namespace' => 'mstrNmspc',
             'full_model_name' => 'fullMstr',
             'plural_model_name' => 'Masters',
@@ -100,6 +135,25 @@ abstract class BaseGenerator
      */
     protected function replaceStubString($stub)
     {
-        return str_replace($this->stubModelNames, $this->modelNames, $stub);
+        return str_replace($this->stubModelNames, $this->command->modelNames, $stub);
+    }
+
+    /**
+     * Get model path on storage
+     * @param  string $modelName Input model name from command argument
+     * @return string            Model path on storage
+     */
+    protected function getModelPath($modelName)
+    {
+        $inputName = explode('/', ucfirst($modelName));
+        array_pop($inputName);
+
+        return implode('/', $inputName);
+    }
+
+    protected function getModelNamespace($modelPath)
+    {
+        $modelNamespace = str_replace('/', '\\', 'App/'.ucfirst($modelPath));
+        return $modelNamespace == 'App\\' ? 'App' : $modelNamespace;
     }
 }

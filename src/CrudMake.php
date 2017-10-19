@@ -20,7 +20,7 @@ class CrudMake extends Command
      *
      * @var array
      */
-    private $modelNames = [];
+    public $modelNames = [];
 
     /**
      * Array of stub's model names
@@ -79,7 +79,7 @@ class CrudMake extends Command
 
             $this->generateModel();
             $this->generateMigration();
-            app(ControllerGenerator::class, ['modelNames' => $this->modelNames, 'command' => $this])->generate();
+            app(ControllerGenerator::class, ['command' => $this])->generate();
             $this->generateViews();
             $this->generateLangFile();
             $this->generateModelFactory();
