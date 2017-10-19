@@ -5,6 +5,7 @@ namespace Luthfi\CrudGenerator;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Luthfi\CrudGenerator\Generators\ControllerGenerator;
+use Luthfi\CrudGenerator\Generators\ModelGenerator;
 
 class CrudMake extends Command
 {
@@ -77,7 +78,7 @@ class CrudMake extends Command
         if (! $this->modelExists()) {
             $this->generateResourceRoute();
 
-            $this->generateModel();
+            app(ModelGenerator::class, ['command' => $this])->generate();
             $this->generateMigration();
             app(ControllerGenerator::class, ['command' => $this])->generate();
             $this->generateViews();
@@ -139,21 +140,6 @@ class CrudMake extends Command
     public function modelExists()
     {
         return $this->files->exists(app_path($this->modelNames['model_name'].'.php'));
-    }
-
-    /**
-     * Generate the model file
-     *
-     * @return void
-     */
-    public function generateModel()
-    {
-        $modelPath = $this->modelNames['model_path'];
-        $modelDirectory = $this->makeDirectory(app_path($modelPath));
-
-        $this->generateFile($modelDirectory.'/'.$this->modelNames['model_name'].'.php', $this->getModelContent());
-
-        $this->info($this->modelNames['model_name'].' model generated.');
     }
 
     /**
@@ -292,17 +278,6 @@ class CrudMake extends Command
         $this->files->append($webRoutePath, $this->getWebRouteContent());
 
         $this->info($this->modelNames['model_name'].' resource route generated on routes/web.php.');
-    }
-
-    /**
-     * Get model content from model stub
-     *
-     * @return string Replaced proper model names in model file content
-     */
-    public function getModelContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/model.stub');
-        return $this->replaceStubString($stub);
     }
 
     /**

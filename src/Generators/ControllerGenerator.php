@@ -19,17 +19,15 @@ class ControllerGenerator extends BaseGenerator
         $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
 
         $controllerPath = $controllerPath.'/'.$this->modelNames['plural_model_name'].'Controller.php';
-        $this->generateFile($controllerPath, $this->getControllerContent());
+        $this->generateFile($controllerPath, $this->getContent());
 
         $this->command->info($this->modelNames['plural_model_name'].'Controller generated.');
     }
 
     /**
-     * Get controller content from controller stub
-     *
-     * @return string Replaced proper model names in controller file content
+     * {@inheritDoc}
      */
-    public function getControllerContent()
+    public function getContent()
     {
         $stub = $this->files->get(__DIR__.'/../stubs/controller.model.stub');
 

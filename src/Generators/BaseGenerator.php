@@ -101,6 +101,13 @@ abstract class BaseGenerator
     abstract public function generate();
 
     /**
+     * Get class file content
+     *
+     * @return void
+     */
+    abstract protected function getContent();
+
+    /**
      * Make directory if the path is not exists
      * @param  string $path Absolute path of targetted directory
      * @return string       Absolute path
