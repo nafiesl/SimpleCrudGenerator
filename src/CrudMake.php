@@ -5,7 +5,11 @@ namespace Luthfi\CrudGenerator;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Luthfi\CrudGenerator\Generators\ControllerGenerator;
+use Luthfi\CrudGenerator\Generators\FormViewGenerator;
+use Luthfi\CrudGenerator\Generators\IndexViewGenerator;
+use Luthfi\CrudGenerator\Generators\LangFileGenerator;
 use Luthfi\CrudGenerator\Generators\MigrationGenerator;
+use Luthfi\CrudGenerator\Generators\ModelFactoryGenerator;
 use Luthfi\CrudGenerator\Generators\ModelGenerator;
 
 class CrudMake extends Command
@@ -82,9 +86,10 @@ class CrudMake extends Command
             app(ModelGenerator::class, ['command' => $this])->generate();
             app(MigrationGenerator::class, ['command' => $this])->generate();
             app(ControllerGenerator::class, ['command' => $this])->generate();
-            $this->generateViews();
-            $this->generateLangFile();
-            $this->generateModelFactory();
+            app(IndexViewGenerator::class, ['command' => $this])->generate();
+            app(FormViewGenerator::class, ['command' => $this])->generate();
+            app(LangFileGenerator::class, ['command' => $this])->generate();
+            app(ModelFactoryGenerator::class, ['command' => $this])->generate();
             $this->generateTests();
 
             $this->info('CRUD files generated successfully!');
@@ -144,77 +149,6 @@ class CrudMake extends Command
     }
 
     /**
-     * Generate the index view and forms view files
-     *
-     * @return void
-     */
-    public function generateViews()
-    {
-        $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
-
-        $this->generateFile($viewPath.'/index.blade.php', $this->getIndexViewContent());
-        $this->generateFile($viewPath.'/forms.blade.php', $this->getFormsViewContent());
-
-        $this->info($this->modelNames['model_name'].' view files generated.');
-    }
-
-    /**
-     * Generate lang file for current model
-     *
-     * @return void
-     */
-    public function generateLangFile()
-    {
-        $langPath = $this->makeDirectory(resource_path('lang/en'));
-
-        $this->createAppLangFile($langPath);
-        $this->generateFile($langPath.'/'.$this->modelNames['lang_name'].'.php', $this->getLangFileContent());
-
-        $this->info($this->modelNames['lang_name'].' lang files generated.');
-    }
-
-    /**
-     * Generate lang/app.php file if it doesn't exists
-     *
-     * @param  string $langPath Directory path of lang files
-     * @return void
-     */
-    public function createAppLangFile($langPath)
-    {
-        if (! $this->files->exists($langPath.'/app.php')) {
-            $this->generateFile($langPath.'/app.php', $this->getAppLangFileContent());
-            $this->info('lang/app.php generated.');
-        }
-    }
-
-    /**
-     * Get lang/app.php file content
-     *
-     * @return string
-     */
-    public function getAppLangFileContent()
-    {
-        return $this->files->get(__DIR__.'/stubs/lang-app.stub');
-    }
-
-    /**
-     * Generate model factory file
-     *
-     * @return void
-     */
-    public function generateModelFactory()
-    {
-        $modelFactoryPath = $this->makeDirectory(database_path('factories'));
-
-        $this->generateFile(
-            $modelFactoryPath.'/'.$this->modelNames['model_name'].'Factory.php',
-            $this->getModelFactoryContent()
-        );
-
-        $this->info($this->modelNames['model_name'].' model factory generated.');
-    }
-
-    /**
      * Generate Feature for CRUD Operation and and Unit Testing for Model behaviour
      * @return void
      */
@@ -261,59 +195,6 @@ class CrudMake extends Command
         $this->files->append($webRoutePath, $this->getWebRouteContent());
 
         $this->info($this->modelNames['model_name'].' resource route generated on routes/web.php.');
-    }
-
-    /**
-     * Get index view file content from index view stub
-     *
-     * @return string Replaced proper model names in view file content
-     */
-    public function getIndexViewContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/view-index.stub');
-        return $this->replaceStubString($stub);
-    }
-
-    /**
-     * Get forms view file content from forms view stub
-     *
-     * @return string Replaced proper model names in forms view file content
-     */
-    public function getFormsViewContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/view-forms.stub');
-        return $this->replaceStubString($stub);
-    }
-
-    /**
-     * Get lang file content from lang file stub
-     *
-     * @return string Replaced proper model names in lang file content
-     */
-    public function getLangFileContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/lang.stub');
-
-        $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->modelNames['model_name'])));
-
-        $properLangFileContent = str_replace(
-            $this->modelNames['model_name'],
-            $displayModelName,
-            $this->replaceStubString($stub)
-        );
-
-        return $properLangFileContent;
-    }
-
-    /**
-     * Get model factory file content from model factory stub
-     *
-     * @return string Replaced proper model names in model factory file content
-     */
-    public function getModelFactoryContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/model-factory.stub');
-        return $this->replaceStubString($stub);
     }
 
     /**
