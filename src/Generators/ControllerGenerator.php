@@ -34,7 +34,6 @@ class ControllerGenerator extends BaseGenerator
         $controllerFileContent = $this->replaceStubString($stub);
 
         if (! is_null($parentName = $this->command->option('parent'))) {
-
             $searches = [
                 'App\Http\Controllers;',
                 "use {$this->modelNames['full_model_name']};\n"

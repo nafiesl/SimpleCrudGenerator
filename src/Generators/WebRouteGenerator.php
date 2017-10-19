@@ -28,7 +28,6 @@ class WebRouteGenerator extends BaseGenerator
         $webRouteFileContent = $this->replaceStubString($stub);
 
         if (! is_null($parentName = $this->command->option('parent'))) {
-
             $pluralModelName = $this->modelNames['plural_model_name'];
 
             $webRouteFileContent = str_replace(

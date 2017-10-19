@@ -40,6 +40,7 @@ class CrudMake extends Command
 
     /**
      * Construct CrudMake class
+     *
      * @param Filesystem $files Put generated file content to application file system
      */
     public function __construct(Filesystem $files)
@@ -127,6 +128,12 @@ class CrudMake extends Command
         ];
     }
 
+    /**
+     * Get model path on storage
+     *
+     * @param  string $modelName Input model name from command argument
+     * @return string            Model path on storage
+     */
     protected function getModelPath($modelName)
     {
         $inputName = explode('/', ucfirst($modelName));
@@ -135,6 +142,12 @@ class CrudMake extends Command
         return implode('/', $inputName);
     }
 
+    /**
+     * Get model namespace
+     *
+     * @param  string $modelPath Model path
+     * @return string            Model namespace
+     */
     protected function getModelNamespace($modelPath)
     {
         $modelNamespace = str_replace('/', '\\', 'App/'.ucfirst($modelPath));
@@ -149,43 +162,5 @@ class CrudMake extends Command
     public function modelExists()
     {
         return $this->files->exists(app_path($this->modelNames['model_name'].'.php'));
-    }
-
-    /**
-     * Make directory if the path is not exists
-     * @param  string $path Absolute path of targetted directory
-     * @return string       Absolute path
-     */
-    protected function makeDirectory($path)
-    {
-        if (! $this->files->isDirectory($path)) {
-            $this->files->makeDirectory($path, 0777, true, true);
-        }
-
-        return $path;
-    }
-
-    /**
-     * Replace all string of model names
-     *
-     * @param  string $stub String of file or class stub with default content
-     * @return string       Replaced content
-     */
-    protected function replaceStubString($stub)
-    {
-        return str_replace($this->stubModelNames, $this->modelNames, $stub);
-    }
-
-    /**
-     * Generate file on filesystem
-     * @param  string $path    Absoute path of file
-     * @param  string $content Generated file content
-     * @return string          Absolute path of file
-     */
-    protected function generateFile($path, $content)
-    {
-        $this->files->put($path, $content);
-
-        return $path;
     }
 }
