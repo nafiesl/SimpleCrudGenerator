@@ -11,6 +11,7 @@ use Luthfi\CrudGenerator\Generators\LangFileGenerator;
 use Luthfi\CrudGenerator\Generators\MigrationGenerator;
 use Luthfi\CrudGenerator\Generators\ModelFactoryGenerator;
 use Luthfi\CrudGenerator\Generators\ModelGenerator;
+use Luthfi\CrudGenerator\Generators\WebRouteGenerator;
 
 class CrudMake extends Command
 {
@@ -81,8 +82,7 @@ class CrudMake extends Command
         $this->getModelName();
 
         if (! $this->modelExists()) {
-            $this->generateResourceRoute();
-
+            app(WebRouteGenerator::class, ['command' => $this])->generate();
             app(ModelGenerator::class, ['command' => $this])->generate();
             app(MigrationGenerator::class, ['command' => $this])->generate();
             app(ControllerGenerator::class, ['command' => $this])->generate();
@@ -185,19 +185,6 @@ class CrudMake extends Command
     }
 
     /**
-     * Generate API resource version route for CRUD Operation
-     *
-     * @return void
-     */
-    public function generateResourceRoute()
-    {
-        $webRoutePath = $this->makeRouteFile(base_path('routes'), 'web.php');
-        $this->files->append($webRoutePath, $this->getWebRouteContent());
-
-        $this->info($this->modelNames['model_name'].' resource route generated on routes/web.php.');
-    }
-
-    /**
      * Get BrowserKitBaseTest class file content
      *
      * @return string
@@ -230,31 +217,6 @@ class CrudMake extends Command
     }
 
     /**
-     * Get web route content from route web stub
-     *
-     * @return string Replaced proper model names in route web file content
-     */
-    public function getWebRouteContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/route-web.stub');
-
-        $webRouteFileContent = $this->replaceStubString($stub);
-
-        if (! is_null($parentName = $this->option('parent'))) {
-
-            $pluralModelName = $this->modelNames['plural_model_name'];
-
-            $webRouteFileContent = str_replace(
-                $pluralModelName.'Controller',
-                $parentName.'\\'.$pluralModelName.'Controller',
-                $webRouteFileContent
-            );
-        }
-
-        return $webRouteFileContent;
-    }
-
-    /**
      * Make directory if the path is not exists
      * @param  string $path Absolute path of targetted directory
      * @return string       Absolute path
@@ -266,25 +228,6 @@ class CrudMake extends Command
         }
 
         return $path;
-    }
-
-    /**
-     * Create php route file if not exists
-     * @param  string $routeDirPath Absolute directory path
-     * @param  string $filename     File name to be created
-     * @return string               Absolute path of create route file
-     */
-    protected function makeRouteFile($routeDirPath, $filename)
-    {
-        if (! $this->files->isDirectory($routeDirPath)) {
-            $this->files->makeDirectory($routeDirPath, 0777, true, true);
-        }
-
-        if (! $this->files->exists($routeDirPath.'/'.$filename)) {
-            $this->generateFile($routeDirPath.'/'.$filename, "<?php\n");
-        }
-
-        return $routeDirPath.'/'.$filename;
     }
 
     /**

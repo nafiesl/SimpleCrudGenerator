@@ -3,7 +3,7 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Index Views Generator Class
+* Index View Generator Class
 */
 class IndexViewGenerator extends BaseGenerator
 {
