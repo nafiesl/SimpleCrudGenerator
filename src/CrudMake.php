@@ -5,6 +5,7 @@ namespace Luthfi\CrudGenerator;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Luthfi\CrudGenerator\Generators\ControllerGenerator;
+use Luthfi\CrudGenerator\Generators\MigrationGenerator;
 use Luthfi\CrudGenerator\Generators\ModelGenerator;
 
 class CrudMake extends Command
@@ -79,7 +80,7 @@ class CrudMake extends Command
             $this->generateResourceRoute();
 
             app(ModelGenerator::class, ['command' => $this])->generate();
-            $this->generateMigration();
+            app(MigrationGenerator::class, ['command' => $this])->generate();
             app(ControllerGenerator::class, ['command' => $this])->generate();
             $this->generateViews();
             $this->generateLangFile();
@@ -140,24 +141,6 @@ class CrudMake extends Command
     public function modelExists()
     {
         return $this->files->exists(app_path($this->modelNames['model_name'].'.php'));
-    }
-
-    /**
-     * Generate migration file for the model
-     *
-     * @return void
-     */
-    public function generateMigration()
-    {
-        $prefix = date('Y_m_d_His');
-        $tableName = $this->modelNames['table_name'];
-
-        $migrationPath = $this->makeDirectory(database_path('migrations'));
-
-        $migrationFilePath = $migrationPath.'/'.$prefix."_create_{$tableName}_table.php";
-        $this->generateFile($migrationFilePath, $this->getMigrationContent());
-
-        $this->info($this->modelNames['model_name'].' table migration generated.');
     }
 
     /**
@@ -278,17 +261,6 @@ class CrudMake extends Command
         $this->files->append($webRoutePath, $this->getWebRouteContent());
 
         $this->info($this->modelNames['model_name'].' resource route generated on routes/web.php.');
-    }
-
-    /**
-     * Get migration file content from migration stub
-     *
-     * @return string Replaced proper model names in migration file content
-     */
-    private function getMigrationContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/migration-create.stub');
-        return $this->replaceStubString($stub);
     }
 
     /**

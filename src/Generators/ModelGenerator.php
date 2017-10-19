@@ -3,7 +3,7 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Controller Generator Class
+* Model Generator Class
 */
 class ModelGenerator extends BaseGenerator
 {
