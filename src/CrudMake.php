@@ -5,12 +5,14 @@ namespace Luthfi\CrudGenerator;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Luthfi\CrudGenerator\Generators\ControllerGenerator;
+use Luthfi\CrudGenerator\Generators\FeatureTestGenerator;
 use Luthfi\CrudGenerator\Generators\FormViewGenerator;
 use Luthfi\CrudGenerator\Generators\IndexViewGenerator;
 use Luthfi\CrudGenerator\Generators\LangFileGenerator;
 use Luthfi\CrudGenerator\Generators\MigrationGenerator;
 use Luthfi\CrudGenerator\Generators\ModelFactoryGenerator;
 use Luthfi\CrudGenerator\Generators\ModelGenerator;
+use Luthfi\CrudGenerator\Generators\ModelTestGenerator;
 use Luthfi\CrudGenerator\Generators\WebRouteGenerator;
 
 class CrudMake extends Command
@@ -90,7 +92,8 @@ class CrudMake extends Command
             app(FormViewGenerator::class, ['command' => $this])->generate();
             app(LangFileGenerator::class, ['command' => $this])->generate();
             app(ModelFactoryGenerator::class, ['command' => $this])->generate();
-            $this->generateTests();
+            app(FeatureTestGenerator::class, ['command' => $this])->generate();
+            app(ModelTestGenerator::class, ['command' => $this])->generate();
 
             $this->info('CRUD files generated successfully!');
         } else {
@@ -146,74 +149,6 @@ class CrudMake extends Command
     public function modelExists()
     {
         return $this->files->exists(app_path($this->modelNames['model_name'].'.php'));
-    }
-
-    /**
-     * Generate Feature for CRUD Operation and and Unit Testing for Model behaviour
-     * @return void
-     */
-    public function generateTests()
-    {
-        $this->createBrowserKitBaseTestClass();
-
-        $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
-        $this->generateFile("{$featureTestPath}/Manage{$this->modelNames['plural_model_name']}Test.php", $this->getFeatureTestContent());
-        $this->info('Manage'.$this->modelNames['plural_model_name'].'Test generated.');
-
-        $unitTestPath = $this->makeDirectory(base_path('tests/Unit/Models'));
-        $this->generateFile("{$unitTestPath}/{$this->modelNames['model_name']}Test.php", $this->getUnitTestContent());
-        $this->info($this->modelNames['model_name'].'Test (model) generated.');
-    }
-
-    /**
-     * Generate BrowserKitTest class for BaseTestCase
-     *
-     * @return void
-     */
-    public function createBrowserKitBaseTestClass()
-    {
-        $testsPath = base_path('tests');
-        if (! $this->files->isDirectory($testsPath)) {
-            $this->files->makeDirectory($testsPath, 0777, true, true);
-        }
-
-        if (! $this->files->exists($testsPath.'/BrowserKitTest.php')) {
-            $this->generateFile($testsPath.'/BrowserKitTest.php', $this->getBrowserKitBaseTestContent());
-
-            $this->info('BrowserKitTest generated.');
-        }
-    }
-
-    /**
-     * Get BrowserKitBaseTest class file content
-     *
-     * @return string
-     */
-    public function getBrowserKitBaseTestContent()
-    {
-        return $this->files->get(__DIR__.'/stubs/test-browserkit-base-class.stub');
-    }
-
-    /**
-     * Get feature test file content from feature test stub
-     *
-     * @return string Replaced proper model names in feature test file content
-     */
-    public function getFeatureTestContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/test-feature.stub');
-        return $this->replaceStubString($stub);
-    }
-
-    /**
-     * Get unit test file content from unit test stub
-     *
-     * @return string Replaced proper model names in unit test file content
-     */
-    public function getUnitTestContent()
-    {
-        $stub = $this->files->get(__DIR__.'/stubs/test-unit.stub');
-        return $this->replaceStubString($stub);
     }
 
     /**
