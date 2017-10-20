@@ -1,0 +1,162 @@
+<?php
+
+namespace Tests\Generators;
+
+use Tests\TestCase;
+
+class ModelPolicyGeneratorTest extends TestCase
+{
+    /** @test */
+    public function it_creates_correct_model_policy_content()
+    {
+        $userModel = config('auth.providers.users.model');
+
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $modelPolicyPath = app_path('Policies/'.$this->model_name.'Policy.php');
+        $this->assertFileExists($modelPolicyPath);
+        $modelPolicyContent = "<?php
+
+namespace App\Policies;
+
+use {$userModel};
+use {$this->full_model_name};
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class {$this->model_name}Policy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view the project.
+     *
+     * @param  \\{$userModel}  \$user
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return mixed
+     */
+    public function view(User \$user, {$this->model_name} \${$this->single_model_var_name})
+    {
+        // Update \$user authorization to view \${$this->single_model_var_name} here.
+        return true;
+    }
+
+    /**
+     * Determine whether the user can create projects.
+     *
+     * @param  \\{$userModel}  \$user
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return mixed
+     */
+    public function create(User \$user, {$this->model_name} \${$this->single_model_var_name})
+    {
+        // Update \$user authorization to create \${$this->single_model_var_name} here.
+        return true;
+    }
+
+    /**
+     * Determine whether the user can update the project.
+     *
+     * @param  \\{$userModel}  \$user
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return mixed
+     */
+    public function update(User \$user, {$this->model_name} \${$this->single_model_var_name})
+    {
+        // Update \$user authorization to update \${$this->single_model_var_name} here.
+        return true;
+    }
+
+    /**
+     * Determine whether the user can delete the project.
+     *
+     * @param  \\{$userModel}  \$user
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return mixed
+     */
+    public function delete(User \$user, {$this->model_name} \${$this->single_model_var_name})
+    {
+        // Update \$user authorization to delete \${$this->single_model_var_name} here.
+        return true;
+    }
+}
+";
+        $this->assertEquals($modelPolicyContent, file_get_contents($modelPolicyPath));
+    }
+
+    /** @test */
+    public function it_creates_correct_model_policy_content_with_parent()
+    {
+        $userModel = config('auth.providers.users.model');
+
+        $this->artisan('make:crud', ['name' => $this->model_name, '--parent' => 'Projects', '--no-interaction' => true]);
+
+        $modelPolicyPath = app_path('Policies/Projects/'.$this->model_name.'Policy.php');
+        $this->assertFileExists($modelPolicyPath);
+        $modelPolicyContent = "<?php
+
+namespace App\Policies\Projects;
+
+use {$userModel};
+use {$this->full_model_name};
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class {$this->model_name}Policy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view the project.
+     *
+     * @param  \\{$userModel}  \$user
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return mixed
+     */
+    public function view(User \$user, {$this->model_name} \${$this->single_model_var_name})
+    {
+        // Update \$user authorization to view \${$this->single_model_var_name} here.
+        return true;
+    }
+
+    /**
+     * Determine whether the user can create projects.
+     *
+     * @param  \\{$userModel}  \$user
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return mixed
+     */
+    public function create(User \$user, {$this->model_name} \${$this->single_model_var_name})
+    {
+        // Update \$user authorization to create \${$this->single_model_var_name} here.
+        return true;
+    }
+
+    /**
+     * Determine whether the user can update the project.
+     *
+     * @param  \\{$userModel}  \$user
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return mixed
+     */
+    public function update(User \$user, {$this->model_name} \${$this->single_model_var_name})
+    {
+        // Update \$user authorization to update \${$this->single_model_var_name} here.
+        return true;
+    }
+
+    /**
+     * Determine whether the user can delete the project.
+     *
+     * @param  \\{$userModel}  \$user
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return mixed
+     */
+    public function delete(User \$user, {$this->model_name} \${$this->single_model_var_name})
+    {
+        // Update \$user authorization to delete \${$this->single_model_var_name} here.
+        return true;
+    }
+}
+";
+        $this->assertEquals($modelPolicyContent, file_get_contents($modelPolicyPath));
+    }
+}

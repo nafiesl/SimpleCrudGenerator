@@ -12,6 +12,7 @@ use Luthfi\CrudGenerator\Generators\LangFileGenerator;
 use Luthfi\CrudGenerator\Generators\MigrationGenerator;
 use Luthfi\CrudGenerator\Generators\ModelFactoryGenerator;
 use Luthfi\CrudGenerator\Generators\ModelGenerator;
+use Luthfi\CrudGenerator\Generators\ModelPolicyGenerator;
 use Luthfi\CrudGenerator\Generators\ModelTestGenerator;
 use Luthfi\CrudGenerator\Generators\WebRouteGenerator;
 
@@ -93,6 +94,7 @@ class CrudMake extends Command
             app(FormViewGenerator::class, ['command' => $this])->generate();
             app(LangFileGenerator::class, ['command' => $this])->generate();
             app(ModelFactoryGenerator::class, ['command' => $this])->generate();
+            app(ModelPolicyGenerator::class, ['command' => $this])->generate();
             app(FeatureTestGenerator::class, ['command' => $this])->generate();
             app(ModelTestGenerator::class, ['command' => $this])->generate();
 
