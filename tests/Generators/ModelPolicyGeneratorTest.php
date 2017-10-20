@@ -81,6 +81,41 @@ class {$this->model_name}Policy
 }
 ";
         $this->assertEquals($modelPolicyContent, file_get_contents($modelPolicyPath));
+
+        $authSPPath = app_path('Providers/AuthServiceProvider.php');
+        $this->assertFileExists($authSPPath);
+        $authSPContent = "<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected \$policies = [
+        '{$this->full_model_name}' => 'App\Policies\\{$this->model_name}Policy',
+        'App\Model' => 'App\Policies\ModelPolicy',
+    ];
+
+    /**
+     * Register any authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        \$this->registerPolicies();
+
+        //
+    }
+}
+";
+        $this->assertEquals($authSPContent, file_get_contents($authSPPath));
     }
 
     /** @test */
@@ -158,5 +193,40 @@ class {$this->model_name}Policy
 }
 ";
         $this->assertEquals($modelPolicyContent, file_get_contents($modelPolicyPath));
+
+        $authSPPath = app_path('Providers/AuthServiceProvider.php');
+        $this->assertFileExists($authSPPath);
+        $authSPContent = "<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected \$policies = [
+        '{$this->full_model_name}' => 'App\Policies\Projects\\{$this->model_name}Policy',
+        'App\Model' => 'App\Policies\ModelPolicy',
+    ];
+
+    /**
+     * Register any authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        \$this->registerPolicies();
+
+        //
+    }
+}
+";
+        $this->assertEquals($authSPContent, file_get_contents($authSPPath));
     }
 }

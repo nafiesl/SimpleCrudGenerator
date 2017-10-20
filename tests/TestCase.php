@@ -46,6 +46,7 @@ abstract class TestCase extends BaseTestCase
         $this->removeFileOrDir(resource_path("lang/en/{$this->lang_name}.php"));
         $this->removeFileOrDir(base_path('routes'));
         $this->removeFileOrDir(app_path('Policies'));
+        $this->removeFileOrDir(app_path('Providers'));
         $this->removeFileOrDir(base_path('tests/BrowserKitTest.php'));
         $this->removeFileOrDir(base_path('tests/Feature'));
         $this->removeFileOrDir(base_path('tests/Unit'));

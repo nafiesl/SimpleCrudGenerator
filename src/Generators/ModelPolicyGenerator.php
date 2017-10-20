@@ -24,6 +24,8 @@ class ModelPolicyGenerator extends BaseGenerator
         );
 
         $this->command->info($this->modelNames['model_name'].' model policy generated.');
+
+        $this->updateAuthServiceProviderClass();
     }
 
     /**
@@ -50,5 +52,53 @@ class ModelPolicyGenerator extends BaseGenerator
         }
 
         return $policyFileContent;
+    }
+
+    /**
+     * Update AuthServiceProviderClass based on created model policy object
+     *
+     * @return void
+     */
+    public function updateAuthServiceProviderClass()
+    {
+        $modelName = $this->modelNames['model_name'];
+        $fullModelName = $this->modelNames['full_model_name'];
+        $authSPPath = $this->makeAuthServiceProvilderFile(app_path('Providers'), 'AuthServiceProvider.php');
+
+        $authSPContent = $this->files->get($authSPPath);
+
+        if (! is_null($parentName = $this->command->option('parent'))) {
+            $modelName = $parentName.'\\'.$modelName;
+        }
+
+        $authSPContent = str_replace(
+            "    protected \$policies = [\n",
+            "    protected \$policies = [\n        '{$fullModelName}' => 'App\Policies\\{$modelName}Policy',\n",
+            $authSPContent
+        );
+
+        $this->generateFile($authSPPath, $authSPContent);
+
+        $this->command->info('AuthServiceProvider class has been updated.');
+    }
+
+    /**
+     * Create AuthServiceProvider class if not exists
+     * @param  string $routeDirPath Absolute directory path
+     * @param  string $filename     File name to be created
+     * @return string               Absolute path of create route file
+     */
+    protected function makeAuthServiceProvilderFile($routeDirPath, $filename)
+    {
+        $routeDirPath = $this->makeDirectory($routeDirPath);
+
+        if (! $this->files->exists($routeDirPath.'/'.$filename)) {
+            $this->generateFile(
+                $routeDirPath.'/'.$filename,
+                $this->files->get(__DIR__.'/../stubs/AuthServiceProvider.stub')
+            );
+        }
+
+        return $routeDirPath.'/'.$filename;
     }
 }
