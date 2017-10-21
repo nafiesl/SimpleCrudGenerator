@@ -22,7 +22,7 @@ namespace Tests\Unit\Policies;
 
 use {$this->full_model_name};
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
+use Tests\BrowserKitTest as TestCase;
 
 class {$this->model_name}Test extends TestCase
 {
