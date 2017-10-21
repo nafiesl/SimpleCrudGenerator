@@ -54,6 +54,33 @@ class CrudMakeCommandTest extends TestCase
     }
 
     /** @test */
+    public function it_cannot_generate_crud_files_if_namespaced_model_exists()
+    {
+        $this->artisan('make:model', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
+
+        $this->assertRegExp("/Problem model already exists./", app(Kernel::class)->output());
+
+        $this->assertFileExists(app_path('Entities/Projects/Problem.php'));
+        $this->assertFileNotExists(app_path("Http/Controllers/ProblemsController.php"));
+
+        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_problems_table.php');
+        $this->assertFileNotExists($migrationFilePath);
+
+        $this->assertFileNotExists(resource_path("views/problems/index.blade.php"));
+        $this->assertFileNotExists(resource_path("views/problems/forms.blade.php"));
+        $this->assertFileNotExists(resource_path("lang/en/problem.php"));
+        $this->assertFileNotExists(database_path("factories/ProblemFactory.php"));
+        $this->assertFileNotExists(app_path("Policies/ProblemPolicy.php"));
+        $this->assertFileNotExists(base_path("tests/Feature/ManageProblemsTest.php"));
+        $this->assertFileNotExists(base_path("tests/Unit/Models/ProblemTest.php"));
+
+        $this->removeFileOrDir(app_path('Entities/Projects'));
+        $this->removeFileOrDir(resource_path('views/problems'));
+        $this->removeFileOrDir(resource_path("lang/en/problem.php"));
+    }
+
+    /** @test */
     public function it_can_generate_crud_files_for_namespaced_model()
     {
         $inputName = 'Entities/References/Category';
