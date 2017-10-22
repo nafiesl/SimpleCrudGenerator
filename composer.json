@@ -33,5 +33,8 @@
                 "Luthfi\\CrudGenerator\\ServiceProvider"
             ]
         }
+    },
+    "scripts": {
+         "test": "vendor/bin/phpunit"
     }
 }
