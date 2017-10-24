@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Feature Test Generator Class
-*/
+ * Feature Test Generator Class
+ */
 class FeatureTestGenerator extends BaseGenerator
 {
     /**
@@ -16,7 +16,7 @@ class FeatureTestGenerator extends BaseGenerator
 
         $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
         $this->generateFile("{$featureTestPath}/Manage{$this->modelNames['plural_model_name']}Test.php", $this->getContent());
-        $this->command->info('Manage'.$this->modelNames['plural_model_name'].'Test generated.');
+        $this->command->info('Manage' . $this->modelNames['plural_model_name'] . 'Test generated.');
     }
 
     /**
@@ -24,7 +24,9 @@ class FeatureTestGenerator extends BaseGenerator
      */
     protected function getContent()
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/test-feature.stub');
+        $stub          = $this->files->get(__DIR__ . '/../stubs/test-feature.stub');
+        $baseTestClass = config('simple-crud.base_test_class');
+        $stub          = str_replace('use Tests\BrowserKitTest', 'use ' . $baseTestClass, $stub);
         return $this->replaceStubString($stub);
     }
 
@@ -36,12 +38,21 @@ class FeatureTestGenerator extends BaseGenerator
     private function createBrowserKitBaseTestClass()
     {
         $testsPath = base_path('tests');
-        if (! $this->files->isDirectory($testsPath)) {
+        if (!$this->files->isDirectory($testsPath)) {
             $this->files->makeDirectory($testsPath, 0777, true, true);
         }
 
-        if (! $this->files->exists($testsPath.'/BrowserKitTest.php')) {
-            $this->generateFile($testsPath.'/BrowserKitTest.php', $this->getBrowserKitBaseTestContent());
+        $baseTestPath  = base_path(config('simple-crud.base_test_path'));
+        $baseTestClass = class_basename(config('simple-crud.base_test_class'));
+
+        if (!$this->files->exists($baseTestPath)) {
+            $browserKitTestClassContent = str_replace(
+                'class BrowserKitTest extends',
+                "class {$baseTestClass} extends",
+                $this->getBrowserKitBaseTestContent()
+            );
+
+            $this->generateFile($baseTestPath, $browserKitTestClassContent);
 
             $this->command->info('BrowserKitTest generated.');
         }
@@ -54,6 +65,6 @@ class FeatureTestGenerator extends BaseGenerator
      */
     public function getBrowserKitBaseTestContent()
     {
-        return $this->files->get(__DIR__.'/../stubs/test-browserkit-base-class.stub');
+        return $this->files->get(__DIR__ . '/../stubs/test-browserkit-base-class.stub');
     }
 }

@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Model Test Generator Class
-*/
+ * Model Test Generator Class
+ */
 class ModelTestGenerator extends BaseGenerator
 {
     /**
@@ -14,7 +14,7 @@ class ModelTestGenerator extends BaseGenerator
     {
         $unitTestPath = $this->makeDirectory(base_path('tests/Unit/Models'));
         $this->generateFile("{$unitTestPath}/{$this->modelNames['model_name']}Test.php", $this->getContent());
-        $this->command->info($this->modelNames['model_name'].'Test (model) generated.');
+        $this->command->info($this->modelNames['model_name'] . 'Test (model) generated.');
     }
 
     /**
@@ -22,7 +22,9 @@ class ModelTestGenerator extends BaseGenerator
      */
     protected function getContent()
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/test-unit.stub');
+        $stub          = $this->files->get(__DIR__ . '/../stubs/test-unit.stub');
+        $baseTestClass = config('simple-crud.base_test_class');
+        $stub          = str_replace('use Tests\BrowserKitTest', 'use ' . $baseTestClass, $stub);
         return $this->replaceStubString($stub);
     }
 }
