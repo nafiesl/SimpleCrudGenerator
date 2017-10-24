@@ -86,7 +86,7 @@ class CrudMake extends Command
     {
         $this->getModelName();
 
-        if (! $this->modelExists()) {
+        if ( ! $this->modelExists()) {
             app(WebRouteGenerator::class, ['command' => $this])->generate();
             app(ModelGenerator::class, ['command' => $this])->generate();
             app(MigrationGenerator::class, ['command' => $this])->generate();
@@ -165,6 +165,8 @@ class CrudMake extends Command
      */
     public function modelExists()
     {
-        return $this->files->exists(app_path($this->modelNames['model_path'].'/'.$this->modelNames['model_name'].'.php'));
+        return $this->files->exists(
+            app_path($this->modelNames['model_path'].'/'.$this->modelNames['model_name'].'.php')
+        );
     }
 }

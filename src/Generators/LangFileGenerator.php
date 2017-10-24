@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Lang File Generator Class
-*/
+ * Lang File Generator Class
+ */
 class LangFileGenerator extends BaseGenerator
 {
     /**
@@ -12,7 +12,8 @@ class LangFileGenerator extends BaseGenerator
      */
     public function generate()
     {
-        $langPath = $this->makeDirectory(resource_path('lang/en'));
+        $locale = config('app.locale');
+        $langPath = $this->makeDirectory(resource_path('lang/'.$locale));
 
         $this->createAppLangFile($langPath);
         $this->generateFile($langPath.'/'.$this->modelNames['lang_name'].'.php', $this->getContent());
@@ -46,7 +47,7 @@ class LangFileGenerator extends BaseGenerator
      */
     private function createAppLangFile($langPath)
     {
-        if (! $this->files->exists($langPath.'/app.php')) {
+        if ( ! $this->files->exists($langPath.'/app.php')) {
             $this->generateFile($langPath.'/app.php', $this->getAppLangFileContent());
             $this->command->info('lang/app.php generated.');
         }

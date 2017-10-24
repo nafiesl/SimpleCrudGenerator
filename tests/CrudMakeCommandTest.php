@@ -21,7 +21,10 @@ class CrudMakeCommandTest extends TestCase
 
         $this->assertFileExists(resource_path("views/{$this->table_name}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$this->table_name}/forms.blade.php"));
-        $this->assertFileExists(resource_path("lang/en/{$this->lang_name}.php"));
+
+        $localeConfig = config('app.locale');
+        $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
+
         $this->assertFileExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileExists(base_path("routes/web.php"));
         $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
@@ -45,7 +48,10 @@ class CrudMakeCommandTest extends TestCase
 
         $this->assertFileNotExists(resource_path("views/{$this->table_name}/index.blade.php"));
         $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
-        $this->assertFileNotExists(resource_path("lang/en/{$this->lang_name}.php"));
+
+        $localeConfig = config('app.locale');
+        $this->assertFileNotExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
+
         $this->assertFileNotExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileNotExists(base_path("routes/web.php"));
         $this->assertFileNotExists(app_path("Policies/{$this->model_name}Policy.php"));
@@ -69,7 +75,10 @@ class CrudMakeCommandTest extends TestCase
 
         $this->assertFileNotExists(resource_path("views/problems/index.blade.php"));
         $this->assertFileNotExists(resource_path("views/problems/forms.blade.php"));
-        $this->assertFileNotExists(resource_path("lang/en/problem.php"));
+
+        $localeConfig = config('app.locale');
+        $this->assertFileNotExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
+
         $this->assertFileNotExists(database_path("factories/ProblemFactory.php"));
         $this->assertFileNotExists(app_path("Policies/ProblemPolicy.php"));
         $this->assertFileNotExists(base_path("tests/Feature/ManageProblemsTest.php"));
@@ -102,7 +111,10 @@ class CrudMakeCommandTest extends TestCase
 
         $this->assertFileExists(resource_path("views/{$tableName}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$tableName}/forms.blade.php"));
-        $this->assertFileExists(resource_path("lang/en/{$langName}.php"));
+
+        $localeConfig = config('app.locale');
+        $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
+
         $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
         $this->assertFileExists(app_path("Policies/{$modelName}Policy.php"));
         $this->assertFileExists(base_path("tests/Feature/Manage{$pluralModelName}Test.php"));
@@ -132,7 +144,10 @@ class CrudMakeCommandTest extends TestCase
 
         $this->assertFileExists(resource_path("views/{$tableName}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$tableName}/forms.blade.php"));
-        $this->assertFileExists(resource_path("lang/en/{$langName}.php"));
+
+        $localeConfig = config('app.locale');
+        $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
+
         $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
         $this->assertFileExists(app_path("Policies/{$parentName}/{$modelName}Policy.php"));
         $this->assertFileExists(base_path("tests/Feature/Manage{$pluralModelName}Test.php"));

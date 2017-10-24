@@ -9,7 +9,7 @@ return [
     |
     | Default Laravel view layout
     |
-     */
+    */
 
     'default_layout_view' => 'layouts.app',
 
@@ -20,9 +20,9 @@ return [
     |
     | Base TestCase Path on Laravel application
     |
-     */
+    */
 
-    'base_test_path'      => 'tests/BrowserKitTest.php',
+    'base_test_path' => 'tests/BrowserKitTest.php',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,8 +32,8 @@ return [
     | Base Test Class that used on Laravel application
     | according to 'base_test_path' config above
     |
-     */
+    */
 
-    'base_test_class'     => 'Tests\BrowserKitTest',
+    'base_test_class' => 'Tests\BrowserKitTest',
 
 ];
