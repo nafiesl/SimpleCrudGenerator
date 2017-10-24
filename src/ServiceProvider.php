@@ -16,10 +16,14 @@ class ServiceProvider extends BaseServiceProvider
                 CrudMake::class,
             ]);
         }
+
+        $this->mergeConfigFrom(__DIR__ . '/config.php', 'simple-crud');
     }
 
     public function boot()
     {
-        //
+        $this->publishes([
+            __DIR__ . '/config.php' => config_path('simple-crud.php'),
+        ], 'config');
     }
 }
