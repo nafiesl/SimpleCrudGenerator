@@ -18,13 +18,13 @@ class ViewsGeneratorTest extends TestCase
 @section('title', trans('{$this->lang_name}.list'))
 
 @section('content')
-<div class=\"pull-right\">
-    {{ link_to_route('{$this->table_name}.index', trans('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
-</div>
-<h3 class=\"page-header\">
+<h1 class=\"page-header\">
+    <div class=\"pull-right\">
+        {{ link_to_route('{$this->table_name}.index', trans('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+    </div>
     {{ trans('{$this->lang_name}.list') }}
     <small>{{ trans('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ trans('{$this->lang_name}.{$this->lang_name}') }}</small>
-</h3>
+</h1>
 <div class=\"row\">
     <div class=\"col-md-8\">
         <div class=\"panel panel-default table-responsive\">
