@@ -2,6 +2,7 @@
 
 namespace Tests\Generators;
 
+use Illuminate\Contracts\Console\Kernel;
 use Tests\TestCase;
 
 class ViewsGeneratorTest extends TestCase
@@ -136,5 +137,36 @@ class ViewsGeneratorTest extends TestCase
 @endif
 ";
         $this->assertEquals($formViewContent, file_get_contents($formViewPath));
+    }
+
+    /** @test */
+    public function it_not_gives_warning_message_if_default_layout_view_does_exists()
+    {
+        $defaultLayoutView = config('simple-crud.default_layout_view');
+        $this->generateDefaultLayoutView($defaultLayoutView);
+
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $this->assertNotRegExp("/{$defaultLayoutView} view does not exists./", app(Kernel::class)->output());
+    }
+
+    /** @test */
+    public function it_gives_warning_message_if_default_layout_view_does_not_exists()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $defaultLayoutView = config('simple-crud.default_layout_view');
+
+        $this->assertRegExp("/{$defaultLayoutView} view does not exists./", app(Kernel::class)->output());
+    }
+
+    public function generateDefaultLayoutView($defaultLayoutView)
+    {
+        $dataViewPathArray = explode('.', $defaultLayoutView);
+        $fileName          = array_pop($dataViewPathArray);
+        $defaultLayoutPath = resource_path('views/'.implode('/', $dataViewPathArray));
+
+        $files = app('Illuminate\Filesystem\Filesystem');
+        $files->makeDirectory($defaultLayoutPath);
+        $files->put($defaultLayoutPath.'/'.$fileName.'.blade.php', '');
     }
 }

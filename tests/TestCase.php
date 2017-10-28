@@ -19,12 +19,12 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         $this->model_name = class_basename('References/Category');
 
-        $this->full_model_name = 'App\\'.$this->model_name;
-        $this->plural_model_name = str_plural($this->model_name);
-        $this->table_name = snake_case($this->plural_model_name);
-        $this->lang_name = snake_case($this->model_name);
+        $this->full_model_name           = 'App\\'.$this->model_name;
+        $this->plural_model_name         = str_plural($this->model_name);
+        $this->table_name                = snake_case($this->plural_model_name);
+        $this->lang_name                 = snake_case($this->model_name);
         $this->collection_model_var_name = camel_case($this->plural_model_name);
-        $this->single_model_var_name = camel_case($this->model_name);
+        $this->single_model_var_name     = camel_case($this->model_name);
     }
 
     public function tearDown()
@@ -42,6 +42,14 @@ abstract class TestCase extends BaseTestCase
         $this->removeFileOrDir(database_path('migrations'));
         $this->removeFileOrDir(database_path('factories'));
         $this->removeFileOrDir(resource_path('views/'.$this->table_name));
+
+        $defaultLayoutsFile = config('simple-crud.default_layout_view');
+
+        $dataViewPathArray = explode('.', $defaultLayoutsFile);
+        $fileName          = array_pop($dataViewPathArray);
+        $defaultLayoutPath = resource_path('views/'.implode('/', $dataViewPathArray));
+
+        $this->removeFileOrDir($defaultLayoutPath);
 
         $locale = config('app.locale');
         $this->removeFileOrDir(resource_path("lang/{$locale}/app.php"));
