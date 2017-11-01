@@ -13,6 +13,7 @@ return [
     // Actions
     'create'         => 'Create new Master',
     'created'        => 'Create new Master succeded.',
+    'show'           => 'Master Detail',
     'edit'           => 'Edit Master',
     'update'         => 'Update Master',
     'updated'        => 'Update Master succeded.',
@@ -20,6 +21,7 @@ return [
     'delete_confirm' => 'Are you sure to delete this Master?',
     'deleted'        => 'Delete Master succeded.',
     'undeleted'      => 'Master not deleted.',
+    'undeleteable'   => 'Master data cannot be deleted.',
 
     // Attributes
     'name'           => 'Master Name',

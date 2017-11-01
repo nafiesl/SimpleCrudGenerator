@@ -24,7 +24,7 @@ use {$this->full_model_name};
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\BrowserKitTest as TestCase;
 
-class {$this->model_name}Test extends TestCase
+class {$this->model_name}PolicyTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -84,7 +84,7 @@ use {$this->full_model_name};
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase as TestCase;
 
-class {$this->model_name}Test extends TestCase
+class {$this->model_name}PolicyTest extends TestCase
 {
     use DatabaseMigrations;
 

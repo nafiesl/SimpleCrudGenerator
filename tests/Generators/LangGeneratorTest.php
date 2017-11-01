@@ -11,8 +11,8 @@ class LangGeneratorTest extends TestCase
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $locale = config('app.locale');
-        $langPath = resource_path('lang/'.$locale.'/'.$this->lang_name.'.php');
+        $locale           = config('app.locale');
+        $langPath         = resource_path('lang/'.$locale.'/'.$this->lang_name.'.php');
         $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->model_name)));
         $this->assertFileExists($langPath);
         $langFileContent = "<?php
@@ -30,6 +30,7 @@ return [
     // Actions
     'create'         => 'Create new {$displayModelName}',
     'created'        => 'Create new {$displayModelName} succeded.',
+    'show'           => '{$displayModelName} Detail',
     'edit'           => 'Edit {$displayModelName}',
     'update'         => 'Update {$displayModelName}',
     'updated'        => 'Update {$displayModelName} succeded.',
@@ -37,6 +38,7 @@ return [
     'delete_confirm' => 'Are you sure to delete this {$displayModelName}?',
     'deleted'        => 'Delete {$displayModelName} succeded.',
     'undeleted'      => '{$displayModelName} not deleted.',
+    'undeleteable'   => '{$displayModelName} data cannot be deleted.',
 
     // Attributes
     'name'           => '{$displayModelName} Name',
@@ -51,7 +53,7 @@ return [
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $locale = config('app.locale');
+        $locale   = config('app.locale');
         $langPath = resource_path('lang/'.$locale.'/app.php');
 
         $this->assertFileExists($langPath);
