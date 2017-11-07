@@ -7,4 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Master extends Model
 {
     protected $fillable = ['name', 'description'];
+
+    public function nameLink()
+    {
+        return link_to_route('masters.show', $this->name, [$this->id], [
+            'title' => trans(
+                'app.show_detail_title',
+                ['name' => $this->name, 'type' => trans('master.master')]
+            ),
+        ]);
+    }
 }

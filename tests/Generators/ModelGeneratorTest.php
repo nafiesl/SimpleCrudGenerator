@@ -22,6 +22,16 @@ use Illuminate\Database\Eloquent\Model;
 class {$this->model_name} extends Model
 {
     protected \$fillable = ['name', 'description'];
+
+    public function nameLink()
+    {
+        return link_to_route('{$this->table_name}.show', \$this->name, [\$this->id], [
+            'title' => trans(
+                'app.show_detail_title',
+                ['name' => \$this->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
+            ),
+        ]);
+    }
 }
 ";
         $this->assertEquals($modelClassContent, file_get_contents($modelPath));
@@ -43,6 +53,16 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected \$fillable = ['name', 'description'];
+
+    public function nameLink()
+    {
+        return link_to_route('{$this->table_name}.show', \$this->name, [\$this->id], [
+            'title' => trans(
+                'app.show_detail_title',
+                ['name' => \$this->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
+            ),
+        ]);
+    }
 }
 ";
         $this->assertEquals($modelClassContent, file_get_contents($modelPath));

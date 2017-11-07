@@ -11,9 +11,17 @@ class MasterTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function it_has_name_attribute()
+    public function it_has_name_link_method()
     {
-        $singleMstr = factory(Master::class)->create(['name' => 'Master 1 name']);
-        $this->assertEquals('Master 1 name', $singleMstr->name);
+        $singleMstr = factory(Master::class)->create();
+
+        $this->assertEquals(
+            link_to_route('masters.show', $singleMstr->name, [$singleMstr->id], [
+                'title' => trans(
+                    'app.show_detail_title',
+                    ['name' => $singleMstr->name, 'type' => trans('master.master')]
+                ),
+            ]), $singleMstr->nameLink()
+        );
     }
 }

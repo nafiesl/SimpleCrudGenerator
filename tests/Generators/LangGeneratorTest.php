@@ -11,8 +11,8 @@ class LangGeneratorTest extends TestCase
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $locale           = config('app.locale');
-        $langPath         = resource_path('lang/'.$locale.'/'.$this->lang_name.'.php');
+        $locale = config('app.locale');
+        $langPath = resource_path('lang/'.$locale.'/'.$this->lang_name.'.php');
         $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->model_name)));
         $this->assertFileExists($langPath);
         $langFileContent = "<?php
@@ -53,7 +53,7 @@ return [
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $locale   = config('app.locale');
+        $locale = config('app.locale');
         $langPath = resource_path('lang/'.$locale.'/app.php');
 
         $this->assertFileExists($langPath);
@@ -61,11 +61,12 @@ return [
 
 return [
     // Labels
-    'table_no'  => '#',
-    'total'     => 'Total',
-    'action'    => 'Actions',
-    'views'     => 'Views',
-    'downloads' => 'Downloads',
+    'table_no'          => '#',
+    'total'             => 'Total',
+    'action'            => 'Actions',
+    'views'             => 'Views',
+    'downloads'         => 'Downloads',
+    'show_detail_title' => 'View :name :type detail',
 
     // Actions
     'show'           => 'View Detail',

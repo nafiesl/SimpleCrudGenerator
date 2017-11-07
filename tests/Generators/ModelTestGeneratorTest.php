@@ -26,10 +26,18 @@ class {$this->model_name}Test extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function it_has_name_attribute()
+    public function it_has_name_link_method()
     {
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => '{$this->model_name} 1 name']);
-        \$this->assertEquals('{$this->model_name} 1 name', \${$this->single_model_var_name}->name);
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+
+        \$this->assertEquals(
+            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}->id], [
+                'title' => trans(
+                    'app.show_detail_title',
+                    ['name' => \${$this->single_model_var_name}->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
+                ),
+            ]), \${$this->single_model_var_name}->nameLink()
+        );
     }
 }
 ";
@@ -59,10 +67,18 @@ class {$this->model_name}Test extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function it_has_name_attribute()
+    public function it_has_name_link_method()
     {
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => '{$this->model_name} 1 name']);
-        \$this->assertEquals('{$this->model_name} 1 name', \${$this->single_model_var_name}->name);
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+
+        \$this->assertEquals(
+            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}->id], [
+                'title' => trans(
+                    'app.show_detail_title',
+                    ['name' => \${$this->single_model_var_name}->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
+                ),
+            ]), \${$this->single_model_var_name}->nameLink()
+        );
     }
 }
 ";
