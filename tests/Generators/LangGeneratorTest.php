@@ -22,6 +22,7 @@ return [
     '{$this->lang_name}'     => '{$displayModelName}',
     'list'           => '{$displayModelName} List',
     'search'         => 'Search {$displayModelName}',
+    'detail'         => '{$displayModelName} Detail',
     'not_found'      => '{$displayModelName} not found.',
     'empty'          => '{$displayModelName} is empty.',
     'back_to_show'   => 'Back to {$displayModelName} Detail',
@@ -30,7 +31,7 @@ return [
     // Actions
     'create'         => 'Create new {$displayModelName}',
     'created'        => 'Create new {$displayModelName} succeded.',
-    'show'           => '{$displayModelName} Detail',
+    'show'           => 'View {$displayModelName} Detail',
     'edit'           => 'Edit {$displayModelName}',
     'update'         => 'Update {$displayModelName}',
     'updated'        => 'Update {$displayModelName} succeded.',

@@ -5,6 +5,7 @@ return [
     'master'     => 'Master',
     'list'           => 'Master List',
     'search'         => 'Search Master',
+    'detail'         => 'Master Detail',
     'not_found'      => 'Master not found.',
     'empty'          => 'Master is empty.',
     'back_to_show'   => 'Back to Master Detail',
@@ -13,7 +14,7 @@ return [
     // Actions
     'create'         => 'Create new Master',
     'created'        => 'Create new Master succeded.',
-    'show'           => 'Master Detail',
+    'show'           => 'View Master Detail',
     'edit'           => 'Edit Master',
     'update'         => 'Update Master',
     'updated'        => 'Update Master succeded.',
