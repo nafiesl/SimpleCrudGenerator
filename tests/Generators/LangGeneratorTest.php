@@ -50,6 +50,50 @@ return [
     }
 
     /** @test */
+    public function it_creates_correct_model_lang_content_based_on_locale_config()
+    {
+        config(['app.locale' => 'id']);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $locale = config('app.locale');
+        $langPath = resource_path('lang/'.$locale.'/'.$this->lang_name.'.php');
+        $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->model_name)));
+        $this->assertFileExists($langPath);
+        $langFileContent = "<?php
+
+return [
+    // Labels
+    '{$this->lang_name}'     => '{$displayModelName}',
+    'list'           => 'Daftar {$displayModelName}',
+    'search'         => 'Cari {$displayModelName}',
+    'detail'         => 'Detail {$displayModelName}',
+    'not_found'      => '{$displayModelName} tidak ditemukan',
+    'empty'          => 'Belum ada {$displayModelName}',
+    'back_to_show'   => 'Kembali ke detail {$displayModelName}',
+    'back_to_index'  => 'Kembali ke daftar {$displayModelName}',
+
+    // Actions
+    'create'         => 'Input {$displayModelName} Baru',
+    'created'        => 'Input {$displayModelName} baru telah berhasil.',
+    'show'           => 'Lihat Detail {$displayModelName}',
+    'edit'           => 'Edit {$displayModelName}',
+    'update'         => 'Update {$displayModelName}',
+    'updated'        => 'Update data {$displayModelName} telah berhasil.',
+    'delete'         => 'Hapus {$displayModelName}',
+    'delete_confirm' => 'Anda yakin akan menghapus {$displayModelName} ini?',
+    'deleted'        => 'Hapus data {$displayModelName} telah berhasil.',
+    'undeleted'      => 'Data {$displayModelName} gagal dihapus.',
+    'undeleteable'   => 'Data {$displayModelName} tidak dapat dihapus.',
+
+    // Attributes
+    'name'           => 'Nama {$displayModelName}',
+    'description'    => 'Deskripsi {$displayModelName}',
+];
+";
+        $this->assertEquals($langFileContent, file_get_contents($langPath));
+    }
+
+    /** @test */
     public function it_creates_app_lang_if_it_doesnt_exists()
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);

@@ -26,7 +26,15 @@ class LangFileGenerator extends BaseGenerator
      */
     protected function getContent()
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/lang.stub');
+        $locale = config('app.locale');
+
+        $langStubPath = __DIR__.'/../stubs/lang-'.$locale.'.stub';
+
+        if ($this->files->exists($langStubPath)) {
+            $stub = $this->files->get($langStubPath);
+        } else {
+            $stub = $this->files->get(__DIR__.'/../stubs/lang.stub');
+        }
 
         $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->modelNames['model_name'])));
 
@@ -47,7 +55,7 @@ class LangFileGenerator extends BaseGenerator
      */
     private function createAppLangFile($langPath)
     {
-        if ( ! $this->files->exists($langPath.'/app.php')) {
+        if (!$this->files->exists($langPath.'/app.php')) {
             $this->generateFile($langPath.'/app.php', $this->getAppLangFileContent());
             $this->command->info('lang/app.php generated.');
         }
