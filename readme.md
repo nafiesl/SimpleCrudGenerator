@@ -3,8 +3,6 @@
 
 An artisan `make:crud` command to create a simple CRUD feature on your Laravel 5.5 application.
 
-> **Development in progress**
-
 ## About this package
 With this package installed on local environment, we can use (e.g.) `php artisan make:crud Vehicle` command to generate some files :
 - `App\Vehicle.php` eloquent model
@@ -26,33 +24,22 @@ It will also create this file **if it not exists** :
 - `resources/lang/app.php` lang file if it not exists
 - `tests/BrowserKitTest.php` base Feature TestCase class if it not exists
 
-The **Model and table** will only have 2 pre-definded attributes or columns : `name` and `description` on each generated model and database table.
+## Main purpose
 
-## Attention
-- You need a `resources/views/layouts/app.blade.php` view file, simply create one with `php artisan make:auth` command.
-- Use this package on new Laravel project for simulation.
-- It will creates the **Model** class file, ~don't use it to generate files for existing Model~ it cancel the command if the **Model already exists**.
-- This package still in development
+The main purpose of this package is for faster **Test-driven Development**, it generates model CRUD scaffolds complete with Testing Classes which will use [Laravel Browserkit Testing](https://github.com/laravel/browser-kit-testing) package and [PHPUnit](https://packagist.org/packages/phpunit/phpunit) version 6.
+
+#### Model Attribute/column
+
+The Model and table will **only have 2** pre-definded attributes or columns : **name** and **description** on each generated model and database table. You can continue working on other column on the table.
 
 ## How to install
-This package has not been submitted to packagist, so we can use github repo as additional repository. To have the additional repository, we do some configiration on `composer.json` file, add this :
-
-```json
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/nafiesl/SimpleCrudGenerator.git"
-        }
-    ],
-```
-then
 
 ```bash
 # Bootstrap Form Field generator
 $ composer require luthfi/formfield
 
 # Get the package
-$ composer require luthfi/simple-crud-generator dev-master --dev
+$ composer require luthfi/simple-crud-generator --dev
 ```
 
 ## How to use
@@ -91,6 +78,40 @@ Create mysql database, set your database credential on `.env` file. Then :
 $ php artisan migrate
 $ php artisan serve
 ```
+
+## Config file
+
+By default, this package have some configuration:
+
+```php
+<?php
+
+return [
+    // The master view layout that generated views will extends
+    'default_layout_view' => 'layouts.app',
+
+    // The base test case class path for generated testing classes
+    'base_test_path' => 'tests/BrowserKitTest.php',
+
+    // The base test class full name
+    'base_test_class' => 'Tests\BrowserKitTest',
+];
+```
+
+You can configure your own by publishing the config file:
+
+```bash
+$ php artisan vendor:publish --provider="Luthfi\CrudGenerator\ServiceProvider"
+```
+
+That will generate `config/simple-crud.php` file.
+
+## Attention
+
+- The package will creates the **Model** class file, the command will stop if the **Model already exists**.
+- You need a `resources/views/layouts/app.blade.php` view file, simply create one with `php artisan make:auth` command. You can change this configuration via the `config/simple-crud.php` file.
+
+## Screenshots
 
 Visit your application in new resource route : `http://127.0.0.1:8000/vehicles`
 
