@@ -68,6 +68,15 @@ class LangFileGenerator extends BaseGenerator
      */
     private function getAppLangFileContent()
     {
-        return $this->files->get(__DIR__.'/../stubs/lang-app.stub');
+        $locale = config('app.locale');
+
+        $langStubPath = __DIR__.'/../stubs/lang-app-'.$locale.'.stub';
+
+        if ($this->files->exists($langStubPath)) {
+            $stub = $this->files->get($langStubPath);
+        } else {
+            $stub = $this->files->get(__DIR__.'/../stubs/lang-app.stub');
+        }
+        return $stub;
     }
 }

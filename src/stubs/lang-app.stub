@@ -5,8 +5,6 @@ return [
     'table_no'          => '#',
     'total'             => 'Total',
     'action'            => 'Actions',
-    'views'             => 'Views',
-    'downloads'         => 'Downloads',
     'show_detail_title' => 'View :name :type detail',
 
     // Actions

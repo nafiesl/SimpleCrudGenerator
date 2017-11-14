@@ -109,8 +109,6 @@ return [
     'table_no'          => '#',
     'total'             => 'Total',
     'action'            => 'Actions',
-    'views'             => 'Views',
-    'downloads'         => 'Downloads',
     'show_detail_title' => 'View :name :type detail',
 
     // Actions
@@ -121,6 +119,38 @@ return [
     'reset'          => 'Reset',
     'delete_confirm' => 'Are you sure to delete this?',
     'delete_confirm_button' => 'YES, delete it!',
+];
+";
+        $this->assertEquals($appLangContent, file_get_contents($langPath));
+    }
+
+    /** @test */
+    public function it_creates_app_lang_based_on_locale_if_stub_exists()
+    {
+        config(['app.locale' => 'id']);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $locale = config('app.locale');
+        $langPath = resource_path('lang/'.$locale.'/app.php');
+
+        $this->assertFileExists($langPath);
+        $appLangContent = "<?php
+
+return [
+    // Labels
+    'table_no'          => '#',
+    'total'             => 'Total',
+    'action'            => 'Pilihan',
+    'show_detail_title' => 'Lihat detail :type :name',
+
+    // Actions
+    'show'           => 'Lihat Detail',
+    'edit'           => 'Edit',
+    'delete'         => 'Hapus',
+    'cancel'         => 'Batal',
+    'reset'          => 'Reset',
+    'delete_confirm' => 'Anda yakin akan menghapus?',
+    'delete_confirm_button' => 'YA, hapus saja!',
 ];
 ";
         $this->assertEquals($appLangContent, file_get_contents($langPath));
