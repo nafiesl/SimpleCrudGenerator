@@ -1,2 +1,2 @@
 
-Route::apiResource('masters', 'MastersController');
+Route::resource('masters', 'MastersController');

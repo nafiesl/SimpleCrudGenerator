@@ -73,7 +73,9 @@ class ViewsGeneratorTest extends TestCase
         </div>
     </div>
     <div class=\"col-md-4\">
-        @includeWhen(Request::has('action'), '{$this->table_name}.forms')
+        @if(Request::has('action'))
+        @include('{$this->table_name}.forms')
+        @endif
     </div>
 </div>
 @endsection
@@ -162,7 +164,7 @@ class ViewsGeneratorTest extends TestCase
     public function generateDefaultLayoutView($defaultLayoutView)
     {
         $dataViewPathArray = explode('.', $defaultLayoutView);
-        $fileName          = array_pop($dataViewPathArray);
+        $fileName = array_pop($dataViewPathArray);
         $defaultLayoutPath = resource_path('views/'.implode('/', $dataViewPathArray));
 
         $files = app('Illuminate\Filesystem\Filesystem');

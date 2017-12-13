@@ -57,7 +57,9 @@
         </div>
     </div>
     <div class="col-md-4">
-        @includeWhen(Request::has('action'), 'masters.forms')
+        @if(Request::has('action'))
+        @include('masters.forms')
+        @endif
     </div>
 </div>
 @endsection
