@@ -1,7 +1,7 @@
 # Laravel Simple CRUD Generator
 [![Build Status](https://travis-ci.org/nafiesl/SimpleCrudGenerator.svg?branch=master)](https://travis-ci.org/nafiesl/SimpleCrudGenerator)
 
-An artisan `make:crud` command to create a simple CRUD feature on your Laravel 5.5 application.
+An artisan `make:crud` command to create a simple CRUD feature on your Laravel 5.3, 5.4, and 5.5 application.
 
 ## About this package
 With this package installed on local environment, we can use (e.g.) `php artisan make:crud Vehicle` command to generate some files :
@@ -24,7 +24,7 @@ It will also create this file **if it not exists** :
 - `resources/lang/app.php` lang file if it not exists
 - `tests/BrowserKitTest.php` base Feature TestCase class if it not exists
 
-## Main purpose
+#### Main purpose
 
 The main purpose of this package is for faster **Test-driven Development**, it generates model CRUD scaffolds complete with Testing Classes which will use [Laravel Browserkit Testing](https://github.com/laravel/browser-kit-testing) package and [PHPUnit](https://packagist.org/packages/phpunit/phpunit) version 6.
 
@@ -42,16 +42,29 @@ $ composer require luthfi/formfield
 $ composer require luthfi/simple-crud-generator --dev
 ```
 
-## How to use
-The package will **auto-discovered** in **Laravel 5.5**. Just type in terminal:
+> For Laravel 5.5, the package will **auto-discovered** and ready to go.
 
-```bash
-$ php artisan
+#### For Laravel 5.3 and 5.4
+
+Update `config/app.php`, add provider and aliases :
+
+```php
+// providers
+Luthfi\FormField\FormFieldServiceProvider::class,
+Luthfi\CrudGenerator\ServiceProvider::class,
+
+// aliases
+'FormField' => Luthfi\FormField\FormFieldFacade::class,
+'Form'      => Collective\Html\FormFacade::class,
+'Html'      => Collective\Html\HtmlFacade::class,
 ```
 
-We will find the `make:crud` command, it will `Create simple Laravel CRUD files of given model name`.
+## How to use
+Just type in terminal `$ php artisan` and we will find the `make:crud` command, it will create simple Laravel CRUD files of given **model name**.
 
 ```bash
+# For example we want to create CRUD for 'App\Vehicle' model.
+
 $ php artisan make:crud Vehicle
 
 Vehicle resource route generated on routes/web.php.
@@ -72,12 +85,14 @@ VehiclePolicyTest (model policy) generated.
 CRUD files generated successfully!
 ```
 
-Create mysql database, set your database credential on `.env` file. Then :
+Make sure we have set our database credential on `.env` file. Then :
 
 ```bash
 $ php artisan migrate
 $ php artisan serve
 ```
+
+Then visit our application url: `http://localhost:8000/vehicles`.
 
 ## Config file
 
@@ -132,6 +147,8 @@ Next, to use the generated testing classes, we can set the database environment 
 </phpunit>
 ```
 
+> If you are using Laravel 5.3, you need some [additional configuration](#only-for-laravel-53).
+
 Then run PHPUnit
 
 ```bash
@@ -141,6 +158,46 @@ $ vendor/bin/phpunit
 All tests should be passed.
 
 ![Generated Testing Suite on Simple CRUD Generator](screenshots/simple-crud-generator-02.jpg)
+
+#### ONLY for Laravel 5.3
+
+Before start using the package on Laravel 5.3, we need some configuration to make testing works (since it still has BrowserKit Testing features, we will use existing Laravel BaseTest Class and PHPUnit 5.7).
+
+```bash
+$ vendor:publish --provider='Luthfi\CrudGenerator\ServiceProvider'
+```
+
+Then on `config/simple-crud.php` edit "base_test_path" and "base_test_class" value:
+
+```php
+// config/simple-crud.php
+
+    'base_test_path' => 'tests/TestCase.php',
+    'base_test_class' => 'TestCase',
+```
+
+Then add **loginAsUser** method on `tests/TestCase.php` file :
+
+```php
+<?php
+
+use App\User;
+
+abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
+{
+    // ... method createApplication()
+
+    protected function loginAsUser()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
+        return $user;
+    }
+}
+```
+
+Done, you may continue to [try the testing suite](#lets-try-the-generated-testing-suite). Please [let me know](https://github.com/nafiesl/SimpleCrudGenerator/issues/new) if this configuration had **any issue**.
 
 ## License
 
