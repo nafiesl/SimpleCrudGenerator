@@ -8,4 +8,4 @@ before_script:
   - travis_retry composer install --prefer-source --no-interaction
 
 script:
-  - vendor/bin/phpunit
+  - phpunit --bootstrap=vendor/autoload.php tests
