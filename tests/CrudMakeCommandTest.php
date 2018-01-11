@@ -11,7 +11,7 @@ class CrudMakeCommandTest extends TestCase
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertNotRegExp("/{$this->model_name} model already exists./", app(Kernel::class)->output());
+        $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->plural_model_name}Controller.php"));
@@ -25,11 +25,11 @@ class CrudMakeCommandTest extends TestCase
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
 
-        $this->assertFileExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileExists(base_path("routes/web.php"));
         $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
-        $this->assertFileExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
+        $this->assertFileExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$this->model_name}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
     }
 
     /** @test */
@@ -38,7 +38,7 @@ class CrudMakeCommandTest extends TestCase
         $this->artisan('make:model', ['name' => $this->model_name, '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertRegExp("/{$this->model_name} model already exists./", app(Kernel::class)->output());
+        $this->assertContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
         $this->assertFileNotExists(app_path("Http/Controllers/{$this->plural_model_name}Controller.php"));
@@ -52,11 +52,11 @@ class CrudMakeCommandTest extends TestCase
         $localeConfig = config('app.locale');
         $this->assertFileNotExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
 
-        $this->assertFileNotExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileNotExists(base_path("routes/web.php"));
         $this->assertFileNotExists(app_path("Policies/{$this->model_name}Policy.php"));
-        $this->assertFileNotExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
+        $this->assertFileNotExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileNotExists(base_path("tests/Unit/Models/{$this->model_name}Test.php"));
+        $this->assertFileNotExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class CrudMakeCommandTest extends TestCase
         $this->artisan('make:model', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
 
-        $this->assertRegExp("/Problem model already exists./", app(Kernel::class)->output());
+        $this->assertContains("Problem model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path('Entities/Projects/Problem.php'));
         $this->assertFileNotExists(app_path("Http/Controllers/ProblemsController.php"));
@@ -79,10 +79,10 @@ class CrudMakeCommandTest extends TestCase
         $localeConfig = config('app.locale');
         $this->assertFileNotExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
 
-        $this->assertFileNotExists(database_path("factories/ProblemFactory.php"));
         $this->assertFileNotExists(app_path("Policies/ProblemPolicy.php"));
-        $this->assertFileNotExists(base_path("tests/Feature/ManageProblemsTest.php"));
+        $this->assertFileNotExists(database_path("factories/ProblemFactory.php"));
         $this->assertFileNotExists(base_path("tests/Unit/Models/ProblemTest.php"));
+        $this->assertFileNotExists(base_path("tests/Feature/ManageProblemsTest.php"));
 
         $this->removeFileOrDir(app_path('Entities/Projects'));
         $this->removeFileOrDir(resource_path('views/problems'));
@@ -101,7 +101,7 @@ class CrudMakeCommandTest extends TestCase
 
         $this->artisan('make:crud', ['name' => $inputName, '--no-interaction' => true]);
 
-        $this->assertNotRegExp("/{$modelName} model already exists./", app(Kernel::class)->output());
+        $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($modelPath.'/'.$modelName.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$pluralModelName}Controller.php"));
@@ -115,10 +115,10 @@ class CrudMakeCommandTest extends TestCase
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
 
-        $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
         $this->assertFileExists(app_path("Policies/{$modelName}Policy.php"));
-        $this->assertFileExists(base_path("tests/Feature/Manage{$pluralModelName}Test.php"));
+        $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Manage{$pluralModelName}Test.php"));
     }
 
     /** @test */
@@ -134,7 +134,7 @@ class CrudMakeCommandTest extends TestCase
 
         $this->artisan('make:crud', ['name' => $inputName, '--parent' => $parentName, '--no-interaction' => true]);
 
-        $this->assertNotRegExp("/{$modelName} model already exists./", app(Kernel::class)->output());
+        $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($modelPath.'/'.$modelName.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$parentName}/{$pluralModelName}Controller.php"));
@@ -149,8 +149,8 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
 
         $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
+        $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
         $this->assertFileExists(app_path("Policies/{$parentName}/{$modelName}Policy.php"));
         $this->assertFileExists(base_path("tests/Feature/Manage{$pluralModelName}Test.php"));
-        $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
     }
 }

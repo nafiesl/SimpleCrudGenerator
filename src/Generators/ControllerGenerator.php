@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Controller Generator Class
-*/
+ * Controller Generator Class
+ */
 class ControllerGenerator extends BaseGenerator
 {
     /**
@@ -13,7 +13,7 @@ class ControllerGenerator extends BaseGenerator
     public function generate()
     {
         $parentControllerDirectory = '';
-        if (! is_null($this->command->option('parent'))) {
+        if (!is_null($this->command->option('parent'))) {
             $parentControllerDirectory = '/'.$this->command->option('parent');
         }
         $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
@@ -33,15 +33,17 @@ class ControllerGenerator extends BaseGenerator
 
         $controllerFileContent = $this->replaceStubString($stub);
 
-        if (! is_null($parentName = $this->command->option('parent'))) {
+        if (!is_null($parentName = $this->command->option('parent'))) {
             $searches = [
                 'App\Http\Controllers;',
-                "use {$this->modelNames['full_model_name']};\n"
+                "use {$this->modelNames['full_model_name']};\n",
             ];
 
+            $appNamespace = $this->getAppNamespace();
+
             $replacements = [
-                "App\Http\Controllers\\{$parentName};",
-                "use {$this->modelNames['full_model_name']};\nuse App\Http\Controllers\Controller;\n"
+                "{$appNamespace}Http\Controllers\\{$parentName};",
+                "use {$this->modelNames['full_model_name']};\nuse {$appNamespace}Http\Controllers\Controller;\n",
             ];
 
             $controllerFileContent = str_replace(

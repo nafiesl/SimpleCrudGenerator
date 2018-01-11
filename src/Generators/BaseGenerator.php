@@ -2,14 +2,17 @@
 
 namespace Luthfi\CrudGenerator\Generators;
 
+use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Filesystem\Filesystem;
 use Luthfi\CrudGenerator\CrudMake;
 
 /**
-* Base Generator Class
-*/
+ * Base Generator Class
+ */
 abstract class BaseGenerator
 {
+    use DetectsApplicationNamespace;
+
     /**
      * The injected Filesystem class
      *
@@ -56,14 +59,14 @@ abstract class BaseGenerator
     protected function getStubModelNames()
     {
         return $this->stubModelNames = [
-            'model_namespace' => 'mstrNmspc',
-            'full_model_name' => 'fullMstr',
-            'plural_model_name' => 'Masters',
-            'model_name' => 'Master',
-            'table_name' => 'masters',
-            'lang_name' => 'master',
+            'model_namespace'           => 'mstrNmspc',
+            'full_model_name'           => 'fullMstr',
+            'plural_model_name'         => 'Masters',
+            'model_name'                => 'Master',
+            'table_name'                => 'masters',
+            'lang_name'                 => 'master',
             'collection_model_var_name' => 'mstrCollections',
-            'single_model_var_name' => 'singleMstr',
+            'single_model_var_name'     => 'singleMstr',
         ];
     }
 
@@ -88,7 +91,7 @@ abstract class BaseGenerator
      */
     protected function makeDirectory($path)
     {
-        if (! $this->files->isDirectory($path)) {
+        if (!$this->files->isDirectory($path)) {
             $this->files->makeDirectory($path, 0777, true, true);
         }
 
