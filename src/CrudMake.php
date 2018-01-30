@@ -71,7 +71,7 @@ class CrudMake extends Command
      *
      * @var string
      */
-    protected $signature = 'make:crud {name} {--parent=} {--tests-only}';
+    protected $signature = 'make:crud {name} {--p|parent=} {--t|tests-only}';
 
     /**
      * The console command description.
