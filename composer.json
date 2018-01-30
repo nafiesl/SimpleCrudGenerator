@@ -1,6 +1,6 @@
 {
     "name": "luthfi/simple-crud-generator",
-    "description": "A simple CRUD generator for Laravel 5.3, 5.4, and 5.5.",
+    "description": "A simple CRUD generator for Laravel 5.4 and 5.5.",
     "keywords": ["crud-generator", "artisan-command", "laravel-package", "crud", "testing", "tdd-workflow"],
     "license": "MIT",
     "authors": [
@@ -20,8 +20,8 @@
         }
     },
     "require": {
-        "php": ">=5.6.4",
-        "illuminate/support": "5.3.* || 5.4.* || 5.5.*",
+        "php": ">=7.0.0",
+        "illuminate/support": "5.4.* || 5.5.*",
         "laravel/browser-kit-testing": "^2.0"
     },
     "require-dev": {

@@ -1,7 +1,7 @@
 # Laravel Simple CRUD Generator
 [![Build Status](https://travis-ci.org/nafiesl/SimpleCrudGenerator.svg?branch=master)](https://travis-ci.org/nafiesl/SimpleCrudGenerator)
 
-An artisan `make:crud` command to create a simple CRUD feature on your Laravel 5.3, 5.4, and 5.5 application.
+An artisan `make:crud` command to create a simple CRUD feature on your Laravel 5.4 and 5.5 application.
 
 ## About this package
 With this package installed on local environment, we can use (e.g.) `php artisan make:crud Vehicle` command to generate some files :
@@ -44,7 +44,7 @@ $ composer require luthfi/simple-crud-generator --dev
 
 > For Laravel 5.5, the package will **auto-discovered** and ready to go.
 
-#### For Laravel 5.3 and 5.4
+#### For Laravel 5.4
 
 Update `config/app.php`, add provider and aliases :
 
@@ -147,8 +147,6 @@ Next, to use the generated testing classes, we can set the database environment 
 </phpunit>
 ```
 
-> If you are using Laravel 5.3, you need some [additional configuration](#only-for-laravel-53).
-
 Then run PHPUnit
 
 ```bash
@@ -158,46 +156,6 @@ $ vendor/bin/phpunit
 All tests should be passed.
 
 ![Generated Testing Suite on Simple CRUD Generator](screenshots/simple-crud-generator-02.jpg)
-
-#### ONLY for Laravel 5.3
-
-Before start using the package on Laravel 5.3, we need some configuration to make testing works (since it still has BrowserKit Testing features, we will use existing Laravel BaseTest Class and PHPUnit 5.7).
-
-```bash
-$ vendor:publish --provider='Luthfi\CrudGenerator\ServiceProvider'
-```
-
-Then on `config/simple-crud.php` edit "base_test_path" and "base_test_class" value:
-
-```php
-// config/simple-crud.php
-
-    'base_test_path' => 'tests/TestCase.php',
-    'base_test_class' => 'TestCase',
-```
-
-Then add **loginAsUser** method on `tests/TestCase.php` file :
-
-```php
-<?php
-
-use App\User;
-
-abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
-{
-    // ... method createApplication()
-
-    protected function loginAsUser()
-    {
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
-
-        return $user;
-    }
-}
-```
-
-Done, you may continue to [try the testing suite](#lets-try-the-generated-testing-suite). Please [let me know](https://github.com/nafiesl/SimpleCrudGenerator/issues/new) if this configuration had **any issue**.
 
 ## License
 
