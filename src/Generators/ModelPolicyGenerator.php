@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Model Policy Generator Class
-*/
+ * Model Policy Generator Class
+ */
 class ModelPolicyGenerator extends BaseGenerator
 {
     /**
@@ -13,7 +13,7 @@ class ModelPolicyGenerator extends BaseGenerator
     public function generate()
     {
         $parentDirectory = '';
-        if (! is_null($this->command->option('parent'))) {
+        if (!is_null($this->command->option('parent'))) {
             $parentDirectory = '/'.$this->command->option('parent');
         }
         $modelPolicyPath = $this->makeDirectory(app_path('Policies'.$parentDirectory));
@@ -43,10 +43,18 @@ class ModelPolicyGenerator extends BaseGenerator
             $policyFileContent = str_replace('App\User', $userModel, $policyFileContent);
         }
 
-        if (! is_null($parentName = $this->command->option('parent'))) {
+        $appNamespace = $this->getAppNamespace();
+
+        $policyFileContent = str_replace(
+            "App\Policies;",
+            "{$appNamespace}Policies;",
+            $policyFileContent
+        );
+
+        if (!is_null($parentName = $this->command->option('parent'))) {
             $policyFileContent = str_replace(
-                'App\Policies;',
-                "App\Policies\\{$parentName};",
+                "{$appNamespace}Policies;",
+                "{$appNamespace}Policies\\{$parentName};",
                 $policyFileContent
             );
         }
@@ -67,13 +75,15 @@ class ModelPolicyGenerator extends BaseGenerator
 
         $authSPContent = $this->files->get($authSPPath);
 
-        if (! is_null($parentName = $this->command->option('parent'))) {
+        if (!is_null($parentName = $this->command->option('parent'))) {
             $modelName = $parentName.'\\'.$modelName;
         }
 
+        $appNamespace = rtrim($this->getAppNamespace(), '\\');
+
         $authSPContent = str_replace(
             "    protected \$policies = [\n",
-            "    protected \$policies = [\n        '{$fullModelName}' => 'App\Policies\\{$modelName}Policy',\n",
+            "    protected \$policies = [\n        '{$fullModelName}' => '{$appNamespace}\Policies\\{$modelName}Policy',\n",
             $authSPContent
         );
 
@@ -92,7 +102,7 @@ class ModelPolicyGenerator extends BaseGenerator
     {
         $routeDirPath = $this->makeDirectory($routeDirPath);
 
-        if (! $this->files->exists($routeDirPath.'/'.$filename)) {
+        if (!$this->files->exists($routeDirPath.'/'.$filename)) {
             $this->generateFile(
                 $routeDirPath.'/'.$filename,
                 $this->files->get(__DIR__.'/../stubs/AuthServiceProvider.stub')

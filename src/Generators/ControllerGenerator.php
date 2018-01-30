@@ -33,13 +33,19 @@ class ControllerGenerator extends BaseGenerator
 
         $controllerFileContent = $this->replaceStubString($stub);
 
+        $appNamespace = $this->getAppNamespace();
+
+        $controllerFileContent = str_replace(
+            "App\Http\Controllers;",
+            "{$appNamespace}Http\Controllers;",
+            $controllerFileContent
+        );
+
         if (!is_null($parentName = $this->command->option('parent'))) {
             $searches = [
-                'App\Http\Controllers;',
+                "{$appNamespace}Http\Controllers;",
                 "use {$this->modelNames['full_model_name']};\n",
             ];
-
-            $appNamespace = $this->getAppNamespace();
 
             $replacements = [
                 "{$appNamespace}Http\Controllers\\{$parentName};",

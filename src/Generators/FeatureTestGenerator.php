@@ -16,7 +16,7 @@ class FeatureTestGenerator extends BaseGenerator
 
         $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
         $this->generateFile("{$featureTestPath}/Manage{$this->modelNames['plural_model_name']}Test.php", $this->getContent());
-        $this->command->info('Manage' . $this->modelNames['plural_model_name'] . 'Test generated.');
+        $this->command->info('Manage'.$this->modelNames['plural_model_name'].'Test generated.');
     }
 
     /**
@@ -24,9 +24,9 @@ class FeatureTestGenerator extends BaseGenerator
      */
     protected function getContent()
     {
-        $stub          = $this->files->get(__DIR__ . '/../stubs/test-feature.stub');
+        $stub = $this->files->get(__DIR__.'/../stubs/test-feature.stub');
         $baseTestClass = config('simple-crud.base_test_class');
-        $stub          = str_replace('use Tests\BrowserKitTest', 'use ' . $baseTestClass, $stub);
+        $stub = str_replace('use Tests\BrowserKitTest', 'use '.$baseTestClass, $stub);
         return $this->replaceStubString($stub);
     }
 
@@ -42,13 +42,14 @@ class FeatureTestGenerator extends BaseGenerator
             $this->files->makeDirectory($testsPath, 0777, true, true);
         }
 
-        $baseTestPath  = base_path(config('simple-crud.base_test_path'));
+        $userModel = config('auth.providers.users.model');
+        $baseTestPath = base_path(config('simple-crud.base_test_path'));
         $baseTestClass = class_basename(config('simple-crud.base_test_class'));
 
         if (!$this->files->exists($baseTestPath)) {
             $browserKitTestClassContent = str_replace(
-                'class BrowserKitTest extends',
-                "class {$baseTestClass} extends",
+                ['class BrowserKitTest extends', 'App\User'],
+                ["class {$baseTestClass} extends", $userModel],
                 $this->getBrowserKitBaseTestContent()
             );
 
@@ -65,6 +66,6 @@ class FeatureTestGenerator extends BaseGenerator
      */
     public function getBrowserKitBaseTestContent()
     {
-        return $this->files->get(__DIR__ . '/../stubs/test-browserkit-base-class.stub');
+        return $this->files->get(__DIR__.'/../stubs/test-browserkit-base-class.stub');
     }
 }

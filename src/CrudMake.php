@@ -3,6 +3,7 @@
 namespace Luthfi\CrudGenerator;
 
 use Illuminate\Console\Command;
+use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Filesystem\Filesystem;
 use Luthfi\CrudGenerator\Generators\ControllerGenerator;
 use Luthfi\CrudGenerator\Generators\FeatureTestGenerator;
@@ -19,6 +20,8 @@ use Luthfi\CrudGenerator\Generators\WebRouteGenerator;
 
 class CrudMake extends Command
 {
+    use DetectsApplicationNamespace;
+
     /**
      * The injected Filesystem class
      *
@@ -68,14 +71,14 @@ class CrudMake extends Command
      *
      * @var string
      */
-    protected $signature = 'make:crud {name} {--parent=}';
+    protected $signature = 'make:crud {name} {--parent=} {--tests-only}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create simple Laravel complate CRUD files of given model name.';
+    protected $description = 'Create simple Laravel complete CRUD files of given model name.';
 
     /**
      * Execute the console command.
@@ -97,6 +100,13 @@ class CrudMake extends Command
             $this->warn(config('simple-crud.default_layout_view').' view does not exists.');
         }
 
+        if ($this->option('tests-only')) {
+            $this->generateTestFiles();
+
+            $this->info('Test files generated successfully!');
+            return;
+        }
+
         app(WebRouteGenerator::class, ['command' => $this])->generate();
         app(ModelGenerator::class, ['command' => $this])->generate();
         app(MigrationGenerator::class, ['command' => $this])->generate();
@@ -106,9 +116,8 @@ class CrudMake extends Command
         app(LangFileGenerator::class, ['command' => $this])->generate();
         app(ModelFactoryGenerator::class, ['command' => $this])->generate();
         app(ModelPolicyGenerator::class, ['command' => $this])->generate();
-        app(FeatureTestGenerator::class, ['command' => $this])->generate();
-        app(ModelTestGenerator::class, ['command' => $this])->generate();
-        app(ModelPolicyTestGenerator::class, ['command' => $this])->generate();
+
+        $this->generateTestFiles();
 
         $this->info('CRUD files generated successfully!');
     }
@@ -120,11 +129,11 @@ class CrudMake extends Command
      */
     public function getModelName($modelName = null)
     {
-        $modelName         = is_null($modelName) ? $this->argument('name') : $modelName;
-        $model_name        = ucfirst(class_basename($modelName));
+        $modelName = is_null($modelName) ? $this->argument('name') : $modelName;
+        $model_name = ucfirst(class_basename($modelName));
         $plural_model_name = str_plural($model_name);
-        $modelPath         = $this->getModelPath($modelName);
-        $modelNamespace    = $this->getModelNamespace($modelPath);
+        $modelPath = $this->getModelPath($modelName);
+        $modelNamespace = $this->getModelNamespace($modelPath);
 
         return $this->modelNames = [
             'model_namespace'           => $modelNamespace,
@@ -161,7 +170,8 @@ class CrudMake extends Command
      */
     protected function getModelNamespace($modelPath)
     {
-        $modelNamespace = str_replace('/', '\\', 'App/'.ucfirst($modelPath));
+        $appNamespace = trim($this->getAppNamespace(), '\\');
+        $modelNamespace = str_replace('/', '\\', $appNamespace.'/'.ucfirst($modelPath));
         return $modelNamespace == 'App\\' ? 'App' : $modelNamespace;
     }
 
@@ -184,8 +194,20 @@ class CrudMake extends Command
      */
     public function defaultLayoutNotExists()
     {
-        return  ! $this->files->exists(
+        return !$this->files->exists(
             resource_path('views/'.str_replace('.', '/', config('simple-crud.default_layout_view')).'.blade.php')
         );
+    }
+
+    /**
+     * Generate test files
+     *
+     * @return void
+     */
+    public function generateTestFiles()
+    {
+        app(ModelTestGenerator::class, ['command' => $this])->generate();
+        app(FeatureTestGenerator::class, ['command' => $this])->generate();
+        app(ModelPolicyTestGenerator::class, ['command' => $this])->generate();
     }
 }

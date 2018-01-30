@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Web Route Generator Class
-*/
+ * Web Route Generator Class
+ */
 class WebRouteGenerator extends BaseGenerator
 {
     /**
@@ -27,7 +27,7 @@ class WebRouteGenerator extends BaseGenerator
 
         $webRouteFileContent = $this->replaceStubString($stub);
 
-        if (! is_null($parentName = $this->command->option('parent'))) {
+        if (!is_null($parentName = $this->command->option('parent'))) {
             $pluralModelName = $this->modelNames['plural_model_name'];
 
             $webRouteFileContent = str_replace(
@@ -48,11 +48,11 @@ class WebRouteGenerator extends BaseGenerator
      */
     protected function makeRouteFile($routeDirPath, $filename)
     {
-        if (! $this->files->isDirectory($routeDirPath)) {
+        if (!$this->files->isDirectory($routeDirPath)) {
             $this->files->makeDirectory($routeDirPath, 0777, true, true);
         }
 
-        if (! $this->files->exists($routeDirPath.'/'.$filename)) {
+        if (!$this->files->exists($routeDirPath.'/'.$filename)) {
             $this->generateFile($routeDirPath.'/'.$filename, "<?php\n");
         }
 
