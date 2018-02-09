@@ -48,6 +48,8 @@ class {$this->plural_model_name}Controller extends Controller
      */
     public function store(Request \$request)
     {
+        \$this->authorize('create', new {$this->model_name});
+
         \$this->validate(\$request, [
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
@@ -67,6 +69,8 @@ class {$this->plural_model_name}Controller extends Controller
      */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
+        \$this->authorize('update', \${$this->single_model_var_name});
+
         \$this->validate(\$request, [
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
@@ -87,6 +91,8 @@ class {$this->plural_model_name}Controller extends Controller
      */
     public function destroy({$this->model_name} \${$this->single_model_var_name})
     {
+        \$this->authorize('delete', \${$this->single_model_var_name});
+
         \$this->validate(request(), [
             '{$this->lang_name}_id' => 'required',
         ]);
@@ -146,6 +152,8 @@ class CategoriesController extends Controller
      */
     public function store(Request \$request)
     {
+        \$this->authorize('create', new Category);
+
         \$this->validate(\$request, [
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
@@ -165,6 +173,8 @@ class CategoriesController extends Controller
      */
     public function update(Request \$request, Category \$category)
     {
+        \$this->authorize('update', \$category);
+
         \$this->validate(\$request, [
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
@@ -185,6 +195,8 @@ class CategoriesController extends Controller
      */
     public function destroy(Category \$category)
     {
+        \$this->authorize('delete', \$category);
+
         \$this->validate(request(), [
             'category_id' => 'required',
         ]);
@@ -245,6 +257,8 @@ class CategoriesController extends Controller
      */
     public function store(Request \$request)
     {
+        \$this->authorize('create', new Category);
+
         \$this->validate(\$request, [
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
@@ -264,6 +278,8 @@ class CategoriesController extends Controller
      */
     public function update(Request \$request, Category \$category)
     {
+        \$this->authorize('update', \$category);
+
         \$this->validate(\$request, [
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
@@ -284,6 +300,8 @@ class CategoriesController extends Controller
      */
     public function destroy(Category \$category)
     {
+        \$this->authorize('delete', \$category);
+
         \$this->validate(request(), [
             'category_id' => 'required',
         ]);
