@@ -92,16 +92,16 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($formViewPath);
         $formViewContent = "@if (Request::get('action') == 'create')
     {!! Form::open(['route' => '{$this->table_name}.store']) !!}
-    {!! FormField::text('name', ['required' => true]) !!}
-    {!! FormField::textarea('description') !!}
+    {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
+    {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
     {!! Form::submit(trans('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
 @endif
 @if (Request::get('action') == 'edit' && \$editable{$this->model_name})
     {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}->id],'method' => 'patch']) !!}
-    {!! FormField::text('name', ['required' => true]) !!}
-    {!! FormField::textarea('description') !!}
+    {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
+    {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
     @if (request('q'))
         {{ Form::hidden('q', request('q')) }}
     @endif
@@ -118,6 +118,8 @@ class ViewsGeneratorTest extends TestCase
         <div class=\"panel-body\">
             <label class=\"control-label\">{{ trans('{$this->lang_name}.name') }}</label>
             <p>{{ \$editable{$this->model_name}->name }}</p>
+            <label class=\"control-label\">{{ trans('{$this->lang_name}.description') }}</label>
+            <p>{{ \$editable{$this->model_name}->description }}</p>
             {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
         </div>
         <hr style=\"margin:0\">

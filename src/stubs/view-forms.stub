@@ -1,15 +1,15 @@
 @if (Request::get('action') == 'create')
     {!! Form::open(['route' => 'masters.store']) !!}
-    {!! FormField::text('name', ['required' => true]) !!}
-    {!! FormField::textarea('description') !!}
+    {!! FormField::text('name', ['required' => true, 'label' => trans('master.name')]) !!}
+    {!! FormField::textarea('description', ['label' => trans('master.description')]) !!}
     {!! Form::submit(trans('master.create'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
 @endif
 @if (Request::get('action') == 'edit' && $editableMaster)
     {!! Form::model($editableMaster, ['route' => ['masters.update', $editableMaster->id],'method' => 'patch']) !!}
-    {!! FormField::text('name', ['required' => true]) !!}
-    {!! FormField::textarea('description') !!}
+    {!! FormField::text('name', ['required' => true, 'label' => trans('master.name')]) !!}
+    {!! FormField::textarea('description', ['label' => trans('master.description')]) !!}
     @if (request('q'))
         {{ Form::hidden('q', request('q')) }}
     @endif
@@ -26,6 +26,8 @@
         <div class="panel-body">
             <label class="control-label">{{ trans('master.name') }}</label>
             <p>{{ $editableMaster->name }}</p>
+            <label class="control-label">{{ trans('master.description') }}</label>
+            <p>{{ $editableMaster->description }}</p>
             {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
         </div>
         <hr style="margin:0">
