@@ -56,15 +56,19 @@ class Category extends Model
 
     public function nameLink()
     {
-        return link_to_route('{$this->table_name}.show', \$this->name, [\$this->id], [
+        return link_to_route('categories.show', \$this->name, [\$this->id], [
             'title' => trans(
                 'app.show_detail_title',
-                ['name' => \$this->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
+                ['name' => \$this->name, 'type' => trans('category.category')]
             ),
         ]);
     }
 }
 ";
         $this->assertEquals($modelClassContent, file_get_contents($modelPath));
+
+        // tearDown
+        $this->removeFileOrDir(resource_path('views/categories'));
+        $this->removeFileOrDir(resource_path("lang/en/category.php"));
     }
 }
