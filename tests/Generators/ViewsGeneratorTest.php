@@ -21,7 +21,9 @@ class ViewsGeneratorTest extends TestCase
 @section('content')
 <h1 class=\"page-header\">
     <div class=\"pull-right\">
+    @can('create', new {$this->full_model_name})
         {{ link_to_route('{$this->table_name}.index', trans('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+    @endcan
     </div>
     {{ trans('{$this->lang_name}.list') }}
     <small>{{ trans('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ trans('{$this->lang_name}.{$this->lang_name}') }}</small>
@@ -52,18 +54,22 @@ class ViewsGeneratorTest extends TestCase
                         <td>{{ \${$this->single_model_var_name}->name }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
+                        @can('update', \${$this->single_model_var_name})
                             {!! link_to_route(
                                 '{$this->table_name}.index',
                                 trans('app.edit'),
                                 ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
                                 ['id' => 'edit-{$this->single_model_var_name}-' . \${$this->single_model_var_name}->id]
                             ) !!} |
+                        @endcan
+                        @can('delete', \${$this->single_model_var_name})
                             {!! link_to_route(
                                 '{$this->table_name}.index',
                                 trans('app.delete'),
                                 ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
                                 ['id' => 'del-{$this->single_model_var_name}-' . \${$this->single_model_var_name}->id]
                             ) !!}
+                        @endcan
                         </td>
                     </tr>
                     @endforeach
@@ -90,7 +96,7 @@ class ViewsGeneratorTest extends TestCase
 
         $formViewPath = resource_path("views/{$this->table_name}/forms.blade.php");
         $this->assertFileExists($formViewPath);
-        $formViewContent = "@if (Request::get('action') == 'create')
+        $formViewContent = "@if (Request::get('action') == 'create' && auth()->user()->can('create', new {$this->full_model_name}))
     {!! Form::open(['route' => '{$this->table_name}.store']) !!}
     {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
     {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
@@ -98,7 +104,7 @@ class ViewsGeneratorTest extends TestCase
     {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
 @endif
-@if (Request::get('action') == 'edit' && \$editable{$this->model_name})
+@if (Request::get('action') == 'edit' && \$editable{$this->model_name} && auth()->user()->can('update', \$editable{$this->model_name}))
     {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}->id],'method' => 'patch']) !!}
     {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
     {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
@@ -112,7 +118,7 @@ class ViewsGeneratorTest extends TestCase
     {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
 @endif
-@if (Request::get('action') == 'delete' && \$editable{$this->model_name})
+@if (Request::get('action') == 'delete' && \$editable{$this->model_name} && auth()->user()->can('delete', \$editable{$this->model_name}))
     <div class=\"panel panel-default\">
         <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.delete') }}</h3></div>
         <div class=\"panel-body\">

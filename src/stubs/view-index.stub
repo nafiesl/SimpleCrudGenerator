@@ -5,7 +5,9 @@
 @section('content')
 <h1 class="page-header">
     <div class="pull-right">
+    @can('create', new fullMstr)
         {{ link_to_route('masters.index', trans('master.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+    @endcan
     </div>
     {{ trans('master.list') }}
     <small>{{ trans('app.total') }} : {{ $mstrCollections->total() }} {{ trans('master.master') }}</small>
@@ -36,18 +38,22 @@
                         <td>{{ $singleMstr->name }}</td>
                         <td>{{ $singleMstr->description }}</td>
                         <td class="text-center">
+                        @can('update', $singleMstr)
                             {!! link_to_route(
                                 'masters.index',
                                 trans('app.edit'),
                                 ['action' => 'edit', 'id' => $singleMstr->id] + Request::only('page', 'q'),
                                 ['id' => 'edit-singleMstr-' . $singleMstr->id]
                             ) !!} |
+                        @endcan
+                        @can('delete', $singleMstr)
                             {!! link_to_route(
                                 'masters.index',
                                 trans('app.delete'),
                                 ['action' => 'delete', 'id' => $singleMstr->id] + Request::only('page', 'q'),
                                 ['id' => 'del-singleMstr-' . $singleMstr->id]
                             ) !!}
+                        @endcan
                         </td>
                     </tr>
                     @endforeach
