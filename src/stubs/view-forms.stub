@@ -1,12 +1,15 @@
-@if (Request::get('action') == 'create' && auth()->user()->can('create', new fullMstr))
+@if (Request::get('action') == 'create')
+@can('create', new fullMstr)
     {!! Form::open(['route' => 'masters.store']) !!}
     {!! FormField::text('name', ['required' => true, 'label' => trans('master.name')]) !!}
     {!! FormField::textarea('description', ['label' => trans('master.description')]) !!}
     {!! Form::submit(trans('master.create'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
+@endcan
 @endif
-@if (Request::get('action') == 'edit' && $editableMaster && auth()->user()->can('update', $editableMaster))
+@if (Request::get('action') == 'edit' && $editableMaster)
+@can('update', $editableMaster)
     {!! Form::model($editableMaster, ['route' => ['masters.update', $editableMaster->id],'method' => 'patch']) !!}
     {!! FormField::text('name', ['required' => true, 'label' => trans('master.name')]) !!}
     {!! FormField::textarea('description', ['label' => trans('master.description')]) !!}
@@ -19,8 +22,10 @@
     {!! Form::submit(trans('master.update'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
+@endcan
 @endif
-@if (Request::get('action') == 'delete' && $editableMaster && auth()->user()->can('delete', $editableMaster))
+@if (Request::get('action') == 'delete' && $editableMaster)
+@can('delete', $editableMaster)
     <div class="panel panel-default">
         <div class="panel-heading"><h3 class="panel-title">{{ trans('master.delete') }}</h3></div>
         <div class="panel-body">
@@ -46,4 +51,5 @@
             {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
         </div>
     </div>
+@endcan
 @endif

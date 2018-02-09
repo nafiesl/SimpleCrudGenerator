@@ -96,15 +96,18 @@ class ViewsGeneratorTest extends TestCase
 
         $formViewPath = resource_path("views/{$this->table_name}/forms.blade.php");
         $this->assertFileExists($formViewPath);
-        $formViewContent = "@if (Request::get('action') == 'create' && auth()->user()->can('create', new {$this->full_model_name}))
+        $formViewContent = "@if (Request::get('action') == 'create')
+@can('create', new {$this->full_model_name})
     {!! Form::open(['route' => '{$this->table_name}.store']) !!}
     {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
     {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
     {!! Form::submit(trans('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
+@endcan
 @endif
-@if (Request::get('action') == 'edit' && \$editable{$this->model_name} && auth()->user()->can('update', \$editable{$this->model_name}))
+@if (Request::get('action') == 'edit' && \$editable{$this->model_name})
+@can('update', \$editable{$this->model_name})
     {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}->id],'method' => 'patch']) !!}
     {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
     {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
@@ -117,8 +120,10 @@ class ViewsGeneratorTest extends TestCase
     {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
+@endcan
 @endif
-@if (Request::get('action') == 'delete' && \$editable{$this->model_name} && auth()->user()->can('delete', \$editable{$this->model_name}))
+@if (Request::get('action') == 'delete' && \$editable{$this->model_name})
+@can('delete', \$editable{$this->model_name})
     <div class=\"panel panel-default\">
         <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.delete') }}</h3></div>
         <div class=\"panel-body\">
@@ -144,6 +149,7 @@ class ViewsGeneratorTest extends TestCase
             {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
         </div>
     </div>
+@endcan
 @endif
 ";
         $this->assertEquals($formViewContent, file_get_contents($formViewPath));
