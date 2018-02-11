@@ -14,7 +14,11 @@ class FormViewGenerator extends BaseGenerator
     {
         $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
 
-        $this->generateFile($viewPath.'/forms.blade.php', $this->getContent('view-forms'));
+        if ($type == 'simple') {
+            $this->generateFile($viewPath.'/forms.blade.php', $this->getContent('view-forms'));
+        } else {
+            $this->generateFile($viewPath.'/create.blade.php', $this->getContent('view-create'));
+        }
 
         $this->command->info($this->modelNames['model_name'].' form view file generated.');
     }

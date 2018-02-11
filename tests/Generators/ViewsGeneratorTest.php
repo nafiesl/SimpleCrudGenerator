@@ -77,69 +77,37 @@ class ViewsGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_forms_view_content()
+    public function it_creates_correct_create_view_content()
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $formViewPath = resource_path("views/{$this->table_name}/forms.blade.php");
-        $this->assertFileExists($formViewPath);
-        $formViewContent = "@if (Request::get('action') == 'create')
-@can('create', new {$this->full_model_name})
-    {!! Form::open(['route' => '{$this->table_name}.store']) !!}
-    {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
-    {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
-    {!! Form::submit(trans('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
-    {!! Form::close() !!}
-@endcan
-@endif
-@if (Request::get('action') == 'edit' && \$editable{$this->model_name})
-@can('update', \$editable{$this->model_name})
-    {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}->id],'method' => 'patch']) !!}
-    {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
-    {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
-    @if (request('q'))
-        {{ Form::hidden('q', request('q')) }}
-    @endif
-    @if (request('page'))
-        {{ Form::hidden('page', request('page')) }}
-    @endif
-    {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
-    {!! Form::close() !!}
-@endcan
-@endif
-@if (Request::get('action') == 'delete' && \$editable{$this->model_name})
-@can('delete', \$editable{$this->model_name})
-    <div class=\"panel panel-default\">
-        <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.delete') }}</h3></div>
-        <div class=\"panel-body\">
-            <label class=\"control-label\">{{ trans('{$this->lang_name}.name') }}</label>
-            <p>{{ \$editable{$this->model_name}->name }}</p>
-            <label class=\"control-label\">{{ trans('{$this->lang_name}.description') }}</label>
-            <p>{{ \$editable{$this->model_name}->description }}</p>
-            {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
-        </div>
-        <hr style=\"margin:0\">
-        <div class=\"panel-body\">{{ trans('app.delete_confirm') }}</div>
-        <div class=\"panel-footer\">
-            {!! FormField::delete(
-                ['route'=>['{$this->table_name}.destroy',\$editable{$this->model_name}->id]],
-                trans('app.delete_confirm_button'),
-                ['class'=>'btn btn-danger'],
-                [
-                    '{$this->lang_name}_id' => \$editable{$this->model_name}->id,
-                    'page' => request('page'),
-                    'q' => request('q'),
-                ]
-            ) !!}
-            {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+        $createFormViewPath = resource_path("views/{$this->table_name}/create.blade.php");
+        $this->assertFileExists($createFormViewPath);
+        $createFormViewContent = "@extends('layouts.app')
+
+@section('title', trans('{$this->lang_name}.create'))
+
+@section('content')
+<div class=\"row\">
+    <div class=\"col-md-6 col-md-offset-3\">
+        <div class=\"panel panel-default\">
+            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.create') }}</h3></div>
+            {!! Form::open(['route' => '{$this->table_name}.store']) !!}
+            <div class=\"panel-body\">
+                {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
+                {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
+            </div>
+            <div class=\"panel-footer\">
+                {!! Form::submit(trans('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
+                {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+            </div>
+            {!! Form::close() !!}
         </div>
     </div>
-@endcan
-@endif
+</div>
+@endsection
 ";
-        $this->assertEquals($formViewContent, file_get_contents($formViewPath));
+        $this->assertEquals($createFormViewContent, file_get_contents($createFormViewPath));
     }
 
     /** @test */
