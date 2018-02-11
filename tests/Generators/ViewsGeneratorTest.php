@@ -77,6 +77,45 @@ class ViewsGeneratorTest extends TestCase
     }
 
     /** @test */
+    public function it_creates_correct_show_view_content()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $showFormViewPath = resource_path("views/{$this->table_name}/show.blade.php");
+        $this->assertFileExists($showFormViewPath);
+        $showFormViewContent = "@extends('layouts.app')
+
+@section('title', trans('{$this->lang_name}.detail'))
+
+@section('content')
+<div class=\"row\">
+    <div class=\"col-md-6 col-md-offset-3\">
+        <div class=\"panel panel-default\">
+            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.detail') }}</h3></div>
+            <table class=\"table table-condensed\">
+                <tbody>
+                    <tr>
+                        <td>{{ trans('{$this->lang_name}.name') }}</td>
+                        <td>{{ \${$this->single_model_var_name}->name }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ trans('{$this->lang_name}.description') }}</td>
+                        <td>{{ \${$this->single_model_var_name}->description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class=\"panel-footer\">
+                {{ link_to_route('{$this->table_name}.edit', trans('app.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+";
+        $this->assertEquals($showFormViewContent, file_get_contents($showFormViewPath));
+    }
+
+    /** @test */
     public function it_creates_correct_create_view_content()
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
@@ -126,14 +165,14 @@ class ViewsGeneratorTest extends TestCase
     <div class=\"col-md-6 col-md-offset-3\">
         <div class=\"panel panel-default\">
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.edit') }}</h3></div>
-            {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}->id],'method' => 'patch']) !!}
+            {!! Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}->id],'method' => 'patch']) !!}
             <div class=\"panel-body\">
                 {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
                 {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
             </div>
             <div class=\"panel-footer\">
                 {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('{$this->table_name}.show', trans('app.cancel'), [\$editable{$this->model_name}], ['class' => 'btn btn-default']) }}
+                {{ link_to_route('{$this->table_name}.show', trans('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
             </div>
             {!! Form::close() !!}
         </div>

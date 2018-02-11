@@ -109,5 +109,6 @@ class CrudMake extends GeneratorCommand
         app('Luthfi\CrudGenerator\Generators\LangFileGenerator', ['command' => $this])->generate();
         app('Luthfi\CrudGenerator\Generators\FormViewGenerator', ['command' => $this])->generate();
         app('Luthfi\CrudGenerator\Generators\IndexViewGenerator', ['command' => $this])->generate();
+        app('Luthfi\CrudGenerator\Generators\ShowViewGenerator', ['command' => $this])->generate();
     }
 }
