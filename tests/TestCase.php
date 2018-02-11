@@ -41,6 +41,7 @@ abstract class TestCase extends BaseTestCase
         $this->removeFileOrDir(app_path('Http'));
         $this->removeFileOrDir(database_path('migrations'));
         $this->removeFileOrDir(database_path('factories'));
+        $this->removeFileOrDir(resource_path('views/categories'));
         $this->removeFileOrDir(resource_path('views/'.$this->table_name));
 
         $defaultLayoutsFile = config('simple-crud.default_layout_view');
@@ -54,6 +55,7 @@ abstract class TestCase extends BaseTestCase
         $locale = config('app.locale');
         $this->removeFileOrDir(resource_path("lang/{$locale}/app.php"));
         $this->removeFileOrDir(resource_path("lang/{$locale}/{$this->lang_name}.php"));
+        $this->removeFileOrDir(resource_path("lang/{$locale}/category.php"));
 
         $this->removeFileOrDir(base_path('routes'));
         $this->removeFileOrDir(app_path('Policies'));

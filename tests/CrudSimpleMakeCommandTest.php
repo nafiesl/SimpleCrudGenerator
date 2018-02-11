@@ -63,7 +63,7 @@ class CrudSimpleCommandTest extends TestCase
     public function it_cannot_generate_crud_files_if_namespaced_model_exists()
     {
         $this->artisan('make:model', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
-        $this->artisan('make:crud', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
 
         $this->assertContains("Problem model already exists.", app(Kernel::class)->output());
 
@@ -99,7 +99,7 @@ class CrudSimpleCommandTest extends TestCase
         $langName = 'category';
         $modelPath = 'Entities/References';
 
-        $this->artisan('make:crud', ['name' => $inputName, '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => $inputName, '--no-interaction' => true]);
 
         $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
 
@@ -132,7 +132,7 @@ class CrudSimpleCommandTest extends TestCase
         $langName = 'category';
         $modelPath = 'Entities/References';
 
-        $this->artisan('make:crud', ['name' => $inputName, '--parent' => $parentName, '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => $inputName, '--parent' => $parentName, '--no-interaction' => true]);
 
         $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
 

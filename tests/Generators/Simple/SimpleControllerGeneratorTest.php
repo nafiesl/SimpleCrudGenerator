@@ -4,7 +4,7 @@ namespace Tests\Generators\Simple;
 
 use Tests\TestCase;
 
-class ControllerGeneratorTest extends TestCase
+class SimpleControllerGeneratorTest extends TestCase
 {
     /** @test */
     public function it_creates_correct_controller_class_content()

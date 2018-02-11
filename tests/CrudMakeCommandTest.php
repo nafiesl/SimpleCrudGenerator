@@ -20,7 +20,9 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileExists($migrationFilePath);
 
         $this->assertFileExists(resource_path("views/{$this->table_name}/index.blade.php"));
-        $this->assertFileExists(resource_path("views/{$this->table_name}/forms.blade.php"));
+        $this->assertFileExists(resource_path("views/{$this->table_name}/create.blade.php"));
+        $this->assertFileExists(resource_path("views/{$this->table_name}/edit.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
@@ -47,6 +49,8 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileNotExists($migrationFilePath);
 
         $this->assertFileNotExists(resource_path("views/{$this->table_name}/index.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$this->table_name}/create.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$this->table_name}/edit.blade.php"));
         $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
@@ -74,6 +78,8 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileNotExists($migrationFilePath);
 
         $this->assertFileNotExists(resource_path("views/problems/index.blade.php"));
+        $this->assertFileNotExists(resource_path("views/problems/create.blade.php"));
+        $this->assertFileNotExists(resource_path("views/problems/edit.blade.php"));
         $this->assertFileNotExists(resource_path("views/problems/forms.blade.php"));
 
         $localeConfig = config('app.locale');
@@ -110,7 +116,9 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileExists($migrationFilePath);
 
         $this->assertFileExists(resource_path("views/{$tableName}/index.blade.php"));
-        $this->assertFileExists(resource_path("views/{$tableName}/forms.blade.php"));
+        $this->assertFileExists(resource_path("views/{$tableName}/create.blade.php"));
+        $this->assertFileExists(resource_path("views/{$tableName}/edit.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$tableName}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
@@ -143,7 +151,9 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileExists($migrationFilePath);
 
         $this->assertFileExists(resource_path("views/{$tableName}/index.blade.php"));
-        $this->assertFileExists(resource_path("views/{$tableName}/forms.blade.php"));
+        $this->assertFileExists(resource_path("views/{$tableName}/create.blade.php"));
+        $this->assertFileExists(resource_path("views/{$tableName}/edit.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$tableName}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
