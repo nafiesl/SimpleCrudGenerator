@@ -45,7 +45,9 @@
             <div class="panel-footer">
                 {!! Form::submit(trans('master.update'), ['class' => 'btn btn-success']) !!}
                 {{ link_to_route('masters.show', trans('app.cancel'), [$singleMstr], ['class' => 'btn btn-default']) }}
-                {{ link_to_route('masters.edit', trans('app.delete'), [$singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-master-'.$singleMstr->id]) }}
+                @can('delete', $singleMstr)
+                    {{ link_to_route('masters.edit', trans('app.delete'), [$singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-master-'.$singleMstr->id]) }}
+                @endcan
             </div>
             {!! Form::close() !!}
         </div>

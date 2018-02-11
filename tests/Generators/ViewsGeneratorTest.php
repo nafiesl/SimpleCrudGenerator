@@ -105,7 +105,9 @@ class ViewsGeneratorTest extends TestCase
                 </tbody>
             </table>
             <div class=\"panel-footer\">
-                {{ link_to_route('{$this->table_name}.edit', trans('{$this->lang_name}.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-warning', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                @can('update', \${$this->single_model_var_name})
+                    {{ link_to_route('{$this->table_name}.edit', trans('{$this->lang_name}.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-warning', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                @endcan
                 {{ link_to_route('{$this->table_name}.index', trans('{$this->lang_name}.back_to_index'), [], ['class' => 'btn btn-default']) }}
             </div>
         </div>
@@ -204,7 +206,9 @@ class ViewsGeneratorTest extends TestCase
             <div class=\"panel-footer\">
                 {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
                 {{ link_to_route('{$this->table_name}.show', trans('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
-                {{ link_to_route('{$this->table_name}.edit', trans('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                @can('delete', \${$this->single_model_var_name})
+                    {{ link_to_route('{$this->table_name}.edit', trans('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                @endcan
             </div>
             {!! Form::close() !!}
         </div>

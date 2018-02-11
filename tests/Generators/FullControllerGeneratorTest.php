@@ -91,6 +91,8 @@ class {$this->plural_model_name}Controller extends Controller
      */
     public function edit({$this->model_name} \${$this->single_model_var_name})
     {
+        \$this->authorize('update', \${$this->single_model_var_name});
+
         return view('{$this->table_name}.edit', compact('{$this->single_model_var_name}'));
     }
 
@@ -227,6 +229,8 @@ class CategoriesController extends Controller
      */
     public function edit(Category \$category)
     {
+        \$this->authorize('update', \$category);
+
         return view('categories.edit', compact('category'));
     }
 
@@ -364,6 +368,8 @@ class CategoriesController extends Controller
      */
     public function edit(Category \$category)
     {
+        \$this->authorize('update', \$category);
+
         return view('categories.edit', compact('category'));
     }
 

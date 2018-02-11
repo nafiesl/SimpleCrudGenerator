@@ -77,6 +77,8 @@ class MastersController extends Controller
      */
     public function edit(Master $singleMstr)
     {
+        $this->authorize('update', $singleMstr);
+
         return view('masters.edit', compact('singleMstr'));
     }
 
