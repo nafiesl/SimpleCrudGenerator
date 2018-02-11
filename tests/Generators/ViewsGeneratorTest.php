@@ -22,7 +22,7 @@ class ViewsGeneratorTest extends TestCase
 <h1 class=\"page-header\">
     <div class=\"pull-right\">
     @can('create', new {$this->full_model_name})
-        {{ link_to_route('{$this->table_name}.index', trans('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+        {{ link_to_route('{$this->table_name}.create', trans('{$this->lang_name}.create'), [], ['class' => 'btn btn-success']) }}
     @endcan
     </div>
     {{ trans('{$this->lang_name}.list') }}

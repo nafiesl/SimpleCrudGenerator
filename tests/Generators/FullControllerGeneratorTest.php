@@ -65,9 +65,9 @@ class {$this->plural_model_name}Controller extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        {$this->model_name}::create(\$request->only('name', 'description'));
+        \${$this->single_model_var_name} = {$this->model_name}::create(\$request->only('name', 'description'));
 
-        return redirect()->route('{$this->table_name}.index');
+        return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
     }
 
     /**
@@ -201,9 +201,9 @@ class CategoriesController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        Category::create(\$request->only('name', 'description'));
+        \$category = Category::create(\$request->only('name', 'description'));
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.show', \$category);
     }
 
     /**
@@ -338,9 +338,9 @@ class CategoriesController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        Category::create(\$request->only('name', 'description'));
+        \$category = Category::create(\$request->only('name', 'description'));
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.show', \$category);
     }
 
     /**

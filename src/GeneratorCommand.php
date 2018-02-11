@@ -102,6 +102,7 @@ class GeneratorCommand extends Command
     {
         $appNamespace = trim($this->getAppNamespace(), '\\');
         $modelNamespace = str_replace('/', '\\', $appNamespace.'/'.ucfirst($modelPath));
+        $modelNamespace = trim($modelNamespace, '\\');
         return $modelNamespace == 'App\\' ? 'App' : $modelNamespace;
     }
 
