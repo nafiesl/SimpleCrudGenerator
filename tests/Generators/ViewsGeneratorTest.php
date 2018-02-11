@@ -111,6 +111,40 @@ class ViewsGeneratorTest extends TestCase
     }
 
     /** @test */
+    public function it_creates_correct_edit_view_content()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $editFormViewPath = resource_path("views/{$this->table_name}/edit.blade.php");
+        $this->assertFileExists($editFormViewPath);
+        $editFormViewContent = "@extends('layouts.app')
+
+@section('title', trans('{$this->lang_name}.edit'))
+
+@section('content')
+<div class=\"row\">
+    <div class=\"col-md-6 col-md-offset-3\">
+        <div class=\"panel panel-default\">
+            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.edit') }}</h3></div>
+            {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}->id],'method' => 'patch']) !!}
+            <div class=\"panel-body\">
+                {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
+                {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
+            </div>
+            <div class=\"panel-footer\">
+                {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
+                {{ link_to_route('{$this->table_name}.show', trans('app.cancel'), [\$editable{$this->model_name}], ['class' => 'btn btn-default']) }}
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+@endsection
+";
+        $this->assertEquals($editFormViewContent, file_get_contents($editFormViewPath));
+    }
+
+    /** @test */
     public function it_not_gives_warning_message_if_default_layout_view_does_exists()
     {
         $defaultLayoutView = config('simple-crud.default_layout_view');

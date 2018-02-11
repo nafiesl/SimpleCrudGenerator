@@ -18,6 +18,7 @@ class FormViewGenerator extends BaseGenerator
             $this->generateFile($viewPath.'/forms.blade.php', $this->getContent('view-forms'));
         } else {
             $this->generateFile($viewPath.'/create.blade.php', $this->getContent('view-create'));
+            $this->generateFile($viewPath.'/edit.blade.php', $this->getContent('view-edit'));
         }
 
         $this->command->info($this->modelNames['model_name'].' form view file generated.');
