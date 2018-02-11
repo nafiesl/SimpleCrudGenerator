@@ -80,12 +80,14 @@ abstract class BaseGenerator
     /**
      * Get class file content
      *
+     * @param  string $stubName Name of stub file
      * @return void
      */
-    abstract protected function getContent();
+    abstract protected function getContent(string $stubName);
 
     /**
      * Make directory if the path is not exists
+     *
      * @param  string $path Absolute path of targetted directory
      * @return string       Absolute path
      */
@@ -120,5 +122,16 @@ abstract class BaseGenerator
     protected function replaceStubString($stub)
     {
         return str_replace($this->stubModelNames, $this->command->modelNames, $stub);
+    }
+
+    /**
+     * Get correct stub file content
+     *
+     * @param  string $stubName The stub file name
+     * @return string           The stub file content
+     */
+    protected function getStubFileContent(string $stubName)
+    {
+        return $this->files->get(__DIR__.'/../stubs/'.$stubName.'.stub');
     }
 }

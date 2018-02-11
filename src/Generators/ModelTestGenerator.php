@@ -13,18 +13,23 @@ class ModelTestGenerator extends BaseGenerator
     public function generate()
     {
         $unitTestPath = $this->makeDirectory(base_path('tests/Unit/Models'));
-        $this->generateFile("{$unitTestPath}/{$this->modelNames['model_name']}Test.php", $this->getContent());
-        $this->command->info($this->modelNames['model_name'] . 'Test (model) generated.');
+
+        $this->generateFile(
+            "{$unitTestPath}/{$this->modelNames['model_name']}Test.php",
+            $this->getContent('test-unit')
+        );
+
+        $this->command->info($this->modelNames['model_name'].'Test (model) generated.');
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $stub          = $this->files->get(__DIR__ . '/../stubs/test-unit.stub');
+        $stub = $this->getStubFileContent($stubName);
         $baseTestClass = config('simple-crud.base_test_class');
-        $stub          = str_replace('use Tests\BrowserKitTest', 'use ' . $baseTestClass, $stub);
+        $stub = str_replace('use Tests\BrowserKitTest', 'use '.$baseTestClass, $stub);
         return $this->replaceStubString($stub);
     }
 }

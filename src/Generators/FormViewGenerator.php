@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Form View Generator Class
-*/
+ * Form View Generator Class
+ */
 class FormViewGenerator extends BaseGenerator
 {
     /**
@@ -14,7 +14,7 @@ class FormViewGenerator extends BaseGenerator
     {
         $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
 
-        $this->generateFile($viewPath.'/forms.blade.php', $this->getContent());
+        $this->generateFile($viewPath.'/forms.blade.php', $this->getContent('view-forms'));
 
         $this->command->info($this->modelNames['model_name'].' form view file generated.');
     }
@@ -22,9 +22,8 @@ class FormViewGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/view-forms.stub');
-        return $this->replaceStubString($stub);
+        return $this->replaceStubString($this->getStubFileContent($stubName));
     }
 }

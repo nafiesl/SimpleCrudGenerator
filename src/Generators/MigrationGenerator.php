@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Migration Generator Class
-*/
+ * Migration Generator Class
+ */
 class MigrationGenerator extends BaseGenerator
 {
     /**
@@ -18,7 +18,7 @@ class MigrationGenerator extends BaseGenerator
         $migrationPath = $this->makeDirectory(database_path('migrations'));
 
         $migrationFilePath = $migrationPath.'/'.$prefix."_create_{$tableName}_table.php";
-        $this->generateFile($migrationFilePath, $this->getContent());
+        $this->generateFile($migrationFilePath, $this->getContent('migration-create'));
 
         $this->command->info($this->modelNames['model_name'].' table migration generated.');
     }
@@ -26,9 +26,8 @@ class MigrationGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/migration-create.stub');
-        return $this->replaceStubString($stub);
+        return $this->replaceStubString($this->getStubFileContent($stubName));
     }
 }

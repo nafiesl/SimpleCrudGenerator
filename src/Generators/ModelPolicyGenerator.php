@@ -20,7 +20,7 @@ class ModelPolicyGenerator extends BaseGenerator
 
         $this->generateFile(
             $modelPolicyPath.'/'.$this->modelNames['model_name'].'Policy.php',
-            $this->getContent()
+            $this->getContent('model-policy')
         );
 
         $this->command->info($this->modelNames['model_name'].' model policy generated.');
@@ -31,9 +31,9 @@ class ModelPolicyGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/model-policy.stub');
+        $stub = $this->getStubFileContent($stubName);
 
         $policyFileContent = $this->replaceStubString($stub);
 

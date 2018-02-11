@@ -15,16 +15,21 @@ class FeatureTestGenerator extends BaseGenerator
         $this->createBrowserKitBaseTestClass();
 
         $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
-        $this->generateFile("{$featureTestPath}/Manage{$this->modelNames['plural_model_name']}Test.php", $this->getContent());
+
+        $this->generateFile(
+            "{$featureTestPath}/Manage{$this->modelNames['plural_model_name']}Test.php",
+            $this->getContent('test-feature')
+        );
+
         $this->command->info('Manage'.$this->modelNames['plural_model_name'].'Test generated.');
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/test-feature.stub');
+        $stub = $this->getStubFileContent($stubName);
         $baseTestClass = config('simple-crud.base_test_class');
         $stub = str_replace('use Tests\BrowserKitTest', 'use '.$baseTestClass, $stub);
         return $this->replaceStubString($stub);

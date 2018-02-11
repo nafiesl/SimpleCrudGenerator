@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Model Generator Class
-*/
+ * Model Generator Class
+ */
 class ModelGenerator extends BaseGenerator
 {
     /**
@@ -15,7 +15,10 @@ class ModelGenerator extends BaseGenerator
         $modelPath = $this->modelNames['model_path'];
         $modelDirectory = $this->makeDirectory(app_path($modelPath));
 
-        $this->generateFile($modelDirectory.'/'.$this->modelNames['model_name'].'.php', $this->getContent());
+        $this->generateFile(
+            $modelDirectory.'/'.$this->modelNames['model_name'].'.php',
+            $this->getContent('model')
+        );
 
         $this->command->info($this->modelNames['model_name'].' model generated.');
     }
@@ -23,9 +26,8 @@ class ModelGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/model.stub');
-        return $this->replaceStubString($stub);
+        return $this->replaceStubString($this->getStubFileContent($stubName));
     }
 }

@@ -16,7 +16,8 @@ class LangFileGenerator extends BaseGenerator
         $langPath = $this->makeDirectory(resource_path('lang/'.$locale));
 
         $this->createAppLangFile($langPath);
-        $this->generateFile($langPath.'/'.$this->modelNames['lang_name'].'.php', $this->getContent());
+
+        $this->generateFile($langPath.'/'.$this->modelNames['lang_name'].'.php', $this->getContent('lang-'.$locale));
 
         $this->command->info($this->modelNames['lang_name'].' lang files generated.');
     }
@@ -24,11 +25,9 @@ class LangFileGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $locale = config('app.locale');
-
-        $langStubPath = __DIR__.'/../stubs/lang-'.$locale.'.stub';
+        $langStubPath = __DIR__.'/../stubs/'.$stubName.'.stub';
 
         if ($this->files->exists($langStubPath)) {
             $stub = $this->files->get($langStubPath);

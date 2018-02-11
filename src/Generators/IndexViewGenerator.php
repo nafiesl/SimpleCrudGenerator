@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Index View Generator Class
-*/
+ * Index View Generator Class
+ */
 class IndexViewGenerator extends BaseGenerator
 {
     /**
@@ -14,7 +14,7 @@ class IndexViewGenerator extends BaseGenerator
     {
         $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
 
-        $this->generateFile($viewPath.'/index.blade.php', $this->getContent());
+        $this->generateFile($viewPath.'/index.blade.php', $this->getContent('view-index'));
 
         $this->command->info($this->modelNames['model_name'].' index view file generated.');
     }
@@ -22,9 +22,8 @@ class IndexViewGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/view-index.stub');
-        return $this->replaceStubString($stub);
+        return $this->replaceStubString($this->getStubFileContent($stubName));
     }
 }

@@ -13,7 +13,8 @@ class WebRouteGenerator extends BaseGenerator
     public function generate()
     {
         $webRoutePath = $this->makeRouteFile(base_path('routes'), 'web.php');
-        $this->files->append($webRoutePath, $this->getContent());
+
+        $this->files->append($webRoutePath, $this->getContent('route-web'));
 
         $this->command->info($this->modelNames['model_name'].' resource route generated on routes/web.php.');
     }
@@ -21,9 +22,9 @@ class WebRouteGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/route-web.stub');
+        $stub = $this->getStubFileContent($stubName);
 
         $webRouteFileContent = $this->replaceStubString($stub);
 

@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
-* Model Factory Generator Class
-*/
+ * Model Factory Generator Class
+ */
 class ModelFactoryGenerator extends BaseGenerator
 {
     /**
@@ -16,7 +16,7 @@ class ModelFactoryGenerator extends BaseGenerator
 
         $this->generateFile(
             $modelFactoryPath.'/'.$this->modelNames['model_name'].'Factory.php',
-            $this->getContent()
+            $this->getContent('model-factory')
         );
 
         $this->command->info($this->modelNames['model_name'].' model factory generated.');
@@ -25,9 +25,8 @@ class ModelFactoryGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent()
+    protected function getContent(string $stubName)
     {
-        $stub = $this->files->get(__DIR__.'/../stubs/model-factory.stub');
-        return $this->replaceStubString($stub);
+        return $this->replaceStubString($this->getStubFileContent($stubName));
     }
 }
