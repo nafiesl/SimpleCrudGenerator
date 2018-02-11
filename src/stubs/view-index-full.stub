@@ -1,0 +1,58 @@
+@extends('layouts.app')
+
+@section('title', trans('master.list'))
+
+@section('content')
+<h1 class="page-header">
+    <div class="pull-right">
+    @can('create', new fullMstr)
+        {{ link_to_route('masters.index', trans('master.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+    @endcan
+    </div>
+    {{ trans('master.list') }}
+    <small>{{ trans('app.total') }} : {{ $mstrCollections->total() }} {{ trans('master.master') }}</small>
+</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default table-responsive">
+            <div class="panel-heading">
+                {{ Form::open(['method' => 'get','class' => 'form-inline']) }}
+                {!! FormField::text('q', ['value' => request('q'), 'label' => trans('master.search'), 'class' => 'input-sm']) !!}
+                {{ Form::submit(trans('master.search'), ['class' => 'btn btn-sm']) }}
+                {{ link_to_route('masters.index', trans('app.reset')) }}
+                {{ Form::close() }}
+            </div>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th class="text-center">{{ trans('app.table_no') }}</th>
+                        <th>{{ trans('master.name') }}</th>
+                        <th>{{ trans('master.description') }}</th>
+                        <th class="text-center">{{ trans('app.action') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($mstrCollections as $key => $singleMstr)
+                    <tr>
+                        <td class="text-center">{{ $mstrCollections->firstItem() + $key }}</td>
+                        <td>{{ $singleMstr->name }}</td>
+                        <td>{{ $singleMstr->description }}</td>
+                        <td class="text-center">
+                        @can('view', $singleMstr)
+                            {!! link_to_route(
+                                'masters.show',
+                                trans('app.show'),
+                                [$singleMstr],
+                                ['class' => 'btn btn-default', 'id' => 'show-master-' . $singleMstr->id]
+                            ) !!}
+                        @endcan
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="panel-body">{{ $mstrCollections->appends(Request::except('page'))->render() }}</div>
+        </div>
+    </div>
+</div>
+@endsection

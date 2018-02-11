@@ -29,7 +29,7 @@ class ViewsGeneratorTest extends TestCase
     <small>{{ trans('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ trans('{$this->lang_name}.{$this->lang_name}') }}</small>
 </h1>
 <div class=\"row\">
-    <div class=\"col-md-8\">
+    <div class=\"col-md-12\">
         <div class=\"panel panel-default table-responsive\">
             <div class=\"panel-heading\">
                 {{ Form::open(['method' => 'get','class' => 'form-inline']) }}
@@ -54,20 +54,12 @@ class ViewsGeneratorTest extends TestCase
                         <td>{{ \${$this->single_model_var_name}->name }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
-                        @can('update', \${$this->single_model_var_name})
+                        @can('view', \${$this->single_model_var_name})
                             {!! link_to_route(
-                                '{$this->table_name}.index',
-                                trans('app.edit'),
-                                ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
-                                ['id' => 'edit-{$this->single_model_var_name}-' . \${$this->single_model_var_name}->id]
-                            ) !!} |
-                        @endcan
-                        @can('delete', \${$this->single_model_var_name})
-                            {!! link_to_route(
-                                '{$this->table_name}.index',
-                                trans('app.delete'),
-                                ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
-                                ['id' => 'del-{$this->single_model_var_name}-' . \${$this->single_model_var_name}->id]
+                                '{$this->table_name}.show',
+                                trans('app.show'),
+                                [\${$this->single_model_var_name}],
+                                ['class' => 'btn btn-default', 'id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
                             ) !!}
                         @endcan
                         </td>
@@ -77,11 +69,6 @@ class ViewsGeneratorTest extends TestCase
             </table>
             <div class=\"panel-body\">{{ \${$this->collection_model_var_name}->appends(Request::except('page'))->render() }}</div>
         </div>
-    </div>
-    <div class=\"col-md-4\">
-        @if(Request::has('action'))
-        @include('{$this->table_name}.forms')
-        @endif
     </div>
 </div>
 @endsection
