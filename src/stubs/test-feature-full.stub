@@ -51,7 +51,7 @@ class ManageMastersTest extends TestCase
         $singleMstr = factory(Master::class)->create(['name' => 'Testing 123']);
 
         $this->visit(route('masters.show', $singleMstr));
-        $this->click('edit-singleMstr-'.$singleMstr->id);
+        $this->click('edit-master-'.$singleMstr->id);
         $this->seePageIs(route('masters.edit', $singleMstr));
 
         $this->submitForm(trans('master.update'), [
@@ -75,7 +75,7 @@ class ManageMastersTest extends TestCase
         $singleMstr = factory(Master::class)->create();
 
         $this->visit(route('masters.edit', $singleMstr));
-        $this->click('del-singleMstr-'.$singleMstr->id);
+        $this->click('del-master-'.$singleMstr->id);
         $this->seePageIs(route('masters.edit', [$singleMstr, 'action' => 'delete']));
 
         $this->press(trans('app.delete_confirm_button'));

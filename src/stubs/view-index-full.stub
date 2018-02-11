@@ -35,7 +35,7 @@
                     @foreach($mstrCollections as $key => $singleMstr)
                     <tr>
                         <td class="text-center">{{ $mstrCollections->firstItem() + $key }}</td>
-                        <td>{{ $singleMstr->name }}</td>
+                        <td>{{ $singleMstr->nameLink() }}</td>
                         <td>{{ $singleMstr->description }}</td>
                         <td class="text-center">
                         @can('view', $singleMstr)
@@ -43,7 +43,7 @@
                                 'masters.show',
                                 trans('app.show'),
                                 [$singleMstr],
-                                ['class' => 'btn btn-default', 'id' => 'show-master-' . $singleMstr->id]
+                                ['class' => 'btn btn-default btn-xs', 'id' => 'show-master-' . $singleMstr->id]
                             ) !!}
                         @endcan
                         </td>

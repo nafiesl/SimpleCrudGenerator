@@ -50,7 +50,7 @@ class ManageMastersTest extends TestCase
         $singleMstr = factory(Master::class)->create(['name' => 'Testing 123']);
 
         $this->visit(route('masters.index', ['q' => '123']));
-        $this->click('edit-singleMstr-'.$singleMstr->id);
+        $this->click('edit-master-'.$singleMstr->id);
         $this->seePageIs(route('masters.index', ['action' => 'edit', 'id' => $singleMstr->id, 'q' => '123']));
 
         $this->type('Master 1 name', 'name');
@@ -72,7 +72,7 @@ class ManageMastersTest extends TestCase
         $singleMstr = factory(Master::class)->create();
 
         $this->visit(route('masters.index', [$singleMstr->id]));
-        $this->click('del-singleMstr-'.$singleMstr->id);
+        $this->click('del-master-'.$singleMstr->id);
         $this->seePageIs(route('masters.index', ['action' => 'delete', 'id' => $singleMstr->id]));
 
         $this->seeInDatabase('masters', [

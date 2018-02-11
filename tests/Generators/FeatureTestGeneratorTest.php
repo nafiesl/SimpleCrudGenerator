@@ -102,7 +102,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         \$this->visit(route('{$this->table_name}.show', \${$this->single_model_var_name}));
-        \$this->click('edit-{$this->single_model_var_name}-'.\${$this->single_model_var_name}->id);
+        \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
 
         \$this->submitForm(trans('{$this->lang_name}.update'), [
@@ -126,7 +126,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->visit(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
-        \$this->click('del-{$this->single_model_var_name}-'.\${$this->single_model_var_name}->id);
+        \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']));
 
         \$this->press(trans('app.delete_confirm_button'));
@@ -245,7 +245,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         \$this->visit(route('{$this->table_name}.show', \${$this->single_model_var_name}));
-        \$this->click('edit-{$this->single_model_var_name}-'.\${$this->single_model_var_name}->id);
+        \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
 
         \$this->submitForm(trans('{$this->lang_name}.update'), [
@@ -269,7 +269,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->visit(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
-        \$this->click('del-{$this->single_model_var_name}-'.\${$this->single_model_var_name}->id);
+        \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']));
 
         \$this->press(trans('app.delete_confirm_button'));

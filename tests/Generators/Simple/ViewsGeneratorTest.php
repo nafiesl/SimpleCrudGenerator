@@ -59,7 +59,7 @@ class ViewsGeneratorTest extends TestCase
                                 '{$this->table_name}.index',
                                 trans('app.edit'),
                                 ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
-                                ['id' => 'edit-{$this->single_model_var_name}-' . \${$this->single_model_var_name}->id]
+                                ['id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]
                             ) !!} |
                         @endcan
                         @can('delete', \${$this->single_model_var_name})
@@ -67,7 +67,7 @@ class ViewsGeneratorTest extends TestCase
                                 '{$this->table_name}.index',
                                 trans('app.delete'),
                                 ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
-                                ['id' => 'del-{$this->single_model_var_name}-' . \${$this->single_model_var_name}->id]
+                                ['id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]
                             ) !!}
                         @endcan
                         </td>

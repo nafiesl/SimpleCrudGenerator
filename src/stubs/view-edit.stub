@@ -3,8 +3,38 @@
 @section('title', trans('master.edit'))
 
 @section('content')
+
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
+        @if (request('action') == 'delete' && $singleMstr)
+        @can('delete', $singleMstr)
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">{{ trans('master.delete') }}</h3></div>
+                <div class="panel-body">
+                    <label class="control-label">{{ trans('master.name') }}</label>
+                    <p>{{ $singleMstr->name }}</p>
+                    <label class="control-label">{{ trans('master.description') }}</label>
+                    <p>{{ $singleMstr->description }}</p>
+                    {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
+                </div>
+                <hr style="margin:0">
+                <div class="panel-body">{{ trans('app.delete_confirm') }}</div>
+                <div class="panel-footer">
+                    {!! FormField::delete(
+                        ['route'=>['masters.destroy', $singleMstr]],
+                        trans('app.delete_confirm_button'),
+                        ['class'=>'btn btn-danger'],
+                        [
+                            'master_id' => $singleMstr->id,
+                            'page' => request('page'),
+                            'q' => request('q'),
+                        ]
+                    ) !!}
+                    {{ link_to_route('masters.edit', trans('app.cancel'), [$singleMstr], ['class' => 'btn btn-default']) }}
+                </div>
+            </div>
+        @endcan
+        @else
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">{{ trans('master.edit') }}</h3></div>
             {!! Form::model($singleMstr, ['route' => ['masters.update', $singleMstr->id],'method' => 'patch']) !!}
@@ -15,9 +45,11 @@
             <div class="panel-footer">
                 {!! Form::submit(trans('master.update'), ['class' => 'btn btn-success']) !!}
                 {{ link_to_route('masters.show', trans('app.cancel'), [$singleMstr], ['class' => 'btn btn-default']) }}
+                {{ link_to_route('masters.edit', trans('app.delete'), [$singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-master-'.$singleMstr->id]) }}
             </div>
             {!! Form::close() !!}
         </div>
     </div>
 </div>
+@endif
 @endsection

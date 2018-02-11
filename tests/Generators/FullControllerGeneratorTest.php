@@ -108,11 +108,9 @@ class {$this->plural_model_name}Controller extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        \$routeParam = request()->only('page', 'q');
-
         \${$this->single_model_var_name} = \${$this->single_model_var_name}->update(\$request->only('name', 'description'));
 
-        return redirect()->route('{$this->table_name}.index', \$routeParam);
+        return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
     }
 
     /**
@@ -244,11 +242,9 @@ class CategoriesController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        \$routeParam = request()->only('page', 'q');
-
         \$category = \$category->update(\$request->only('name', 'description'));
 
-        return redirect()->route('categories.index', \$routeParam);
+        return redirect()->route('categories.show', \$category);
     }
 
     /**
@@ -381,11 +377,9 @@ class CategoriesController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        \$routeParam = request()->only('page', 'q');
-
         \$category = \$category->update(\$request->only('name', 'description'));
 
-        return redirect()->route('categories.index', \$routeParam);
+        return redirect()->route('categories.show', \$category);
     }
 
     /**

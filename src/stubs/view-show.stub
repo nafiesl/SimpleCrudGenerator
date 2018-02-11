@@ -20,7 +20,8 @@
                 </tbody>
             </table>
             <div class="panel-footer">
-                {{ link_to_route('masters.edit', trans('app.edit'), [$singleMstr], ['class' => 'btn btn-default', 'id' => 'edit-master-'.$singleMstr->id]) }}
+                {{ link_to_route('masters.edit', trans('master.edit'), [$singleMstr], ['class' => 'btn btn-warning', 'id' => 'edit-master-'.$singleMstr->id]) }}
+                {{ link_to_route('masters.index', trans('master.back_to_index'), [], ['class' => 'btn btn-default']) }}
             </div>
         </div>
     </div>

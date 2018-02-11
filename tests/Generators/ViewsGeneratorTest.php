@@ -51,7 +51,7 @@ class ViewsGeneratorTest extends TestCase
                     @foreach(\${$this->collection_model_var_name} as \$key => \${$this->single_model_var_name})
                     <tr>
                         <td class=\"text-center\">{{ \${$this->collection_model_var_name}->firstItem() + \$key }}</td>
-                        <td>{{ \${$this->single_model_var_name}->name }}</td>
+                        <td>{{ \${$this->single_model_var_name}->nameLink() }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                         @can('view', \${$this->single_model_var_name})
@@ -59,7 +59,7 @@ class ViewsGeneratorTest extends TestCase
                                 '{$this->table_name}.show',
                                 trans('app.show'),
                                 [\${$this->single_model_var_name}],
-                                ['class' => 'btn btn-default', 'id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
+                                ['class' => 'btn btn-default btn-xs', 'id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
                             ) !!}
                         @endcan
                         </td>
@@ -105,7 +105,8 @@ class ViewsGeneratorTest extends TestCase
                 </tbody>
             </table>
             <div class=\"panel-footer\">
-                {{ link_to_route('{$this->table_name}.edit', trans('app.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                {{ link_to_route('{$this->table_name}.edit', trans('{$this->lang_name}.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-warning', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                {{ link_to_route('{$this->table_name}.index', trans('{$this->lang_name}.back_to_index'), [], ['class' => 'btn btn-default']) }}
             </div>
         </div>
     </div>
@@ -161,8 +162,38 @@ class ViewsGeneratorTest extends TestCase
 @section('title', trans('{$this->lang_name}.edit'))
 
 @section('content')
+
 <div class=\"row\">
     <div class=\"col-md-6 col-md-offset-3\">
+        @if (request('action') == 'delete' && \${$this->single_model_var_name})
+        @can('delete', \${$this->single_model_var_name})
+            <div class=\"panel panel-default\">
+                <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.delete') }}</h3></div>
+                <div class=\"panel-body\">
+                    <label class=\"control-label\">{{ trans('{$this->lang_name}.name') }}</label>
+                    <p>{{ \${$this->single_model_var_name}->name }}</p>
+                    <label class=\"control-label\">{{ trans('{$this->lang_name}.description') }}</label>
+                    <p>{{ \${$this->single_model_var_name}->description }}</p>
+                    {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
+                </div>
+                <hr style=\"margin:0\">
+                <div class=\"panel-body\">{{ trans('app.delete_confirm') }}</div>
+                <div class=\"panel-footer\">
+                    {!! FormField::delete(
+                        ['route'=>['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
+                        trans('app.delete_confirm_button'),
+                        ['class'=>'btn btn-danger'],
+                        [
+                            '{$this->lang_name}_id' => \${$this->single_model_var_name}->id,
+                            'page' => request('page'),
+                            'q' => request('q'),
+                        ]
+                    ) !!}
+                    {{ link_to_route('{$this->table_name}.edit', trans('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
+                </div>
+            </div>
+        @endcan
+        @else
         <div class=\"panel panel-default\">
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.edit') }}</h3></div>
             {!! Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}->id],'method' => 'patch']) !!}
@@ -173,11 +204,13 @@ class ViewsGeneratorTest extends TestCase
             <div class=\"panel-footer\">
                 {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
                 {{ link_to_route('{$this->table_name}.show', trans('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
+                {{ link_to_route('{$this->table_name}.edit', trans('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
             </div>
             {!! Form::close() !!}
         </div>
     </div>
 </div>
+@endif
 @endsection
 ";
         $this->assertEquals($editFormViewContent, file_get_contents($editFormViewPath));
