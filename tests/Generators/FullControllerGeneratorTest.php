@@ -47,6 +47,8 @@ class {$this->plural_model_name}Controller extends Controller
      */
     public function create()
     {
+        \$this->authorize('create', new {$this->model_name});
+
         return view('{$this->table_name}.create');
     }
 
@@ -181,6 +183,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        \$this->authorize('create', new Category);
+
         return view('categories.create');
     }
 
@@ -316,6 +320,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        \$this->authorize('create', new Category);
+
         return view('categories.create');
     }
 
