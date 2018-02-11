@@ -10,7 +10,7 @@ class ModelPolicyGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $parentDirectory = '';
         if (!is_null($this->command->option('parent'))) {

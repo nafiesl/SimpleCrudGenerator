@@ -10,7 +10,7 @@ class ModelFactoryGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $modelFactoryPath = $this->makeDirectory(database_path('factories'));
 

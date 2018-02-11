@@ -4,7 +4,7 @@ namespace Luthfi\CrudGenerator\Generators;
 
 use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Filesystem\Filesystem;
-use Luthfi\CrudGenerator\CrudMake;
+use Luthfi\CrudGenerator\GeneratorCommand;
 
 /**
  * Base Generator Class
@@ -35,13 +35,13 @@ abstract class BaseGenerator
     protected $stubModelNames;
 
     /**
-     * The CrudMake class
+     * The Generator Command implementation class
      *
-     * @var CrudMake
+     * @var GeneratorCommand
      */
     protected $command;
 
-    public function __construct(Filesystem $files, CrudMake $command)
+    public function __construct(Filesystem $files, GeneratorCommand $command)
     {
         $this->files = $files;
 
@@ -73,9 +73,10 @@ abstract class BaseGenerator
     /**
      * Generate class file content
      *
+     * @param  string $type Type of crud
      * @return void
      */
-    abstract public function generate();
+    abstract public function generate(string $type = 'full');
 
     /**
      * Get class file content

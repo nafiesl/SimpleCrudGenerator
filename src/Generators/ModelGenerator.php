@@ -10,7 +10,7 @@ class ModelGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $modelPath = $this->modelNames['model_path'];
         $modelDirectory = $this->makeDirectory(app_path($modelPath));

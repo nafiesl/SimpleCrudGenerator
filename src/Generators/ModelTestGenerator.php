@@ -10,7 +10,7 @@ class ModelTestGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $unitTestPath = $this->makeDirectory(base_path('tests/Unit/Models'));
 

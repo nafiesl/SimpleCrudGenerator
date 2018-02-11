@@ -10,7 +10,7 @@ class WebRouteGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $webRoutePath = $this->makeRouteFile(base_path('routes'), 'web.php');
 

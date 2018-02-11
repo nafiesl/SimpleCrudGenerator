@@ -10,7 +10,7 @@ class FormViewGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Generators;
+namespace Tests\Generators\Simple;
 
 use Tests\TestCase;
 
@@ -9,7 +9,7 @@ class ControllerGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_controller_class_content()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $this->assertFileExists(app_path("Http/Controllers/{$this->plural_model_name}Controller.php"));
         $ctrlClassContent = "<?php
@@ -41,16 +41,6 @@ class {$this->plural_model_name}Controller extends Controller
     }
 
     /**
-     * Show the form for creating a new {$this->single_model_var_name}.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('{$this->table_name}.create');
-    }
-
-    /**
      * Store a newly created {$this->single_model_var_name} in storage.
      *
      * @param  \Illuminate\Http\Request  \$request
@@ -68,28 +58,6 @@ class {$this->plural_model_name}Controller extends Controller
         {$this->model_name}::create(\$request->only('name', 'description'));
 
         return redirect()->route('{$this->table_name}.index');
-    }
-
-    /**
-     * Display the specified {$this->single_model_var_name}.
-     *
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Http\Response
-     */
-    public function show({$this->model_name} \${$this->single_model_var_name})
-    {
-        return view('{$this->table_name}.show', compact('{$this->single_model_var_name}'));
-    }
-
-    /**
-     * Show the form for editing the specified {$this->single_model_var_name}.
-     *
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Http\Response
-     */
-    public function edit({$this->model_name} \${$this->single_model_var_name})
-    {
-        return view('{$this->table_name}.edit', compact('{$this->single_model_var_name}'));
     }
 
     /**
@@ -145,7 +113,7 @@ class {$this->plural_model_name}Controller extends Controller
     /** @test */
     public function it_creates_correct_controller_class_content_for_namespaced_model()
     {
-        $this->artisan('make:crud', ['name' => 'Entities/References/Category', '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => 'Entities/References/Category', '--no-interaction' => true]);
 
         $this->assertFileExists(app_path("Http/Controllers/CategoriesController.php"));
         $ctrlClassContent = "<?php
@@ -177,16 +145,6 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new category.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('categories.create');
-    }
-
-    /**
      * Store a newly created category in storage.
      *
      * @param  \Illuminate\Http\Request  \$request
@@ -204,28 +162,6 @@ class CategoriesController extends Controller
         Category::create(\$request->only('name', 'description'));
 
         return redirect()->route('categories.index');
-    }
-
-    /**
-     * Display the specified category.
-     *
-     * @param  \App\Category  \$category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category \$category)
-    {
-        return view('categories.show', compact('category'));
-    }
-
-    /**
-     * Show the form for editing the specified category.
-     *
-     * @param  \App\Category  \$category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category \$category)
-    {
-        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -281,7 +217,7 @@ class CategoriesController extends Controller
     /** @test */
     public function it_creates_correct_controller_with_parent()
     {
-        $this->artisan('make:crud', ['name' => 'Entities/References/Category', '--parent' => 'Projects', '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => 'Entities/References/Category', '--parent' => 'Projects', '--no-interaction' => true]);
 
         $this->assertFileExists(app_path("Http/Controllers/Projects/CategoriesController.php"));
         $ctrlClassContent = "<?php
@@ -314,16 +250,6 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new category.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('categories.create');
-    }
-
-    /**
      * Store a newly created category in storage.
      *
      * @param  \Illuminate\Http\Request  \$request
@@ -341,28 +267,6 @@ class CategoriesController extends Controller
         Category::create(\$request->only('name', 'description'));
 
         return redirect()->route('categories.index');
-    }
-
-    /**
-     * Display the specified category.
-     *
-     * @param  \App\Category  \$category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category \$category)
-    {
-        return view('categories.show', compact('category'));
-    }
-
-    /**
-     * Show the form for editing the specified category.
-     *
-     * @param  \App\Category  \$category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category \$category)
-    {
-        return view('categories.edit', compact('category'));
     }
 
     /**

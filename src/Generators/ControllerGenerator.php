@@ -10,7 +10,7 @@ class ControllerGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $parentControllerDirectory = '';
         if (!is_null($this->command->option('parent'))) {
@@ -19,7 +19,7 @@ class ControllerGenerator extends BaseGenerator
         $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
 
         $controllerPath = $controllerPath.'/'.$this->modelNames['plural_model_name'].'Controller.php';
-        $this->generateFile($controllerPath, $this->getContent('controller.simple'));
+        $this->generateFile($controllerPath, $this->getContent('controller.'.$type));
 
         $this->command->info($this->modelNames['plural_model_name'].'Controller generated.');
     }

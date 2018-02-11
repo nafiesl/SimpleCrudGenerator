@@ -10,7 +10,7 @@ class FeatureTestGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $this->createBrowserKitBaseTestClass();
 

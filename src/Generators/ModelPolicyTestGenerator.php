@@ -10,7 +10,7 @@ class ModelPolicyTestGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $modelPolicyTestPath = $this->makeDirectory(base_path('tests/Unit/Policies'));
 

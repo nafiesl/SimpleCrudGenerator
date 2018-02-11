@@ -10,7 +10,7 @@ class MigrationGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate(string $type = 'full')
     {
         $prefix = date('Y_m_d_His');
         $tableName = $this->modelNames['table_name'];
