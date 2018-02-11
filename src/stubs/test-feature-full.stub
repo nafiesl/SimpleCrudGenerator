@@ -1,0 +1,87 @@
+<?php
+
+namespace Tests\Feature;
+
+use fullMstr;
+use Tests\BrowserKitTest as TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+
+class ManageMastersTest extends TestCase
+{
+    use DatabaseMigrations;
+
+    /** @test */
+    public function user_can_see_master_list_in_master_index_page()
+    {
+        $singleMstr1 = factory(Master::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
+        $singleMstr2 = factory(Master::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+
+        $this->loginAsUser();
+        $this->visit(route('masters.index'));
+        $this->see($singleMstr1->name);
+        $this->see($singleMstr2->name);
+    }
+
+    /** @test */
+    public function user_can_create_a_master()
+    {
+        $this->loginAsUser();
+        $this->visit(route('masters.index'));
+
+        $this->click(trans('master.create'));
+        $this->seePageIs(route('masters.create'));
+
+        $this->submitForm(trans('master.create'), [
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
+        ]);
+
+        $this->seePageIs(route('masters.show', Master::first()));
+
+        $this->seeInDatabase('masters', [
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
+        ]);
+    }
+
+    /** @test */
+    public function user_can_edit_a_master()
+    {
+        $this->loginAsUser();
+        $singleMstr = factory(Master::class)->create(['name' => 'Testing 123']);
+
+        $this->visit(route('masters.show', $singleMstr));
+        $this->click('edit-singleMstr-'.$singleMstr->id);
+        $this->seePageIs(route('masters.edit', $singleMstr));
+
+        $this->submitForm(trans('master.update'), [
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
+        ]);
+
+        $this->seePageIs(route('masters.show', $singleMstr));
+
+        $this->seeInDatabase('masters', [
+            'id'          => $singleMstr->id,
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
+        ]);
+    }
+
+    /** @test */
+    public function user_can_delete_a_master()
+    {
+        $this->loginAsUser();
+        $singleMstr = factory(Master::class)->create();
+
+        $this->visit(route('masters.edit', $singleMstr));
+        $this->click('del-singleMstr-'.$singleMstr->id);
+        $this->seePageIs(route('masters.edit', [$singleMstr, 'action' => 'delete']));
+
+        $this->press(trans('app.delete_confirm_button'));
+
+        $this->dontSeeInDatabase('masters', [
+            'id' => $singleMstr->id,
+        ]);
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Generators;
+namespace Tests\Generators\Simple;
 
 use Tests\TestCase;
 
@@ -9,7 +9,7 @@ class FeatureTestGeneratorTest extends TestCase
     /** @test */
     public function it_creates_browser_kit_base_test_class()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $this->assertFileExists(base_path("tests/BrowserKitTest.php"));
         $browserKitTestClassContent = "<?php
@@ -46,7 +46,7 @@ abstract class BrowserKitTest extends BaseTestCase
     /** @test */
     public function it_creates_correct_feature_test_class_content()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $this->assertFileExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
         $modelClassContent = "<?php
@@ -80,42 +80,39 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->visit(route('{$this->table_name}.index'));
 
         \$this->click(trans('{$this->lang_name}.create'));
-        \$this->seePageIs(route('{$this->table_name}.create'));
+        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'create']));
 
-        \$this->submitForm(trans('{$this->lang_name}.create'), [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->type('{$this->model_name} 1 name', 'name');
+        \$this->type('{$this->model_name} 1 description', 'description');
+        \$this->press(trans('{$this->lang_name}.create'));
 
-        \$this->seePageIs(route('{$this->table_name}.show', {$this->model_name}::first()));
+        \$this->seePageIs(route('{$this->table_name}.index'));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
+            'name'   => '{$this->model_name} 1 name',
+            'description'   => '{$this->model_name} 1 description',
         ]);
     }
 
     /** @test */
-    public function user_can_edit_a_{$this->lang_name}()
+    public function user_can_edit_a_{$this->lang_name}_within_search_query()
     {
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        \$this->visit(route('{$this->table_name}.show', \${$this->single_model_var_name}));
+        \$this->visit(route('{$this->table_name}.index', ['q' => '123']));
         \$this->click('edit-{$this->single_model_var_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
+        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id, 'q' => '123']));
 
-        \$this->submitForm(trans('{$this->lang_name}.update'), [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->type('{$this->model_name} 1 name', 'name');
+        \$this->type('{$this->model_name} 1 description', 'description');
+        \$this->press(trans('{$this->lang_name}.update'));
 
-        \$this->seePageIs(route('{$this->table_name}.show', \${$this->single_model_var_name}));
+        \$this->seePageIs(route('{$this->table_name}.index', ['q' => '123']));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'id'          => \${$this->single_model_var_name}->id,
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
+            'name'   => '{$this->model_name} 1 name',
+            'description'   => '{$this->model_name} 1 description',
         ]);
     }
 
@@ -125,9 +122,13 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->visit(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
+        \$this->visit(route('{$this->table_name}.index', [\${$this->single_model_var_name}->id]));
         \$this->click('del-{$this->single_model_var_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']));
+        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id]));
+
+        \$this->seeInDatabase('{$this->table_name}', [
+            'id' => \${$this->single_model_var_name}->id,
+        ]);
 
         \$this->press(trans('app.delete_confirm_button'));
 
@@ -149,7 +150,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         $baseTestPath = base_path('tests/TestCase.php');
         $baseTestClass = 'TestCase';
 
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $this->assertFileExists($baseTestPath);
         $browserKitTestClassContent = "<?php
@@ -189,7 +190,7 @@ abstract class {$baseTestClass} extends BaseTestCase
         config(['simple-crud.base_test_path' => 'tests/TestCase.php']);
         config(['simple-crud.base_test_class' => 'Tests\TestCase']);
 
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $this->assertFileExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
         $modelClassContent = "<?php
@@ -223,42 +224,39 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->visit(route('{$this->table_name}.index'));
 
         \$this->click(trans('{$this->lang_name}.create'));
-        \$this->seePageIs(route('{$this->table_name}.create'));
+        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'create']));
 
-        \$this->submitForm(trans('{$this->lang_name}.create'), [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->type('{$this->model_name} 1 name', 'name');
+        \$this->type('{$this->model_name} 1 description', 'description');
+        \$this->press(trans('{$this->lang_name}.create'));
 
-        \$this->seePageIs(route('{$this->table_name}.show', {$this->model_name}::first()));
+        \$this->seePageIs(route('{$this->table_name}.index'));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
+            'name'   => '{$this->model_name} 1 name',
+            'description'   => '{$this->model_name} 1 description',
         ]);
     }
 
     /** @test */
-    public function user_can_edit_a_{$this->lang_name}()
+    public function user_can_edit_a_{$this->lang_name}_within_search_query()
     {
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        \$this->visit(route('{$this->table_name}.show', \${$this->single_model_var_name}));
+        \$this->visit(route('{$this->table_name}.index', ['q' => '123']));
         \$this->click('edit-{$this->single_model_var_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
+        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id, 'q' => '123']));
 
-        \$this->submitForm(trans('{$this->lang_name}.update'), [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->type('{$this->model_name} 1 name', 'name');
+        \$this->type('{$this->model_name} 1 description', 'description');
+        \$this->press(trans('{$this->lang_name}.update'));
 
-        \$this->seePageIs(route('{$this->table_name}.show', \${$this->single_model_var_name}));
+        \$this->seePageIs(route('{$this->table_name}.index', ['q' => '123']));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'id'          => \${$this->single_model_var_name}->id,
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
+            'name'   => '{$this->model_name} 1 name',
+            'description'   => '{$this->model_name} 1 description',
         ]);
     }
 
@@ -268,9 +266,13 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->visit(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
+        \$this->visit(route('{$this->table_name}.index', [\${$this->single_model_var_name}->id]));
         \$this->click('del-{$this->single_model_var_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']));
+        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id]));
+
+        \$this->seeInDatabase('{$this->table_name}', [
+            'id' => \${$this->single_model_var_name}->id,
+        ]);
 
         \$this->press(trans('app.delete_confirm_button'));
 
