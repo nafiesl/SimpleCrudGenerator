@@ -19,7 +19,7 @@ class ControllerGenerator extends BaseGenerator
         $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
 
         $controllerPath = $controllerPath.'/'.$this->modelNames['plural_model_name'].'Controller.php';
-        $this->generateFile($controllerPath, $this->getContent('controller.model'));
+        $this->generateFile($controllerPath, $this->getContent('controller.simple'));
 
         $this->command->info($this->modelNames['plural_model_name'].'Controller generated.');
     }
