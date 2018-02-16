@@ -27,9 +27,17 @@ class ModelTestGenerator extends BaseGenerator
      */
     protected function getContent(string $stubName)
     {
-        $stub = $this->getStubFileContent($stubName);
+        $modelFileContent = $this->getStubFileContent($stubName);
+
         $baseTestClass = config('simple-crud.base_test_class');
-        $stub = str_replace('use Tests\BrowserKitTest', 'use '.$baseTestClass, $stub);
-        return $this->replaceStubString($stub);
+        $modelFileContent = str_replace('use Tests\BrowserKitTest', 'use '.$baseTestClass, $modelFileContent);
+
+        $userModel = config('auth.providers.users.model');
+
+        if ('App\User' !== $userModel) {
+            $modelFileContent = str_replace('App\User', $userModel, $modelFileContent);
+        }
+
+        return $this->replaceStubString($modelFileContent);
     }
 }

@@ -32,6 +32,7 @@ class Create{$this->plural_model_name}Table extends Migration
             \$table->increments('id');
             \$table->string('name', 60);
             \$table->string('description')->nullable();
+            \$table->unsignedInteger('creator_id');
             \$table->timestamps();
         });
     }

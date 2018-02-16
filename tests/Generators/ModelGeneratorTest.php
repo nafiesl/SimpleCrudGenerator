@@ -17,11 +17,12 @@ class ModelGeneratorTest extends TestCase
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class {$this->model_name} extends Model
 {
-    protected \$fillable = ['name', 'description'];
+    protected \$fillable = ['name', 'description', 'creator_id'];
 
     public function nameLink()
     {
@@ -31,6 +32,11 @@ class {$this->model_name} extends Model
                 ['name' => \$this->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
             ),
         ]);
+    }
+
+    public function creator()
+    {
+        return \$this->belongsTo(User::class);
     }
 }
 ";
@@ -48,11 +54,12 @@ class {$this->model_name} extends Model
 
 namespace App\Entities\References;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected \$fillable = ['name', 'description'];
+    protected \$fillable = ['name', 'description', 'creator_id'];
 
     public function nameLink()
     {
@@ -62,6 +69,11 @@ class Category extends Model
                 ['name' => \$this->name, 'type' => trans('category.category')]
             ),
         ]);
+    }
+
+    public function creator()
+    {
+        return \$this->belongsTo(User::class);
     }
 }
 ";

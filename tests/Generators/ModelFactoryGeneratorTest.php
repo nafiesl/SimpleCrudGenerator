@@ -15,6 +15,7 @@ class ModelFactoryGeneratorTest extends TestCase
         $this->assertFileExists($modelFactoryPath);
         $modelFactoryContent = "<?php
 
+use App\User;
 use {$this->full_model_name};
 use Faker\Generator as Faker;
 
@@ -23,6 +24,9 @@ use Faker\Generator as Faker;
     return [
         'name' => \$faker->word,
         'description' => \$faker->sentence,
+        'creator_id' => function () {
+            return factory(User::class)->create()->id;
+        },
     ];
 });
 ";

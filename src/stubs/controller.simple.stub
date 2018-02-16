@@ -41,7 +41,10 @@ class MastersController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        Master::create($request->only('name', 'description'));
+        $newMaster = $request->only('name', 'description');
+        $newMaster['creator_id'] = auth()->id();
+
+        Master::create($newMaster);
 
         return redirect()->route('masters.index');
     }

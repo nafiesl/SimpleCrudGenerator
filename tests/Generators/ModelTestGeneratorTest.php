@@ -17,6 +17,7 @@ class ModelTestGeneratorTest extends TestCase
 
 namespace Tests\Unit\Models;
 
+use App\User;
 use {$this->full_model_name};
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\BrowserKitTest as TestCase;
@@ -26,7 +27,7 @@ class {$this->model_name}Test extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function it_has_name_link_method()
+    public function a_{$this->lang_name}_has_name_link_method()
     {
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
@@ -38,6 +39,15 @@ class {$this->model_name}Test extends TestCase
                 ),
             ]), \${$this->single_model_var_name}->nameLink()
         );
+    }
+
+    /** @test */
+    public function a_{$this->lang_name}_has_belongs_to_creator_relation()
+    {
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->make();
+
+        \$this->assertInstanceOf(User::class, \${$this->single_model_var_name}->creator);
+        \$this->assertEquals(\${$this->single_model_var_name}->creator_id, \${$this->single_model_var_name}->creator->id);
     }
 }
 ";
@@ -58,6 +68,7 @@ class {$this->model_name}Test extends TestCase
 
 namespace Tests\Unit\Models;
 
+use App\User;
 use {$this->full_model_name};
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase as TestCase;
@@ -67,7 +78,7 @@ class {$this->model_name}Test extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function it_has_name_link_method()
+    public function a_{$this->lang_name}_has_name_link_method()
     {
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
@@ -79,6 +90,15 @@ class {$this->model_name}Test extends TestCase
                 ),
             ]), \${$this->single_model_var_name}->nameLink()
         );
+    }
+
+    /** @test */
+    public function a_{$this->lang_name}_has_belongs_to_creator_relation()
+    {
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->make();
+
+        \$this->assertInstanceOf(User::class, \${$this->single_model_var_name}->creator);
+        \$this->assertEquals(\${$this->single_model_var_name}->creator_id, \${$this->single_model_var_name}->creator->id);
     }
 }
 ";

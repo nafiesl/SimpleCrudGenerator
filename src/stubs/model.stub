@@ -2,11 +2,12 @@
 
 namespace mstrNmspc;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Master extends Model
 {
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'creator_id'];
 
     public function nameLink()
     {
@@ -16,5 +17,10 @@ class Master extends Model
                 ['name' => $this->name, 'type' => trans('master.master')]
             ),
         ]);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class);
     }
 }

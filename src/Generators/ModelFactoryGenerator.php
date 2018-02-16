@@ -27,6 +27,14 @@ class ModelFactoryGenerator extends BaseGenerator
      */
     protected function getContent(string $stubName)
     {
-        return $this->replaceStubString($this->getStubFileContent($stubName));
+        $modelFactoryFileContent = $this->getStubFileContent($stubName);
+
+        $userModel = config('auth.providers.users.model');
+
+        if ('App\User' !== $userModel) {
+            $modelFactoryFileContent = str_replace('App\User', $userModel, $modelFactoryFileContent);
+        }
+
+        return $this->replaceStubString($modelFactoryFileContent);
     }
 }

@@ -28,6 +28,14 @@ class ModelGenerator extends BaseGenerator
      */
     protected function getContent(string $stubName)
     {
-        return $this->replaceStubString($this->getStubFileContent($stubName));
+        $modelFileContent = $this->getStubFileContent($stubName);
+
+        $userModel = config('auth.providers.users.model');
+
+        if ('App\User' !== $userModel) {
+            $modelFileContent = str_replace('App\User', $userModel, $modelFileContent);
+        }
+
+        return $this->replaceStubString($modelFileContent);
     }
 }

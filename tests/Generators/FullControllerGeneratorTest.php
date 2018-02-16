@@ -62,7 +62,10 @@ class {$this->plural_model_name}Controller extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        \${$this->single_model_var_name} = {$this->model_name}::create(\$request->only('name', 'description'));
+        \$new{$this->model_name} = \$request->only('name', 'description');
+        \$new{$this->model_name}['creator_id'] = auth()->id();
+
+        \${$this->single_model_var_name} = {$this->model_name}::create(\$new{$this->model_name});
 
         return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
     }
@@ -195,7 +198,10 @@ class CategoriesController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        \$category = Category::create(\$request->only('name', 'description'));
+        \$newCategory = \$request->only('name', 'description');
+        \$newCategory['creator_id'] = auth()->id();
+
+        \$category = Category::create(\$newCategory);
 
         return redirect()->route('categories.show', \$category);
     }
@@ -329,7 +335,10 @@ class CategoriesController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        \$category = Category::create(\$request->only('name', 'description'));
+        \$newCategory = \$request->only('name', 'description');
+        \$newCategory['creator_id'] = auth()->id();
+
+        \$category = Category::create(\$newCategory);
 
         return redirect()->route('categories.show', \$category);
     }

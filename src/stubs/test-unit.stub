@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\User;
 use fullMstr;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\BrowserKitTest as TestCase;
@@ -11,7 +12,7 @@ class MasterTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function it_has_name_link_method()
+    public function a_master_has_name_link_method()
     {
         $singleMstr = factory(Master::class)->create();
 
@@ -23,5 +24,14 @@ class MasterTest extends TestCase
                 ),
             ]), $singleMstr->nameLink()
         );
+    }
+
+    /** @test */
+    public function a_master_has_belongs_to_creator_relation()
+    {
+        $singleMstr = factory(Master::class)->make();
+
+        $this->assertInstanceOf(User::class, $singleMstr->creator);
+        $this->assertEquals($singleMstr->creator_id, $singleMstr->creator->id);
     }
 }

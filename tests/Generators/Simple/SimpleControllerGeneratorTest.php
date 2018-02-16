@@ -55,7 +55,10 @@ class {$this->plural_model_name}Controller extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        {$this->model_name}::create(\$request->only('name', 'description'));
+        \$new{$this->model_name} = \$request->only('name', 'description');
+        \$new{$this->model_name}['creator_id'] = auth()->id();
+
+        {$this->model_name}::create(\$new{$this->model_name});
 
         return redirect()->route('{$this->table_name}.index');
     }
@@ -159,7 +162,10 @@ class CategoriesController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        Category::create(\$request->only('name', 'description'));
+        \$newCategory = \$request->only('name', 'description');
+        \$newCategory['creator_id'] = auth()->id();
+
+        Category::create(\$newCategory);
 
         return redirect()->route('categories.index');
     }
@@ -264,7 +270,10 @@ class CategoriesController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        Category::create(\$request->only('name', 'description'));
+        \$newCategory = \$request->only('name', 'description');
+        \$newCategory['creator_id'] = auth()->id();
+
+        Category::create(\$newCategory);
 
         return redirect()->route('categories.index');
     }
