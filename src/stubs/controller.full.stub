@@ -14,16 +14,11 @@ class MastersController extends Controller
      */
     public function index()
     {
-        $editableMaster = null;
         $mstrCollections = Master::where(function ($query) {
             $query->where('name', 'like', '%'.request('q').'%');
         })->paginate(25);
 
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableMaster = Master::find(request('id'));
-        }
-
-        return view('masters.index', compact('mstrCollections', 'editableMaster'));
+        return view('masters.index', compact('mstrCollections'));
     }
 
     /**

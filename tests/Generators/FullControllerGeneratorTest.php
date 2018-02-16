@@ -28,16 +28,11 @@ class {$this->plural_model_name}Controller extends Controller
      */
     public function index()
     {
-        \$editable{$this->model_name} = null;
         \${$this->collection_model_var_name} = {$this->model_name}::where(function (\$query) {
             \$query->where('name', 'like', '%'.request('q').'%');
         })->paginate(25);
 
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            \$editable{$this->model_name} = {$this->model_name}::find(request('id'));
-        }
-
-        return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}', 'editable{$this->model_name}'));
+        return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}'));
     }
 
     /**
@@ -166,16 +161,11 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        \$editableCategory = null;
         \$categories = Category::where(function (\$query) {
             \$query->where('name', 'like', '%'.request('q').'%');
         })->paginate(25);
 
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            \$editableCategory = Category::find(request('id'));
-        }
-
-        return view('categories.index', compact('categories', 'editableCategory'));
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -305,16 +295,11 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        \$editableCategory = null;
         \$categories = Category::where(function (\$query) {
             \$query->where('name', 'like', '%'.request('q').'%');
         })->paginate(25);
 
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            \$editableCategory = Category::find(request('id'));
-        }
-
-        return view('categories.index', compact('categories', 'editableCategory'));
+        return view('categories.index', compact('categories'));
     }
 
     /**
