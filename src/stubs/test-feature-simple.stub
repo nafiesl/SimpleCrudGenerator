@@ -31,9 +31,10 @@ class ManageMastersTest extends TestCase
         $this->click(trans('master.create'));
         $this->seePageIs(route('masters.index', ['action' => 'create']));
 
-        $this->type('Master 1 name', 'name');
-        $this->type('Master 1 description', 'description');
-        $this->press(trans('master.create'));
+        $this->submitForm(trans('master.create'), [
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
+        ]);
 
         $this->seePageIs(route('masters.index'));
 
@@ -53,9 +54,10 @@ class ManageMastersTest extends TestCase
         $this->click('edit-master-'.$singleMstr->id);
         $this->seePageIs(route('masters.index', ['action' => 'edit', 'id' => $singleMstr->id, 'q' => '123']));
 
-        $this->type('Master 1 name', 'name');
-        $this->type('Master 1 description', 'description');
-        $this->press(trans('master.update'));
+        $this->submitForm(trans('master.update'), [
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
+        ]);
 
         $this->seePageIs(route('masters.index', ['q' => '123']));
 

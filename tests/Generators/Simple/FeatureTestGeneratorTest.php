@@ -82,9 +82,10 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click(trans('{$this->lang_name}.create'));
         \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'create']));
 
-        \$this->type('{$this->model_name} 1 name', 'name');
-        \$this->type('{$this->model_name} 1 description', 'description');
-        \$this->press(trans('{$this->lang_name}.create'));
+        \$this->submitForm(trans('{$this->lang_name}.create'), [
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ]);
 
         \$this->seePageIs(route('{$this->table_name}.index'));
 
@@ -104,9 +105,10 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id, 'q' => '123']));
 
-        \$this->type('{$this->model_name} 1 name', 'name');
-        \$this->type('{$this->model_name} 1 description', 'description');
-        \$this->press(trans('{$this->lang_name}.update'));
+        \$this->submitForm(trans('{$this->lang_name}.update'), [
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ]);
 
         \$this->seePageIs(route('{$this->table_name}.index', ['q' => '123']));
 
@@ -226,9 +228,10 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click(trans('{$this->lang_name}.create'));
         \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'create']));
 
-        \$this->type('{$this->model_name} 1 name', 'name');
-        \$this->type('{$this->model_name} 1 description', 'description');
-        \$this->press(trans('{$this->lang_name}.create'));
+        \$this->submitForm(trans('{$this->lang_name}.create'), [
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ]);
 
         \$this->seePageIs(route('{$this->table_name}.index'));
 
@@ -248,9 +251,10 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id, 'q' => '123']));
 
-        \$this->type('{$this->model_name} 1 name', 'name');
-        \$this->type('{$this->model_name} 1 description', 'description');
-        \$this->press(trans('{$this->lang_name}.update'));
+        \$this->submitForm(trans('{$this->lang_name}.update'), [
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ]);
 
         \$this->seePageIs(route('{$this->table_name}.index', ['q' => '123']));
 
