@@ -182,7 +182,7 @@ class ViewsGeneratorTest extends TestCase
                 <div class=\"panel-body\">{{ trans('app.delete_confirm') }}</div>
                 <div class=\"panel-footer\">
                     {!! FormField::delete(
-                        ['route'=>['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
+                        ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
                         trans('app.delete_confirm_button'),
                         ['class'=>'btn btn-danger'],
                         [
@@ -198,7 +198,7 @@ class ViewsGeneratorTest extends TestCase
         @else
         <div class=\"panel panel-default\">
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.edit') }}</h3></div>
-            {!! Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}->id],'method' => 'patch']) !!}
+            {!! Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}],'method' => 'patch']) !!}
             <div class=\"panel-body\">
                 {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
                 {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}

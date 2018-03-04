@@ -108,7 +108,7 @@ class ViewsGeneratorTest extends TestCase
 @endif
 @if (Request::get('action') == 'edit' && \$editable{$this->model_name})
 @can('update', \$editable{$this->model_name})
-    {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}->id],'method' => 'patch']) !!}
+    {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}],'method' => 'patch']) !!}
     {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
     {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
     @if (request('q'))
@@ -137,7 +137,7 @@ class ViewsGeneratorTest extends TestCase
         <div class=\"panel-body\">{{ trans('app.delete_confirm') }}</div>
         <div class=\"panel-footer\">
             {!! FormField::delete(
-                ['route'=>['{$this->table_name}.destroy',\$editable{$this->model_name}->id]],
+                ['route' => ['{$this->table_name}.destroy', \$editable{$this->model_name}]],
                 trans('app.delete_confirm_button'),
                 ['class'=>'btn btn-danger'],
                 [

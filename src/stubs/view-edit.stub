@@ -21,7 +21,7 @@
                 <div class="panel-body">{{ trans('app.delete_confirm') }}</div>
                 <div class="panel-footer">
                     {!! FormField::delete(
-                        ['route'=>['masters.destroy', $singleMstr]],
+                        ['route' => ['masters.destroy', $singleMstr]],
                         trans('app.delete_confirm_button'),
                         ['class'=>'btn btn-danger'],
                         [
@@ -37,7 +37,7 @@
         @else
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">{{ trans('master.edit') }}</h3></div>
-            {!! Form::model($singleMstr, ['route' => ['masters.update', $singleMstr->id],'method' => 'patch']) !!}
+            {!! Form::model($singleMstr, ['route' => ['masters.update', $singleMstr],'method' => 'patch']) !!}
             <div class="panel-body">
                 {!! FormField::text('name', ['required' => true, 'label' => trans('master.name')]) !!}
                 {!! FormField::textarea('description', ['label' => trans('master.description')]) !!}
