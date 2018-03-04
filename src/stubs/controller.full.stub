@@ -96,7 +96,7 @@ class MastersController extends Controller
             'description' => 'nullable|max:255',
         ]);
 
-        $singleMstr = $singleMstr->update($request->only('name', 'description'));
+        $singleMstr->update($request->only('name', 'description'));
 
         return redirect()->route('masters.show', $singleMstr);
     }

@@ -67,7 +67,7 @@ class MastersController extends Controller
 
         $routeParam = request()->only('page', 'q');
 
-        $singleMstr = $singleMstr->update($request->only('name', 'description'));
+        $singleMstr->update($request->only('name', 'description'));
 
         return redirect()->route('masters.index', $routeParam);
     }

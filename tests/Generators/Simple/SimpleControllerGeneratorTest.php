@@ -81,7 +81,7 @@ class {$this->plural_model_name}Controller extends Controller
 
         \$routeParam = request()->only('page', 'q');
 
-        \${$this->single_model_var_name} = \${$this->single_model_var_name}->update(\$request->only('name', 'description'));
+        \${$this->single_model_var_name}->update(\$request->only('name', 'description'));
 
         return redirect()->route('{$this->table_name}.index', \$routeParam);
     }
@@ -188,7 +188,7 @@ class CategoriesController extends Controller
 
         \$routeParam = request()->only('page', 'q');
 
-        \$category = \$category->update(\$request->only('name', 'description'));
+        \$category->update(\$request->only('name', 'description'));
 
         return redirect()->route('categories.index', \$routeParam);
     }
@@ -296,7 +296,7 @@ class CategoriesController extends Controller
 
         \$routeParam = request()->only('page', 'q');
 
-        \$category = \$category->update(\$request->only('name', 'description'));
+        \$category->update(\$request->only('name', 'description'));
 
         return redirect()->route('categories.index', \$routeParam);
     }
