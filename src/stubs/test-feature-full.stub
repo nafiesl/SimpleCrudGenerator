@@ -13,13 +13,19 @@ class ManageMastersTest extends TestCase
     /** @test */
     public function user_can_see_master_list_in_master_index_page()
     {
-        $singleMstr1 = factory(Master::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
-        $singleMstr2 = factory(Master::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+        $singleMstr = factory(Master::class)->create();
 
         $this->loginAsUser();
         $this->visit(route('masters.index'));
-        $this->see($singleMstr1->name);
-        $this->see($singleMstr2->name);
+        $this->see($singleMstr->name);
+    }
+
+    private function getCreateFields(array $overrides = [])
+    {
+        return array_merge([
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
+        ], $overrides);
     }
 
     /** @test */
@@ -31,17 +37,33 @@ class ManageMastersTest extends TestCase
         $this->click(trans('master.create'));
         $this->seePageIs(route('masters.create'));
 
-        $this->submitForm(trans('master.create'), [
-            'name'        => 'Master 1 name',
-            'description' => 'Master 1 description',
-        ]);
+        $this->submitForm(trans('master.create'), $this->getCreateFields());
 
         $this->seePageIs(route('masters.show', Master::first()));
 
-        $this->seeInDatabase('masters', [
-            'name'        => 'Master 1 name',
-            'description' => 'Master 1 description',
-        ]);
+        $this->seeInDatabase('masters', $this->getCreateFields());
+    }
+
+    /** @test */
+    public function create_master_action_must_pass_validations()
+    {
+        $this->loginAsUser();
+
+        // Name empty
+        $this->post(route('masters.store'), $this->getCreateFields(['name' => '']));
+        $this->assertSessionHasErrors('name');
+
+        // Name 70 characters
+        $this->post(route('masters.store'), $this->getCreateFields([
+            'name' => str_repeat('Test Title', 7),
+        ]));
+        $this->assertSessionHasErrors('name');
+
+        // Description 256 characters
+        $this->post(route('masters.store'), $this->getCreateFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        $this->assertSessionHasErrors('description');
     }
 
     /** @test */

@@ -64,13 +64,19 @@ class Manage{$this->plural_model_name}Test extends TestCase
     /** @test */
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
     {
-        \${$this->single_model_var_name}1 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
-        \${$this->single_model_var_name}2 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->loginAsUser();
         \$this->visit(route('{$this->table_name}.index'));
-        \$this->see(\${$this->single_model_var_name}1->name);
-        \$this->see(\${$this->single_model_var_name}2->name);
+        \$this->see(\${$this->single_model_var_name}->name);
+    }
+
+    private function getCreateFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ], \$overrides);
     }
 
     /** @test */
@@ -82,17 +88,33 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click(trans('{$this->lang_name}.create'));
         \$this->seePageIs(route('{$this->table_name}.create'));
 
-        \$this->submitForm(trans('{$this->lang_name}.create'), [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->submitForm(trans('{$this->lang_name}.create'), \$this->getCreateFields());
 
         \$this->seePageIs(route('{$this->table_name}.show', {$this->model_name}::first()));
 
-        \$this->seeInDatabase('{$this->table_name}', [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->seeInDatabase('{$this->table_name}', \$this->getCreateFields());
+    }
+
+    /** @test */
+    public function create_{$this->lang_name}_action_must_pass_validations()
+    {
+        \$this->loginAsUser();
+
+        // Name empty
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields(['name' => '']));
+        \$this->assertSessionHasErrors('name');
+
+        // Name 70 characters
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
+            'name' => str_repeat('Test Title', 7),
+        ]));
+        \$this->assertSessionHasErrors('name');
+
+        // Description 256 characters
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        \$this->assertSessionHasErrors('description');
     }
 
     /** @test */
@@ -207,13 +229,19 @@ class Manage{$this->plural_model_name}Test extends TestCase
     /** @test */
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
     {
-        \${$this->single_model_var_name}1 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
-        \${$this->single_model_var_name}2 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->loginAsUser();
         \$this->visit(route('{$this->table_name}.index'));
-        \$this->see(\${$this->single_model_var_name}1->name);
-        \$this->see(\${$this->single_model_var_name}2->name);
+        \$this->see(\${$this->single_model_var_name}->name);
+    }
+
+    private function getCreateFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ], \$overrides);
     }
 
     /** @test */
@@ -225,17 +253,33 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click(trans('{$this->lang_name}.create'));
         \$this->seePageIs(route('{$this->table_name}.create'));
 
-        \$this->submitForm(trans('{$this->lang_name}.create'), [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->submitForm(trans('{$this->lang_name}.create'), \$this->getCreateFields());
 
         \$this->seePageIs(route('{$this->table_name}.show', {$this->model_name}::first()));
 
-        \$this->seeInDatabase('{$this->table_name}', [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->seeInDatabase('{$this->table_name}', \$this->getCreateFields());
+    }
+
+    /** @test */
+    public function create_{$this->lang_name}_action_must_pass_validations()
+    {
+        \$this->loginAsUser();
+
+        // Name empty
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields(['name' => '']));
+        \$this->assertSessionHasErrors('name');
+
+        // Name 70 characters
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
+            'name' => str_repeat('Test Title', 7),
+        ]));
+        \$this->assertSessionHasErrors('name');
+
+        // Description 256 characters
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        \$this->assertSessionHasErrors('description');
     }
 
     /** @test */
