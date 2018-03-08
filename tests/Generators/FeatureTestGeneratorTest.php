@@ -117,6 +117,14 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->assertSessionHasErrors('description');
     }
 
+    private function getEditFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ], \$overrides);
+    }
+
     /** @test */
     public function user_can_edit_a_{$this->lang_name}()
     {
@@ -127,18 +135,36 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
 
-        \$this->submitForm(trans('{$this->lang_name}.update'), [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->submitForm(trans('{$this->lang_name}.update'), \$this->getEditFields());
 
         \$this->seePageIs(route('{$this->table_name}.show', \${$this->single_model_var_name}));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'id'          => \${$this->single_model_var_name}->id,
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+            'id' => \${$this->single_model_var_name}->id,
+        ] + \$this->getEditFields());
+    }
+
+    /** @test */
+    public function edit_{$this->lang_name}_action_must_pass_validations()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+
+        // Name empty
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
+        \$this->assertSessionHasErrors('name');
+
+        // Name 70 characters
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
+            'name' => str_repeat('Test Title', 7),
+        ]));
+        \$this->assertSessionHasErrors('name');
+
+        // Description 256 characters
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        \$this->assertSessionHasErrors('description');
     }
 
     /** @test */
@@ -282,6 +308,14 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->assertSessionHasErrors('description');
     }
 
+    private function getEditFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ], \$overrides);
+    }
+
     /** @test */
     public function user_can_edit_a_{$this->lang_name}()
     {
@@ -292,18 +326,36 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
 
-        \$this->submitForm(trans('{$this->lang_name}.update'), [
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+        \$this->submitForm(trans('{$this->lang_name}.update'), \$this->getEditFields());
 
         \$this->seePageIs(route('{$this->table_name}.show', \${$this->single_model_var_name}));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'id'          => \${$this->single_model_var_name}->id,
-            'name'        => '{$this->model_name} 1 name',
-            'description' => '{$this->model_name} 1 description',
-        ]);
+            'id' => \${$this->single_model_var_name}->id,
+        ] + \$this->getEditFields());
+    }
+
+    /** @test */
+    public function edit_{$this->lang_name}_action_must_pass_validations()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+
+        // Name empty
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
+        \$this->assertSessionHasErrors('name');
+
+        // Name 70 characters
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
+            'name' => str_repeat('Test Title', 7),
+        ]));
+        \$this->assertSessionHasErrors('name');
+
+        // Description 256 characters
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        \$this->assertSessionHasErrors('description');
     }
 
     /** @test */
