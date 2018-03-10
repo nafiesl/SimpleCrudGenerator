@@ -94,8 +94,10 @@ class ModelPolicyGenerator extends BaseGenerator
 
     /**
      * Create AuthServiceProvider class if not exists
+     *
      * @param  string $routeDirPath Absolute directory path
      * @param  string $filename     File name to be created
+     *
      * @return string               Absolute path of create route file
      */
     protected function makeAuthServiceProvilderFile($routeDirPath, $filename)
