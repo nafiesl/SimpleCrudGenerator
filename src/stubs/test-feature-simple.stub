@@ -13,13 +13,11 @@ class ManageMastersTest extends TestCase
     /** @test */
     public function user_can_see_master_list_in_master_index_page()
     {
-        $singleMstr1 = factory(Master::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
-        $singleMstr2 = factory(Master::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+        $singleMstr = factory(Master::class)->create();
 
         $this->loginAsUser();
         $this->visit(route('masters.index'));
-        $this->see($singleMstr1->name);
-        $this->see($singleMstr2->name);
+        $this->see($singleMstr->name);
     }
 
     /** @test */
@@ -39,8 +37,8 @@ class ManageMastersTest extends TestCase
         $this->seePageIs(route('masters.index'));
 
         $this->seeInDatabase('masters', [
-            'name'   => 'Master 1 name',
-            'description'   => 'Master 1 description',
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
         ]);
     }
 
@@ -62,8 +60,8 @@ class ManageMastersTest extends TestCase
         $this->seePageIs(route('masters.index', ['q' => '123']));
 
         $this->seeInDatabase('masters', [
-            'name'   => 'Master 1 name',
-            'description'   => 'Master 1 description',
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
         ]);
     }
 

@@ -64,13 +64,11 @@ class Manage{$this->plural_model_name}Test extends TestCase
     /** @test */
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
     {
-        \${$this->single_model_var_name}1 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
-        \${$this->single_model_var_name}2 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->loginAsUser();
         \$this->visit(route('{$this->table_name}.index'));
-        \$this->see(\${$this->single_model_var_name}1->name);
-        \$this->see(\${$this->single_model_var_name}2->name);
+        \$this->see(\${$this->single_model_var_name}->name);
     }
 
     /** @test */
@@ -90,8 +88,8 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->seePageIs(route('{$this->table_name}.index'));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'   => '{$this->model_name} 1 name',
-            'description'   => '{$this->model_name} 1 description',
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
         ]);
     }
 
@@ -113,8 +111,8 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->seePageIs(route('{$this->table_name}.index', ['q' => '123']));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'   => '{$this->model_name} 1 name',
-            'description'   => '{$this->model_name} 1 description',
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
         ]);
     }
 
@@ -210,13 +208,11 @@ class Manage{$this->plural_model_name}Test extends TestCase
     /** @test */
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
     {
-        \${$this->single_model_var_name}1 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 123']);
-        \${$this->single_model_var_name}2 = factory({$this->model_name}::class)->create(['name' => 'Testing name', 'description' => 'Testing 456']);
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->loginAsUser();
         \$this->visit(route('{$this->table_name}.index'));
-        \$this->see(\${$this->single_model_var_name}1->name);
-        \$this->see(\${$this->single_model_var_name}2->name);
+        \$this->see(\${$this->single_model_var_name}->name);
     }
 
     /** @test */
@@ -236,8 +232,8 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->seePageIs(route('{$this->table_name}.index'));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'   => '{$this->model_name} 1 name',
-            'description'   => '{$this->model_name} 1 description',
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
         ]);
     }
 
@@ -259,8 +255,8 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->seePageIs(route('{$this->table_name}.index', ['q' => '123']));
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'   => '{$this->model_name} 1 name',
-            'description'   => '{$this->model_name} 1 description',
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
         ]);
     }
 
