@@ -62,7 +62,7 @@ class CrudApiMake extends GeneratorCommand
     public function generateTestFiles()
     {
         app('Luthfi\CrudGenerator\Generators\ModelTestGenerator', ['command' => $this])->generate();
-        app('Luthfi\CrudGenerator\Generators\FeatureTestGenerator', ['command' => $this])->generate('simple');
+        app('Luthfi\CrudGenerator\Generators\FeatureTestGenerator', ['command' => $this])->generate('api');
         app('Luthfi\CrudGenerator\Generators\ModelPolicyTestGenerator', ['command' => $this])->generate();
     }
 

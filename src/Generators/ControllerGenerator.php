@@ -71,9 +71,4 @@ class ControllerGenerator extends BaseGenerator
 
         return $controllerFileContent;
     }
-
-    private function isForApi()
-    {
-        return $this->command->getName() == 'make:crud-api';
-    }
 }

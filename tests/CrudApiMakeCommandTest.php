@@ -29,7 +29,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
         $this->assertFileExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$this->model_name}Test.php"));
-        $this->assertFileExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Api/Manage{$this->plural_model_name}Test.php"));
     }
 
     /** @test */
@@ -53,7 +53,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertFileNotExists(app_path("Policies/{$this->model_name}Policy.php"));
         $this->assertFileNotExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileNotExists(base_path("tests/Unit/Models/{$this->model_name}Test.php"));
-        $this->assertFileNotExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
+        $this->assertFileNotExists(base_path("tests/Feature/Api/Manage{$this->plural_model_name}Test.php"));
     }
 
     /** @test */
@@ -79,7 +79,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertFileNotExists(app_path("Policies/ProblemPolicy.php"));
         $this->assertFileNotExists(database_path("factories/ProblemFactory.php"));
         $this->assertFileNotExists(base_path("tests/Unit/Models/ProblemTest.php"));
-        $this->assertFileNotExists(base_path("tests/Feature/ManageProblemsTest.php"));
+        $this->assertFileNotExists(base_path("tests/Feature/Api/ManageProblemsTest.php"));
 
         $this->removeFileOrDir(app_path('Entities/Projects'));
         $this->removeFileOrDir(resource_path('views/problems'));
@@ -115,7 +115,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertFileExists(app_path("Policies/{$modelName}Policy.php"));
         $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
-        $this->assertFileExists(base_path("tests/Feature/Manage{$pluralModelName}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Api/Manage{$pluralModelName}Test.php"));
     }
 
     /** @test */
@@ -148,6 +148,6 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
         $this->assertFileExists(app_path("Policies/{$parentName}/{$modelName}Policy.php"));
-        $this->assertFileExists(base_path("tests/Feature/Manage{$pluralModelName}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Api/Manage{$pluralModelName}Test.php"));
     }
 }

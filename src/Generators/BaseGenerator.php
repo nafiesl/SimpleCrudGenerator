@@ -135,4 +135,9 @@ abstract class BaseGenerator
     {
         return $this->files->get(__DIR__.'/../stubs/'.$stubName.'.stub');
     }
+
+    protected function isForApi()
+    {
+        return $this->command->getName() == 'make:crud-api';
+    }
 }

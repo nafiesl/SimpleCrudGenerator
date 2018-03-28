@@ -14,7 +14,13 @@ class FeatureTestGenerator extends BaseGenerator
     {
         $this->createBrowserKitBaseTestClass();
 
-        $featureTestPath = $this->makeDirectory(base_path('tests/Feature'));
+        $featureTestPath = 'tests/Feature';
+
+        if ($this->isForApi()) {
+            $featureTestPath .= '/Api';
+        }
+
+        $featureTestPath = $this->makeDirectory(base_path($featureTestPath));
 
         $this->generateFile(
             "{$featureTestPath}/Manage{$this->modelNames['plural_model_name']}Test.php",
