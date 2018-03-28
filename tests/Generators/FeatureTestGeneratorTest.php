@@ -33,10 +33,15 @@ abstract class BrowserKitTest extends BaseTestCase
 
     protected function loginAsUser()
     {
-        \$user = factory(User::class)->create();
+        \$user = \$this->createUser();
         \$this->actingAs(\$user);
 
         return \$user;
+    }
+
+    protected function createUser()
+    {
+        return factory(User::class)->create();
     }
 }
 ";
@@ -221,10 +226,15 @@ abstract class {$baseTestClass} extends BaseTestCase
 
     protected function loginAsUser()
     {
-        \$user = factory(User::class)->create();
+        \$user = \$this->createUser();
         \$this->actingAs(\$user);
 
         return \$user;
+    }
+
+    protected function createUser()
+    {
+        return factory(User::class)->create();
     }
 }
 ";
