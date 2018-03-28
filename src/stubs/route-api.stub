@@ -1,0 +1,2 @@
+
+Route::resource('masters', 'MastersController');

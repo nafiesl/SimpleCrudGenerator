@@ -25,7 +25,7 @@ class CrudApiMakeCommandTest extends TestCase
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
 
-        $this->assertFileExists(base_path("routes/web.php"));
+        $this->assertFileExists(base_path("routes/api.php"));
         $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
         $this->assertFileExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$this->model_name}Test.php"));

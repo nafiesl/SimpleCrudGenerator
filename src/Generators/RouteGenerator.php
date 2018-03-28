@@ -3,20 +3,20 @@
 namespace Luthfi\CrudGenerator\Generators;
 
 /**
- * Web Route Generator Class
+ * Route Generator Class
  */
-class WebRouteGenerator extends BaseGenerator
+class RouteGenerator extends BaseGenerator
 {
     /**
      * {@inheritDoc}
      */
-    public function generate(string $type = 'full')
+    public function generate(string $type = 'web')
     {
-        $webRoutePath = $this->makeRouteFile(base_path('routes'), 'web.php');
+        $webRoutePath = $this->makeRouteFile(base_path('routes'), $type.'.php');
 
-        $this->files->append($webRoutePath, $this->getContent('route-web'));
+        $this->files->append($webRoutePath, $this->getContent('route-'.$type));
 
-        $this->command->info($this->modelNames['model_name'].' resource route generated on routes/web.php.');
+        $this->command->info($this->modelNames['model_name'].' resource route generated on routes/'.$type.'.php.');
     }
 
     /**

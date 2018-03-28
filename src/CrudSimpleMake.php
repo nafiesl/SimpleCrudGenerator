@@ -96,7 +96,7 @@ class CrudSimpleMake extends GeneratorCommand
      */
     public function generateRoutes()
     {
-        app('Luthfi\CrudGenerator\Generators\WebRouteGenerator', ['command' => $this])->generate();
+        app('Luthfi\CrudGenerator\Generators\RouteGenerator', ['command' => $this])->generate();
     }
 
     /**
