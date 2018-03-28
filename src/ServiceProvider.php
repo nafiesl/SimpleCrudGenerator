@@ -15,6 +15,7 @@ class ServiceProvider extends BaseServiceProvider
             $this->commands([
                 CrudMake::class,
                 CrudSimpleMake::class,
+                CrudApiMake::class,
             ]);
         }
 

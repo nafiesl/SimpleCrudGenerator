@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use fullMstr;
+use Illuminate\Http\Request;
+
+class MastersController extends Controller
+{
+    /**
+     * Display a listing of the singleMstr.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $mstrCollections = Master::where(function ($query) {
+            $query->where('name', 'like', '%'.request('q').'%');
+        })->paginate(25);
+
+        return $mstrCollections;
+    }
+
+    /**
+     * Store a newly created singleMstr in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->authorize('create', new Master);
+
+        $this->validate($request, [
+            'name' => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ]);
+
+        $newMaster = $request->only('name', 'description');
+        $newMaster['creator_id'] = auth()->id();
+
+        $singleMstr = Master::create($newMaster);
+
+        return $singleMstr;
+    }
+
+    /**
+     * Update the specified singleMstr in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \fullMstr  $singleMstr
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Master $singleMstr)
+    {
+        $this->authorize('update', $singleMstr);
+
+        $this->validate($request, [
+            'name' => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ]);
+
+        $singleMstr->update($request->only('name', 'description'));
+
+        return $singleMstr;
+    }
+
+    /**
+     * Remove the specified singleMstr from storage.
+     *
+     * @param  \fullMstr  $singleMstr
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Master $singleMstr)
+    {
+        $this->authorize('delete', $singleMstr);
+
+        $this->validate(request(), [
+            'master_id' => 'required',
+        ]);
+
+        if (request('master_id') == $singleMstr->id && $singleMstr->delete()) {
+            return response()->json('master deleted.', 204);
+        }
+
+        return response()->json('Unprocessable Entity.', 422);
+    }
+}

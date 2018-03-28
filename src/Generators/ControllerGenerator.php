@@ -12,16 +12,26 @@ class ControllerGenerator extends BaseGenerator
      */
     public function generate(string $type = 'full')
     {
+        $pluralModelName = $this->modelNames['plural_model_name'];
         $parentControllerDirectory = '';
         if (!is_null($this->command->option('parent'))) {
             $parentControllerDirectory = '/'.$this->command->option('parent');
         }
-        $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
 
-        $controllerPath = $controllerPath.'/'.$this->modelNames['plural_model_name'].'Controller.php';
+        if ($this->isForApi()) {
+            $parentControllerDirectory = '/Api'.$parentControllerDirectory;
+        }
+
+        $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
+        $controllerPath = $controllerPath.'/'.$pluralModelName.'Controller.php';
+
         $this->generateFile($controllerPath, $this->getContent('controller.'.$type));
 
-        $this->command->info($this->modelNames['plural_model_name'].'Controller generated.');
+        if ($this->isForApi()) {
+            $pluralModelName = 'Api/'.$pluralModelName;
+        }
+
+        $this->command->info($pluralModelName.'Controller generated.');
     }
 
     /**
@@ -60,5 +70,10 @@ class ControllerGenerator extends BaseGenerator
         }
 
         return $controllerFileContent;
+    }
+
+    private function isForApi()
+    {
+        return $this->command->getName() == 'make:crud-api';
     }
 }
