@@ -19,8 +19,8 @@ class CrudApiMakeCommandTest extends TestCase
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
         $this->assertFileExists($migrationFilePath);
 
-        $this->assertFileExists(resource_path("views/{$this->table_name}/index.blade.php"));
-        $this->assertFileExists(resource_path("views/{$this->table_name}/forms.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$this->table_name}/index.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
@@ -45,9 +45,6 @@ class CrudApiMakeCommandTest extends TestCase
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
         $this->assertFileNotExists($migrationFilePath);
-
-        $this->assertFileNotExists(resource_path("views/{$this->table_name}/index.blade.php"));
-        $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileNotExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
@@ -109,8 +106,8 @@ class CrudApiMakeCommandTest extends TestCase
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$tableName.'_table.php');
         $this->assertFileExists($migrationFilePath);
 
-        $this->assertFileExists(resource_path("views/{$tableName}/index.blade.php"));
-        $this->assertFileExists(resource_path("views/{$tableName}/forms.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$tableName}/index.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$tableName}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
@@ -142,8 +139,8 @@ class CrudApiMakeCommandTest extends TestCase
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$tableName.'_table.php');
         $this->assertFileExists($migrationFilePath);
 
-        $this->assertFileExists(resource_path("views/{$tableName}/index.blade.php"));
-        $this->assertFileExists(resource_path("views/{$tableName}/forms.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$tableName}/index.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$tableName}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));

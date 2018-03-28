@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Generators\Simple;
+namespace Tests\Generators\Api;
 
 use Tests\TestCase;
 

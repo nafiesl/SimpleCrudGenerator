@@ -107,7 +107,5 @@ class CrudApiMake extends GeneratorCommand
     public function generateResources()
     {
         app('Luthfi\CrudGenerator\Generators\LangFileGenerator', ['command' => $this])->generate();
-        app('Luthfi\CrudGenerator\Generators\FormViewGenerator', ['command' => $this])->generate('simple');
-        app('Luthfi\CrudGenerator\Generators\IndexViewGenerator', ['command' => $this])->generate('simple');
     }
 }
