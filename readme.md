@@ -62,9 +62,22 @@ Luthfi\CrudGenerator\ServiceProvider::class,
 ## How to use
 Just type in terminal `$ php artisan` and we will find the `make:crud` command, it will create simple Laravel CRUD files of given **model name**.
 
-```bash
-# For example we want to create CRUD for 'App\Vehicle' model.
+#### Available Commands
 
+```bash
+# Create Full CRUD feature with tests
+$ php artisan make:crud
+
+# Create API CRUD feature with tests
+$ php artisan make:crud-api
+
+# Create Simple CRUD feature with tests
+$ php artisan make:crud-simple
+```
+
+For example we want to create CRUD for '**App\Vehicle**' model.
+
+```bash
 $ php artisan make:crud Vehicle
 
 Vehicle resource route generated on routes/web.php.
@@ -93,6 +106,20 @@ $ php artisan serve
 ```
 
 Then visit our application url: `http://localhost:8000/vehicles`.
+
+#### For API
+
+If we want to generate API Controller with feature tests, we use following command :
+
+```bash
+$ php artisan make:crud-api Vehicle
+```
+
+By default, we use Laravel Token Based Authentication, so we need to update our user model.
+
+1. Add `api_token` as **fillable** property on **User model**.
+2. Add `api_token` **field** on our **UserFactory**.
+3. Add `api_token` **column** on our **users_table_migration**.
 
 ## Config file
 
