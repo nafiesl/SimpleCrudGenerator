@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class MastersController extends Controller
 {
     /**
-     * Display a listing of the singleMstr.
+     * Get a listing of the singleMstr.
      *
      * @return \Illuminate\Http\Response
      */
@@ -24,7 +24,8 @@ class MastersController extends Controller
     /**
      * Store a newly created singleMstr in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -45,10 +46,23 @@ class MastersController extends Controller
     }
 
     /**
+     * Get the specified singleMstr.
+     *
+     * @param \App\Master $singleMstr
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Master $singleMstr)
+    {
+        return $singleMstr;
+    }
+
+    /**
      * Update the specified singleMstr in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \fullMstr  $singleMstr
+     * @param \Illuminate\Http\Request $request
+     * @param \fullMstr $singleMstr
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Master $singleMstr)
@@ -68,7 +82,8 @@ class MastersController extends Controller
     /**
      * Remove the specified singleMstr from storage.
      *
-     * @param  \fullMstr  $singleMstr
+     * @param \fullMstr $singleMstr
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Master $singleMstr)

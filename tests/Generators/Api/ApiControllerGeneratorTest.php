@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 class {$this->plural_model_name}Controller extends Controller
 {
     /**
-     * Display a listing of the {$this->single_model_var_name}.
+     * Get a listing of the {$this->single_model_var_name}.
      *
      * @return \Illuminate\Http\Response
      */
@@ -38,7 +38,8 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Store a newly created {$this->single_model_var_name} in storage.
      *
-     * @param  \Illuminate\Http\Request  \$request
+     * @param \Illuminate\Http\Request \$request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request \$request)
@@ -59,10 +60,23 @@ class {$this->plural_model_name}Controller extends Controller
     }
 
     /**
+     * Get the specified {$this->single_model_var_name}.
+     *
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show({$this->model_name} \${$this->single_model_var_name})
+    {
+        return \${$this->single_model_var_name};
+    }
+
+    /**
      * Update the specified {$this->single_model_var_name} in storage.
      *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \Illuminate\Http\Request \$request
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
@@ -82,7 +96,8 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Remove the specified {$this->single_model_var_name} from storage.
      *
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy({$this->model_name} \${$this->single_model_var_name})
