@@ -17,6 +17,7 @@ class ApiControllerGeneratorTest extends TestCase
 namespace App\Http\Controllers\Api;
 
 use {$this->full_model_name};
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class {$this->plural_model_name}Controller extends Controller

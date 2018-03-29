@@ -97,7 +97,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->deleteJson(route('api.{$this->table_name}.delete', \${$this->single_model_var_name}), [
+        \$this->deleteJson(route('api.{$this->table_name}.destroy', \${$this->single_model_var_name}), [
             '{$this->lang_name}_id' => \${$this->single_model_var_name}->id,
         ], [
             'Authorization' => 'Bearer '.\$user->api_token
@@ -206,7 +206,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->deleteJson(route('api.{$this->table_name}.delete', \${$this->single_model_var_name}), [
+        \$this->deleteJson(route('api.{$this->table_name}.destroy', \${$this->single_model_var_name}), [
             '{$this->lang_name}_id' => \${$this->single_model_var_name}->id,
         ], [
             'Authorization' => 'Bearer '.\$user->api_token

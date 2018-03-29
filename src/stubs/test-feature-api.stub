@@ -83,7 +83,7 @@ class ManageMastersTest extends TestCase
         $user = $this->createUser();
         $singleMstr = factory(Master::class)->create();
 
-        $this->deleteJson(route('api.masters.delete', $singleMstr), [
+        $this->deleteJson(route('api.masters.destroy', $singleMstr), [
             'master_id' => $singleMstr->id,
         ], [
             'Authorization' => 'Bearer '.$user->api_token

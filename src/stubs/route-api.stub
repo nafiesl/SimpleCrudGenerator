@@ -1,2 +1,2 @@
 
-Route::resource('masters', 'MastersController');
+Route::middleware('auth:api')->resource('masters', 'Api\MastersController')->names('api.masters');
