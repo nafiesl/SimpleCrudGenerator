@@ -32,7 +32,7 @@ class {$this->model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->assertEquals(
-            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}->id], [
+            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}], [
                 'title' => trans(
                     'app.show_detail_title',
                     ['name' => \${$this->single_model_var_name}->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
@@ -83,7 +83,7 @@ class {$this->model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->assertEquals(
-            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}->id], [
+            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}], [
                 'title' => trans(
                     'app.show_detail_title',
                     ['name' => \${$this->single_model_var_name}->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]

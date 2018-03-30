@@ -17,7 +17,7 @@ class MasterTest extends TestCase
         $singleMstr = factory(Master::class)->create();
 
         $this->assertEquals(
-            link_to_route('masters.show', $singleMstr->name, [$singleMstr->id], [
+            link_to_route('masters.show', $singleMstr->name, [$singleMstr], [
                 'title' => trans(
                     'app.show_detail_title',
                     ['name' => $singleMstr->name, 'type' => trans('master.master')]
