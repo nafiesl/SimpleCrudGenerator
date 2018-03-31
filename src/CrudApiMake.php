@@ -28,8 +28,7 @@ class CrudApiMake extends GeneratorCommand
         $this->getModelName();
 
         if ($this->modelExists()) {
-            $this->error("{$this->modelNames['model_name']} model already exists.");
-            return;
+            $this->warn("We will use existing {$this->modelNames['model_name']} model.\n");
         }
 
         // Warn if it has no default layout view based on
@@ -41,17 +40,19 @@ class CrudApiMake extends GeneratorCommand
         if ($this->option('tests-only')) {
             $this->generateTestFiles();
 
-            $this->info('Test files generated successfully!');
+            $this->info('API Test files generated successfully!');
             return;
         }
 
         $this->generateRoutes();
-        $this->generateModel();
         $this->generateController();
-        $this->generateResources();
         $this->generateTestFiles();
+        if ($this->modelExists() == false) {
+            $this->generateModel();
+            $this->generateResources();
+        }
 
-        $this->info('CRUD files generated successfully!');
+        $this->info('API CRUD files generated successfully!');
     }
 
     /**
@@ -61,9 +62,12 @@ class CrudApiMake extends GeneratorCommand
      */
     public function generateTestFiles()
     {
-        app('Luthfi\CrudGenerator\Generators\ModelTestGenerator', ['command' => $this])->generate();
         app('Luthfi\CrudGenerator\Generators\FeatureTestGenerator', ['command' => $this])->generate('api');
-        app('Luthfi\CrudGenerator\Generators\ModelPolicyTestGenerator', ['command' => $this])->generate();
+
+        if ($this->modelExists() == false) {
+            app('Luthfi\CrudGenerator\Generators\ModelTestGenerator', ['command' => $this])->generate();
+            app('Luthfi\CrudGenerator\Generators\ModelPolicyTestGenerator', ['command' => $this])->generate();
+        }
     }
 
     /**
