@@ -31,31 +31,31 @@ class {$this->model_name}PolicyTest extends TestCase
     /** @test */
     public function user_can_create_{$this->lang_name}()
     {
-        \$user = \$this->loginAsUser();
+        \$user = \$this->createUser();
         \$this->assertTrue(\$user->can('create', new {$this->model_name}));
     }
 
     /** @test */
     public function user_can_view_{$this->lang_name}()
     {
-        \$user = \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => '{$this->model_name} 1 name']);
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
         \$this->assertTrue(\$user->can('view', \${$this->single_model_var_name}));
     }
 
     /** @test */
     public function user_can_update_{$this->lang_name}()
     {
-        \$user = \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => '{$this->model_name} 1 name']);
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
         \$this->assertTrue(\$user->can('update', \${$this->single_model_var_name}));
     }
 
     /** @test */
     public function user_can_delete_{$this->lang_name}()
     {
-        \$user = \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => '{$this->model_name} 1 name']);
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
         \$this->assertTrue(\$user->can('delete', \${$this->single_model_var_name}));
     }
 }
@@ -91,31 +91,31 @@ class {$this->model_name}PolicyTest extends TestCase
     /** @test */
     public function user_can_create_{$this->lang_name}()
     {
-        \$user = \$this->loginAsUser();
+        \$user = \$this->createUser();
         \$this->assertTrue(\$user->can('create', new {$this->model_name}));
     }
 
     /** @test */
     public function user_can_view_{$this->lang_name}()
     {
-        \$user = \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => '{$this->model_name} 1 name']);
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
         \$this->assertTrue(\$user->can('view', \${$this->single_model_var_name}));
     }
 
     /** @test */
     public function user_can_update_{$this->lang_name}()
     {
-        \$user = \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => '{$this->model_name} 1 name']);
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
         \$this->assertTrue(\$user->can('update', \${$this->single_model_var_name}));
     }
 
     /** @test */
     public function user_can_delete_{$this->lang_name}()
     {
-        \$user = \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => '{$this->model_name} 1 name']);
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
         \$this->assertTrue(\$user->can('delete', \${$this->single_model_var_name}));
     }
 }

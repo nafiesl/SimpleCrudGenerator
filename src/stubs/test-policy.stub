@@ -13,31 +13,31 @@ class MasterPolicyTest extends TestCase
     /** @test */
     public function user_can_create_master()
     {
-        $user = $this->loginAsUser();
+        $user = $this->createUser();
         $this->assertTrue($user->can('create', new Master));
     }
 
     /** @test */
     public function user_can_view_master()
     {
-        $user = $this->loginAsUser();
-        $singleMstr = factory(Master::class)->create(['name' => 'Master 1 name']);
+        $user = $this->createUser();
+        $singleMstr = factory(Master::class)->create();
         $this->assertTrue($user->can('view', $singleMstr));
     }
 
     /** @test */
     public function user_can_update_master()
     {
-        $user = $this->loginAsUser();
-        $singleMstr = factory(Master::class)->create(['name' => 'Master 1 name']);
+        $user = $this->createUser();
+        $singleMstr = factory(Master::class)->create();
         $this->assertTrue($user->can('update', $singleMstr));
     }
 
     /** @test */
     public function user_can_delete_master()
     {
-        $user = $this->loginAsUser();
-        $singleMstr = factory(Master::class)->create(['name' => 'Master 1 name']);
+        $user = $this->createUser();
+        $singleMstr = factory(Master::class)->create();
         $this->assertTrue($user->can('delete', $singleMstr));
     }
 }
