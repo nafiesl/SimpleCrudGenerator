@@ -94,14 +94,8 @@ class ViewsGeneratorTest extends TestCase
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.detail') }}</h3></div>
             <table class=\"table table-condensed\">
                 <tbody>
-                    <tr>
-                        <td>{{ trans('{$this->lang_name}.name') }}</td>
-                        <td>{{ \${$this->single_model_var_name}->name }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ trans('{$this->lang_name}.description') }}</td>
-                        <td>{{ \${$this->single_model_var_name}->description }}</td>
-                    </tr>
+                    <tr><td>{{ trans('{$this->lang_name}.name') }}</td><td>{{ \${$this->single_model_var_name}->name }}</td></tr>
+                    <tr><td>{{ trans('{$this->lang_name}.description') }}</td><td>{{ \${$this->single_model_var_name}->description }}</td></tr>
                 </tbody>
             </table>
             <div class=\"panel-footer\">
