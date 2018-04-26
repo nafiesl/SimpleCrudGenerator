@@ -15,6 +15,9 @@ class RouteApiGeneratorTest extends TestCase
         $this->assertFileExists($routeApiPath);
         $routeApiFileContent = "<?php
 
+/**
+ * {$this->plural_model_name} Endpoints
+ */
 Route::middleware('auth:api')->resource('{$this->table_name}', 'Api\\{$this->plural_model_name}Controller')->names('api.{$this->table_name}');
 ";
         $this->assertEquals($routeApiFileContent, file_get_contents($routeApiPath));
@@ -29,6 +32,9 @@ Route::middleware('auth:api')->resource('{$this->table_name}', 'Api\\{$this->plu
         $this->assertFileExists($routeApiPath);
         $routeApiFileContent = "<?php
 
+/**
+ * {$this->plural_model_name} Endpoints
+ */
 Route::middleware('auth:api')->resource('{$this->table_name}', 'Api\\Projects\\{$this->plural_model_name}Controller')->names('api.{$this->table_name}');
 ";
         $this->assertEquals($routeApiFileContent, file_get_contents($routeApiPath));
