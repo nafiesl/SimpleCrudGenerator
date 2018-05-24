@@ -110,7 +110,7 @@ class ViewsGeneratorTest extends TestCase
         {{ Form::hidden('page', request('page')) }}
     @endif
     {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
     @can('delete', \${$this->single_model_var_name})
         {!! link_to_route(
             '{$this->table_name}.index',
@@ -146,7 +146,7 @@ class ViewsGeneratorTest extends TestCase
                     'q' => request('q'),
                 ]
             ) !!}
-            {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+            {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
         </div>
     </div>
 @endcan

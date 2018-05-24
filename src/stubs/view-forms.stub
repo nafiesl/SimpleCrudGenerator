@@ -20,7 +20,7 @@
         {{ Form::hidden('page', request('page')) }}
     @endif
     {!! Form::submit(trans('master.update'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    {{ link_to_route('masters.index', trans('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
     @can('delete', $singleMstr)
         {!! link_to_route(
             'masters.index',
@@ -56,7 +56,7 @@
                     'q' => request('q'),
                 ]
             ) !!}
-            {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+            {{ link_to_route('masters.index', trans('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
         </div>
     </div>
 @endcan
