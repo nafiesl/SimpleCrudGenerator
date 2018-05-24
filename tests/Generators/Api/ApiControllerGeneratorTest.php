@@ -57,7 +57,10 @@ class {$this->plural_model_name}Controller extends Controller
 
         \${$this->single_model_var_name} = {$this->model_name}::create(\$new{$this->model_name});
 
-        return \${$this->single_model_var_name};
+        return response()->json([
+            'message' => __('{$this->lang_name}.created'),
+            'data'    => \${$this->single_model_var_name},
+        ], 201);
     }
 
     /**
@@ -91,7 +94,10 @@ class {$this->plural_model_name}Controller extends Controller
 
         \${$this->single_model_var_name}->update(\$request->only('name', 'description'));
 
-        return \${$this->single_model_var_name};
+        return response()->json([
+            'message' => __('{$this->lang_name}.updated'),
+            'data'    => \${$this->single_model_var_name},
+        ]);
     }
 
     /**
@@ -110,7 +116,7 @@ class {$this->plural_model_name}Controller extends Controller
         ]);
 
         if (request('{$this->lang_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
-            return response()->json('{$this->lang_name} deleted.', 204);
+            return response()->json(['message' => __('{$this->lang_name}.deleted')]);
         }
 
         return response()->json('Unprocessable Entity.', 422);

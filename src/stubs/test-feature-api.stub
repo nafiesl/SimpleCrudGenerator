@@ -40,7 +40,12 @@ class ManageMastersTest extends TestCase
             'description' => 'Master 1 description',
         ]);
 
-        $this->seeJson(['name' => 'Master 1 name']);
+        $this->seeStatusCode(201);
+        $this->seeJson([
+            'message'     => __('master.created'),
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
+        ]);
     }
 
     /** @test */
@@ -74,7 +79,12 @@ class ManageMastersTest extends TestCase
             'description' => 'Master 1 description',
         ]);
 
-        $this->seeJson(['name' => 'Master 1 name']);
+        $this->seeStatusCode(200);
+        $this->seeJson([
+            'message'     => __('master.updated'),
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
+        ]);
     }
 
     /** @test */
@@ -91,6 +101,11 @@ class ManageMastersTest extends TestCase
 
         $this->dontSeeInDatabase('masters', [
             'id' => $singleMstr->id,
+        ]);
+
+        $this->seeStatusCode(200);
+        $this->seeJson([
+            'message' => __('master.deleted'),
         ]);
     }
 }

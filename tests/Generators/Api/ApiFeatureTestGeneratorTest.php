@@ -54,7 +54,12 @@ class Manage{$this->plural_model_name}Test extends TestCase
             'description' => '{$this->model_name} 1 description',
         ]);
 
-        \$this->seeJson(['name' => '{$this->model_name} 1 name']);
+        \$this->seeStatusCode(201);
+        \$this->seeJson([
+            'message'     => __('{$this->lang_name}.created'),
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ]);
     }
 
     /** @test */
@@ -88,7 +93,12 @@ class Manage{$this->plural_model_name}Test extends TestCase
             'description' => '{$this->model_name} 1 description',
         ]);
 
-        \$this->seeJson(['name' => '{$this->model_name} 1 name']);
+        \$this->seeStatusCode(200);
+        \$this->seeJson([
+            'message'     => __('{$this->lang_name}.updated'),
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ]);
     }
 
     /** @test */
@@ -105,6 +115,11 @@ class Manage{$this->plural_model_name}Test extends TestCase
 
         \$this->dontSeeInDatabase('{$this->table_name}', [
             'id' => \${$this->single_model_var_name}->id,
+        ]);
+
+        \$this->seeStatusCode(200);
+        \$this->seeJson([
+            'message' => __('{$this->lang_name}.deleted'),
         ]);
     }
 }
@@ -163,7 +178,12 @@ class Manage{$this->plural_model_name}Test extends TestCase
             'description' => '{$this->model_name} 1 description',
         ]);
 
-        \$this->seeJson(['name' => '{$this->model_name} 1 name']);
+        \$this->seeStatusCode(201);
+        \$this->seeJson([
+            'message'     => __('{$this->lang_name}.created'),
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ]);
     }
 
     /** @test */
@@ -197,7 +217,12 @@ class Manage{$this->plural_model_name}Test extends TestCase
             'description' => '{$this->model_name} 1 description',
         ]);
 
-        \$this->seeJson(['name' => '{$this->model_name} 1 name']);
+        \$this->seeStatusCode(200);
+        \$this->seeJson([
+            'message'     => __('{$this->lang_name}.updated'),
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ]);
     }
 
     /** @test */
@@ -214,6 +239,11 @@ class Manage{$this->plural_model_name}Test extends TestCase
 
         \$this->dontSeeInDatabase('{$this->table_name}', [
             'id' => \${$this->single_model_var_name}->id,
+        ]);
+
+        \$this->seeStatusCode(200);
+        \$this->seeJson([
+            'message' => __('{$this->lang_name}.deleted'),
         ]);
     }
 }
