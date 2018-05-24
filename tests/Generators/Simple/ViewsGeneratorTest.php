@@ -2,8 +2,8 @@
 
 namespace Tests\Generators\Simple;
 
-use Illuminate\Contracts\Console\Kernel;
 use Tests\TestCase;
+use Illuminate\Contracts\Console\Kernel;
 
 class ViewsGeneratorTest extends TestCase
 {
@@ -54,22 +54,14 @@ class ViewsGeneratorTest extends TestCase
                         <td>{{ \${$this->single_model_var_name}->name }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
-                        @can('update', \${$this->single_model_var_name})
-                            {!! link_to_route(
-                                '{$this->table_name}.index',
-                                trans('app.edit'),
-                                ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
-                                ['id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]
-                            ) !!} |
-                        @endcan
-                        @can('delete', \${$this->single_model_var_name})
-                            {!! link_to_route(
-                                '{$this->table_name}.index',
-                                trans('app.delete'),
-                                ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
-                                ['id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]
-                            ) !!}
-                        @endcan
+                            @can('update', \${$this->single_model_var_name})
+                                {!! link_to_route(
+                                    '{$this->table_name}.index',
+                                    trans('app.edit'),
+                                    ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
+                                    ['id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]
+                                ) !!}
+                            @endcan
                         </td>
                     </tr>
                     @endforeach
@@ -119,6 +111,14 @@ class ViewsGeneratorTest extends TestCase
     @endif
     {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    @can('delete', \${$this->single_model_var_name})
+        {!! link_to_route(
+            '{$this->table_name}.index',
+            trans('app.delete'),
+            ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
+            ['id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id, 'class' => 'btn btn-danger pull-right']
+        ) !!}
+    @endcan
     {!! Form::close() !!}
 @endcan
 @endif

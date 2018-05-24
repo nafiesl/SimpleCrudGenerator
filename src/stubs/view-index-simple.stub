@@ -38,22 +38,14 @@
                         <td>{{ $singleMstr->name }}</td>
                         <td>{{ $singleMstr->description }}</td>
                         <td class="text-center">
-                        @can('update', $singleMstr)
-                            {!! link_to_route(
-                                'masters.index',
-                                trans('app.edit'),
-                                ['action' => 'edit', 'id' => $singleMstr->id] + Request::only('page', 'q'),
-                                ['id' => 'edit-master-'.$singleMstr->id]
-                            ) !!} |
-                        @endcan
-                        @can('delete', $singleMstr)
-                            {!! link_to_route(
-                                'masters.index',
-                                trans('app.delete'),
-                                ['action' => 'delete', 'id' => $singleMstr->id] + Request::only('page', 'q'),
-                                ['id' => 'del-master-'.$singleMstr->id]
-                            ) !!}
-                        @endcan
+                            @can('update', $singleMstr)
+                                {!! link_to_route(
+                                    'masters.index',
+                                    trans('app.edit'),
+                                    ['action' => 'edit', 'id' => $singleMstr->id] + Request::only('page', 'q'),
+                                    ['id' => 'edit-master-'.$singleMstr->id]
+                                ) !!}
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

@@ -21,6 +21,14 @@
     @endif
     {!! Form::submit(trans('master.update'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    @can('delete', $singleMstr)
+        {!! link_to_route(
+            'masters.index',
+            trans('app.delete'),
+            ['action' => 'delete', 'id' => $singleMstr->id] + Request::only('page', 'q'),
+            ['id' => 'del-master-'.$singleMstr->id, 'class' => 'btn btn-danger pull-right']
+        ) !!}
+    @endcan
     {!! Form::close() !!}
 @endcan
 @endif

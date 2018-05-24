@@ -127,7 +127,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->visit(route('{$this->table_name}.index', [\${$this->single_model_var_name}->id]));
+        \$this->visit(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id]));
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id]));
 
@@ -276,7 +276,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->visit(route('{$this->table_name}.index', [\${$this->single_model_var_name}->id]));
+        \$this->visit(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id]));
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id]));
 
