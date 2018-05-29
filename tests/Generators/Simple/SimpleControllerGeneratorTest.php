@@ -43,7 +43,8 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Store a newly created {$this->single_model_var_name} in storage.
      *
-     * @param  \Illuminate\Http\Request  \$request
+     * @param \Illuminate\Http\Request \$request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request \$request)
@@ -66,8 +67,9 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Update the specified {$this->single_model_var_name} in storage.
      *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \Illuminate\Http\Request \$request
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
@@ -89,7 +91,8 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Remove the specified {$this->single_model_var_name} from storage.
      *
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy({$this->model_name} \${$this->single_model_var_name})
@@ -150,7 +153,8 @@ class CategoriesController extends Controller
     /**
      * Store a newly created category in storage.
      *
-     * @param  \Illuminate\Http\Request  \$request
+     * @param \Illuminate\Http\Request \$request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request \$request)
@@ -173,8 +177,9 @@ class CategoriesController extends Controller
     /**
      * Update the specified category in storage.
      *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \App\Entities\References\Category  \$category
+     * @param \Illuminate\Http\Request \$request
+     * @param \App\Entities\References\Category \$category
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request \$request, Category \$category)
@@ -196,7 +201,8 @@ class CategoriesController extends Controller
     /**
      * Remove the specified category from storage.
      *
-     * @param  \App\Entities\References\Category  \$category
+     * @param \App\Entities\References\Category \$category
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category \$category)
@@ -258,7 +264,8 @@ class CategoriesController extends Controller
     /**
      * Store a newly created category in storage.
      *
-     * @param  \Illuminate\Http\Request  \$request
+     * @param \Illuminate\Http\Request \$request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request \$request)
@@ -281,8 +288,9 @@ class CategoriesController extends Controller
     /**
      * Update the specified category in storage.
      *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \App\Entities\References\Category  \$category
+     * @param \Illuminate\Http\Request \$request
+     * @param \App\Entities\References\Category \$category
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request \$request, Category \$category)
@@ -304,7 +312,8 @@ class CategoriesController extends Controller
     /**
      * Remove the specified category from storage.
      *
-     * @param  \App\Entities\References\Category  \$category
+     * @param \App\Entities\References\Category \$category
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category \$category)

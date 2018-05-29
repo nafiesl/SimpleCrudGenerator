@@ -30,8 +30,9 @@ class {$this->model_name}Policy
     /**
      * Determine whether the user can view the project.
      *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$userModel} \$user
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return mixed
      */
     public function view(User \$user, {$this->model_name} \${$this->single_model_var_name})
@@ -43,8 +44,9 @@ class {$this->model_name}Policy
     /**
      * Determine whether the user can create projects.
      *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$userModel} \$user
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return mixed
      */
     public function create(User \$user, {$this->model_name} \${$this->single_model_var_name})
@@ -56,8 +58,9 @@ class {$this->model_name}Policy
     /**
      * Determine whether the user can update the project.
      *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$userModel} \$user
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return mixed
      */
     public function update(User \$user, {$this->model_name} \${$this->single_model_var_name})
@@ -69,8 +72,9 @@ class {$this->model_name}Policy
     /**
      * Determine whether the user can delete the project.
      *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$userModel} \$user
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return mixed
      */
     public function delete(User \$user, {$this->model_name} \${$this->single_model_var_name})
@@ -142,8 +146,9 @@ class {$this->model_name}Policy
     /**
      * Determine whether the user can view the project.
      *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$userModel} \$user
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return mixed
      */
     public function view(User \$user, {$this->model_name} \${$this->single_model_var_name})
@@ -155,8 +160,9 @@ class {$this->model_name}Policy
     /**
      * Determine whether the user can create projects.
      *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$userModel} \$user
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return mixed
      */
     public function create(User \$user, {$this->model_name} \${$this->single_model_var_name})
@@ -168,8 +174,9 @@ class {$this->model_name}Policy
     /**
      * Determine whether the user can update the project.
      *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$userModel} \$user
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return mixed
      */
     public function update(User \$user, {$this->model_name} \${$this->single_model_var_name})
@@ -181,8 +188,9 @@ class {$this->model_name}Policy
     /**
      * Determine whether the user can delete the project.
      *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @param \\{$userModel} \$user
+     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
+     *
      * @return mixed
      */
     public function delete(User \$user, {$this->model_name} \${$this->single_model_var_name})

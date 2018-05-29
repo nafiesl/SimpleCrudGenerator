@@ -36,7 +36,8 @@ class MastersController extends Controller
     /**
      * Store a newly created singleMstr in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -59,7 +60,8 @@ class MastersController extends Controller
     /**
      * Display the specified singleMstr.
      *
-     * @param  \App\Master  $singleMstr
+     * @param \App\Master $singleMstr
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Master $singleMstr)
@@ -70,7 +72,8 @@ class MastersController extends Controller
     /**
      * Show the form for editing the specified singleMstr.
      *
-     * @param  \App\Master  $singleMstr
+     * @param \App\Master $singleMstr
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Master $singleMstr)
@@ -83,8 +86,9 @@ class MastersController extends Controller
     /**
      * Update the specified singleMstr in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \fullMstr  $singleMstr
+     * @param \Illuminate\Http\Request $request
+     * @param \fullMstr $singleMstr
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Master $singleMstr)
@@ -104,7 +108,8 @@ class MastersController extends Controller
     /**
      * Remove the specified singleMstr from storage.
      *
-     * @param  \fullMstr  $singleMstr
+     * @param \fullMstr $singleMstr
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Master $singleMstr)

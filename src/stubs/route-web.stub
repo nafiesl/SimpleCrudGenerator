@@ -1,5 +1,5 @@
 
-/**
+/*
  * Masters Routes
  */
 Route::resource('masters', 'MastersController');

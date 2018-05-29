@@ -15,7 +15,7 @@ class RouteWebGeneratorTest extends TestCase
         $this->assertFileExists($routeWebPath);
         $routeWebFileContent = "<?php
 
-/**
+/*
  * {$this->plural_model_name} Routes
  */
 Route::resource('{$this->table_name}', '{$this->plural_model_name}Controller');
@@ -32,7 +32,7 @@ Route::resource('{$this->table_name}', '{$this->plural_model_name}Controller');
         $this->assertFileExists($routeWebPath);
         $routeWebFileContent = "<?php
 
-/**
+/*
  * {$this->plural_model_name} Routes
  */
 Route::resource('{$this->table_name}', 'Projects\\{$this->plural_model_name}Controller');

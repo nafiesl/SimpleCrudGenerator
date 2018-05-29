@@ -13,8 +13,9 @@ class MasterPolicy
     /**
      * Determine whether the user can view the project.
      *
-     * @param  \App\User  $user
-     * @param  \fullMstr  $singleMstr
+     * @param \App\User $user
+     * @param \fullMstr $singleMstr
+     *
      * @return mixed
      */
     public function view(User $user, Master $singleMstr)
@@ -26,8 +27,9 @@ class MasterPolicy
     /**
      * Determine whether the user can create projects.
      *
-     * @param  \App\User  $user
-     * @param  \fullMstr  $singleMstr
+     * @param \App\User $user
+     * @param \fullMstr $singleMstr
+     *
      * @return mixed
      */
     public function create(User $user, Master $singleMstr)
@@ -39,8 +41,9 @@ class MasterPolicy
     /**
      * Determine whether the user can update the project.
      *
-     * @param  \App\User  $user
-     * @param  \fullMstr  $singleMstr
+     * @param \App\User $user
+     * @param \fullMstr $singleMstr
+     *
      * @return mixed
      */
     public function update(User $user, Master $singleMstr)
@@ -52,8 +55,9 @@ class MasterPolicy
     /**
      * Determine whether the user can delete the project.
      *
-     * @param  \App\User  $user
-     * @param  \fullMstr  $singleMstr
+     * @param \App\User $user
+     * @param \fullMstr $singleMstr
+     *
      * @return mixed
      */
     public function delete(User $user, Master $singleMstr)

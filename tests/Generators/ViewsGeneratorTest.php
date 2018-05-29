@@ -2,8 +2,8 @@
 
 namespace Tests\Generators;
 
-use Illuminate\Contracts\Console\Kernel;
 use Tests\TestCase;
+use Illuminate\Contracts\Console\Kernel;
 
 class ViewsGeneratorTest extends TestCase
 {
@@ -158,7 +158,6 @@ class ViewsGeneratorTest extends TestCase
 @section('title', trans('{$this->lang_name}.edit'))
 
 @section('content')
-
 <div class=\"row\">
     <div class=\"col-md-6 col-md-offset-3\">
         @if (request('action') == 'delete' && \${$this->single_model_var_name})
