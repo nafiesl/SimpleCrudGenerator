@@ -16,7 +16,7 @@
     <div class="col-md-8">
         <div class="panel panel-default table-responsive">
             <div class="panel-heading">
-                {{ Form::open(['method' => 'get','class' => 'form-inline']) }}
+                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
                 {!! FormField::text('q', ['value' => request('q'), 'label' => trans('master.search'), 'class' => 'input-sm']) !!}
                 {{ Form::submit(trans('master.search'), ['class' => 'btn btn-sm']) }}
                 {{ link_to_route('masters.index', trans('app.reset')) }}

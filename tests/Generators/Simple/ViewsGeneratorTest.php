@@ -32,7 +32,7 @@ class ViewsGeneratorTest extends TestCase
     <div class=\"col-md-8\">
         <div class=\"panel panel-default table-responsive\">
             <div class=\"panel-heading\">
-                {{ Form::open(['method' => 'get','class' => 'form-inline']) }}
+                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
                 {!! FormField::text('q', ['value' => request('q'), 'label' => trans('{$this->lang_name}.search'), 'class' => 'input-sm']) !!}
                 {{ Form::submit(trans('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
                 {{ link_to_route('{$this->table_name}.index', trans('app.reset')) }}
@@ -100,7 +100,7 @@ class ViewsGeneratorTest extends TestCase
 @endif
 @if (Request::get('action') == 'edit' && \$editable{$this->model_name})
 @can('update', \$editable{$this->model_name})
-    {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}],'method' => 'patch']) !!}
+    {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}], 'method' => 'patch']) !!}
     {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
     {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
     @if (request('q'))

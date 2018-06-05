@@ -10,7 +10,7 @@
 @endif
 @if (Request::get('action') == 'edit' && $editableMaster)
 @can('update', $editableMaster)
-    {!! Form::model($editableMaster, ['route' => ['masters.update', $editableMaster],'method' => 'patch']) !!}
+    {!! Form::model($editableMaster, ['route' => ['masters.update', $editableMaster], 'method' => 'patch']) !!}
     {!! FormField::text('name', ['required' => true, 'label' => trans('master.name')]) !!}
     {!! FormField::textarea('description', ['label' => trans('master.description')]) !!}
     @if (request('q'))
