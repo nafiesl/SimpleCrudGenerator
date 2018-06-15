@@ -22,7 +22,7 @@ class ShowViewGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent(string $stubName)
+    public function getContent(string $stubName)
     {
         return $this->replaceStubString($this->getStubFileContent($stubName));
     }

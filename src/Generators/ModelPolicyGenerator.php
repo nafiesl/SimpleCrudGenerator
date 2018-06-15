@@ -31,7 +31,7 @@ class ModelPolicyGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent(string $stubName)
+    public function getContent(string $stubName)
     {
         $stub = $this->getStubFileContent($stubName);
 

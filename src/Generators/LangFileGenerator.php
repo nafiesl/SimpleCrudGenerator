@@ -25,7 +25,7 @@ class LangFileGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent(string $stubName)
+    public function getContent(string $stubName)
     {
         $langStubPath = __DIR__.'/../stubs/'.$stubName.'.stub';
 

@@ -25,7 +25,7 @@ class ModelFactoryGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent(string $stubName)
+    public function getContent(string $stubName)
     {
         $modelFactoryFileContent = $this->getStubFileContent($stubName);
 

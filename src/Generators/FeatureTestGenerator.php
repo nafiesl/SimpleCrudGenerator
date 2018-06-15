@@ -33,7 +33,7 @@ class FeatureTestGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    protected function getContent(string $stubName)
+    public function getContent(string $stubName)
     {
         $stub = $this->getStubFileContent($stubName);
         $baseTestClass = config('simple-crud.base_test_class');

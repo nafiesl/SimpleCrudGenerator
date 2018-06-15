@@ -3,8 +3,8 @@
 namespace Luthfi\CrudGenerator;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Console\DetectsApplicationNamespace;
 
 class GeneratorCommand extends Command
 {
@@ -53,9 +53,9 @@ class GeneratorCommand extends Command
     }
 
     /**
-     * Generate class properties for model names in different usage
+     * Generate class properties for model names in different usage.
      *
-     * @return void
+     * @return array
      */
     public function getModelName($modelName = null)
     {

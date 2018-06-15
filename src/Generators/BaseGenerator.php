@@ -2,14 +2,15 @@
 
 namespace Luthfi\CrudGenerator\Generators;
 
-use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Filesystem\Filesystem;
 use Luthfi\CrudGenerator\GeneratorCommand;
+use Illuminate\Console\DetectsApplicationNamespace;
+use Luthfi\CrudGenerator\Contracts\Generator as GeneratorContract;
 
 /**
  * Base Generator Class
  */
-abstract class BaseGenerator
+abstract class BaseGenerator implements GeneratorContract
 {
     use DetectsApplicationNamespace;
 
@@ -69,22 +70,6 @@ abstract class BaseGenerator
             'single_model_var_name'     => 'singleMstr',
         ];
     }
-
-    /**
-     * Generate class file content
-     *
-     * @param  string $type Type of crud
-     * @return void
-     */
-    abstract public function generate(string $type = 'full');
-
-    /**
-     * Get class file content
-     *
-     * @param  string $stubName Name of stub file
-     * @return void
-     */
-    abstract protected function getContent(string $stubName);
 
     /**
      * Make directory if the path is not exists
