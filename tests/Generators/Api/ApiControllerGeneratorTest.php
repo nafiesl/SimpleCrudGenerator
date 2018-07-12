@@ -46,12 +46,10 @@ class {$this->plural_model_name}Controller extends Controller
     {
         \$this->authorize('create', new {$this->model_name});
 
-        \$request->validate([
+        \$new{$this->model_name} = \$request->validate([
             'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        \$new{$this->model_name} = \$request->only('name', 'description');
         \$new{$this->model_name}['creator_id'] = auth()->id();
 
         \${$this->single_model_var_name} = {$this->model_name}::create(\$new{$this->model_name});
@@ -84,12 +82,11 @@ class {$this->plural_model_name}Controller extends Controller
     {
         \$this->authorize('update', \${$this->single_model_var_name});
 
-        \$request->validate([
+        \${$this->single_model_var_name}Data = \$request->validate([
             'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        \${$this->single_model_var_name}->update(\$request->only('name', 'description'));
+        \${$this->single_model_var_name}->update(\${$this->single_model_var_name}Data);
 
         return response()->json([
             'message' => __('{$this->lang_name}.updated'),

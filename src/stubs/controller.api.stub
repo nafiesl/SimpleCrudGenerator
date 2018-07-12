@@ -32,12 +32,10 @@ class MastersController extends Controller
     {
         $this->authorize('create', new Master);
 
-        $request->validate([
+        $newMaster = $request->validate([
             'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        $newMaster = $request->only('name', 'description');
         $newMaster['creator_id'] = auth()->id();
 
         $singleMstr = Master::create($newMaster);
@@ -70,12 +68,11 @@ class MastersController extends Controller
     {
         $this->authorize('update', $singleMstr);
 
-        $request->validate([
+        $singleMstrData = $request->validate([
             'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        $singleMstr->update($request->only('name', 'description'));
+        $singleMstr->update($singleMstrData);
 
         return response()->json([
             'message' => __('master.updated'),
