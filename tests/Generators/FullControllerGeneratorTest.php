@@ -57,12 +57,10 @@ class {$this->plural_model_name}Controller extends Controller
     {
         \$this->authorize('create', new {$this->model_name});
 
-        \$this->validate(\$request, [
-            'name' => 'required|max:60',
+        \$new{$this->model_name} = \$request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        \$new{$this->model_name} = \$request->only('name', 'description');
         \$new{$this->model_name}['creator_id'] = auth()->id();
 
         \${$this->single_model_var_name} = {$this->model_name}::create(\$new{$this->model_name});
@@ -105,12 +103,11 @@ class {$this->plural_model_name}Controller extends Controller
     {
         \$this->authorize('update', \${$this->single_model_var_name});
 
-        \$this->validate(\$request, [
-            'name' => 'required|max:60',
+        \${$this->single_model_var_name}Data = \$request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        \${$this->single_model_var_name}->update(\$request->only('name', 'description'));
+        \${$this->single_model_var_name}->update(\${$this->single_model_var_name}Data);
 
         return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
     }
@@ -125,13 +122,13 @@ class {$this->plural_model_name}Controller extends Controller
     {
         \$this->authorize('delete', \${$this->single_model_var_name});
 
-        \$this->validate(request(), [
+        request()->validate([
             '{$this->lang_name}_id' => 'required',
         ]);
 
-        \$routeParam = request()->only('page', 'q');
-
         if (request('{$this->lang_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
+            \$routeParam = request()->only('page', 'q');
+
             return redirect()->route('{$this->table_name}.index', \$routeParam);
         }
 
@@ -193,12 +190,10 @@ class CategoriesController extends Controller
     {
         \$this->authorize('create', new Category);
 
-        \$this->validate(\$request, [
-            'name' => 'required|max:60',
+        \$newCategory = \$request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        \$newCategory = \$request->only('name', 'description');
         \$newCategory['creator_id'] = auth()->id();
 
         \$category = Category::create(\$newCategory);
@@ -241,12 +236,11 @@ class CategoriesController extends Controller
     {
         \$this->authorize('update', \$category);
 
-        \$this->validate(\$request, [
-            'name' => 'required|max:60',
+        \$categoryData = \$request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        \$category->update(\$request->only('name', 'description'));
+        \$category->update(\$categoryData);
 
         return redirect()->route('categories.show', \$category);
     }
@@ -261,13 +255,13 @@ class CategoriesController extends Controller
     {
         \$this->authorize('delete', \$category);
 
-        \$this->validate(request(), [
+        request()->validate([
             'category_id' => 'required',
         ]);
 
-        \$routeParam = request()->only('page', 'q');
-
         if (request('category_id') == \$category->id && \$category->delete()) {
+            \$routeParam = request()->only('page', 'q');
+
             return redirect()->route('categories.index', \$routeParam);
         }
 
@@ -330,12 +324,10 @@ class CategoriesController extends Controller
     {
         \$this->authorize('create', new Category);
 
-        \$this->validate(\$request, [
-            'name' => 'required|max:60',
+        \$newCategory = \$request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        \$newCategory = \$request->only('name', 'description');
         \$newCategory['creator_id'] = auth()->id();
 
         \$category = Category::create(\$newCategory);
@@ -378,12 +370,11 @@ class CategoriesController extends Controller
     {
         \$this->authorize('update', \$category);
 
-        \$this->validate(\$request, [
-            'name' => 'required|max:60',
+        \$categoryData = \$request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        \$category->update(\$request->only('name', 'description'));
+        \$category->update(\$categoryData);
 
         return redirect()->route('categories.show', \$category);
     }
@@ -398,13 +389,13 @@ class CategoriesController extends Controller
     {
         \$this->authorize('delete', \$category);
 
-        \$this->validate(request(), [
+        request()->validate([
             'category_id' => 'required',
         ]);
 
-        \$routeParam = request()->only('page', 'q');
-
         if (request('category_id') == \$category->id && \$category->delete()) {
+            \$routeParam = request()->only('page', 'q');
+
             return redirect()->route('categories.index', \$routeParam);
         }
 

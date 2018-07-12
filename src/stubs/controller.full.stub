@@ -43,12 +43,10 @@ class MastersController extends Controller
     {
         $this->authorize('create', new Master);
 
-        $this->validate($request, [
-            'name' => 'required|max:60',
+        $newMaster = $request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        $newMaster = $request->only('name', 'description');
         $newMaster['creator_id'] = auth()->id();
 
         $singleMstr = Master::create($newMaster);
@@ -91,12 +89,11 @@ class MastersController extends Controller
     {
         $this->authorize('update', $singleMstr);
 
-        $this->validate($request, [
-            'name' => 'required|max:60',
+        $singleMstrData = $request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-
-        $singleMstr->update($request->only('name', 'description'));
+        $singleMstr->update($singleMstrData);
 
         return redirect()->route('masters.show', $singleMstr);
     }
@@ -111,13 +108,13 @@ class MastersController extends Controller
     {
         $this->authorize('delete', $singleMstr);
 
-        $this->validate(request(), [
+        request()->validate([
             'master_id' => 'required',
         ]);
 
-        $routeParam = request()->only('page', 'q');
-
         if (request('master_id') == $singleMstr->id && $singleMstr->delete()) {
+            $routeParam = request()->only('page', 'q');
+
             return redirect()->route('masters.index', $routeParam);
         }
 
