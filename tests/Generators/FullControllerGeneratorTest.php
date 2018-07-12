@@ -24,7 +24,7 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Display a listing of the {$this->single_model_var_name}.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -38,7 +38,7 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Show the form for creating a new {$this->single_model_var_name}.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -50,9 +50,8 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Store a newly created {$this->single_model_var_name} in storage.
      *
-     * @param \Illuminate\Http\Request \$request
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  \$request
+     * @return \Illuminate\Routing\Redirector
      */
     public function store(Request \$request)
     {
@@ -74,9 +73,8 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Display the specified {$this->single_model_var_name}.
      *
-     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\View\View
      */
     public function show({$this->model_name} \${$this->single_model_var_name})
     {
@@ -86,9 +84,8 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Show the form for editing the specified {$this->single_model_var_name}.
      *
-     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\View\View
      */
     public function edit({$this->model_name} \${$this->single_model_var_name})
     {
@@ -100,10 +97,9 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Update the specified {$this->single_model_var_name} in storage.
      *
-     * @param \Illuminate\Http\Request \$request
-     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  \$request
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\Routing\Redirector
      */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
@@ -122,9 +118,8 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Remove the specified {$this->single_model_var_name} from storage.
      *
-     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\Routing\Redirector
      */
     public function destroy({$this->model_name} \${$this->single_model_var_name})
     {
@@ -165,7 +160,7 @@ class CategoriesController extends Controller
     /**
      * Display a listing of the category.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -179,7 +174,7 @@ class CategoriesController extends Controller
     /**
      * Show the form for creating a new category.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -191,9 +186,8 @@ class CategoriesController extends Controller
     /**
      * Store a newly created category in storage.
      *
-     * @param \Illuminate\Http\Request \$request
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  \$request
+     * @return \Illuminate\Routing\Redirector
      */
     public function store(Request \$request)
     {
@@ -215,9 +209,8 @@ class CategoriesController extends Controller
     /**
      * Display the specified category.
      *
-     * @param \App\Category \$category
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \App\Category  \$category
+     * @return \Illuminate\View\View
      */
     public function show(Category \$category)
     {
@@ -227,9 +220,8 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified category.
      *
-     * @param \App\Category \$category
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \App\Category  \$category
+     * @return \Illuminate\View\View
      */
     public function edit(Category \$category)
     {
@@ -241,10 +233,9 @@ class CategoriesController extends Controller
     /**
      * Update the specified category in storage.
      *
-     * @param \Illuminate\Http\Request \$request
-     * @param \App\Entities\References\Category \$category
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  \$request
+     * @param  \App\Entities\References\Category  \$category
+     * @return \Illuminate\Routing\Redirector
      */
     public function update(Request \$request, Category \$category)
     {
@@ -263,9 +254,8 @@ class CategoriesController extends Controller
     /**
      * Remove the specified category from storage.
      *
-     * @param \App\Entities\References\Category \$category
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \App\Entities\References\Category  \$category
+     * @return \Illuminate\Routing\Redirector
      */
     public function destroy(Category \$category)
     {
@@ -307,7 +297,7 @@ class CategoriesController extends Controller
     /**
      * Display a listing of the category.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -321,7 +311,7 @@ class CategoriesController extends Controller
     /**
      * Show the form for creating a new category.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -333,9 +323,8 @@ class CategoriesController extends Controller
     /**
      * Store a newly created category in storage.
      *
-     * @param \Illuminate\Http\Request \$request
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  \$request
+     * @return \Illuminate\Routing\Redirector
      */
     public function store(Request \$request)
     {
@@ -357,9 +346,8 @@ class CategoriesController extends Controller
     /**
      * Display the specified category.
      *
-     * @param \App\Category \$category
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \App\Category  \$category
+     * @return \Illuminate\View\View
      */
     public function show(Category \$category)
     {
@@ -369,9 +357,8 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified category.
      *
-     * @param \App\Category \$category
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \App\Category  \$category
+     * @return \Illuminate\View\View
      */
     public function edit(Category \$category)
     {
@@ -383,10 +370,9 @@ class CategoriesController extends Controller
     /**
      * Update the specified category in storage.
      *
-     * @param \Illuminate\Http\Request \$request
-     * @param \App\Entities\References\Category \$category
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  \$request
+     * @param  \App\Entities\References\Category  \$category
+     * @return \Illuminate\Routing\Redirector
      */
     public function update(Request \$request, Category \$category)
     {
@@ -405,9 +391,8 @@ class CategoriesController extends Controller
     /**
      * Remove the specified category from storage.
      *
-     * @param \App\Entities\References\Category \$category
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \App\Entities\References\Category  \$category
+     * @return \Illuminate\Routing\Redirector
      */
     public function destroy(Category \$category)
     {
