@@ -25,7 +25,7 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Get a listing of the {$this->single_model_var_name}.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -39,16 +39,15 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Store a newly created {$this->single_model_var_name} in storage.
      *
-     * @param \Illuminate\Http\Request \$request
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  \$request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request \$request)
     {
         \$this->authorize('create', new {$this->model_name});
 
-        \$this->validate(\$request, [
-            'name' => 'required|max:60',
+        \$request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
 
@@ -66,9 +65,8 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Get the specified {$this->single_model_var_name}.
      *
-     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show({$this->model_name} \${$this->single_model_var_name})
     {
@@ -78,17 +76,16 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Update the specified {$this->single_model_var_name} in storage.
      *
-     * @param \Illuminate\Http\Request \$request
-     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  \$request
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('update', \${$this->single_model_var_name});
 
-        \$this->validate(\$request, [
-            'name' => 'required|max:60',
+        \$request->validate([
+            'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
 
@@ -103,15 +100,14 @@ class {$this->plural_model_name}Controller extends Controller
     /**
      * Remove the specified {$this->single_model_var_name} from storage.
      *
-     * @param \\{$this->full_model_name} \${$this->single_model_var_name}
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy({$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('delete', \${$this->single_model_var_name});
 
-        \$this->validate(request(), [
+        request()->validate([
             '{$this->lang_name}_id' => 'required',
         ]);
 
