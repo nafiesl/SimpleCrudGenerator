@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', trans('master.edit'))
+@section('title', __('master.edit'))
 
 @section('content')
 <div class="row">
@@ -8,20 +8,20 @@
         @if (request('action') == 'delete' && $singleMstr)
         @can('delete', $singleMstr)
             <div class="panel panel-default">
-                <div class="panel-heading"><h3 class="panel-title">{{ trans('master.delete') }}</h3></div>
+                <div class="panel-heading"><h3 class="panel-title">{{ __('master.delete') }}</h3></div>
                 <div class="panel-body">
-                    <label class="control-label">{{ trans('master.name') }}</label>
+                    <label class="control-label">{{ __('master.name') }}</label>
                     <p>{{ $singleMstr->name }}</p>
-                    <label class="control-label">{{ trans('master.description') }}</label>
+                    <label class="control-label">{{ __('master.description') }}</label>
                     <p>{{ $singleMstr->description }}</p>
                     {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
                 </div>
                 <hr style="margin:0">
-                <div class="panel-body">{{ trans('app.delete_confirm') }}</div>
+                <div class="panel-body">{{ __('app.delete_confirm') }}</div>
                 <div class="panel-footer">
                     {!! FormField::delete(
                         ['route' => ['masters.destroy', $singleMstr]],
-                        trans('app.delete_confirm_button'),
+                        __('app.delete_confirm_button'),
                         ['class'=>'btn btn-danger'],
                         [
                             'master_id' => $singleMstr->id,
@@ -29,23 +29,23 @@
                             'q' => request('q'),
                         ]
                     ) !!}
-                    {{ link_to_route('masters.edit', trans('app.cancel'), [$singleMstr], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('masters.edit', __('app.cancel'), [$singleMstr], ['class' => 'btn btn-default']) }}
                 </div>
             </div>
         @endcan
         @else
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title">{{ trans('master.edit') }}</h3></div>
+            <div class="panel-heading"><h3 class="panel-title">{{ __('master.edit') }}</h3></div>
             {!! Form::model($singleMstr, ['route' => ['masters.update', $singleMstr],'method' => 'patch']) !!}
             <div class="panel-body">
-                {!! FormField::text('name', ['required' => true, 'label' => trans('master.name')]) !!}
-                {!! FormField::textarea('description', ['label' => trans('master.description')]) !!}
+                {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
+                {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
             </div>
             <div class="panel-footer">
-                {!! Form::submit(trans('master.update'), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('masters.show', trans('app.cancel'), [$singleMstr], ['class' => 'btn btn-default']) }}
+                {!! Form::submit(__('master.update'), ['class' => 'btn btn-success']) !!}
+                {{ link_to_route('masters.show', __('app.cancel'), [$singleMstr], ['class' => 'btn btn-default']) }}
                 @can('delete', $singleMstr)
-                    {{ link_to_route('masters.edit', trans('app.delete'), [$singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-master-'.$singleMstr->id]) }}
+                    {{ link_to_route('masters.edit', __('app.delete'), [$singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-master-'.$singleMstr->id]) }}
                 @endcan
             </div>
             {!! Form::close() !!}

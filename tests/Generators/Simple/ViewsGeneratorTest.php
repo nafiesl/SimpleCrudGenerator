@@ -16,35 +16,35 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($indexViewPath);
         $indexViewContent = "@extends('layouts.app')
 
-@section('title', trans('{$this->lang_name}.list'))
+@section('title', __('{$this->lang_name}.list'))
 
 @section('content')
 <h1 class=\"page-header\">
     <div class=\"pull-right\">
-    @can('create', new {$this->full_model_name})
-        {{ link_to_route('{$this->table_name}.index', trans('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
-    @endcan
+        @can('create', new {$this->full_model_name})
+            {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+        @endcan
     </div>
-    {{ trans('{$this->lang_name}.list') }}
-    <small>{{ trans('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ trans('{$this->lang_name}.{$this->lang_name}') }}</small>
+    {{ __('{$this->lang_name}.list') }}
+    <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small>
 </h1>
 <div class=\"row\">
     <div class=\"col-md-8\">
         <div class=\"panel panel-default table-responsive\">
             <div class=\"panel-heading\">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['value' => request('q'), 'label' => trans('{$this->lang_name}.search'), 'class' => 'input-sm']) !!}
-                {{ Form::submit(trans('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
-                {{ link_to_route('{$this->table_name}.index', trans('app.reset')) }}
+                {!! FormField::text('q', ['value' => request('q'), 'label' => __('{$this->lang_name}.search'), 'class' => 'input-sm']) !!}
+                {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
+                {{ link_to_route('{$this->table_name}.index', __('app.reset')) }}
                 {{ Form::close() }}
             </div>
             <table class=\"table table-condensed\">
                 <thead>
                     <tr>
-                        <th class=\"text-center\">{{ trans('app.table_no') }}</th>
-                        <th>{{ trans('{$this->lang_name}.name') }}</th>
-                        <th>{{ trans('{$this->lang_name}.description') }}</th>
-                        <th class=\"text-center\">{{ trans('app.action') }}</th>
+                        <th class=\"text-center\">{{ __('app.table_no') }}</th>
+                        <th>{{ __('{$this->lang_name}.name') }}</th>
+                        <th>{{ __('{$this->lang_name}.description') }}</th>
+                        <th class=\"text-center\">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,7 +57,7 @@ class ViewsGeneratorTest extends TestCase
                             @can('update', \${$this->single_model_var_name})
                                 {!! link_to_route(
                                     '{$this->table_name}.index',
-                                    trans('app.edit'),
+                                    __('app.edit'),
                                     ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
                                     ['id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]
                                 ) !!}
@@ -91,30 +91,30 @@ class ViewsGeneratorTest extends TestCase
         $formViewContent = "@if (Request::get('action') == 'create')
 @can('create', new {$this->full_model_name})
     {!! Form::open(['route' => '{$this->table_name}.store']) !!}
-    {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
-    {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
-    {!! Form::submit(trans('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+    {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
+    {!! Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
+    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {!! Form::close() !!}
 @endcan
 @endif
 @if (Request::get('action') == 'edit' && \$editable{$this->model_name})
 @can('update', \$editable{$this->model_name})
     {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}], 'method' => 'patch']) !!}
-    {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
-    {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
+    {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+    {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
     @if (request('q'))
         {{ Form::hidden('q', request('q')) }}
     @endif
     @if (request('page'))
         {{ Form::hidden('page', request('page')) }}
     @endif
-    {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
+    {!! Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
+    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
     @can('delete', \${$this->single_model_var_name})
         {!! link_to_route(
             '{$this->table_name}.index',
-            trans('app.delete'),
+            __('app.delete'),
             ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
             ['id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id, 'class' => 'btn btn-danger pull-right']
         ) !!}
@@ -125,20 +125,20 @@ class ViewsGeneratorTest extends TestCase
 @if (Request::get('action') == 'delete' && \$editable{$this->model_name})
 @can('delete', \$editable{$this->model_name})
     <div class=\"panel panel-default\">
-        <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.delete') }}</h3></div>
+        <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.delete') }}</h3></div>
         <div class=\"panel-body\">
-            <label class=\"control-label\">{{ trans('{$this->lang_name}.name') }}</label>
+            <label class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
             <p>{{ \$editable{$this->model_name}->name }}</p>
-            <label class=\"control-label\">{{ trans('{$this->lang_name}.description') }}</label>
+            <label class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
             <p>{{ \$editable{$this->model_name}->description }}</p>
             {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
         </div>
         <hr style=\"margin:0\">
-        <div class=\"panel-body\">{{ trans('app.delete_confirm') }}</div>
+        <div class=\"panel-body\">{{ __('app.delete_confirm') }}</div>
         <div class=\"panel-footer\">
             {!! FormField::delete(
                 ['route' => ['{$this->table_name}.destroy', \$editable{$this->model_name}]],
-                trans('app.delete_confirm_button'),
+                __('app.delete_confirm_button'),
                 ['class'=>'btn btn-danger'],
                 [
                     '{$this->lang_name}_id' => \$editable{$this->model_name}->id,
@@ -146,7 +146,7 @@ class ViewsGeneratorTest extends TestCase
                     'q' => request('q'),
                 ]
             ) !!}
-            {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
+            {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
         </div>
     </div>
 @endcan

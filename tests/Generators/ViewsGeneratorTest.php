@@ -16,35 +16,35 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($indexViewPath);
         $indexViewContent = "@extends('layouts.app')
 
-@section('title', trans('{$this->lang_name}.list'))
+@section('title', __('{$this->lang_name}.list'))
 
 @section('content')
 <h1 class=\"page-header\">
     <div class=\"pull-right\">
-    @can('create', new {$this->full_model_name})
-        {{ link_to_route('{$this->table_name}.create', trans('{$this->lang_name}.create'), [], ['class' => 'btn btn-success']) }}
-    @endcan
+        @can('create', new {$this->full_model_name})
+            {{ link_to_route('{$this->table_name}.create', __('{$this->lang_name}.create'), [], ['class' => 'btn btn-success']) }}
+        @endcan
     </div>
-    {{ trans('{$this->lang_name}.list') }}
-    <small>{{ trans('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ trans('{$this->lang_name}.{$this->lang_name}') }}</small>
+    {{ __('{$this->lang_name}.list') }}
+    <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small>
 </h1>
 <div class=\"row\">
     <div class=\"col-md-12\">
         <div class=\"panel panel-default table-responsive\">
             <div class=\"panel-heading\">
                 {{ Form::open(['method' => 'get','class' => 'form-inline']) }}
-                {!! FormField::text('q', ['value' => request('q'), 'label' => trans('{$this->lang_name}.search'), 'class' => 'input-sm']) !!}
-                {{ Form::submit(trans('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
-                {{ link_to_route('{$this->table_name}.index', trans('app.reset')) }}
+                {!! FormField::text('q', ['value' => request('q'), 'label' => __('{$this->lang_name}.search'), 'class' => 'input-sm']) !!}
+                {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
+                {{ link_to_route('{$this->table_name}.index', __('app.reset')) }}
                 {{ Form::close() }}
             </div>
             <table class=\"table table-condensed\">
                 <thead>
                     <tr>
-                        <th class=\"text-center\">{{ trans('app.table_no') }}</th>
-                        <th>{{ trans('{$this->lang_name}.name') }}</th>
-                        <th>{{ trans('{$this->lang_name}.description') }}</th>
-                        <th class=\"text-center\">{{ trans('app.action') }}</th>
+                        <th class=\"text-center\">{{ __('app.table_no') }}</th>
+                        <th>{{ __('{$this->lang_name}.name') }}</th>
+                        <th>{{ __('{$this->lang_name}.description') }}</th>
+                        <th class=\"text-center\">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,7 +57,7 @@ class ViewsGeneratorTest extends TestCase
                         @can('view', \${$this->single_model_var_name})
                             {!! link_to_route(
                                 '{$this->table_name}.show',
-                                trans('app.show'),
+                                __('app.show'),
                                 [\${$this->single_model_var_name}],
                                 ['class' => 'btn btn-default btn-xs', 'id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
                             ) !!}
@@ -85,24 +85,24 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($showFormViewPath);
         $showFormViewContent = "@extends('layouts.app')
 
-@section('title', trans('{$this->lang_name}.detail'))
+@section('title', __('{$this->lang_name}.detail'))
 
 @section('content')
 <div class=\"row\">
     <div class=\"col-md-6 col-md-offset-3\">
         <div class=\"panel panel-default\">
-            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.detail') }}</h3></div>
+            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.detail') }}</h3></div>
             <table class=\"table table-condensed\">
                 <tbody>
-                    <tr><td>{{ trans('{$this->lang_name}.name') }}</td><td>{{ \${$this->single_model_var_name}->name }}</td></tr>
-                    <tr><td>{{ trans('{$this->lang_name}.description') }}</td><td>{{ \${$this->single_model_var_name}->description }}</td></tr>
+                    <tr><td>{{ __('{$this->lang_name}.name') }}</td><td>{{ \${$this->single_model_var_name}->name }}</td></tr>
+                    <tr><td>{{ __('{$this->lang_name}.description') }}</td><td>{{ \${$this->single_model_var_name}->description }}</td></tr>
                 </tbody>
             </table>
             <div class=\"panel-footer\">
                 @can('update', \${$this->single_model_var_name})
-                    {{ link_to_route('{$this->table_name}.edit', trans('{$this->lang_name}.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-warning', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                    {{ link_to_route('{$this->table_name}.edit', __('{$this->lang_name}.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-warning', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
                 @endcan
-                {{ link_to_route('{$this->table_name}.index', trans('{$this->lang_name}.back_to_index'), [], ['class' => 'btn btn-default']) }}
+                {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.back_to_index'), [], ['class' => 'btn btn-default']) }}
             </div>
         </div>
     </div>
@@ -121,21 +121,21 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($createFormViewPath);
         $createFormViewContent = "@extends('layouts.app')
 
-@section('title', trans('{$this->lang_name}.create'))
+@section('title', __('{$this->lang_name}.create'))
 
 @section('content')
 <div class=\"row\">
     <div class=\"col-md-6 col-md-offset-3\">
         <div class=\"panel panel-default\">
-            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.create') }}</h3></div>
+            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.create') }}</h3></div>
             {!! Form::open(['route' => '{$this->table_name}.store']) !!}
             <div class=\"panel-body\">
-                {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
-                {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
+                {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+                {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
             </div>
             <div class=\"panel-footer\">
-                {!! Form::submit(trans('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('{$this->table_name}.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                {!! Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
+                {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
             </div>
             {!! Form::close() !!}
         </div>
@@ -155,7 +155,7 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($editFormViewPath);
         $editFormViewContent = "@extends('layouts.app')
 
-@section('title', trans('{$this->lang_name}.edit'))
+@section('title', __('{$this->lang_name}.edit'))
 
 @section('content')
 <div class=\"row\">
@@ -163,20 +163,20 @@ class ViewsGeneratorTest extends TestCase
         @if (request('action') == 'delete' && \${$this->single_model_var_name})
         @can('delete', \${$this->single_model_var_name})
             <div class=\"panel panel-default\">
-                <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.delete') }}</h3></div>
+                <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.delete') }}</h3></div>
                 <div class=\"panel-body\">
-                    <label class=\"control-label\">{{ trans('{$this->lang_name}.name') }}</label>
+                    <label class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
                     <p>{{ \${$this->single_model_var_name}->name }}</p>
-                    <label class=\"control-label\">{{ trans('{$this->lang_name}.description') }}</label>
+                    <label class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
                     <p>{{ \${$this->single_model_var_name}->description }}</p>
                     {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
                 </div>
                 <hr style=\"margin:0\">
-                <div class=\"panel-body\">{{ trans('app.delete_confirm') }}</div>
+                <div class=\"panel-body\">{{ __('app.delete_confirm') }}</div>
                 <div class=\"panel-footer\">
                     {!! FormField::delete(
                         ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
-                        trans('app.delete_confirm_button'),
+                        __('app.delete_confirm_button'),
                         ['class'=>'btn btn-danger'],
                         [
                             '{$this->lang_name}_id' => \${$this->single_model_var_name}->id,
@@ -184,23 +184,23 @@ class ViewsGeneratorTest extends TestCase
                             'q' => request('q'),
                         ]
                     ) !!}
-                    {{ link_to_route('{$this->table_name}.edit', trans('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('{$this->table_name}.edit', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
                 </div>
             </div>
         @endcan
         @else
         <div class=\"panel panel-default\">
-            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ trans('{$this->lang_name}.edit') }}</h3></div>
+            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.edit') }}</h3></div>
             {!! Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}],'method' => 'patch']) !!}
             <div class=\"panel-body\">
-                {!! FormField::text('name', ['required' => true, 'label' => trans('{$this->lang_name}.name')]) !!}
-                {!! FormField::textarea('description', ['label' => trans('{$this->lang_name}.description')]) !!}
+                {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+                {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
             </div>
             <div class=\"panel-footer\">
-                {!! Form::submit(trans('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('{$this->table_name}.show', trans('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
+                {!! Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
+                {{ link_to_route('{$this->table_name}.show', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
                 @can('delete', \${$this->single_model_var_name})
-                    {{ link_to_route('{$this->table_name}.edit', trans('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                    {{ link_to_route('{$this->table_name}.edit', __('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
                 @endcan
             </div>
             {!! Form::close() !!}

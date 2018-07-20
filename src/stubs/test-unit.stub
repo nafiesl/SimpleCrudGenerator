@@ -18,9 +18,9 @@ class MasterTest extends TestCase
 
         $this->assertEquals(
             link_to_route('masters.show', $singleMstr->name, [$singleMstr], [
-                'title' => trans(
+                'title' => __(
                     'app.show_detail_title',
-                    ['name' => $singleMstr->name, 'type' => trans('master.master')]
+                    ['name' => $singleMstr->name, 'type' => __('master.master')]
                 ),
             ]), $singleMstr->name_link
         );

@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('title', trans('master.create'))
+@section('title', __('master.create'))
 
 @section('content')
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title">{{ trans('master.create') }}</h3></div>
+            <div class="panel-heading"><h3 class="panel-title">{{ __('master.create') }}</h3></div>
             {!! Form::open(['route' => 'masters.store']) !!}
             <div class="panel-body">
-                {!! FormField::text('name', ['required' => true, 'label' => trans('master.name')]) !!}
-                {!! FormField::textarea('description', ['label' => trans('master.description')]) !!}
+                {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
+                {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
             </div>
             <div class="panel-footer">
-                {!! Form::submit(trans('master.create'), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('masters.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                {!! Form::submit(__('master.create'), ['class' => 'btn btn-success']) !!}
+                {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
             </div>
             {!! Form::close() !!}
         </div>

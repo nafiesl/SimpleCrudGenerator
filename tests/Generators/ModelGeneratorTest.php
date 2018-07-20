@@ -27,9 +27,9 @@ class {$this->model_name} extends Model
     public function getNameLinkAttribute()
     {
         return link_to_route('{$this->table_name}.show', \$this->name, [\$this], [
-            'title' => trans(
+            'title' => __(
                 'app.show_detail_title',
-                ['name' => \$this->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
+                ['name' => \$this->name, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
             ),
         ]);
     }
@@ -64,9 +64,9 @@ class Category extends Model
     public function getNameLinkAttribute()
     {
         return link_to_route('categories.show', \$this->name, [\$this], [
-            'title' => trans(
+            'title' => __(
                 'app.show_detail_title',
-                ['name' => \$this->name, 'type' => trans('category.category')]
+                ['name' => \$this->name, 'type' => __('category.category')]
             ),
         ]);
     }

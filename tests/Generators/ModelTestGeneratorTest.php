@@ -33,9 +33,9 @@ class {$this->model_name}Test extends TestCase
 
         \$this->assertEquals(
             link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}], [
-                'title' => trans(
+                'title' => __(
                     'app.show_detail_title',
-                    ['name' => \${$this->single_model_var_name}->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
+                    ['name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
                 ),
             ]), \${$this->single_model_var_name}->name_link
         );
@@ -84,9 +84,9 @@ class {$this->model_name}Test extends TestCase
 
         \$this->assertEquals(
             link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}], [
-                'title' => trans(
+                'title' => __(
                     'app.show_detail_title',
-                    ['name' => \${$this->single_model_var_name}->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
+                    ['name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
                 ),
             ]), \${$this->single_model_var_name}->name_link
         );
