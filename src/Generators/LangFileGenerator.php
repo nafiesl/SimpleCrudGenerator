@@ -17,7 +17,7 @@ class LangFileGenerator extends BaseGenerator
 
         $this->createAppLangFile($langPath);
 
-        $this->generateFile($langPath.'/'.$this->modelNames['lang_name'].'.php', $this->getContent('lang-'.$locale));
+        $this->generateFile($langPath.'/'.$this->modelNames['lang_name'].'.php', $this->getContent($locale));
 
         $this->command->info($this->modelNames['lang_name'].' lang files generated.');
     }
@@ -25,14 +25,14 @@ class LangFileGenerator extends BaseGenerator
     /**
      * {@inheritDoc}
      */
-    public function getContent(string $stubName)
+    public function getContent(string $locale)
     {
-        $langStubPath = __DIR__.'/../stubs/'.$stubName.'.stub';
+        $langStubPath = __DIR__.'/../stubs/resources/lang/'.$locale.'/master.stub';
 
         if ($this->files->exists($langStubPath)) {
             $stub = $this->files->get($langStubPath);
         } else {
-            $stub = $this->files->get(__DIR__.'/../stubs/lang.stub');
+            $stub = $this->files->get(__DIR__.'/../stubs/resources/lang/en/master.stub');
         }
 
         $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->modelNames['model_name'])));
@@ -69,12 +69,12 @@ class LangFileGenerator extends BaseGenerator
     {
         $locale = config('app.locale');
 
-        $langStubPath = __DIR__.'/../stubs/lang-app-'.$locale.'.stub';
+        $langStubPath = __DIR__.'/../stubs/resources/lang/'.$locale.'/app.stub';
 
         if ($this->files->exists($langStubPath)) {
             $stub = $this->files->get($langStubPath);
         } else {
-            $stub = $this->files->get(__DIR__.'/../stubs/lang-app.stub');
+            $stub = $this->files->get(__DIR__.'/../stubs/resources/lang/en/app.stub');
         }
         return $stub;
     }
