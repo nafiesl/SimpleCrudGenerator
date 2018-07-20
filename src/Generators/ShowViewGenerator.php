@@ -14,7 +14,7 @@ class ShowViewGenerator extends BaseGenerator
     {
         $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
 
-        $this->generateFile($viewPath.'/show.blade.php', $this->getContent('view-show'));
+        $this->generateFile($viewPath.'/show.blade.php', $this->getContent('resources/views/full/show'));
 
         $this->command->info($this->modelNames['model_name'].' show view file generated.');
     }
