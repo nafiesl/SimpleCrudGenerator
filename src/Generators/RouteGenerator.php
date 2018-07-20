@@ -14,7 +14,7 @@ class RouteGenerator extends BaseGenerator
     {
         $webRoutePath = $this->makeRouteFile(base_path('routes'), $type.'.php');
 
-        $this->files->append($webRoutePath, $this->getContent('route-'.$type));
+        $this->files->append($webRoutePath, $this->getContent('routes/'.$type));
 
         $this->command->info($this->modelNames['model_name'].' resource route generated on routes/'.$type.'.php.');
     }
