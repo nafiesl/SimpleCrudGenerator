@@ -29,9 +29,9 @@ class {$this->plural_model_name}Controller extends Controller
     public function index()
     {
         \$editable{$this->model_name} = null;
-        \${$this->collection_model_var_name} = {$this->model_name}::where(function (\$query) {
-            \$query->where('name', 'like', '%'.request('q').'%');
-        })->paginate(25);
+        \${$this->single_model_var_name}Query = {$this->model_name}::query();
+        \${$this->single_model_var_name}Query->where('name', 'like', '%'.request('q').'%');
+        \${$this->collection_model_var_name} = \${$this->single_model_var_name}Query->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             \$editable{$this->model_name} = {$this->model_name}::find(request('id'));
@@ -133,9 +133,9 @@ class CategoriesController extends Controller
     public function index()
     {
         \$editableCategory = null;
-        \$categories = Category::where(function (\$query) {
-            \$query->where('name', 'like', '%'.request('q').'%');
-        })->paginate(25);
+        \$categoryQuery = Category::query();
+        \$categoryQuery->where('name', 'like', '%'.request('q').'%');
+        \$categories = \$categoryQuery->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             \$editableCategory = Category::find(request('id'));
@@ -238,9 +238,9 @@ class CategoriesController extends Controller
     public function index()
     {
         \$editableCategory = null;
-        \$categories = Category::where(function (\$query) {
-            \$query->where('name', 'like', '%'.request('q').'%');
-        })->paginate(25);
+        \$categoryQuery = Category::query();
+        \$categoryQuery->where('name', 'like', '%'.request('q').'%');
+        \$categories = \$categoryQuery->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             \$editableCategory = Category::find(request('id'));

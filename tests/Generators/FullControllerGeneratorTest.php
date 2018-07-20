@@ -28,9 +28,9 @@ class {$this->plural_model_name}Controller extends Controller
      */
     public function index()
     {
-        \${$this->collection_model_var_name} = {$this->model_name}::where(function (\$query) {
-            \$query->where('name', 'like', '%'.request('q').'%');
-        })->paginate(25);
+        \${$this->single_model_var_name}Query = {$this->model_name}::query();
+        \${$this->single_model_var_name}Query->where('name', 'like', '%'.request('q').'%');
+        \${$this->collection_model_var_name} = \${$this->single_model_var_name}Query->paginate(25);
 
         return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}'));
     }
@@ -161,9 +161,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        \$categories = Category::where(function (\$query) {
-            \$query->where('name', 'like', '%'.request('q').'%');
-        })->paginate(25);
+        \$categoryQuery = Category::query();
+        \$categoryQuery->where('name', 'like', '%'.request('q').'%');
+        \$categories = \$categoryQuery->paginate(25);
 
         return view('categories.index', compact('categories'));
     }
@@ -295,9 +295,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        \$categories = Category::where(function (\$query) {
-            \$query->where('name', 'like', '%'.request('q').'%');
-        })->paginate(25);
+        \$categoryQuery = Category::query();
+        \$categoryQuery->where('name', 'like', '%'.request('q').'%');
+        \$categories = \$categoryQuery->paginate(25);
 
         return view('categories.index', compact('categories'));
     }

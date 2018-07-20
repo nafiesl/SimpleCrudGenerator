@@ -14,9 +14,9 @@ class MastersController extends Controller
      */
     public function index()
     {
-        $mstrCollections = Master::where(function ($query) {
-            $query->where('name', 'like', '%'.request('q').'%');
-        })->paginate(25);
+        $singleMstrQuery = Master::query();
+        $singleMstrQuery->where('name', 'like', '%'.request('q').'%');
+        $mstrCollections = $singleMstrQuery->paginate(25);
 
         return view('masters.index', compact('mstrCollections'));
     }
