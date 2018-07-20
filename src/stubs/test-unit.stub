@@ -12,7 +12,7 @@ class MasterTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function a_master_has_name_link_method()
+    public function a_master_has_name_link_attribute()
     {
         $singleMstr = factory(Master::class)->create();
 
@@ -22,7 +22,7 @@ class MasterTest extends TestCase
                     'app.show_detail_title',
                     ['name' => $singleMstr->name, 'type' => trans('master.master')]
                 ),
-            ]), $singleMstr->nameLink()
+            ]), $singleMstr->name_link
         );
     }
 

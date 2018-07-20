@@ -24,7 +24,7 @@ class {$this->model_name} extends Model
 {
     protected \$fillable = ['name', 'description', 'creator_id'];
 
-    public function nameLink()
+    public function getNameLinkAttribute()
     {
         return link_to_route('{$this->table_name}.show', \$this->name, [\$this], [
             'title' => trans(
@@ -61,7 +61,7 @@ class Category extends Model
 {
     protected \$fillable = ['name', 'description', 'creator_id'];
 
-    public function nameLink()
+    public function getNameLinkAttribute()
     {
         return link_to_route('categories.show', \$this->name, [\$this], [
             'title' => trans(

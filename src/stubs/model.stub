@@ -9,7 +9,7 @@ class Master extends Model
 {
     protected $fillable = ['name', 'description', 'creator_id'];
 
-    public function nameLink()
+    public function getNameLinkAttribute()
     {
         return link_to_route('masters.show', $this->name, [$this], [
             'title' => trans(

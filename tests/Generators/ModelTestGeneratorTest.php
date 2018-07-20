@@ -27,7 +27,7 @@ class {$this->model_name}Test extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function a_{$this->lang_name}_has_name_link_method()
+    public function a_{$this->lang_name}_has_name_link_attribute()
     {
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
@@ -37,7 +37,7 @@ class {$this->model_name}Test extends TestCase
                     'app.show_detail_title',
                     ['name' => \${$this->single_model_var_name}->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
                 ),
-            ]), \${$this->single_model_var_name}->nameLink()
+            ]), \${$this->single_model_var_name}->name_link
         );
     }
 
@@ -78,7 +78,7 @@ class {$this->model_name}Test extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function a_{$this->lang_name}_has_name_link_method()
+    public function a_{$this->lang_name}_has_name_link_attribute()
     {
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
@@ -88,7 +88,7 @@ class {$this->model_name}Test extends TestCase
                     'app.show_detail_title',
                     ['name' => \${$this->single_model_var_name}->name, 'type' => trans('{$this->lang_name}.{$this->lang_name}')]
                 ),
-            ]), \${$this->single_model_var_name}->nameLink()
+            ]), \${$this->single_model_var_name}->name_link
         );
     }
 
