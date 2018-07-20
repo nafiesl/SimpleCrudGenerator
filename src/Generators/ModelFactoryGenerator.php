@@ -16,7 +16,7 @@ class ModelFactoryGenerator extends BaseGenerator
 
         $this->generateFile(
             $modelFactoryPath.'/'.$this->modelNames['model_name'].'Factory.php',
-            $this->getContent('model-factory')
+            $this->getContent('database/factories/model-factory')
         );
 
         $this->command->info($this->modelNames['model_name'].' model factory generated.');

@@ -18,7 +18,7 @@ class MigrationGenerator extends BaseGenerator
         $migrationPath = $this->makeDirectory(database_path('migrations'));
 
         $migrationFilePath = $migrationPath.'/'.$prefix."_create_{$tableName}_table.php";
-        $this->generateFile($migrationFilePath, $this->getContent('migration-create'));
+        $this->generateFile($migrationFilePath, $this->getContent('database/migrations/migration-create'));
 
         $this->command->info($this->modelNames['model_name'].' table migration generated.');
     }
