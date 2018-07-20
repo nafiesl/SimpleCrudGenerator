@@ -25,7 +25,7 @@ class ControllerGenerator extends BaseGenerator
         $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
         $controllerPath = $controllerPath.'/'.$pluralModelName.'Controller.php';
 
-        $this->generateFile($controllerPath, $this->getContent('controller.'.$type));
+        $this->generateFile($controllerPath, $this->getContent('controllers/'.$type));
 
         if ($this->isForApi()) {
             $pluralModelName = 'Api/'.$pluralModelName;
