@@ -16,7 +16,7 @@ class ModelTestGenerator extends BaseGenerator
 
         $this->generateFile(
             "{$unitTestPath}/{$this->modelNames['model_name']}Test.php",
-            $this->getContent('test-unit')
+            $this->getContent('tests/unit/model')
         );
 
         $this->command->info($this->modelNames['model_name'].'Test (model) generated.');

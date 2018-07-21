@@ -24,7 +24,7 @@ class FeatureTestGenerator extends BaseGenerator
 
         $this->generateFile(
             "{$featureTestPath}/Manage{$this->modelNames['plural_model_name']}Test.php",
-            $this->getContent('test-feature-'.$type)
+            $this->getContent('tests/feature/'.$type)
         );
 
         $this->command->info('Manage'.$this->modelNames['plural_model_name'].'Test generated.');
@@ -77,6 +77,6 @@ class FeatureTestGenerator extends BaseGenerator
      */
     public function getBrowserKitBaseTestContent()
     {
-        return $this->files->get(__DIR__.'/../stubs/test-browserkit-base-class.stub');
+        return $this->files->get(__DIR__.'/../stubs/tests/browserkit-base-class.stub');
     }
 }
