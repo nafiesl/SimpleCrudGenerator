@@ -20,7 +20,7 @@ class ModelPolicyGenerator extends BaseGenerator
 
         $this->generateFile(
             $modelPolicyPath.'/'.$this->modelNames['model_name'].'Policy.php',
-            $this->getContent('model-policy')
+            $this->getContent('models/model-policy')
         );
 
         $this->command->info($this->modelNames['model_name'].' model policy generated.');

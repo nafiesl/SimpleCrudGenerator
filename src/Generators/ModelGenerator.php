@@ -17,7 +17,7 @@ class ModelGenerator extends BaseGenerator
 
         $this->generateFile(
             $modelDirectory.'/'.$this->modelNames['model_name'].'.php',
-            $this->getContent('model')
+            $this->getContent('models/model')
         );
 
         $this->command->info($this->modelNames['model_name'].' model generated.');
