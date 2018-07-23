@@ -88,9 +88,9 @@ class ManageMastersTest extends TestCase
 
         $this->seePageIs(route('masters.show', $singleMstr));
 
-        $this->seeInDatabase('masters', [
+        $this->seeInDatabase('masters', $this->getEditFields([
             'id' => $singleMstr->id,
-        ] + $this->getEditFields());
+        ]));
     }
 
     /** @test */

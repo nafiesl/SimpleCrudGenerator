@@ -144,9 +144,9 @@ class Manage{$this->plural_model_name}Test extends TestCase
 
         \$this->seePageIs(route('{$this->table_name}.show', \${$this->single_model_var_name}));
 
-        \$this->seeInDatabase('{$this->table_name}', [
+        \$this->seeInDatabase('{$this->table_name}', \$this->getEditFields([
             'id' => \${$this->single_model_var_name}->id,
-        ] + \$this->getEditFields());
+        ]));
     }
 
     /** @test */
@@ -340,9 +340,9 @@ class Manage{$this->plural_model_name}Test extends TestCase
 
         \$this->seePageIs(route('{$this->table_name}.show', \${$this->single_model_var_name}));
 
-        \$this->seeInDatabase('{$this->table_name}', [
+        \$this->seeInDatabase('{$this->table_name}', \$this->getEditFields([
             'id' => \${$this->single_model_var_name}->id,
-        ] + \$this->getEditFields());
+        ]));
     }
 
     /** @test */
