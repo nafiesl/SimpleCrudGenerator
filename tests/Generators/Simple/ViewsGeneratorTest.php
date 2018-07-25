@@ -134,7 +134,7 @@ class ViewsGeneratorTest extends TestCase
             {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
         </div>
         <hr style=\"margin:0\">
-        <div class=\"panel-body\">{{ __('app.delete_confirm') }}</div>
+        <div class=\"panel-body\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
         <div class=\"panel-footer\">
             {!! FormField::delete(
                 ['route' => ['{$this->table_name}.destroy', \$editable{$this->model_name}]],

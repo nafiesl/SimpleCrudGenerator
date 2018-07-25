@@ -54,14 +54,14 @@ class ViewsGeneratorTest extends TestCase
                         <td>{{ \${$this->single_model_var_name}->name_link }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
-                        @can('view', \${$this->single_model_var_name})
-                            {!! link_to_route(
-                                '{$this->table_name}.show',
-                                __('app.show'),
-                                [\${$this->single_model_var_name}],
-                                ['class' => 'btn btn-default btn-xs', 'id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
-                            ) !!}
-                        @endcan
+                            @can('view', \${$this->single_model_var_name})
+                                {!! link_to_route(
+                                    '{$this->table_name}.show',
+                                    __('app.show'),
+                                    [\${$this->single_model_var_name}],
+                                    ['class' => 'btn btn-default btn-xs', 'id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
+                                ) !!}
+                            @endcan
                         </td>
                     </tr>
                     @endforeach
@@ -172,7 +172,7 @@ class ViewsGeneratorTest extends TestCase
                     {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
                 </div>
                 <hr style=\"margin:0\">
-                <div class=\"panel-body\">{{ __('app.delete_confirm') }}</div>
+                <div class=\"panel-body\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
                 <div class=\"panel-footer\">
                     {!! FormField::delete(
                         ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
