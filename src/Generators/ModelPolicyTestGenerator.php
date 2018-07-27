@@ -16,7 +16,7 @@ class ModelPolicyTestGenerator extends BaseGenerator
 
         $this->generateFile(
             "{$modelPolicyTestPath}/{$this->modelNames['model_name']}PolicyTest.php",
-            $this->getContent('tests/unit/model-policy')
+            $this->getContent('testcases/unit/model-policy')
         );
 
         $this->command->info($this->modelNames['model_name'].'PolicyTest (model policy) generated.');
