@@ -13,14 +13,14 @@ return [
 
     // Actions
     'create'         => 'Create new Master',
-    'created'        => 'Create new Master succeded.',
+    'created'        => 'A new Master has been created.',
     'show'           => 'View Master Detail',
     'edit'           => 'Edit Master',
     'update'         => 'Update Master',
-    'updated'        => 'Update Master succeded.',
+    'updated'        => 'Master data has been updated.',
     'delete'         => 'Delete Master',
     'delete_confirm' => 'Are you sure to delete this Master?',
-    'deleted'        => 'Delete Master succeded.',
+    'deleted'        => 'Master has been deleted.',
     'undeleted'      => 'Master not deleted.',
     'undeleteable'   => 'Master data cannot be deleted.',
 

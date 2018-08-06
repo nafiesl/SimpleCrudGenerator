@@ -30,14 +30,14 @@ return [
 
     // Actions
     'create'         => 'Create new {$displayModelName}',
-    'created'        => 'Create new {$displayModelName} succeded.',
+    'created'        => 'A new {$displayModelName} has been created.',
     'show'           => 'View {$displayModelName} Detail',
     'edit'           => 'Edit {$displayModelName}',
     'update'         => 'Update {$displayModelName}',
-    'updated'        => 'Update {$displayModelName} succeded.',
+    'updated'        => '{$displayModelName} data has been updated.',
     'delete'         => 'Delete {$displayModelName}',
     'delete_confirm' => 'Are you sure to delete this {$displayModelName}?',
-    'deleted'        => 'Delete {$displayModelName} succeded.',
+    'deleted'        => '{$displayModelName} has been deleted.',
     'undeleted'      => '{$displayModelName} not deleted.',
     'undeleteable'   => '{$displayModelName} data cannot be deleted.',
 
