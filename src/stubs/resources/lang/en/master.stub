@@ -5,6 +5,7 @@ return [
     'master'     => 'Master',
     'list'           => 'Master List',
     'search'         => 'Search Master',
+    'select'         => 'Select Master',
     'detail'         => 'Master Detail',
     'not_found'      => 'Master not found.',
     'empty'          => 'Master is empty.',
