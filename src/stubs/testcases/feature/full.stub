@@ -34,10 +34,10 @@ class ManageMastersTest extends TestCase
         $this->loginAsUser();
         $this->visitRoute('masters.index');
 
-        $this->click(trans('master.create'));
+        $this->click(__('master.create'));
         $this->seeRouteIs('masters.create');
 
-        $this->submitForm(trans('master.create'), $this->getCreateFields());
+        $this->submitForm(__('master.create'), $this->getCreateFields());
 
         $this->seeRouteIs('masters.show', Master::first());
 
@@ -84,7 +84,7 @@ class ManageMastersTest extends TestCase
         $this->click('edit-master-'.$singleMstr->id);
         $this->seeRouteIs('masters.edit', $singleMstr);
 
-        $this->submitForm(trans('master.update'), $this->getEditFields());
+        $this->submitForm(__('master.update'), $this->getEditFields());
 
         $this->seeRouteIs('masters.show', $singleMstr);
 
@@ -126,7 +126,7 @@ class ManageMastersTest extends TestCase
         $this->click('del-master-'.$singleMstr->id);
         $this->seeRouteIs('masters.edit', [$singleMstr, 'action' => 'delete']);
 
-        $this->press(trans('app.delete_confirm_button'));
+        $this->press(__('app.delete_confirm_button'));
 
         $this->dontSeeInDatabase('masters', [
             'id' => $singleMstr->id,

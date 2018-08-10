@@ -90,10 +90,10 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \$this->visitRoute('{$this->table_name}.index');
 
-        \$this->click(trans('{$this->lang_name}.create'));
+        \$this->click(__('{$this->lang_name}.create'));
         \$this->seeRouteIs('{$this->table_name}.create');
 
-        \$this->submitForm(trans('{$this->lang_name}.create'), \$this->getCreateFields());
+        \$this->submitForm(__('{$this->lang_name}.create'), \$this->getCreateFields());
 
         \$this->seeRouteIs('{$this->table_name}.show', {$this->model_name}::first());
 
@@ -140,7 +140,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seeRouteIs('{$this->table_name}.edit', \${$this->single_model_var_name});
 
-        \$this->submitForm(trans('{$this->lang_name}.update'), \$this->getEditFields());
+        \$this->submitForm(__('{$this->lang_name}.update'), \$this->getEditFields());
 
         \$this->seeRouteIs('{$this->table_name}.show', \${$this->single_model_var_name});
 
@@ -182,7 +182,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seeRouteIs('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']);
 
-        \$this->press(trans('app.delete_confirm_button'));
+        \$this->press(__('app.delete_confirm_button'));
 
         \$this->dontSeeInDatabase('{$this->table_name}', [
             'id' => \${$this->single_model_var_name}->id,
@@ -286,10 +286,10 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \$this->visitRoute('{$this->table_name}.index');
 
-        \$this->click(trans('{$this->lang_name}.create'));
+        \$this->click(__('{$this->lang_name}.create'));
         \$this->seeRouteIs('{$this->table_name}.create');
 
-        \$this->submitForm(trans('{$this->lang_name}.create'), \$this->getCreateFields());
+        \$this->submitForm(__('{$this->lang_name}.create'), \$this->getCreateFields());
 
         \$this->seeRouteIs('{$this->table_name}.show', {$this->model_name}::first());
 
@@ -336,7 +336,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seeRouteIs('{$this->table_name}.edit', \${$this->single_model_var_name});
 
-        \$this->submitForm(trans('{$this->lang_name}.update'), \$this->getEditFields());
+        \$this->submitForm(__('{$this->lang_name}.update'), \$this->getEditFields());
 
         \$this->seeRouteIs('{$this->table_name}.show', \${$this->single_model_var_name});
 
@@ -378,7 +378,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
         \$this->seeRouteIs('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']);
 
-        \$this->press(trans('app.delete_confirm_button'));
+        \$this->press(__('app.delete_confirm_button'));
 
         \$this->dontSeeInDatabase('{$this->table_name}', [
             'id' => \${$this->single_model_var_name}->id,
