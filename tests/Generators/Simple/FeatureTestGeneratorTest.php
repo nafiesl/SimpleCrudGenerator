@@ -72,7 +72,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->loginAsUser();
-        \$this->visit(route('{$this->table_name}.index'));
+        \$this->visitRoute('{$this->table_name}.index');
         \$this->see(\${$this->single_model_var_name}->name);
     }
 
@@ -80,17 +80,17 @@ class Manage{$this->plural_model_name}Test extends TestCase
     public function user_can_create_a_{$this->lang_name}()
     {
         \$this->loginAsUser();
-        \$this->visit(route('{$this->table_name}.index'));
+        \$this->visitRoute('{$this->table_name}.index');
 
         \$this->click(trans('{$this->lang_name}.create'));
-        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'create']));
+        \$this->seeRouteIs('{$this->table_name}.index', ['action' => 'create']);
 
         \$this->submitForm(trans('{$this->lang_name}.create'), [
             'name'        => '{$this->model_name} 1 name',
             'description' => '{$this->model_name} 1 description',
         ]);
 
-        \$this->seePageIs(route('{$this->table_name}.index'));
+        \$this->seeRouteIs('{$this->table_name}.index');
 
         \$this->seeInDatabase('{$this->table_name}', [
             'name'        => '{$this->model_name} 1 name',
@@ -104,16 +104,16 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        \$this->visit(route('{$this->table_name}.index', ['q' => '123']));
+        \$this->visitRoute('{$this->table_name}.index', ['q' => '123']);
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id, 'q' => '123']));
+        \$this->seeRouteIs('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id, 'q' => '123']);
 
         \$this->submitForm(trans('{$this->lang_name}.update'), [
             'name'        => '{$this->model_name} 1 name',
             'description' => '{$this->model_name} 1 description',
         ]);
 
-        \$this->seePageIs(route('{$this->table_name}.index', ['q' => '123']));
+        \$this->seeRouteIs('{$this->table_name}.index', ['q' => '123']);
 
         \$this->seeInDatabase('{$this->table_name}', [
             'name'        => '{$this->model_name} 1 name',
@@ -127,9 +127,9 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->visit(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id]));
+        \$this->visitRoute('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id]);
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id]));
+        \$this->seeRouteIs('{$this->table_name}.index', ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id]);
 
         \$this->seeInDatabase('{$this->table_name}', [
             'id' => \${$this->single_model_var_name}->id,
@@ -221,7 +221,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->loginAsUser();
-        \$this->visit(route('{$this->table_name}.index'));
+        \$this->visitRoute('{$this->table_name}.index');
         \$this->see(\${$this->single_model_var_name}->name);
     }
 
@@ -229,17 +229,17 @@ class Manage{$this->plural_model_name}Test extends TestCase
     public function user_can_create_a_{$this->lang_name}()
     {
         \$this->loginAsUser();
-        \$this->visit(route('{$this->table_name}.index'));
+        \$this->visitRoute('{$this->table_name}.index');
 
         \$this->click(trans('{$this->lang_name}.create'));
-        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'create']));
+        \$this->seeRouteIs('{$this->table_name}.index', ['action' => 'create']);
 
         \$this->submitForm(trans('{$this->lang_name}.create'), [
             'name'        => '{$this->model_name} 1 name',
             'description' => '{$this->model_name} 1 description',
         ]);
 
-        \$this->seePageIs(route('{$this->table_name}.index'));
+        \$this->seeRouteIs('{$this->table_name}.index');
 
         \$this->seeInDatabase('{$this->table_name}', [
             'name'        => '{$this->model_name} 1 name',
@@ -253,16 +253,16 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        \$this->visit(route('{$this->table_name}.index', ['q' => '123']));
+        \$this->visitRoute('{$this->table_name}.index', ['q' => '123']);
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id, 'q' => '123']));
+        \$this->seeRouteIs('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id, 'q' => '123']);
 
         \$this->submitForm(trans('{$this->lang_name}.update'), [
             'name'        => '{$this->model_name} 1 name',
             'description' => '{$this->model_name} 1 description',
         ]);
 
-        \$this->seePageIs(route('{$this->table_name}.index', ['q' => '123']));
+        \$this->seeRouteIs('{$this->table_name}.index', ['q' => '123']);
 
         \$this->seeInDatabase('{$this->table_name}', [
             'name'        => '{$this->model_name} 1 name',
@@ -276,9 +276,9 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->visit(route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id]));
+        \$this->visitRoute('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id]);
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.index', ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id]));
+        \$this->seeRouteIs('{$this->table_name}.index', ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id]);
 
         \$this->seeInDatabase('{$this->table_name}', [
             'id' => \${$this->single_model_var_name}->id,

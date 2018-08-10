@@ -72,7 +72,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->loginAsUser();
-        \$this->visit(route('{$this->table_name}.index'));
+        \$this->visitRoute('{$this->table_name}.index');
         \$this->see(\${$this->single_model_var_name}->name);
     }
 
@@ -88,14 +88,14 @@ class Manage{$this->plural_model_name}Test extends TestCase
     public function user_can_create_a_{$this->lang_name}()
     {
         \$this->loginAsUser();
-        \$this->visit(route('{$this->table_name}.index'));
+        \$this->visitRoute('{$this->table_name}.index');
 
         \$this->click(trans('{$this->lang_name}.create'));
-        \$this->seePageIs(route('{$this->table_name}.create'));
+        \$this->seeRouteIs('{$this->table_name}.create');
 
         \$this->submitForm(trans('{$this->lang_name}.create'), \$this->getCreateFields());
 
-        \$this->seePageIs(route('{$this->table_name}.show', {$this->model_name}::first()));
+        \$this->seeRouteIs('{$this->table_name}.show', {$this->model_name}::first());
 
         \$this->seeInDatabase('{$this->table_name}', \$this->getCreateFields());
     }
@@ -136,13 +136,13 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        \$this->visit(route('{$this->table_name}.show', \${$this->single_model_var_name}));
+        \$this->visitRoute('{$this->table_name}.show', \${$this->single_model_var_name});
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
+        \$this->seeRouteIs('{$this->table_name}.edit', \${$this->single_model_var_name});
 
         \$this->submitForm(trans('{$this->lang_name}.update'), \$this->getEditFields());
 
-        \$this->seePageIs(route('{$this->table_name}.show', \${$this->single_model_var_name}));
+        \$this->seeRouteIs('{$this->table_name}.show', \${$this->single_model_var_name});
 
         \$this->seeInDatabase('{$this->table_name}', \$this->getEditFields([
             'id' => \${$this->single_model_var_name}->id,
@@ -178,9 +178,9 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->visit(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
+        \$this->visitRoute('{$this->table_name}.edit', \${$this->single_model_var_name});
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']));
+        \$this->seeRouteIs('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']);
 
         \$this->press(trans('app.delete_confirm_button'));
 
@@ -268,7 +268,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$this->loginAsUser();
-        \$this->visit(route('{$this->table_name}.index'));
+        \$this->visitRoute('{$this->table_name}.index');
         \$this->see(\${$this->single_model_var_name}->name);
     }
 
@@ -284,14 +284,14 @@ class Manage{$this->plural_model_name}Test extends TestCase
     public function user_can_create_a_{$this->lang_name}()
     {
         \$this->loginAsUser();
-        \$this->visit(route('{$this->table_name}.index'));
+        \$this->visitRoute('{$this->table_name}.index');
 
         \$this->click(trans('{$this->lang_name}.create'));
-        \$this->seePageIs(route('{$this->table_name}.create'));
+        \$this->seeRouteIs('{$this->table_name}.create');
 
         \$this->submitForm(trans('{$this->lang_name}.create'), \$this->getCreateFields());
 
-        \$this->seePageIs(route('{$this->table_name}.show', {$this->model_name}::first()));
+        \$this->seeRouteIs('{$this->table_name}.show', {$this->model_name}::first());
 
         \$this->seeInDatabase('{$this->table_name}', \$this->getCreateFields());
     }
@@ -332,13 +332,13 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        \$this->visit(route('{$this->table_name}.show', \${$this->single_model_var_name}));
+        \$this->visitRoute('{$this->table_name}.show', \${$this->single_model_var_name});
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
+        \$this->seeRouteIs('{$this->table_name}.edit', \${$this->single_model_var_name});
 
         \$this->submitForm(trans('{$this->lang_name}.update'), \$this->getEditFields());
 
-        \$this->seePageIs(route('{$this->table_name}.show', \${$this->single_model_var_name}));
+        \$this->seeRouteIs('{$this->table_name}.show', \${$this->single_model_var_name});
 
         \$this->seeInDatabase('{$this->table_name}', \$this->getEditFields([
             'id' => \${$this->single_model_var_name}->id,
@@ -374,9 +374,9 @@ class Manage{$this->plural_model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
-        \$this->visit(route('{$this->table_name}.edit', \${$this->single_model_var_name}));
+        \$this->visitRoute('{$this->table_name}.edit', \${$this->single_model_var_name});
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
-        \$this->seePageIs(route('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']));
+        \$this->seeRouteIs('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']);
 
         \$this->press(trans('app.delete_confirm_button'));
 

@@ -16,7 +16,7 @@ class ManageMastersTest extends TestCase
         $singleMstr = factory(Master::class)->create();
 
         $this->loginAsUser();
-        $this->visit(route('masters.index'));
+        $this->visitRoute('masters.index');
         $this->see($singleMstr->name);
     }
 
@@ -32,14 +32,14 @@ class ManageMastersTest extends TestCase
     public function user_can_create_a_master()
     {
         $this->loginAsUser();
-        $this->visit(route('masters.index'));
+        $this->visitRoute('masters.index');
 
         $this->click(trans('master.create'));
-        $this->seePageIs(route('masters.create'));
+        $this->seeRouteIs('masters.create');
 
         $this->submitForm(trans('master.create'), $this->getCreateFields());
 
-        $this->seePageIs(route('masters.show', Master::first()));
+        $this->seeRouteIs('masters.show', Master::first());
 
         $this->seeInDatabase('masters', $this->getCreateFields());
     }
@@ -80,13 +80,13 @@ class ManageMastersTest extends TestCase
         $this->loginAsUser();
         $singleMstr = factory(Master::class)->create(['name' => 'Testing 123']);
 
-        $this->visit(route('masters.show', $singleMstr));
+        $this->visitRoute('masters.show', $singleMstr);
         $this->click('edit-master-'.$singleMstr->id);
-        $this->seePageIs(route('masters.edit', $singleMstr));
+        $this->seeRouteIs('masters.edit', $singleMstr);
 
         $this->submitForm(trans('master.update'), $this->getEditFields());
 
-        $this->seePageIs(route('masters.show', $singleMstr));
+        $this->seeRouteIs('masters.show', $singleMstr);
 
         $this->seeInDatabase('masters', $this->getEditFields([
             'id' => $singleMstr->id,
@@ -122,9 +122,9 @@ class ManageMastersTest extends TestCase
         $this->loginAsUser();
         $singleMstr = factory(Master::class)->create();
 
-        $this->visit(route('masters.edit', $singleMstr));
+        $this->visitRoute('masters.edit', $singleMstr);
         $this->click('del-master-'.$singleMstr->id);
-        $this->seePageIs(route('masters.edit', [$singleMstr, 'action' => 'delete']));
+        $this->seeRouteIs('masters.edit', [$singleMstr, 'action' => 'delete']);
 
         $this->press(trans('app.delete_confirm_button'));
 
