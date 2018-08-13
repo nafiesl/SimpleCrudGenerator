@@ -121,6 +121,7 @@ class ManageMastersTest extends TestCase
     {
         $this->loginAsUser();
         $singleMstr = factory(Master::class)->create();
+        factory(Master::class)->create();
 
         $this->visitRoute('masters.edit', $singleMstr);
         $this->click('del-master-'.$singleMstr->id);

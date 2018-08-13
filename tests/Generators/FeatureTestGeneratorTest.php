@@ -177,6 +177,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
     {
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        factory({$this->model_name}::class)->create();
 
         \$this->visitRoute('{$this->table_name}.edit', \${$this->single_model_var_name});
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
@@ -373,6 +374,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
     {
         \$this->loginAsUser();
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        factory({$this->model_name}::class)->create();
 
         \$this->visitRoute('{$this->table_name}.edit', \${$this->single_model_var_name});
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
