@@ -21,12 +21,12 @@
     @endif
     {!! Form::submit(__('master.update'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('masters.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
-    @can('delete', $singleMstr)
+    @can('delete', $editableMaster)
         {!! link_to_route(
             'masters.index',
             __('app.delete'),
-            ['action' => 'delete', 'id' => $singleMstr->id] + Request::only('page', 'q'),
-            ['id' => 'del-master-'.$singleMstr->id, 'class' => 'btn btn-danger pull-right']
+            ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q'),
+            ['id' => 'del-master-'.$editableMaster->id, 'class' => 'btn btn-danger pull-right']
         ) !!}
     @endcan
     {!! Form::close() !!}

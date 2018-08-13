@@ -111,12 +111,12 @@ class ViewsGeneratorTest extends TestCase
     @endif
     {!! Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
     {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
-    @can('delete', \${$this->single_model_var_name})
+    @can('delete', \$editable{$this->model_name})
         {!! link_to_route(
             '{$this->table_name}.index',
             __('app.delete'),
-            ['action' => 'delete', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
-            ['id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id, 'class' => 'btn btn-danger pull-right']
+            ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q'),
+            ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger pull-right']
         ) !!}
     @endcan
     {!! Form::close() !!}
