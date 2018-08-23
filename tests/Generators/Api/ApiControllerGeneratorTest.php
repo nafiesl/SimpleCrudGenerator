@@ -11,7 +11,7 @@ class ApiControllerGeneratorTest extends TestCase
     {
         $this->artisan('make:crud-api', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertFileExists(app_path("Http/Controllers/Api/{$this->plural_model_name}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/Api/{$this->model_name}Controller.php"));
         $ctrlClassContent = "<?php
 
 namespace App\Http\Controllers\Api;
@@ -20,7 +20,7 @@ use {$this->full_model_name};
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class {$this->plural_model_name}Controller extends Controller
+class {$this->model_name}Controller extends Controller
 {
     /**
      * Get a listing of the {$this->single_model_var_name}.
@@ -116,6 +116,6 @@ class {$this->plural_model_name}Controller extends Controller
     }
 }
 ";
-        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/Api/{$this->plural_model_name}Controller.php")));
+        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/Api/{$this->model_name}Controller.php")));
     }
 }

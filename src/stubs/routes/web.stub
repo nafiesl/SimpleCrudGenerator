@@ -2,4 +2,4 @@
 /*
  * Masters Routes
  */
-Route::resource('masters', 'MastersController');
+Route::resource('masters', 'MasterController');

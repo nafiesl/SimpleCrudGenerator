@@ -14,7 +14,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
-        $this->assertFileExists(app_path("Http/Controllers/{$this->plural_model_name}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
         $this->assertFileExists($migrationFilePath);
@@ -43,7 +43,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
-        $this->assertFileNotExists(app_path("Http/Controllers/{$this->plural_model_name}Controller.php"));
+        $this->assertFileNotExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
         $this->assertFileNotExists($migrationFilePath);
@@ -110,7 +110,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($modelPath.'/'.$modelName.'.php'));
-        $this->assertFileExists(app_path("Http/Controllers/{$pluralModelName}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/{$modelName}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$tableName.'_table.php');
         $this->assertFileExists($migrationFilePath);
@@ -145,7 +145,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($modelPath.'/'.$modelName.'.php'));
-        $this->assertFileExists(app_path("Http/Controllers/{$parentName}/{$pluralModelName}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/{$parentName}/{$modelName}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$tableName.'_table.php');
         $this->assertFileExists($migrationFilePath);

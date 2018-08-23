@@ -11,7 +11,7 @@ class SimpleControllerGeneratorTest extends TestCase
     {
         $this->artisan('make:crud-simple', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertFileExists(app_path("Http/Controllers/{$this->plural_model_name}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
         $ctrlClassContent = "<?php
 
 namespace App\Http\Controllers;
@@ -19,7 +19,7 @@ namespace App\Http\Controllers;
 use {$this->full_model_name};
 use Illuminate\Http\Request;
 
-class {$this->plural_model_name}Controller extends Controller
+class {$this->model_name}Controller extends Controller
 {
     /**
      * Display a listing of the {$this->single_model_var_name}.
@@ -107,7 +107,7 @@ class {$this->plural_model_name}Controller extends Controller
     }
 }
 ";
-        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->plural_model_name}Controller.php")));
+        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->model_name}Controller.php")));
     }
 
     /** @test */
@@ -115,7 +115,7 @@ class {$this->plural_model_name}Controller extends Controller
     {
         $this->artisan('make:crud-simple', ['name' => 'Entities/References/Category', '--no-interaction' => true]);
 
-        $this->assertFileExists(app_path("Http/Controllers/CategoriesController.php"));
+        $this->assertFileExists(app_path("Http/Controllers/CategoryController.php"));
         $ctrlClassContent = "<?php
 
 namespace App\Http\Controllers;
@@ -123,7 +123,7 @@ namespace App\Http\Controllers;
 use App\Entities\References\Category;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the category.
@@ -211,7 +211,7 @@ class CategoriesController extends Controller
     }
 }
 ";
-        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/CategoriesController.php")));
+        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/CategoryController.php")));
     }
 
     /** @test */
@@ -219,7 +219,7 @@ class CategoriesController extends Controller
     {
         $this->artisan('make:crud-simple', ['name' => 'Entities/References/Category', '--parent' => 'Projects', '--no-interaction' => true]);
 
-        $this->assertFileExists(app_path("Http/Controllers/Projects/CategoriesController.php"));
+        $this->assertFileExists(app_path("Http/Controllers/Projects/CategoryController.php"));
         $ctrlClassContent = "<?php
 
 namespace App\Http\Controllers\Projects;
@@ -228,7 +228,7 @@ use App\Entities\References\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the category.
@@ -316,6 +316,6 @@ class CategoriesController extends Controller
     }
 }
 ";
-        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/Projects/CategoriesController.php")));
+        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/Projects/CategoryController.php")));
     }
 }

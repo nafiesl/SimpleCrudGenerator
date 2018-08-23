@@ -14,7 +14,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
-        $this->assertFileExists(app_path("Http/Controllers/Api/{$this->plural_model_name}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/Api/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
         $this->assertFileExists($migrationFilePath);
@@ -41,7 +41,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertContains("We will use existing {$this->model_name} model.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
-        $this->assertFileExists(app_path("Http/Controllers/Api/{$this->plural_model_name}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/Api/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
         $this->assertFileNotExists($migrationFilePath);
@@ -65,7 +65,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertContains("We will use existing Problem model.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path('Entities/Projects/Problem.php'));
-        $this->assertFileExists(app_path("Http/Controllers/Api/ProblemsController.php"));
+        $this->assertFileExists(app_path("Http/Controllers/Api/ProblemController.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_problems_table.php');
         $this->assertFileNotExists($migrationFilePath);
@@ -101,7 +101,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($modelPath.'/'.$modelName.'.php'));
-        $this->assertFileExists(app_path("Http/Controllers/Api/{$pluralModelName}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/Api/{$modelName}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$tableName.'_table.php');
         $this->assertFileExists($migrationFilePath);
@@ -134,7 +134,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($modelPath.'/'.$modelName.'.php'));
-        $this->assertFileExists(app_path("Http/Controllers/Api/{$parentName}/{$pluralModelName}Controller.php"));
+        $this->assertFileExists(app_path("Http/Controllers/Api/{$parentName}/{$modelName}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$tableName.'_table.php');
         $this->assertFileExists($migrationFilePath);
