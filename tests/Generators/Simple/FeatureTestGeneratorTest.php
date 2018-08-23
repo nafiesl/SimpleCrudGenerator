@@ -53,7 +53,7 @@ abstract class BrowserKitTest extends BaseTestCase
     {
         $this->artisan('make:crud-simple', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertFileExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Manage{$this->model_name}Test.php"));
         $modelClassContent = "<?php
 
 namespace Tests\Feature;
@@ -62,7 +62,7 @@ use {$this->full_model_name};
 use Tests\BrowserKitTest as TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class Manage{$this->plural_model_name}Test extends TestCase
+class Manage{$this->model_name}Test extends TestCase
 {
     use DatabaseMigrations;
 
@@ -144,7 +144,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
     }
 }
 ";
-        $this->assertEquals($modelClassContent, file_get_contents(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php")));
+        $this->assertEquals($modelClassContent, file_get_contents(base_path("tests/Feature/Manage{$this->model_name}Test.php")));
     }
 
     /** @test */
@@ -203,7 +203,7 @@ abstract class {$baseTestClass} extends BaseTestCase
 
         $this->artisan('make:crud-simple', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertFileExists(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Manage{$this->model_name}Test.php"));
         $modelClassContent = "<?php
 
 namespace Tests\Feature;
@@ -212,7 +212,7 @@ use {$this->full_model_name};
 use Tests\TestCase as TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class Manage{$this->plural_model_name}Test extends TestCase
+class Manage{$this->model_name}Test extends TestCase
 {
     use DatabaseMigrations;
 
@@ -294,6 +294,6 @@ class Manage{$this->plural_model_name}Test extends TestCase
     }
 }
 ";
-        $this->assertEquals($modelClassContent, file_get_contents(base_path("tests/Feature/Manage{$this->plural_model_name}Test.php")));
+        $this->assertEquals($modelClassContent, file_get_contents(base_path("tests/Feature/Manage{$this->model_name}Test.php")));
     }
 }

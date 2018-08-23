@@ -18,7 +18,7 @@ class RouteApiGeneratorTest extends TestCase
 /*
  * {$this->plural_model_name} Endpoints
  */
-Route::middleware('auth:api')->resource('{$this->table_name}', 'Api\\{$this->plural_model_name}Controller')->names('api.{$this->table_name}');
+Route::middleware('auth:api')->resource('{$this->table_name}', 'Api\\{$this->model_name}Controller')->names('api.{$this->table_name}');
 ";
         $this->assertEquals($routeApiFileContent, file_get_contents($routeApiPath));
     }
@@ -35,7 +35,7 @@ Route::middleware('auth:api')->resource('{$this->table_name}', 'Api\\{$this->plu
 /*
  * {$this->plural_model_name} Endpoints
  */
-Route::middleware('auth:api')->resource('{$this->table_name}', 'Api\\Projects\\{$this->plural_model_name}Controller')->names('api.{$this->table_name}');
+Route::middleware('auth:api')->resource('{$this->table_name}', 'Api\\Projects\\{$this->model_name}Controller')->names('api.{$this->table_name}');
 ";
         $this->assertEquals($routeApiFileContent, file_get_contents($routeApiPath));
     }

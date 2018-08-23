@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use fullMstr;
 use Illuminate\Http\Request;
 
-class MastersController extends Controller
+class MasterController extends Controller
 {
     /**
      * Display a listing of the singleMstr.

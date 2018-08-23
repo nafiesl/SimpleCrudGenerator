@@ -12,7 +12,7 @@ class ControllerGenerator extends BaseGenerator
      */
     public function generate(string $type = 'full')
     {
-        $pluralModelName = $this->modelNames['plural_model_name'];
+        $modelName = $this->modelNames['model_name'];
         $parentControllerDirectory = '';
         if (!is_null($this->command->option('parent'))) {
             $parentControllerDirectory = '/'.$this->command->option('parent');
@@ -23,15 +23,15 @@ class ControllerGenerator extends BaseGenerator
         }
 
         $controllerPath = $this->makeDirectory(app_path('Http/Controllers'.$parentControllerDirectory));
-        $controllerPath = $controllerPath.'/'.$pluralModelName.'Controller.php';
+        $controllerPath = $controllerPath.'/'.$modelName.'Controller.php';
 
         $this->generateFile($controllerPath, $this->getContent('controllers/'.$type));
 
         if ($this->isForApi()) {
-            $pluralModelName = 'Api/'.$pluralModelName;
+            $modelName = 'Api/'.$modelName;
         }
 
-        $this->command->info($pluralModelName.'Controller generated.');
+        $this->command->info($modelName.'Controller generated.');
     }
 
     /**

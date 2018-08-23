@@ -29,11 +29,11 @@ class RouteGenerator extends BaseGenerator
         $webRouteFileContent = $this->replaceStubString($stub);
 
         if (!is_null($parentName = $this->command->option('parent'))) {
-            $pluralModelName = $this->modelNames['plural_model_name'];
+            $modelName = $this->modelNames['model_name'];
 
             $webRouteFileContent = str_replace(
-                $pluralModelName.'Controller',
-                $parentName.'\\'.$pluralModelName.'Controller',
+                $modelName.'Controller',
+                $parentName.'\\'.$modelName.'Controller',
                 $webRouteFileContent
             );
         }
