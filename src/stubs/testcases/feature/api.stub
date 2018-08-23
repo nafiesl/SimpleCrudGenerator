@@ -6,7 +6,7 @@ use fullMstr;
 use Tests\BrowserKitTest as TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ManageMastersTest extends TestCase
+class ManageMasterTest extends TestCase
 {
     use DatabaseMigrations;
 

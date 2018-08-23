@@ -11,7 +11,7 @@ class ApiFeatureTestGeneratorTest extends TestCase
     {
         $this->artisan('make:crud-api', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertFileExists(base_path("tests/Feature/Api/Manage{$this->plural_model_name}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Api/Manage{$this->model_name}Test.php"));
         $featureTestClassContent = "<?php
 
 namespace Tests\Feature\Api;
@@ -20,7 +20,7 @@ use {$this->full_model_name};
 use Tests\BrowserKitTest as TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class Manage{$this->plural_model_name}Test extends TestCase
+class Manage{$this->model_name}Test extends TestCase
 {
     use DatabaseMigrations;
 
@@ -124,7 +124,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
     }
 }
 ";
-        $this->assertEquals($featureTestClassContent, file_get_contents(base_path("tests/Feature/Api/Manage{$this->plural_model_name}Test.php")));
+        $this->assertEquals($featureTestClassContent, file_get_contents(base_path("tests/Feature/Api/Manage{$this->model_name}Test.php")));
     }
 
     /** @test */
@@ -135,7 +135,7 @@ class Manage{$this->plural_model_name}Test extends TestCase
 
         $this->artisan('make:crud-api', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertFileExists(base_path("tests/Feature/Api/Manage{$this->plural_model_name}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Api/Manage{$this->model_name}Test.php"));
         $featureTestClassContent = "<?php
 
 namespace Tests\Feature\Api;
@@ -144,7 +144,7 @@ use {$this->full_model_name};
 use Tests\TestCase as TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class Manage{$this->plural_model_name}Test extends TestCase
+class Manage{$this->model_name}Test extends TestCase
 {
     use DatabaseMigrations;
 
@@ -248,6 +248,6 @@ class Manage{$this->plural_model_name}Test extends TestCase
     }
 }
 ";
-        $this->assertEquals($featureTestClassContent, file_get_contents(base_path("tests/Feature/Api/Manage{$this->plural_model_name}Test.php")));
+        $this->assertEquals($featureTestClassContent, file_get_contents(base_path("tests/Feature/Api/Manage{$this->model_name}Test.php")));
     }
 }

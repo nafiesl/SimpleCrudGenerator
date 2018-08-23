@@ -23,11 +23,11 @@ class FeatureTestGenerator extends BaseGenerator
         $featureTestPath = $this->makeDirectory(base_path($featureTestPath));
 
         $this->generateFile(
-            "{$featureTestPath}/Manage{$this->modelNames['plural_model_name']}Test.php",
+            "{$featureTestPath}/Manage{$this->modelNames['model_name']}Test.php",
             $this->getContent('testcases/feature/'.$type)
         );
 
-        $this->command->info('Manage'.$this->modelNames['plural_model_name'].'Test generated.');
+        $this->command->info('Manage'.$this->modelNames['model_name'].'Test generated.');
     }
 
     /**
