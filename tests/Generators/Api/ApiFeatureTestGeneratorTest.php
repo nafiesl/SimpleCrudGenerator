@@ -141,7 +141,7 @@ class Manage{$this->model_name}Test extends TestCase
 namespace Tests\Feature\Api;
 
 use {$this->full_model_name};
-use Tests\TestCase as TestCase;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class Manage{$this->model_name}Test extends TestCase

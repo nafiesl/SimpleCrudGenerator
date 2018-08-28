@@ -31,6 +31,7 @@ class ModelTestGenerator extends BaseGenerator
 
         $baseTestClass = config('simple-crud.base_test_class');
         $modelFileContent = str_replace('use Tests\BrowserKitTest', 'use '.$baseTestClass, $modelFileContent);
+        $modelFileContent = str_replace('use Tests\TestCase as TestCase', 'use Tests\TestCase', $modelFileContent);
 
         $userModel = config('auth.providers.users.model');
 

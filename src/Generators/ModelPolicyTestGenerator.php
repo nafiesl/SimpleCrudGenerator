@@ -30,6 +30,8 @@ class ModelPolicyTestGenerator extends BaseGenerator
         $stub = $this->getStubFileContent($stubName);
         $baseTestClass = config('simple-crud.base_test_class');
         $stub = str_replace('use Tests\BrowserKitTest', 'use '.$baseTestClass, $stub);
+        $stub = str_replace('use Tests\TestCase as TestCase', 'use Tests\TestCase', $stub);
+
         return $this->replaceStubString($stub);
     }
 }
