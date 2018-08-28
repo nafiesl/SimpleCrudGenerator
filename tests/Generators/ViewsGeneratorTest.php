@@ -100,9 +100,9 @@ class ViewsGeneratorTest extends TestCase
             </table>
             <div class=\"panel-footer\">
                 @can('update', \${$this->single_model_var_name})
-                    {{ link_to_route('{$this->table_name}.edit', __('{$this->lang_name}.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-warning', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                    <a href=\"{{ route('{$this->table_name}.edit', \${$this->single_model_var_name}) }}\" id=\"edit-{$this->lang_name}-{{ \${$this->single_model_var_name}->id }}\" class=\"btn btn-warning\">{{ __('{$this->lang_name}.edit') }}</a>
                 @endcan
-                {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.back_to_index'), [], ['class' => 'btn btn-default']) }}
+                <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-default\">{{ __('{$this->lang_name}.back_to_index') }}</a>
             </div>
         </div>
     </div>

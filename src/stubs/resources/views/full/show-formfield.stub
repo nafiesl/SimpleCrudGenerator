@@ -15,9 +15,9 @@
             </table>
             <div class="panel-footer">
                 @can('update', $singleMstr)
-                    <a href="{{ route('masters.edit', $singleMstr) }}" id="edit-master-{{ $singleMstr->id }}" class="btn btn-warning">{{ __('master.edit') }}</a>
+                    {{ link_to_route('masters.edit', __('master.edit'), [$singleMstr], ['class' => 'btn btn-warning', 'id' => 'edit-master-'.$singleMstr->id]) }}
                 @endcan
-                <a href="{{ route('masters.index') }}" class="btn btn-default">{{ __('master.back_to_index') }}</a>
+                {{ link_to_route('masters.index', __('master.back_to_index'), [], ['class' => 'btn btn-default']) }}
             </div>
         </div>
     </div>
