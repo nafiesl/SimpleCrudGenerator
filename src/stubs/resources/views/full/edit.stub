@@ -19,17 +19,14 @@
                 <hr style="margin:0">
                 <div class="panel-body">{{ __('master.delete_confirm') }}</div>
                 <div class="panel-footer">
-                    {!! FormField::delete(
-                        ['route' => ['masters.destroy', $singleMstr]],
-                        __('app.delete_confirm_button'),
-                        ['class'=>'btn btn-danger'],
-                        [
-                            'master_id' => $singleMstr->id,
-                            'page' => request('page'),
-                            'q' => request('q'),
-                        ]
-                    ) !!}
-                    {{ link_to_route('masters.edit', __('app.cancel'), [$singleMstr], ['class' => 'btn btn-default']) }}
+                    <form method="POST" action="{{ route('masters.destroy', $singleMstr) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;Are you sure to delete this?&quot;)" class="del-form pull-right" style="display: inline;">
+                        {{ csrf_field() }} {{ method_field('delete') }}
+                        <input name="master_id" type="hidden" value="{{ $singleMstr->id }}">
+                        <input name="{{ request('page') }}" type="hidden">
+                        <input name="{{ request('q') }}" type="hidden">
+                        <button title="Delete this item" type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
+                    </form>
+                    <a href="{{ route('masters.edit', $singleMstr) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
                 </div>
             </div>
         @endcan
