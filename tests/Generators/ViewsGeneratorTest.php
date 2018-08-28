@@ -128,16 +128,25 @@ class ViewsGeneratorTest extends TestCase
     <div class=\"col-md-6 col-md-offset-3\">
         <div class=\"panel panel-default\">
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.create') }}</h3></div>
-            {!! Form::open(['route' => '{$this->table_name}.store']) !!}
-            <div class=\"panel-body\">
-                {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
-                {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
-            </div>
-            <div class=\"panel-footer\">
-                {!! Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
-            </div>
-            {!! Form::close() !!}
+            <form method=\"POST\" action=\"{{ route('{$this->table_name}.store') }}\" accept-charset=\"UTF-8\">
+                {{ csrf_field() }}
+                <div class=\"panel-body\">
+                    <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
+                        <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+                        <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name') }}\" required>
+                        {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
+                    </div>
+                    <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
+                        <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+                        <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
+                        {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
+                    </div>
+                </div>
+                <div class=\"panel-footer\">
+                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.create') }}\" class=\"btn btn-success\">
+                    <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
