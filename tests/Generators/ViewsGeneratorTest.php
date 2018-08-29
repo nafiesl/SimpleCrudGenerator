@@ -22,7 +22,7 @@ class ViewsGeneratorTest extends TestCase
 <h1 class=\"page-header\">
     <div class=\"pull-right\">
         @can('create', new {$this->full_model_name})
-            {{ link_to_route('{$this->table_name}.create', __('{$this->lang_name}.create'), [], ['class' => 'btn btn-success']) }}
+            <a href=\"{{ route('{$this->table_name}.create') }}\" class=\"btn btn-success\">{{ __('{$this->lang_name}.create') }}</a>
         @endcan
     </div>
     {{ __('{$this->lang_name}.list') }}
@@ -32,11 +32,14 @@ class ViewsGeneratorTest extends TestCase
     <div class=\"col-md-12\">
         <div class=\"panel panel-default table-responsive\">
             <div class=\"panel-heading\">
-                {{ Form::open(['method' => 'get','class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'input-sm']) !!}
-                {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
-                {{ link_to_route('{$this->table_name}.index', __('app.reset')) }}
-                {{ Form::close() }}
+                <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
+                    <div class=\"form-group \">
+                        <label for=\"q\" class=\"control-label\">{{ __('{$this->lang_name}.search') }}</label>
+                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control input-sm\">
+                    </div>
+                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-sm\">
+                    <a href=\"{{ route('{$this->table_name}.index') }}\">Reset</a>
+                </form>
             </div>
             <table class=\"table table-condensed\">
                 <thead>
@@ -55,12 +58,7 @@ class ViewsGeneratorTest extends TestCase
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                             @can('view', \${$this->single_model_var_name})
-                                {!! link_to_route(
-                                    '{$this->table_name}.show',
-                                    __('app.show'),
-                                    [\${$this->single_model_var_name}],
-                                    ['class' => 'btn btn-default btn-xs', 'id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
-                                ) !!}
+                                <a href=\"{{ route('{$this->table_name}.show', \${$this->single_model_var_name}) }}\" id=\"show-{$this->lang_name}-{{ \${$this->single_model_var_name}->id }}\" class=\"btn btn-default btn-xs\">{{ __('app.show') }}</a>
                             @endcan
                         </td>
                     </tr>
