@@ -39,12 +39,12 @@
                         <td>{{ $singleMstr->description }}</td>
                         <td class="text-center">
                             @can('update', $singleMstr)
-                                {!! link_to_route(
+                                {{ link_to_route(
                                     'masters.index',
                                     __('app.edit'),
                                     ['action' => 'edit', 'id' => $singleMstr->id] + Request::only('page', 'q'),
                                     ['id' => 'edit-master-'.$singleMstr->id]
-                                ) !!}
+                                ) }}
                             @endcan
                         </td>
                     </tr>

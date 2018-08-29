@@ -36,19 +36,19 @@
         @else
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">{{ __('master.edit') }}</h3></div>
-            {!! Form::model($singleMstr, ['route' => ['masters.update', $singleMstr],'method' => 'patch']) !!}
+            {{ Form::model($singleMstr, ['route' => ['masters.update', $singleMstr],'method' => 'patch']) }}
             <div class="panel-body">
                 {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
                 {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
             </div>
             <div class="panel-footer">
-                {!! Form::submit(__('master.update'), ['class' => 'btn btn-success']) !!}
+                {{ Form::submit(__('master.update'), ['class' => 'btn btn-success']) }}
                 {{ link_to_route('masters.show', __('app.cancel'), [$singleMstr], ['class' => 'btn btn-default']) }}
                 @can('delete', $singleMstr)
                     {{ link_to_route('masters.edit', __('app.delete'), [$singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-master-'.$singleMstr->id]) }}
                 @endcan
             </div>
-            {!! Form::close() !!}
+            {{ Form::close() }}
         </div>
     </div>
 </div>
