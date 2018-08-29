@@ -39,12 +39,12 @@
                         <td>{{ $singleMstr->description }}</td>
                         <td class="text-center">
                             @can('view', $singleMstr)
-                                {!! link_to_route(
+                                {{ link_to_route(
                                     'masters.show',
                                     __('app.show'),
                                     [$singleMstr],
                                     ['class' => 'btn btn-default btn-xs', 'id' => 'show-master-' . $singleMstr->id]
-                                ) !!}
+                                ) }}
                             @endcan
                         </td>
                     </tr>

@@ -24,6 +24,10 @@ class ShowViewGenerator extends BaseGenerator
      */
     public function getContent(string $stubName)
     {
+        if ($this->command->option('formfield')) {
+            $stubName .= '-formfield';
+        }
+
         return $this->replaceStubString($this->getStubFileContent($stubName));
     }
 }
