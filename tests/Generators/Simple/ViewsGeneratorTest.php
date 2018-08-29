@@ -22,7 +22,7 @@ class ViewsGeneratorTest extends TestCase
 <h1 class=\"page-header\">
     <div class=\"pull-right\">
         @can('create', new {$this->full_model_name})
-            {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+            <a href=\"{{ route('{$this->table_name}.index', ['action' => 'create']) }}\" class=\"btn btn-success\">{{ __('{$this->lang_name}.create') }}</a>
         @endcan
     </div>
     {{ __('{$this->lang_name}.list') }}
@@ -32,11 +32,14 @@ class ViewsGeneratorTest extends TestCase
     <div class=\"col-md-8\">
         <div class=\"panel panel-default table-responsive\">
             <div class=\"panel-heading\">
-                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'input-sm']) !!}
-                {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
-                {{ link_to_route('{$this->table_name}.index', __('app.reset')) }}
-                {{ Form::close() }}
+                <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
+                    <div class=\"form-group \">
+                        <label for=\"q\" class=\"control-label\">{{ __('{$this->lang_name}.search') }}</label>
+                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control input-sm\" value=\"{{ request('q') }}\">
+                    </div>
+                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-sm\">
+                    <a href=\"{{ route('{$this->table_name}.index') }}\">Reset</a>
+                </form>
             </div>
             <table class=\"table table-condensed\">
                 <thead>
@@ -55,12 +58,7 @@ class ViewsGeneratorTest extends TestCase
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                             @can('update', \${$this->single_model_var_name})
-                                {!! link_to_route(
-                                    '{$this->table_name}.index',
-                                    __('app.edit'),
-                                    ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q'),
-                                    ['id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]
-                                ) !!}
+                                <a href=\"{{ route('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id] + Request::only('page', 'q')) }}\" id=\"edit-{$this->lang_name}-{{ \${$this->single_model_var_name}->id }}\">{{ __('app.edit') }}</a>
                             @endcan
                         </td>
                     </tr>
@@ -90,36 +88,45 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($formViewPath);
         $formViewContent = "@if (Request::get('action') == 'create')
 @can('create', new {$this->full_model_name})
-    {!! Form::open(['route' => '{$this->table_name}.store']) !!}
-    {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
-    {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
-    {!! Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
-    {!! Form::close() !!}
+    <form method=\"POST\" action=\"{{ route('{$this->table_name}.store') }}\" accept-charset=\"UTF-8\">
+        {{ csrf_field() }}
+        <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
+            <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+            <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name') }}\" required>
+            {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
+        </div>
+        <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
+            <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+            <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
+            {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
+        </div>
+        <input type=\"submit\" value=\"{{ __('{$this->lang_name}.create') }}\" class=\"btn btn-success\">
+        <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
+    </form>
 @endcan
 @endif
 @if (Request::get('action') == 'edit' && \$editable{$this->model_name})
 @can('update', \$editable{$this->model_name})
-    {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}], 'method' => 'patch']) !!}
-    {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
-    {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
-    @if (request('q'))
-        {{ Form::hidden('q', request('q')) }}
-    @endif
-    @if (request('page'))
-        {{ Form::hidden('page', request('page')) }}
-    @endif
-    {!! Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
-    @can('delete', \$editable{$this->model_name})
-        {!! link_to_route(
-            '{$this->table_name}.index',
-            __('app.delete'),
-            ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q'),
-            ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger pull-right']
-        ) !!}
-    @endcan
-    {!! Form::close() !!}
+    <form method=\"POST\" action=\"{{ route('{$this->table_name}.update', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\">
+        {{ csrf_field() }} {{ method_field('patch') }}
+        <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
+            <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+            <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name', \$editable{$this->model_name}->name) }}\" required>
+            {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
+        </div>
+        <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
+            <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+            <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description', \$editable{$this->model_name}->description) }}</textarea>
+            {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
+        </div>
+        <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">
+        <input name=\"q\" value=\"{{ request('q') }}\" type=\"hidden\">
+        <input type=\"submit\" value=\"{{ __('{$this->lang_name}.update') }}\" class=\"btn btn-success\">
+        <a href=\"{{ route('{$this->table_name}.show', \$editable{$this->model_name}) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
+        @can('delete', \$editable{$this->model_name})
+            <a href=\"{{ route('{$this->table_name}.index', ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q')) }}\" id=\"del-{$this->lang_name}-{{ \$editable{$this->model_name}->id }}\" class=\"btn btn-danger pull-right\">{{ __('app.delete') }}</a>
+        @endcan
+    </form>
 @endcan
 @endif
 @if (Request::get('action') == 'delete' && \$editable{$this->model_name})
@@ -136,17 +143,14 @@ class ViewsGeneratorTest extends TestCase
         <hr style=\"margin:0\">
         <div class=\"panel-body\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
         <div class=\"panel-footer\">
-            {!! FormField::delete(
-                ['route' => ['{$this->table_name}.destroy', \$editable{$this->model_name}]],
-                __('app.delete_confirm_button'),
-                ['class'=>'btn btn-danger'],
-                [
-                    '{$this->lang_name}_id' => \$editable{$this->model_name}->id,
-                    'page' => request('page'),
-                    'q' => request('q'),
-                ]
-            ) !!}
-            {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
+            <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;Are you sure to delete this?&quot;)\" class=\"del-form pull-right\" style=\"display: inline;\">
+                {{ csrf_field() }} {{ method_field('delete') }}
+                <input name=\"{$this->lang_name}_id\" type=\"hidden\" value=\"{{ \$editable{$this->model_name}->id }}\">
+                <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">
+                <input name=\"q\" value=\"{{ request('q') }}\" type=\"hidden\">
+                <button title=\"Delete this item\" type=\"submit\" class=\"btn btn-danger\">{{ __('app.delete_confirm_button') }}</button>
+            </form>
+            <a href=\"{{ route('{$this->table_name}.index', [\$editable{$this->model_name}] + Request::only('page', 'q')) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
         </div>
     </div>
 @endcan

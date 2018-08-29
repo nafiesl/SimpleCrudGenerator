@@ -6,24 +6,21 @@
 <h1 class="page-header">
     <div class="pull-right">
         @can('create', new fullMstr)
-            <a href="{{ route('masters.create') }}" class="btn btn-success">{{ __('master.create') }}</a>
+            {{ link_to_route('masters.index', __('master.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
         @endcan
     </div>
     {{ __('master.list') }}
     <small>{{ __('app.total') }} : {{ $mstrCollections->total() }} {{ __('master.master') }}</small>
 </h1>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <div class="panel panel-default table-responsive">
             <div class="panel-heading">
-                <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
-                    <div class="form-group ">
-                        <label for="q" class="control-label">{{ __('master.search') }}</label>
-                        <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control input-sm" value="{{ request('q') }}">
-                    </div>
-                    <input type="submit" value="{{ __('master.search') }}" class="btn btn-sm">
-                    <a href="{{ route('masters.index') }}">Reset</a>
-                </form>
+                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
+                {!! FormField::text('q', ['label' => __('master.search'), 'placeholder' => __('master.search_text'), 'class' => 'input-sm']) !!}
+                {{ Form::submit(__('master.search'), ['class' => 'btn btn-sm']) }}
+                {{ link_to_route('masters.index', __('app.reset')) }}
+                {{ Form::close() }}
             </div>
             <table class="table table-condensed">
                 <thead>
@@ -38,11 +35,16 @@
                     @foreach($mstrCollections as $key => $singleMstr)
                     <tr>
                         <td class="text-center">{{ $mstrCollections->firstItem() + $key }}</td>
-                        <td>{{ $singleMstr->name_link }}</td>
+                        <td>{{ $singleMstr->name }}</td>
                         <td>{{ $singleMstr->description }}</td>
                         <td class="text-center">
-                            @can('view', $singleMstr)
-                                <a href="{{ route('masters.show', $singleMstr) }}" id="show-master-{{ $singleMstr->id }}" class="btn btn-default btn-xs">{{ __('app.show') }}</a>
+                            @can('update', $singleMstr)
+                                {!! link_to_route(
+                                    'masters.index',
+                                    __('app.edit'),
+                                    ['action' => 'edit', 'id' => $singleMstr->id] + Request::only('page', 'q'),
+                                    ['id' => 'edit-master-'.$singleMstr->id]
+                                ) !!}
                             @endcan
                         </td>
                     </tr>
@@ -51,6 +53,11 @@
             </table>
             <div class="panel-body">{{ $mstrCollections->appends(Request::except('page'))->render() }}</div>
         </div>
+    </div>
+    <div class="col-md-4">
+        @if(Request::has('action'))
+        @include('masters.forms')
+        @endif
     </div>
 </div>
 @endsection

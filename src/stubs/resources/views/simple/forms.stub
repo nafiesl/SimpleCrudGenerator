@@ -1,35 +1,44 @@
 @if (Request::get('action') == 'create')
 @can('create', new fullMstr)
-    {!! Form::open(['route' => 'masters.store']) !!}
-    {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
-    {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
-    {!! Form::submit(__('master.create'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
-    {!! Form::close() !!}
+    <form method="POST" action="{{ route('masters.store') }}" accept-charset="UTF-8">
+        {{ csrf_field() }}
+        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+            <label for="name" class="control-label">{{ __('master.name') }}</label>
+            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+            {!! $errors->first('name', '<span class="help-block small">:message</span>') !!}
+        </div>
+        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+            <label for="description" class="control-label">{{ __('master.description') }}</label>
+            <textarea id="description" type="text" class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
+            {!! $errors->first('description', '<span class="help-block small">:message</span>') !!}
+        </div>
+        <input type="submit" value="{{ __('master.create') }}" class="btn btn-success">
+        <a href="{{ route('masters.index') }}" class="btn btn-default">{{ __('app.cancel') }}</a>
+    </form>
 @endcan
 @endif
 @if (Request::get('action') == 'edit' && $editableMaster)
 @can('update', $editableMaster)
-    {!! Form::model($editableMaster, ['route' => ['masters.update', $editableMaster], 'method' => 'patch']) !!}
-    {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
-    {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
-    @if (request('q'))
-        {{ Form::hidden('q', request('q')) }}
-    @endif
-    @if (request('page'))
-        {{ Form::hidden('page', request('page')) }}
-    @endif
-    {!! Form::submit(__('master.update'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('masters.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
-    @can('delete', $editableMaster)
-        {!! link_to_route(
-            'masters.index',
-            __('app.delete'),
-            ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q'),
-            ['id' => 'del-master-'.$editableMaster->id, 'class' => 'btn btn-danger pull-right']
-        ) !!}
-    @endcan
-    {!! Form::close() !!}
+    <form method="POST" action="{{ route('masters.update', $editableMaster) }}" accept-charset="UTF-8">
+        {{ csrf_field() }} {{ method_field('patch') }}
+        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+            <label for="name" class="control-label">{{ __('master.name') }}</label>
+            <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $editableMaster->name) }}" required>
+            {!! $errors->first('name', '<span class="help-block small">:message</span>') !!}
+        </div>
+        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+            <label for="description" class="control-label">{{ __('master.description') }}</label>
+            <textarea id="description" type="text" class="form-control" name="description" rows="4">{{ old('description', $editableMaster->description) }}</textarea>
+            {!! $errors->first('description', '<span class="help-block small">:message</span>') !!}
+        </div>
+        <input name="page" value="{{ request('page') }}" type="hidden">
+        <input name="q" value="{{ request('q') }}" type="hidden">
+        <input type="submit" value="{{ __('master.update') }}" class="btn btn-success">
+        <a href="{{ route('masters.show', $editableMaster) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
+        @can('delete', $editableMaster)
+            <a href="{{ route('masters.index', ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q')) }}" id="del-master-{{ $editableMaster->id }}" class="btn btn-danger pull-right">{{ __('app.delete') }}</a>
+        @endcan
+    </form>
 @endcan
 @endif
 @if (Request::get('action') == 'delete' && $editableMaster)
@@ -46,17 +55,14 @@
         <hr style="margin:0">
         <div class="panel-body">{{ __('master.delete_confirm') }}</div>
         <div class="panel-footer">
-            {!! FormField::delete(
-                ['route' => ['masters.destroy', $editableMaster]],
-                __('app.delete_confirm_button'),
-                ['class'=>'btn btn-danger'],
-                [
-                    'master_id' => $editableMaster->id,
-                    'page' => request('page'),
-                    'q' => request('q'),
-                ]
-            ) !!}
-            {{ link_to_route('masters.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
+            <form method="POST" action="{{ route('masters.destroy', $editableMaster) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;Are you sure to delete this?&quot;)" class="del-form pull-right" style="display: inline;">
+                {{ csrf_field() }} {{ method_field('delete') }}
+                <input name="master_id" type="hidden" value="{{ $editableMaster->id }}">
+                <input name="page" value="{{ request('page') }}" type="hidden">
+                <input name="q" value="{{ request('q') }}" type="hidden">
+                <button title="Delete this item" type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
+            </form>
+            <a href="{{ route('masters.index', [$editableMaster] + Request::only('page', 'q')) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
         </div>
     </div>
 @endcan
