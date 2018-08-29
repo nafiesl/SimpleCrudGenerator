@@ -109,25 +109,23 @@ class ViewsGeneratorTest extends TestCase
 @can('update', \$editable{$this->model_name})
     <form method=\"POST\" action=\"{{ route('{$this->table_name}.update', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\">
         {{ csrf_field() }} {{ method_field('patch') }}
-        <div class=\"panel-body\">
-            <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
-                <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
-                <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name', \$editable{$this->model_name}->name) }}\" required>
-                {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
-            </div>
-            <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
-                <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
-                <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description', \$editable{$this->model_name}->description) }}</textarea>
-                {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
-            </div>
+        <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
+            <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+            <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name', \$editable{$this->model_name}->name) }}\" required>
+            {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
         </div>
-        <div class=\"panel-footer\">
-            <input type=\"submit\" value=\"{{ __('{$this->lang_name}.update') }}\" class=\"btn btn-success\">
-            <a href=\"{{ route('{$this->table_name}.show', \$editable{$this->model_name}) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
-            @can('delete', \$editable{$this->model_name})
-                <a href=\"{{ route('{$this->table_name}.edit', [\$editable{$this->model_name}, 'action' => 'delete']) }}\" id=\"del-{$this->lang_name}-{{ \$editable{$this->model_name}->id }}\" class=\"btn btn-danger pull-right\">{{ __('app.delete') }}</a>
-            @endcan
+        <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
+            <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+            <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description', \$editable{$this->model_name}->description) }}</textarea>
+            {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
         </div>
+        <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">
+        <input name=\"q\" value=\"{{ request('q') }}\" type=\"hidden\">
+        <input type=\"submit\" value=\"{{ __('{$this->lang_name}.update') }}\" class=\"btn btn-success\">
+        <a href=\"{{ route('{$this->table_name}.show', \$editable{$this->model_name}) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
+        @can('delete', \$editable{$this->model_name})
+            <a href=\"{{ route('{$this->table_name}.index', ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q')) }}\" id=\"del-{$this->lang_name}-{{ \$editable{$this->model_name}->id }}\" class=\"btn btn-danger pull-right\">{{ __('app.delete') }}</a>
+        @endcan
     </form>
 @endcan
 @endif
@@ -148,8 +146,8 @@ class ViewsGeneratorTest extends TestCase
             <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;Are you sure to delete this?&quot;)\" class=\"del-form pull-right\" style=\"display: inline;\">
                 {{ csrf_field() }} {{ method_field('delete') }}
                 <input name=\"{$this->lang_name}_id\" type=\"hidden\" value=\"{{ \$editable{$this->model_name}->id }}\">
-                <input name=\"{{ request('page') }}\" type=\"hidden\">
-                <input name=\"{{ request('q') }}\" type=\"hidden\">
+                <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">
+                <input name=\"q\" value=\"{{ request('q') }}\" type=\"hidden\">
                 <button title=\"Delete this item\" type=\"submit\" class=\"btn btn-danger\">{{ __('app.delete_confirm_button') }}</button>
             </form>
             <a href=\"{{ route('{$this->table_name}.index', [\$editable{$this->model_name}] + Request::only('page', 'q')) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
