@@ -16,14 +16,15 @@ class MasterTest extends TestCase
     {
         $singleMstr = factory(Master::class)->create();
 
-        $this->assertEquals(
-            link_to_route('masters.show', $singleMstr->name, [$singleMstr], [
-                'title' => __(
-                    'app.show_detail_title',
-                    ['name' => $singleMstr->name, 'type' => __('master.master')]
-                ),
-            ]), $singleMstr->name_link
-        );
+        $title = __('app.show_detail_title', [
+            'name' => $singleMstr->name, 'type' => __('vehicle.vehicle'),
+        ]);
+        $link = '<a href="'.route('vehicles.show', $singleMstr).'"';
+        $link .= ' title="'.$title.'">';
+        $link .= $singleMstr->name;
+        $link .= '</a>';
+
+        $this->assertEquals($link, $singleMstr->name_link);
     }
 
     /** @test */
