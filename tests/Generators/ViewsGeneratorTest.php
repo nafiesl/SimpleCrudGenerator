@@ -35,7 +35,7 @@ class ViewsGeneratorTest extends TestCase
                 <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
                     <div class=\"form-group \">
                         <label for=\"q\" class=\"control-label\">{{ __('{$this->lang_name}.search') }}</label>
-                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control input-sm\">
+                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control input-sm\" value=\"{{ request('q') }}\">
                     </div>
                     <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-sm\">
                     <a href=\"{{ route('{$this->table_name}.index') }}\">Reset</a>

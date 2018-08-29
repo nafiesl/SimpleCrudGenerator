@@ -19,7 +19,7 @@
                 <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
                     <div class="form-group ">
                         <label for="q" class="control-label">{{ __('master.search') }}</label>
-                        <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control input-sm">
+                        <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control input-sm" value="{{ request('q') }}">
                     </div>
                     <input type="submit" value="{{ __('master.search') }}" class="btn btn-sm">
                     <a href="{{ route('masters.index') }}">Reset</a>
