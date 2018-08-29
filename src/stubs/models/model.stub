@@ -11,12 +11,15 @@ class Master extends Model
 
     public function getNameLinkAttribute()
     {
-        return link_to_route('masters.show', $this->name, [$this], [
-            'title' => __(
-                'app.show_detail_title',
-                ['name' => $this->name, 'type' => __('master.master')]
-            ),
+        $title = __('app.show_detail_title', [
+            'name' => $this->name, 'type' => __('master.master'),
         ]);
+        $link = '<a href="'.route('masters.show', $this).'"';
+        $link .= ' title="'.$title.'">';
+        $link .= $this->name;
+        $link .= '</a>';
+
+        return $link;
     }
 
     public function creator()

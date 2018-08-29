@@ -26,12 +26,15 @@ class {$this->model_name} extends Model
 
     public function getNameLinkAttribute()
     {
-        return link_to_route('{$this->table_name}.show', \$this->name, [\$this], [
-            'title' => __(
-                'app.show_detail_title',
-                ['name' => \$this->name, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
-            ),
+        \$title = __('app.show_detail_title', [
+            'name' => \$this->name, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
         ]);
+        \$link = '<a href=\"'.route('{$this->table_name}.show', \$this).'\"';
+        \$link .= ' title=\"'.\$title.'\">';
+        \$link .= \$this->name;
+        \$link .= '</a>';
+
+        return \$link;
     }
 
     public function creator()
@@ -63,12 +66,15 @@ class Category extends Model
 
     public function getNameLinkAttribute()
     {
-        return link_to_route('categories.show', \$this->name, [\$this], [
-            'title' => __(
-                'app.show_detail_title',
-                ['name' => \$this->name, 'type' => __('category.category')]
-            ),
+        \$title = __('app.show_detail_title', [
+            'name' => \$this->name, 'type' => __('category.category'),
         ]);
+        \$link = '<a href=\"'.route('categories.show', \$this).'\"';
+        \$link .= ' title=\"'.\$title.'\">';
+        \$link .= \$this->name;
+        \$link .= '</a>';
+
+        return \$link;
     }
 
     public function creator()
