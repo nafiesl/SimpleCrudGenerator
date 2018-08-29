@@ -1,20 +1,11 @@
 @if (Request::get('action') == 'create')
 @can('create', new fullMstr)
-    <form method="POST" action="{{ route('masters.store') }}" accept-charset="UTF-8">
-        {{ csrf_field() }}
-        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-            <label for="name" class="control-label">{{ __('master.name') }}</label>
-            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
-            {!! $errors->first('name', '<span class="help-block small">:message</span>') !!}
-        </div>
-        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-            <label for="description" class="control-label">{{ __('master.description') }}</label>
-            <textarea id="description" type="text" class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
-            {!! $errors->first('description', '<span class="help-block small">:message</span>') !!}
-        </div>
-        <input type="submit" value="{{ __('master.create') }}" class="btn btn-success">
-        <a href="{{ route('masters.index') }}" class="btn btn-default">{{ __('app.cancel') }}</a>
-    </form>
+    {{ Form::open(['route' => 'masters.store']) }}
+    {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
+    {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
+    {{ Form::submit(__('master.create'), ['class' => 'btn btn-success']) }}
+    {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+    {{ Form::close() }}
 @endcan
 @endif
 @if (Request::get('action') == 'edit' && $editableMaster)

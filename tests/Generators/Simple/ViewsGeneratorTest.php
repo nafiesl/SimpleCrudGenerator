@@ -88,17 +88,26 @@ class ViewsGeneratorTest extends TestCase
         $this->assertFileExists($formViewPath);
         $formViewContent = "@if (Request::get('action') == 'create')
 @can('create', new {$this->full_model_name})
-    {!! Form::open(['route' => '{$this->table_name}.store']) !!}
-    {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
-    {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
-    {!! Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) !!}
-    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
-    {!! Form::close() !!}
+    <form method=\"POST\" action=\"{{ route('{$this->table_name}.store') }}\" accept-charset=\"UTF-8\">
+        {{ csrf_field() }}
+        <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
+            <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+            <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name') }}\" required>
+            {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
+        </div>
+        <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
+            <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+            <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
+            {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
+        </div>
+        <input type=\"submit\" value=\"{{ __('{$this->lang_name}.create') }}\" class=\"btn btn-success\">
+        <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
+    </form>
 @endcan
 @endif
 @if (Request::get('action') == 'edit' && \$editable{$this->model_name})
 @can('update', \$editable{$this->model_name})
-    {!! Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}], 'method' => 'patch']) !!}
+    {{ Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}], 'method' => 'patch']) }}
     {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
     {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
     @if (request('q'))
@@ -107,17 +116,17 @@ class ViewsGeneratorTest extends TestCase
     @if (request('page'))
         {{ Form::hidden('page', request('page')) }}
     @endif
-    {!! Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) !!}
+    {{ Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) }}
     {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
     @can('delete', \$editable{$this->model_name})
-        {!! link_to_route(
+        {{ link_to_route(
             '{$this->table_name}.index',
             __('app.delete'),
             ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q'),
             ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger pull-right']
-        ) !!}
+        ) }}
     @endcan
-    {!! Form::close() !!}
+    {{ Form::close() }}
 @endcan
 @endif
 @if (Request::get('action') == 'delete' && \$editable{$this->model_name})
