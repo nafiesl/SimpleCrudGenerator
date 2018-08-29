@@ -107,26 +107,28 @@ class ViewsGeneratorTest extends TestCase
 @endif
 @if (Request::get('action') == 'edit' && \$editable{$this->model_name})
 @can('update', \$editable{$this->model_name})
-    {{ Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}], 'method' => 'patch']) }}
-    {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
-    {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
-    @if (request('q'))
-        {{ Form::hidden('q', request('q')) }}
-    @endif
-    @if (request('page'))
-        {{ Form::hidden('page', request('page')) }}
-    @endif
-    {{ Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) }}
-    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
-    @can('delete', \$editable{$this->model_name})
-        {{ link_to_route(
-            '{$this->table_name}.index',
-            __('app.delete'),
-            ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q'),
-            ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger pull-right']
-        ) }}
-    @endcan
-    {{ Form::close() }}
+    <form method=\"POST\" action=\"{{ route('{$this->table_name}.update', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\">
+        {{ csrf_field() }} {{ method_field('patch') }}
+        <div class=\"panel-body\">
+            <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
+                <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+                <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name', \$editable{$this->model_name}->name) }}\" required>
+                {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
+            </div>
+            <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
+                <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+                <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description', \$editable{$this->model_name}->description) }}</textarea>
+                {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
+            </div>
+        </div>
+        <div class=\"panel-footer\">
+            <input type=\"submit\" value=\"{{ __('{$this->lang_name}.update') }}\" class=\"btn btn-success\">
+            <a href=\"{{ route('{$this->table_name}.show', \$editable{$this->model_name}) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
+            @can('delete', \$editable{$this->model_name})
+                <a href=\"{{ route('{$this->table_name}.edit', [\$editable{$this->model_name}, 'action' => 'delete']) }}\" id=\"del-{$this->lang_name}-{{ \$editable{$this->model_name}->id }}\" class=\"btn btn-danger pull-right\">{{ __('app.delete') }}</a>
+            @endcan
+        </div>
+    </form>
 @endcan
 @endif
 @if (Request::get('action') == 'delete' && \$editable{$this->model_name})

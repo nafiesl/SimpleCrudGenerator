@@ -19,26 +19,28 @@
 @endif
 @if (Request::get('action') == 'edit' && $editableMaster)
 @can('update', $editableMaster)
-    {{ Form::model($editableMaster, ['route' => ['masters.update', $editableMaster], 'method' => 'patch']) }}
-    {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
-    {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
-    @if (request('q'))
-        {{ Form::hidden('q', request('q')) }}
-    @endif
-    @if (request('page'))
-        {{ Form::hidden('page', request('page')) }}
-    @endif
-    {{ Form::submit(__('master.update'), ['class' => 'btn btn-success']) }}
-    {{ link_to_route('masters.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
-    @can('delete', $editableMaster)
-        {{ link_to_route(
-            'masters.index',
-            __('app.delete'),
-            ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q'),
-            ['id' => 'del-master-'.$editableMaster->id, 'class' => 'btn btn-danger pull-right']
-        ) }}
-    @endcan
-    {{ Form::close() }}
+    <form method="POST" action="{{ route('masters.update', $editableMaster) }}" accept-charset="UTF-8">
+        {{ csrf_field() }} {{ method_field('patch') }}
+        <div class="panel-body">
+            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                <label for="name" class="control-label">{{ __('master.name') }}</label>
+                <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $editableMaster->name) }}" required>
+                {!! $errors->first('name', '<span class="help-block small">:message</span>') !!}
+            </div>
+            <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                <label for="description" class="control-label">{{ __('master.description') }}</label>
+                <textarea id="description" type="text" class="form-control" name="description" rows="4">{{ old('description', $editableMaster->description) }}</textarea>
+                {!! $errors->first('description', '<span class="help-block small">:message</span>') !!}
+            </div>
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="{{ __('master.update') }}" class="btn btn-success">
+            <a href="{{ route('masters.show', $editableMaster) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
+            @can('delete', $editableMaster)
+                <a href="{{ route('masters.edit', [$editableMaster, 'action' => 'delete']) }}" id="del-master-{{ $editableMaster->id }}" class="btn btn-danger pull-right">{{ __('app.delete') }}</a>
+            @endcan
+        </div>
+    </form>
 @endcan
 @endif
 @if (Request::get('action') == 'delete' && $editableMaster)
