@@ -9,7 +9,7 @@ class CrudSimpleMake extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:crud-simple {name} {--p|parent=} {--t|tests-only}';
+    protected $signature = 'make:crud-simple {name} {--p|parent=} {--t|tests-only} {--f|formfield}';
 
     /**
      * The console command description.
