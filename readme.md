@@ -38,17 +38,24 @@ The main purpose of this package is for faster **Test-driven Development**, it g
 
 ## How to install
 
+#### For Laravel 5.5 or later
+
+```bash
+# Get the package
+$ composer require luthfi/simple-crud-generator --dev
+```
+
+> For Laravel 5.5 or later, the package will **auto-discovered** and ready to go.
+
+#### For Laravel 5.4
+
 ```bash
 # Bootstrap Form Field generator
 $ composer require luthfi/formfield
 
 # Get the package
-$ composer require luthfi/simple-crud-generator --dev
+$ composer require luthfi/simple-crud-generator:1.0.* --dev
 ```
-
-> For Laravel 5.5, the package will **auto-discovered** and ready to go.
-
-#### For Laravel 5.4
 
 Update `config/app.php`, add provider and aliases :
 
