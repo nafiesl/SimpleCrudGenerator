@@ -17,9 +17,9 @@ class MasterTest extends TestCase
         $singleMstr = factory(Master::class)->create();
 
         $title = __('app.show_detail_title', [
-            'name' => $singleMstr->name, 'type' => __('vehicle.vehicle'),
+            'name' => $singleMstr->name, 'type' => __('master.master'),
         ]);
-        $link = '<a href="'.route('vehicles.show', $singleMstr).'"';
+        $link = '<a href="'.route('masters.show', $singleMstr).'"';
         $link .= ' title="'.$title.'">';
         $link .= $singleMstr->name;
         $link .= '</a>';

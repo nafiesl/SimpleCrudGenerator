@@ -32,9 +32,9 @@ class {$this->model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$title = __('app.show_detail_title', [
-            'name' => \${$this->single_model_var_name}->name, 'type' => __('vehicle.vehicle'),
+            'name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
         ]);
-        \$link = '<a href=\"'.route('vehicles.show', \${$this->single_model_var_name}).'\"';
+        \$link = '<a href=\"'.route('{$this->table_name}.show', \${$this->single_model_var_name}).'\"';
         \$link .= ' title=\"'.\$title.'\">';
         \$link .= \${$this->single_model_var_name}->name;
         \$link .= '</a>';
@@ -84,9 +84,9 @@ class {$this->model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$title = __('app.show_detail_title', [
-            'name' => \${$this->single_model_var_name}->name, 'type' => __('vehicle.vehicle'),
+            'name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
         ]);
-        \$link = '<a href=\"'.route('vehicles.show', \${$this->single_model_var_name}).'\"';
+        \$link = '<a href=\"'.route('{$this->table_name}.show', \${$this->single_model_var_name}).'\"';
         \$link .= ' title=\"'.\$title.'\">';
         \$link .= \${$this->single_model_var_name}->name;
         \$link .= '</a>';
@@ -136,9 +136,9 @@ class {$this->model_name}Test extends TestCase
         \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         \$title = __('app.show_detail_title', [
-            'name' => \${$this->single_model_var_name}->name, 'type' => __('vehicle.vehicle'),
+            'name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
         ]);
-        \$link = '<a href=\"'.route('vehicles.show', \${$this->single_model_var_name}).'\"';
+        \$link = '<a href=\"'.route('{$this->table_name}.show', \${$this->single_model_var_name}).'\"';
         \$link .= ' title=\"'.\$title.'\">';
         \$link .= \${$this->single_model_var_name}->name;
         \$link .= '</a>';
