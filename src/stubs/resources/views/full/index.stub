@@ -38,7 +38,7 @@
                     @foreach($mstrCollections as $key => $singleMstr)
                     <tr>
                         <td class="text-center">{{ $mstrCollections->firstItem() + $key }}</td>
-                        <td>{{ $singleMstr->name_link }}</td>
+                        <td>{!! $singleMstr->name_link !!}</td>
                         <td>{{ $singleMstr->description }}</td>
                         <td class="text-center">
                             @can('view', $singleMstr)

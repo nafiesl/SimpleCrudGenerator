@@ -54,7 +54,7 @@ class ViewsGeneratorTest extends TestCase
                     @foreach(\${$this->collection_model_var_name} as \$key => \${$this->single_model_var_name})
                     <tr>
                         <td class=\"text-center\">{{ \${$this->collection_model_var_name}->firstItem() + \$key }}</td>
-                        <td>{{ \${$this->single_model_var_name}->name_link }}</td>
+                        <td>{!! \${$this->single_model_var_name}->name_link !!}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                             @can('view', \${$this->single_model_var_name})
