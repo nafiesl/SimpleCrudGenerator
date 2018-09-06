@@ -38,7 +38,7 @@ class ViewsGeneratorTest extends TestCase
                         <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control input-sm\" value=\"{{ request('q') }}\">
                     </div>
                     <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-sm\">
-                    <a href=\"{{ route('{$this->table_name}.index') }}\">Reset</a>
+                    <a href=\"{{ route('{$this->table_name}.index') }}\">{{ __('app.reset') }}</a>
                 </form>
             </div>
             <table class=\"table table-condensed\">

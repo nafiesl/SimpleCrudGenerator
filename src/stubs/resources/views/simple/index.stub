@@ -22,7 +22,7 @@
                         <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control input-sm" value="{{ request('q') }}">
                     </div>
                     <input type="submit" value="{{ __('master.search') }}" class="btn btn-sm">
-                    <a href="{{ route('masters.index') }}">Reset</a>
+                    <a href="{{ route('masters.index') }}">{{ __('app.reset') }}</a>
                 </form>
             </div>
             <table class="table table-condensed">
