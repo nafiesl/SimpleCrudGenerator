@@ -201,14 +201,14 @@ class FullCrudBs3OptionsTest extends TestCase
             <div class=\"panel panel-default\">
                 <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.delete') }}</h3></div>
                 <div class=\"panel-body\">
-                    <label class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+                    <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
                     <p>{{ \${$this->single_model_var_name}->name }}</p>
-                    <label class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+                    <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
                     <p>{{ \${$this->single_model_var_name}->description }}</p>
                     {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
                 </div>
                 <hr style=\"margin:0\">
-                <div class=\"panel-body\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
+                <div class=\"panel-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
                 <div class=\"panel-footer\">
                     <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \${$this->single_model_var_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;Are you sure to delete this?&quot;)\" class=\"del-form pull-right\" style=\"display: inline;\">
                         {{ csrf_field() }} {{ method_field('delete') }}
