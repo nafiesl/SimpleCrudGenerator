@@ -5,12 +5,12 @@ namespace Tests\CommandOptions;
 use Tests\TestCase;
 use Illuminate\Contracts\Console\Kernel;
 
-class FullCrudBs3OptionsTest extends TestCase
+class FullCrudFormfieldBs3OptionsTest extends TestCase
 {
     /** @test */
-    public function it_can_generate_views_with_bootstrap3_for_full_crud()
+    public function it_can_generate_views_with_formfield_and_bootstrap3_for_full_crud()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--bs3' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs3' => true]);
 
         $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
@@ -36,9 +36,9 @@ class FullCrudBs3OptionsTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_index_view_content_with_bootstrap3()
+    public function it_creates_correct_index_view_content_with_formfield_and_bootstrap3()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--bs3' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs3' => true]);
 
         $indexViewPath = resource_path("views/{$this->table_name}/index.blade.php");
         $this->assertFileExists($indexViewPath);
@@ -50,7 +50,7 @@ class FullCrudBs3OptionsTest extends TestCase
 <h1 class=\"page-header\">
     <div class=\"pull-right\">
         @can('create', new {$this->full_model_name})
-            <a href=\"{{ route('{$this->table_name}.create') }}\" class=\"btn btn-success\">{{ __('{$this->lang_name}.create') }}</a>
+            {{ link_to_route('{$this->table_name}.create', __('{$this->lang_name}.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
     </div>
     {{ __('{$this->lang_name}.list') }}
@@ -60,14 +60,11 @@ class FullCrudBs3OptionsTest extends TestCase
     <div class=\"col-md-12\">
         <div class=\"panel panel-default table-responsive\">
             <div class=\"panel-heading\">
-                <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
-                    <div class=\"form-group \">
-                        <label for=\"q\" class=\"control-label\">{{ __('{$this->lang_name}.search') }}</label>
-                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control input-sm\" value=\"{{ request('q') }}\">
-                    </div>
-                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-sm\">
-                    <a href=\"{{ route('{$this->table_name}.index') }}\">{{ __('app.reset') }}</a>
-                </form>
+                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
+                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'input-sm']) !!}
+                {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
+                {{ link_to_route('{$this->table_name}.index', __('app.reset')) }}
+                {{ Form::close() }}
             </div>
             <table class=\"table table-condensed\">
                 <thead>
@@ -82,11 +79,16 @@ class FullCrudBs3OptionsTest extends TestCase
                     @foreach(\${$this->collection_model_var_name} as \$key => \${$this->single_model_var_name})
                     <tr>
                         <td class=\"text-center\">{{ \${$this->collection_model_var_name}->firstItem() + \$key }}</td>
-                        <td>{!! \${$this->single_model_var_name}->name_link !!}</td>
+                        <td>{{ \${$this->single_model_var_name}->name_link }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                             @can('view', \${$this->single_model_var_name})
-                                <a href=\"{{ route('{$this->table_name}.show', \${$this->single_model_var_name}) }}\" id=\"show-{$this->lang_name}-{{ \${$this->single_model_var_name}->id }}\" class=\"btn btn-default btn-xs\">{{ __('app.show') }}</a>
+                                {{ link_to_route(
+                                    '{$this->table_name}.show',
+                                    __('app.show'),
+                                    [\${$this->single_model_var_name}],
+                                    ['class' => 'btn btn-default btn-xs', 'id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
+                                ) }}
                             @endcan
                         </td>
                     </tr>
@@ -103,9 +105,9 @@ class FullCrudBs3OptionsTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_show_view_content_with_bootstrap3()
+    public function it_creates_correct_show_view_content_with_formfield_and_bootstrap3()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--bs3' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs3' => true]);
 
         $showFormViewPath = resource_path("views/{$this->table_name}/show.blade.php");
         $this->assertFileExists($showFormViewPath);
@@ -127,9 +129,9 @@ class FullCrudBs3OptionsTest extends TestCase
             </table>
             <div class=\"panel-footer\">
                 @can('update', \${$this->single_model_var_name})
-                    <a href=\"{{ route('{$this->table_name}.edit', \${$this->single_model_var_name}) }}\" id=\"edit-{$this->lang_name}-{{ \${$this->single_model_var_name}->id }}\" class=\"btn btn-warning\">{{ __('{$this->lang_name}.edit') }}</a>
+                    {{ link_to_route('{$this->table_name}.edit', __('{$this->lang_name}.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-warning', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
                 @endcan
-                <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-default\">{{ __('{$this->lang_name}.back_to_index') }}</a>
+                {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.back_to_index'), [], ['class' => 'btn btn-default']) }}
             </div>
         </div>
     </div>
@@ -140,9 +142,9 @@ class FullCrudBs3OptionsTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_create_view_content_with_bootstrap3()
+    public function it_creates_correct_create_view_content_with_formfield_and_bootstrap3()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--bs3' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs3' => true]);
 
         $createFormViewPath = resource_path("views/{$this->table_name}/create.blade.php");
         $this->assertFileExists($createFormViewPath);
@@ -155,25 +157,16 @@ class FullCrudBs3OptionsTest extends TestCase
     <div class=\"col-md-6 col-md-offset-3\">
         <div class=\"panel panel-default\">
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.create') }}</h3></div>
-            <form method=\"POST\" action=\"{{ route('{$this->table_name}.store') }}\" accept-charset=\"UTF-8\">
-                {{ csrf_field() }}
-                <div class=\"panel-body\">
-                    <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
-                        <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
-                        <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name') }}\" required>
-                        {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
-                    </div>
-                    <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
-                        <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
-                        <textarea id=\"description\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
-                        {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
-                    </div>
-                </div>
-                <div class=\"panel-footer\">
-                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.create') }}\" class=\"btn btn-success\">
-                    <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
-                </div>
-            </form>
+            {{ Form::open(['route' => '{$this->table_name}.store']) }}
+            <div class=\"panel-body\">
+                {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+                {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
+            </div>
+            <div class=\"panel-footer\">
+                {{ Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) }}
+                {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+            </div>
+            {{ Form::close() }}
         </div>
     </div>
 </div>
@@ -183,9 +176,9 @@ class FullCrudBs3OptionsTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_edit_view_content_with_bootstrap3()
+    public function it_creates_correct_edit_view_content_with_formfield_and_bootstrap3()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--bs3' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs3' => true]);
 
         $editFormViewPath = resource_path("views/{$this->table_name}/edit.blade.php");
         $this->assertFileExists($editFormViewPath);
@@ -210,42 +203,36 @@ class FullCrudBs3OptionsTest extends TestCase
                 <hr style=\"margin:0\">
                 <div class=\"panel-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
                 <div class=\"panel-footer\">
-                    <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \${$this->single_model_var_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;Are you sure to delete this?&quot;)\" class=\"del-form pull-right\" style=\"display: inline;\">
-                        {{ csrf_field() }} {{ method_field('delete') }}
-                        <input name=\"{$this->lang_name}_id\" type=\"hidden\" value=\"{{ \${$this->single_model_var_name}->id }}\">
-                        <input name=\"{{ request('page') }}\" type=\"hidden\">
-                        <input name=\"{{ request('q') }}\" type=\"hidden\">
-                        <button title=\"Delete this item\" type=\"submit\" class=\"btn btn-danger\">{{ __('app.delete_confirm_button') }}</button>
-                    </form>
-                    <a href=\"{{ route('{$this->table_name}.edit', \${$this->single_model_var_name}) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
+                    {!! FormField::delete(
+                        ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
+                        __('app.delete_confirm_button'),
+                        ['class'=>'btn btn-danger'],
+                        [
+                            '{$this->lang_name}_id' => \${$this->single_model_var_name}->id,
+                            'page' => request('page'),
+                            'q' => request('q'),
+                        ]
+                    ) !!}
+                    {{ link_to_route('{$this->table_name}.edit', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
                 </div>
             </div>
         @endcan
         @else
         <div class=\"panel panel-default\">
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.edit') }}</h3></div>
-            <form method=\"POST\" action=\"{{ route('{$this->table_name}.update', \${$this->single_model_var_name}) }}\" accept-charset=\"UTF-8\">
-                {{ csrf_field() }} {{ method_field('patch') }}
-                <div class=\"panel-body\">
-                    <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
-                        <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
-                        <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name', \${$this->single_model_var_name}->name) }}\" required>
-                        {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
-                    </div>
-                    <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
-                        <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
-                        <textarea id=\"description\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description', \${$this->single_model_var_name}->description) }}</textarea>
-                        {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
-                    </div>
-                </div>
-                <div class=\"panel-footer\">
-                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.update') }}\" class=\"btn btn-success\">
-                    <a href=\"{{ route('{$this->table_name}.show', \${$this->single_model_var_name}) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
-                    @can('delete', \${$this->single_model_var_name})
-                        <a href=\"{{ route('{$this->table_name}.edit', [\${$this->single_model_var_name}, 'action' => 'delete']) }}\" id=\"del-{$this->lang_name}-{{ \${$this->single_model_var_name}->id }}\" class=\"btn btn-danger pull-right\">{{ __('app.delete') }}</a>
-                    @endcan
-                </div>
-            </form>
+            {{ Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}], 'method' => 'patch']) }}
+            <div class=\"panel-body\">
+                {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+                {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
+            </div>
+            <div class=\"panel-footer\">
+                {{ Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) }}
+                {{ link_to_route('{$this->table_name}.show', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
+                @can('delete', \${$this->single_model_var_name})
+                    {{ link_to_route('{$this->table_name}.edit', __('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                @endcan
+            </div>
+            {{ Form::close() }}
         </div>
     </div>
 </div>
@@ -254,4 +241,5 @@ class FullCrudBs3OptionsTest extends TestCase
 ";
         $this->assertEquals($editFormViewContent, file_get_contents($editFormViewPath));
     }
+
 }

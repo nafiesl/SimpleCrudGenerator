@@ -5,12 +5,12 @@ namespace Tests\CommandOptions;
 use Tests\TestCase;
 use Illuminate\Contracts\Console\Kernel;
 
-class SimpleCrudFormfieldOptionsTest extends TestCase
+class SimpleCrudFormfieldBs3OptionsTest extends TestCase
 {
     /** @test */
     public function it_can_generate_views_with_formfield_for_simple_crud()
     {
-        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true, '--bs3' => true]);
 
         $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
@@ -36,7 +36,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     /** @test */
     public function it_creates_correct_index_view_content_with_formfield()
     {
-        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true, '--bs3' => true]);
 
         $indexViewPath = resource_path("views/{$this->table_name}/index.blade.php");
         $this->assertFileExists($indexViewPath);
@@ -45,8 +45,8 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
 @section('title', __('{$this->lang_name}.list'))
 
 @section('content')
-<h1>
-    <div class=\"float-right\">
+<h1 class=\"page-header\">
+    <div class=\"pull-right\">
         @can('create', new {$this->full_model_name})
             {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
         @endcan
@@ -56,15 +56,15 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
 </h1>
 <div class=\"row\">
     <div class=\"col-md-8\">
-        <div class=\"card table-responsive\">
-            <div class=\"card-header\">
+        <div class=\"panel panel-default table-responsive\">
+            <div class=\"panel-heading\">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
                 {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'input-sm']) !!}
                 {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
                 {{ link_to_route('{$this->table_name}.index', __('app.reset')) }}
                 {{ Form::close() }}
             </div>
-            <table class=\"table table-sm\">
+            <table class=\"table table-condensed\">
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>
@@ -93,7 +93,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
                     @endforeach
                 </tbody>
             </table>
-            <div class=\"card-body\">{{ \${$this->collection_model_var_name}->appends(Request::except('page'))->render() }}</div>
+            <div class=\"panel-body\">{{ \${$this->collection_model_var_name}->appends(Request::except('page'))->render() }}</div>
         </div>
     </div>
     <div class=\"col-md-4\">
@@ -110,7 +110,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     /** @test */
     public function it_creates_correct_forms_view_content_with_formfield()
     {
-        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true, '--bs3' => true]);
 
         $formViewPath = resource_path("views/{$this->table_name}/forms.blade.php");
         $this->assertFileExists($formViewPath);
@@ -120,7 +120,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
     {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
     {{ Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) }}
-    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
+    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {{ Form::close() }}
 @endcan
 @endif
@@ -136,13 +136,13 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
         {{ Form::hidden('page', request('page')) }}
     @endif
     {{ Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) }}
-    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-link']) }}
+    {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
     @can('delete', \$editable{$this->model_name})
         {{ link_to_route(
             '{$this->table_name}.index',
             __('app.delete'),
             ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q'),
-            ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger float-right']
+            ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger pull-right']
         ) }}
     @endcan
     {{ Form::close() }}
@@ -150,9 +150,9 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
 @endif
 @if (Request::get('action') == 'delete' && \$editable{$this->model_name})
 @can('delete', \$editable{$this->model_name})
-    <div class=\"card\">
-        <div class=\"card-header\">{{ __('{$this->lang_name}.delete') }}</div>
-        <div class=\"card-body\">
+    <div class=\"panel panel-default\">
+        <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.delete') }}</h3></div>
+        <div class=\"panel-body\">
             <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
             <p>{{ \$editable{$this->model_name}->name }}</p>
             <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
@@ -160,8 +160,8 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
             {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
         </div>
         <hr style=\"margin:0\">
-        <div class=\"card-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
-        <div class=\"card-footer\">
+        <div class=\"panel-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
+        <div class=\"panel-footer\">
             {!! FormField::delete(
                 ['route' => ['{$this->table_name}.destroy', \$editable{$this->model_name}]],
                 __('app.delete_confirm_button'),
@@ -172,7 +172,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
                     'q' => request('q'),
                 ]
             ) !!}
-            {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-link']) }}
+            {{ link_to_route('{$this->table_name}.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-default']) }}
         </div>
     </div>
 @endcan

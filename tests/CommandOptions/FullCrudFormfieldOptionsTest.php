@@ -47,8 +47,8 @@ class FullCrudFormfieldOptionsTest extends TestCase
 @section('title', __('{$this->lang_name}.list'))
 
 @section('content')
-<h1 class=\"page-header\">
-    <div class=\"pull-right\">
+<h1>
+    <div class=\"float-right\">
         @can('create', new {$this->full_model_name})
             {{ link_to_route('{$this->table_name}.create', __('{$this->lang_name}.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
@@ -58,15 +58,15 @@ class FullCrudFormfieldOptionsTest extends TestCase
 </h1>
 <div class=\"row\">
     <div class=\"col-md-12\">
-        <div class=\"panel panel-default table-responsive\">
-            <div class=\"panel-heading\">
-                {{ Form::open(['method' => 'get','class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'input-sm']) !!}
+        <div class=\"card table-responsive\">
+            <div class=\"card-header\">
+                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
+                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'form-control-sm']) !!}
                 {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
                 {{ link_to_route('{$this->table_name}.index', __('app.reset')) }}
                 {{ Form::close() }}
             </div>
-            <table class=\"table table-condensed\">
+            <table class=\"table table-sm\">
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>
@@ -87,7 +87,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
                                     '{$this->table_name}.show',
                                     __('app.show'),
                                     [\${$this->single_model_var_name}],
-                                    ['class' => 'btn btn-default btn-xs', 'id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
+                                    ['id' => 'show-{$this->lang_name}-' . \${$this->single_model_var_name}->id]
                                 ) }}
                             @endcan
                         </td>
@@ -95,7 +95,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
                     @endforeach
                 </tbody>
             </table>
-            <div class=\"panel-body\">{{ \${$this->collection_model_var_name}->appends(Request::except('page'))->render() }}</div>
+            <div class=\"card-body\">{{ \${$this->collection_model_var_name}->appends(Request::except('page'))->render() }}</div>
         </div>
     </div>
 </div>
@@ -117,21 +117,21 @@ class FullCrudFormfieldOptionsTest extends TestCase
 @section('title', __('{$this->lang_name}.detail'))
 
 @section('content')
-<div class=\"row\">
-    <div class=\"col-md-6 col-md-offset-3\">
-        <div class=\"panel panel-default\">
-            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.detail') }}</h3></div>
-            <table class=\"table table-condensed\">
+<div class=\"row justify-content-center\">
+    <div class=\"col-md-6\">
+        <div class=\"card\">
+            <div class=\"card-header\">{{ __('{$this->lang_name}.detail') }}</div>
+            <table class=\"table table-sm\">
                 <tbody>
                     <tr><td>{{ __('{$this->lang_name}.name') }}</td><td>{{ \${$this->single_model_var_name}->name }}</td></tr>
                     <tr><td>{{ __('{$this->lang_name}.description') }}</td><td>{{ \${$this->single_model_var_name}->description }}</td></tr>
                 </tbody>
             </table>
-            <div class=\"panel-footer\">
+            <div class=\"card-footer\">
                 @can('update', \${$this->single_model_var_name})
                     {{ link_to_route('{$this->table_name}.edit', __('{$this->lang_name}.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-warning', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
                 @endcan
-                {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.back_to_index'), [], ['class' => 'btn btn-default']) }}
+                {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.back_to_index'), [], ['class' => 'btn btn-link']) }}
             </div>
         </div>
     </div>
@@ -153,18 +153,18 @@ class FullCrudFormfieldOptionsTest extends TestCase
 @section('title', __('{$this->lang_name}.create'))
 
 @section('content')
-<div class=\"row\">
-    <div class=\"col-md-6 col-md-offset-3\">
-        <div class=\"panel panel-default\">
-            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.create') }}</h3></div>
+<div class=\"row justify-content-center\">
+    <div class=\"col-md-6\">
+        <div class=\"card\">
+            <div class=\"card-header\">{{ __('{$this->lang_name}.create') }}</div>
             {{ Form::open(['route' => '{$this->table_name}.store']) }}
-            <div class=\"panel-body\">
+            <div class=\"card-body\">
                 {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
                 {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
             </div>
-            <div class=\"panel-footer\">
+            <div class=\"card-footer\">
                 {{ Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) }}
-                {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
             </div>
             {{ Form::close() }}
         </div>
@@ -187,22 +187,22 @@ class FullCrudFormfieldOptionsTest extends TestCase
 @section('title', __('{$this->lang_name}.edit'))
 
 @section('content')
-<div class=\"row\">
-    <div class=\"col-md-6 col-md-offset-3\">
+<div class=\"row justify-content-center\">
+    <div class=\"col-md-6\">
         @if (request('action') == 'delete' && \${$this->single_model_var_name})
         @can('delete', \${$this->single_model_var_name})
-            <div class=\"panel panel-default\">
-                <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.delete') }}</h3></div>
-                <div class=\"panel-body\">
-                    <label class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+            <div class=\"card\">
+                <div class=\"card-header\">{{ __('{$this->lang_name}.delete') }}</div>
+                <div class=\"card-body\">
+                    <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
                     <p>{{ \${$this->single_model_var_name}->name }}</p>
-                    <label class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+                    <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
                     <p>{{ \${$this->single_model_var_name}->description }}</p>
                     {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
                 </div>
                 <hr style=\"margin:0\">
-                <div class=\"panel-body\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
-                <div class=\"panel-footer\">
+                <div class=\"card-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
+                <div class=\"card-footer\">
                     {!! FormField::delete(
                         ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
                         __('app.delete_confirm_button'),
@@ -213,23 +213,23 @@ class FullCrudFormfieldOptionsTest extends TestCase
                             'q' => request('q'),
                         ]
                     ) !!}
-                    {{ link_to_route('{$this->table_name}.edit', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('{$this->table_name}.edit', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-link']) }}
                 </div>
             </div>
         @endcan
         @else
-        <div class=\"panel panel-default\">
-            <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.edit') }}</h3></div>
-            {{ Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}],'method' => 'patch']) }}
-            <div class=\"panel-body\">
+        <div class=\"card\">
+            <div class=\"card-header\">{{ __('{$this->lang_name}.edit') }}</div>
+            {{ Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}], 'method' => 'patch']) }}
+            <div class=\"card-body\">
                 {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
                 {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
             </div>
-            <div class=\"panel-footer\">
+            <div class=\"card-footer\">
                 {{ Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) }}
-                {{ link_to_route('{$this->table_name}.show', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
+                {{ link_to_route('{$this->table_name}.show', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-link']) }}
                 @can('delete', \${$this->single_model_var_name})
-                    {{ link_to_route('{$this->table_name}.edit', __('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                    {{ link_to_route('{$this->table_name}.edit', __('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger float-right', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
                 @endcan
             </div>
             {{ Form::close() }}

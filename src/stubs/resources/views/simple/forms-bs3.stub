@@ -46,14 +46,14 @@
     <div class="panel panel-default">
         <div class="panel-heading"><h3 class="panel-title">{{ __('master.delete') }}</h3></div>
         <div class="panel-body">
-            <label class="control-label">{{ __('master.name') }}</label>
+            <label class="control-label text-primary">{{ __('master.name') }}</label>
             <p>{{ $editableMaster->name }}</p>
-            <label class="control-label">{{ __('master.description') }}</label>
+            <label class="control-label text-primary">{{ __('master.description') }}</label>
             <p>{{ $editableMaster->description }}</p>
             {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
         </div>
         <hr style="margin:0">
-        <div class="panel-body">{{ __('master.delete_confirm') }}</div>
+        <div class="panel-body text-danger">{{ __('master.delete_confirm') }}</div>
         <div class="panel-footer">
             <form method="POST" action="{{ route('masters.destroy', $editableMaster) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;Are you sure to delete this?&quot;)" class="del-form pull-right" style="display: inline;">
                 {{ csrf_field() }} {{ method_field('delete') }}

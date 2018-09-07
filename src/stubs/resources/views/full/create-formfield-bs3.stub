@@ -3,18 +3,18 @@
 @section('title', __('master.create'))
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">{{ __('master.create') }}</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">{{ __('master.create') }}</h3></div>
             {{ Form::open(['route' => 'masters.store']) }}
-            <div class="card-body">
+            <div class="panel-body">
                 {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
                 {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
             </div>
-            <div class="card-footer">
+            <div class="panel-footer">
                 {{ Form::submit(__('master.create'), ['class' => 'btn btn-success']) }}
-                {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
+                {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
             </div>
             {{ Form::close() }}
         </div>
