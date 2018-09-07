@@ -1,0 +1,69 @@
+@if (Request::get('action') == 'create')
+@can('create', new fullMstr)
+    <form method="POST" action="{{ route('masters.store') }}" accept-charset="UTF-8">
+        {{ csrf_field() }}
+        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+            <label for="name" class="control-label">{{ __('master.name') }}</label>
+            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+            {!! $errors->first('name', '<span class="help-block small">:message</span>') !!}
+        </div>
+        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+            <label for="description" class="control-label">{{ __('master.description') }}</label>
+            <textarea id="description" class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
+            {!! $errors->first('description', '<span class="help-block small">:message</span>') !!}
+        </div>
+        <input type="submit" value="{{ __('master.create') }}" class="btn btn-success">
+        <a href="{{ route('masters.index') }}" class="btn btn-default">{{ __('app.cancel') }}</a>
+    </form>
+@endcan
+@endif
+@if (Request::get('action') == 'edit' && $editableMaster)
+@can('update', $editableMaster)
+    <form method="POST" action="{{ route('masters.update', $editableMaster) }}" accept-charset="UTF-8">
+        {{ csrf_field() }} {{ method_field('patch') }}
+        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+            <label for="name" class="control-label">{{ __('master.name') }}</label>
+            <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $editableMaster->name) }}" required>
+            {!! $errors->first('name', '<span class="help-block small">:message</span>') !!}
+        </div>
+        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+            <label for="description" class="control-label">{{ __('master.description') }}</label>
+            <textarea id="description" class="form-control" name="description" rows="4">{{ old('description', $editableMaster->description) }}</textarea>
+            {!! $errors->first('description', '<span class="help-block small">:message</span>') !!}
+        </div>
+        <input name="page" value="{{ request('page') }}" type="hidden">
+        <input name="q" value="{{ request('q') }}" type="hidden">
+        <input type="submit" value="{{ __('master.update') }}" class="btn btn-success">
+        <a href="{{ route('masters.index', Request::only('q', 'page')) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
+        @can('delete', $editableMaster)
+            <a href="{{ route('masters.index', ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q')) }}" id="del-master-{{ $editableMaster->id }}" class="btn btn-danger pull-right">{{ __('app.delete') }}</a>
+        @endcan
+    </form>
+@endcan
+@endif
+@if (Request::get('action') == 'delete' && $editableMaster)
+@can('delete', $editableMaster)
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">{{ __('master.delete') }}</h3></div>
+        <div class="panel-body">
+            <label class="control-label">{{ __('master.name') }}</label>
+            <p>{{ $editableMaster->name }}</p>
+            <label class="control-label">{{ __('master.description') }}</label>
+            <p>{{ $editableMaster->description }}</p>
+            {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
+        </div>
+        <hr style="margin:0">
+        <div class="panel-body">{{ __('master.delete_confirm') }}</div>
+        <div class="panel-footer">
+            <form method="POST" action="{{ route('masters.destroy', $editableMaster) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;Are you sure to delete this?&quot;)" class="del-form pull-right" style="display: inline;">
+                {{ csrf_field() }} {{ method_field('delete') }}
+                <input name="master_id" type="hidden" value="{{ $editableMaster->id }}">
+                <input name="page" value="{{ request('page') }}" type="hidden">
+                <input name="q" value="{{ request('q') }}" type="hidden">
+                <button title="Delete this item" type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
+            </form>
+            <a href="{{ route('masters.index', Request::only('q', 'page')) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
+        </div>
+    </div>
+@endcan
+@endif

@@ -3,8 +3,8 @@
 @section('title', __('master.list'))
 
 @section('content')
-<h1 class="page-header">
-    <div class="pull-right">
+<h1>
+    <div class="float-right">
         @can('create', new fullMstr)
             <a href="{{ route('masters.index', ['action' => 'create']) }}" class="btn btn-success">{{ __('master.create') }}</a>
         @endcan
@@ -14,18 +14,18 @@
 </h1>
 <div class="row">
     <div class="col-md-8">
-        <div class="panel panel-default table-responsive">
-            <div class="panel-heading">
+        <div class="card table-responsive">
+            <div class="card-header">
                 <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
-                    <div class="form-group ">
-                        <label for="q" class="control-label">{{ __('master.search') }}</label>
-                        <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control input-sm" value="{{ request('q') }}">
+                    <div class="form-group">
+                        <label for="q" class="control-label mr-sm-2">{{ __('master.search') }}</label>
+                        <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control form-control-sm mr-sm-2" value="{{ request('q') }}">
                     </div>
                     <input type="submit" value="{{ __('master.search') }}" class="btn btn-sm">
-                    <a href="{{ route('masters.index') }}">{{ __('app.reset') }}</a>
+                    <a href="{{ route('masters.index') }}" class="btn btn-link btn-sm">{{ __('app.reset') }}</a>
                 </form>
             </div>
-            <table class="table table-condensed">
+            <table class="table table-sm">
                 <thead>
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
@@ -49,7 +49,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="panel-body">{{ $mstrCollections->appends(Request::except('page'))->render() }}</div>
+            <div class="card-body">{{ $mstrCollections->appends(Request::except('page'))->render() }}</div>
         </div>
     </div>
     <div class="col-md-4">

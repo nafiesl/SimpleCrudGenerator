@@ -1,0 +1,32 @@
+@extends('layouts.app')
+
+@section('title', __('master.create'))
+
+@section('content')
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">{{ __('master.create') }}</h3></div>
+            <form method="POST" action="{{ route('masters.store') }}" accept-charset="UTF-8">
+                {{ csrf_field() }}
+                <div class="panel-body">
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <label for="name" class="control-label">{{ __('master.name') }}</label>
+                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+                        {!! $errors->first('name', '<span class="help-block small">:message</span>') !!}
+                    </div>
+                    <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                        <label for="description" class="control-label">{{ __('master.description') }}</label>
+                        <textarea id="description" class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
+                        {!! $errors->first('description', '<span class="help-block small">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <input type="submit" value="{{ __('master.create') }}" class="btn btn-success">
+                    <a href="{{ route('masters.index') }}" class="btn btn-default">{{ __('app.cancel') }}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
