@@ -97,7 +97,7 @@ class ViewsGeneratorTest extends TestCase
         </div>
         <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
             <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
-            <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
+            <textarea id=\"description\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
             {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
         </div>
         <input type=\"submit\" value=\"{{ __('{$this->lang_name}.create') }}\" class=\"btn btn-success\">
@@ -116,7 +116,7 @@ class ViewsGeneratorTest extends TestCase
         </div>
         <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
             <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
-            <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description', \$editable{$this->model_name}->description) }}</textarea>
+            <textarea id=\"description\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description', \$editable{$this->model_name}->description) }}</textarea>
             {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
         </div>
         <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">

@@ -9,7 +9,7 @@
         </div>
         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
             <label for="description" class="control-label">{{ __('master.description') }}</label>
-            <textarea id="description" type="text" class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
+            <textarea id="description" class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
             {!! $errors->first('description', '<span class="help-block small">:message</span>') !!}
         </div>
         <input type="submit" value="{{ __('master.create') }}" class="btn btn-success">
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
             <label for="description" class="control-label">{{ __('master.description') }}</label>
-            <textarea id="description" type="text" class="form-control" name="description" rows="4">{{ old('description', $editableMaster->description) }}</textarea>
+            <textarea id="description" class="form-control" name="description" rows="4">{{ old('description', $editableMaster->description) }}</textarea>
             {!! $errors->first('description', '<span class="help-block small">:message</span>') !!}
         </div>
         <input name="page" value="{{ request('page') }}" type="hidden">

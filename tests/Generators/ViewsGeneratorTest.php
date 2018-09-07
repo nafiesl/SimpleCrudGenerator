@@ -136,7 +136,7 @@ class ViewsGeneratorTest extends TestCase
                     </div>
                     <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
                         <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
-                        <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
+                        <textarea id=\"description\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
                         {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
                     </div>
                 </div>
@@ -205,7 +205,7 @@ class ViewsGeneratorTest extends TestCase
                     </div>
                     <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
                         <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
-                        <textarea id=\"description\" type=\"text\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description', \${$this->single_model_var_name}->description) }}</textarea>
+                        <textarea id=\"description\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description', \${$this->single_model_var_name}->description) }}</textarea>
                         {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
                     </div>
                 </div>
