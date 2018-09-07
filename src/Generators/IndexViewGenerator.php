@@ -28,6 +28,10 @@ class IndexViewGenerator extends BaseGenerator
             $stubName .= '-formfield';
         }
 
+        if ($this->command->option('bs3')) {
+            $stubName .= '-bs3';
+        }
+
         return $this->replaceStubString($this->getStubFileContent($stubName));
     }
 }
