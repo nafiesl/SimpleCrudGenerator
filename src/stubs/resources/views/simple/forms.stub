@@ -34,7 +34,7 @@
         <input name="page" value="{{ request('page') }}" type="hidden">
         <input name="q" value="{{ request('q') }}" type="hidden">
         <input type="submit" value="{{ __('master.update') }}" class="btn btn-success">
-        <a href="{{ route('masters.show', $editableMaster) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
+        <a href="{{ route('masters.index', Request::only('q', 'page')) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
         @can('delete', $editableMaster)
             <a href="{{ route('masters.index', ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q')) }}" id="del-master-{{ $editableMaster->id }}" class="btn btn-danger pull-right">{{ __('app.delete') }}</a>
         @endcan
@@ -62,7 +62,7 @@
                 <input name="q" value="{{ request('q') }}" type="hidden">
                 <button title="Delete this item" type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
             </form>
-            <a href="{{ route('masters.index', [$editableMaster] + Request::only('page', 'q')) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
+            <a href="{{ route('masters.index', Request::only('q', 'page')) }}" class="btn btn-default">{{ __('app.cancel') }}</a>
         </div>
     </div>
 @endcan

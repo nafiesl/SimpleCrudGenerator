@@ -122,7 +122,7 @@ class ViewsGeneratorTest extends TestCase
         <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">
         <input name=\"q\" value=\"{{ request('q') }}\" type=\"hidden\">
         <input type=\"submit\" value=\"{{ __('{$this->lang_name}.update') }}\" class=\"btn btn-success\">
-        <a href=\"{{ route('{$this->table_name}.show', \$editable{$this->model_name}) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
+        <a href=\"{{ route('{$this->table_name}.index', Request::only('q', 'page')) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
         @can('delete', \$editable{$this->model_name})
             <a href=\"{{ route('{$this->table_name}.index', ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q')) }}\" id=\"del-{$this->lang_name}-{{ \$editable{$this->model_name}->id }}\" class=\"btn btn-danger pull-right\">{{ __('app.delete') }}</a>
         @endcan
@@ -150,7 +150,7 @@ class ViewsGeneratorTest extends TestCase
                 <input name=\"q\" value=\"{{ request('q') }}\" type=\"hidden\">
                 <button title=\"Delete this item\" type=\"submit\" class=\"btn btn-danger\">{{ __('app.delete_confirm_button') }}</button>
             </form>
-            <a href=\"{{ route('{$this->table_name}.index', [\$editable{$this->model_name}] + Request::only('page', 'q')) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
+            <a href=\"{{ route('{$this->table_name}.index', Request::only('q', 'page')) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
         </div>
     </div>
 @endcan
