@@ -17,7 +17,7 @@
         <div class="card table-responsive">
             <div class="card-header">
                 <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
-                    <div class="form-group ">
+                    <div class="form-group">
                         <label for="q" class="control-label mr-sm-2">{{ __('master.search') }}</label>
                         <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control form-control-sm mr-sm-2" value="{{ request('q') }}">
                     </div>

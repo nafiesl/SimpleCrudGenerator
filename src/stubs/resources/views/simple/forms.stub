@@ -36,7 +36,7 @@
         <input type="submit" value="{{ __('master.update') }}" class="btn btn-success">
         <a href="{{ route('masters.index', Request::only('q', 'page')) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
         @can('delete', $editableMaster)
-            <a href="{{ route('masters.index', ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q')) }}" id="del-master-{{ $editableMaster->id }}" class="btn btn-danger pull-right">{{ __('app.delete') }}</a>
+            <a href="{{ route('masters.index', ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q')) }}" id="del-master-{{ $editableMaster->id }}" class="btn btn-danger float-right">{{ __('app.delete') }}</a>
         @endcan
     </form>
 @endcan
@@ -55,7 +55,7 @@
         <hr style="margin:0">
         <div class="card-body text-danger">{{ __('master.delete_confirm') }}</div>
         <div class="card-footer">
-            <form method="POST" action="{{ route('masters.destroy', $editableMaster) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;Are you sure to delete this?&quot;)" class="del-form pull-right" style="display: inline;">
+            <form method="POST" action="{{ route('masters.destroy', $editableMaster) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;Are you sure to delete this?&quot;)" class="del-form float-right" style="display: inline;">
                 {{ csrf_field() }} {{ method_field('delete') }}
                 <input name="master_id" type="hidden" value="{{ $editableMaster->id }}">
                 <input name="page" value="{{ request('page') }}" type="hidden">

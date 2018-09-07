@@ -33,7 +33,7 @@ class ViewsGeneratorTest extends TestCase
         <div class=\"card table-responsive\">
             <div class=\"card-header\">
                 <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
-                    <div class=\"form-group \">
+                    <div class=\"form-group\">
                         <label for=\"q\" class=\"control-label mr-sm-2\">{{ __('{$this->lang_name}.search') }}</label>
                         <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control form-control-sm mr-sm-2\" value=\"{{ request('q') }}\">
                     </div>
@@ -124,7 +124,7 @@ class ViewsGeneratorTest extends TestCase
         <input type=\"submit\" value=\"{{ __('{$this->lang_name}.update') }}\" class=\"btn btn-success\">
         <a href=\"{{ route('{$this->table_name}.index', Request::only('q', 'page')) }}\" class=\"btn btn-link\">{{ __('app.cancel') }}</a>
         @can('delete', \$editable{$this->model_name})
-            <a href=\"{{ route('{$this->table_name}.index', ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q')) }}\" id=\"del-{$this->lang_name}-{{ \$editable{$this->model_name}->id }}\" class=\"btn btn-danger pull-right\">{{ __('app.delete') }}</a>
+            <a href=\"{{ route('{$this->table_name}.index', ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q')) }}\" id=\"del-{$this->lang_name}-{{ \$editable{$this->model_name}->id }}\" class=\"btn btn-danger float-right\">{{ __('app.delete') }}</a>
         @endcan
     </form>
 @endcan
@@ -143,7 +143,7 @@ class ViewsGeneratorTest extends TestCase
         <hr style=\"margin:0\">
         <div class=\"card-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
         <div class=\"card-footer\">
-            <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;Are you sure to delete this?&quot;)\" class=\"del-form pull-right\" style=\"display: inline;\">
+            <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;Are you sure to delete this?&quot;)\" class=\"del-form float-right\" style=\"display: inline;\">
                 {{ csrf_field() }} {{ method_field('delete') }}
                 <input name=\"{$this->lang_name}_id\" type=\"hidden\" value=\"{{ \$editable{$this->model_name}->id }}\">
                 <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">
