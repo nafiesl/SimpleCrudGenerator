@@ -1,6 +1,6 @@
 {
     "name": "luthfi/simple-crud-generator",
-    "description": "A simple CRUD generator for Laravel 5.5 and newer with bootstrap 3.",
+    "description": "A simple CRUD generator for Laravel 5.5 (and later) with Bootstrap 4.",
     "keywords": ["crud-generator", "artisan-command", "laravel-package", "crud", "testing", "tdd-workflow"],
     "license": "MIT",
     "authors": [

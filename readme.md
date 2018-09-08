@@ -2,11 +2,14 @@
 [![Build Status](https://travis-ci.org/nafiesl/SimpleCrudGenerator.svg?branch=master)](https://travis-ci.org/nafiesl/SimpleCrudGenerator)
 [![Total Downloads](https://poser.pugx.org/luthfi/simple-crud-generator/downloads)](https://packagist.org/packages/luthfi/simple-crud-generator)
 
-An artisan `make:crud` command to create a simple CRUD feature on our Laravel 5.5 application. This package is fairly simple, to **boost test-driven development** method on our laravel application.
+Need faster TDD in Laravel project? This is a simple CRUD generator complete with automated testing suite.
 
----
+<br>
 
 ## About this package
+
+This package contains artisan `make:crud` commands to create a simple CRUD feature with test classes on our Laravel 5.5 (and later) application. This package is fairly simple, to **boost test-driven development** method on our laravel application.
+
 With this package installed on local environment, we can use (e.g.) `php artisan make:crud Vehicle` command to generate some files :
 
 - `App\Vehicle.php` eloquent model
@@ -30,11 +33,13 @@ It will also create this file **if it not exists** :
 - `resources/lang/app.php` lang file if it not exists
 - `tests/BrowserKitTest.php` base Feature TestCase class if it not exists
 
+<br>
+
 #### Main purpose
 
-The main purpose of this package is for faster **Test-driven Development**, it generates model CRUD scaffolds complete with Testing Classes which will use [Laravel Browserkit Testing](https://github.com/laravel/browser-kit-testing) package and [PHPUnit](https://packagist.org/packages/phpunit/phpunit) version 6.
+The main purpose of this package is for **faster Test-driven Development**, it generates model CRUD scaffolds complete **with Testing Classes** which will use [Laravel Browserkit Testing](https://github.com/laravel/browser-kit-testing) package and [PHPUnit](https://packagist.org/packages/phpunit/phpunit).
 
----
+<br>
 
 ## How to install
 
@@ -70,27 +75,10 @@ Luthfi\CrudGenerator\ServiceProvider::class,
 'Html'      => Collective\Html\HtmlFacade::class,
 ```
 
----
+<br>
 
 ## How to use
-Just type in terminal `$ php artisan` and we will find the `make:crud` command, it will create simple Laravel CRUD files of given **model name**.
-
-#### Available Commands
-
-```bash
-# Create Full CRUD feature with tests
-$ php artisan make:crud
-
-# Create API CRUD feature with tests
-$ php artisan make:crud-api
-
-# Create Simple CRUD feature with tests
-$ php artisan make:crud-simple
-```
-
-#### Model Attribute/column
-
-The Model and table will **only have 2 pre-definded** attributes or columns : **name** and **description** on each generated model and database table. You can continue working on other column on the table.
+Just type in terminal `$ php artisan make:crud ModelName` command, it will create simple Laravel CRUD files of given **model name** completed with tests.
 
 For example we want to create CRUD for '**App\Vehicle**' model.
 
@@ -115,7 +103,7 @@ VehiclePolicyTest (model policy) generated.
 CRUD files generated successfully!
 ```
 
-Make sure we have **set our database credential** on `.env` file. Then :
+Make sure we have **set database credential** on `.env` file, then :
 
 ```bash
 $ php artisan migrate
@@ -123,6 +111,47 @@ $ php artisan serve
 ```
 
 Then visit our application url: `http://localhost:8000/vehicles`.
+
+<br>
+
+#### Available Commands
+
+```bash
+# Create Full CRUD feature with tests
+$ php artisan make:crud ModelName
+
+# Create Full CRUD feature with tests and Bootstrap 3 views
+$ php artisan make:crud ModelName --bs3
+
+# Create Simple CRUD feature with tests
+$ php artisan make:crud-simple ModelName
+
+# Create Simple CRUD feature with tests and Bootstrap 3 views
+$ php artisan make:crud-simple ModelName --bs3
+
+# Create API CRUD feature with tests
+$ php artisan make:crud-api ModelName
+```
+
+<br>
+
+#### Model Attribute/column
+
+The Model and table will **only have 2 pre-definded** attributes or columns : **name** and **description** on each generated model and database table. You can continue working on other column on the table.
+
+<br>
+
+#### Bootstrap 4 Views
+
+The generated view files **use Bootstrap 4 by default** (for Laravel 5.6 and later).
+
+<br>
+
+#### Bootstrap 4 Views
+
+We can also generates views that use Bootstrap 3 with `--bs3` command option, eg for Laravel version 5.5.
+
+<br>
 
 #### For API
 
@@ -138,7 +167,7 @@ By default, we use Laravel **Token Based Authentication**, so we need to update 
 2. Add `api_token` as **fillable** property on **User model**.
 3. Add `api_token` **field** on our **UserFactory**.
 
----
+<br>
 
 ## Config file
 
@@ -167,14 +196,14 @@ return [
 ];
 ```
 
----
+<br>
 
 ## Attention
 
 - The package will creates the **Model** class file, the command will stop if the **Model already exists**.
 - **You need** a `resources/views/layouts/app.blade.php` view file, simply create one with `php artisan make:auth` command. You can change this configuration via the `config/simple-crud.php` file.
 
----
+<br>
 
 ## Screenshots
 
@@ -182,7 +211,9 @@ Visit your application in new resource route : `http://127.0.0.1:8000/vehicles`
 
 ![Generated CRUD page by Simple CRUD Generator](screenshots/simple-crud-generator-01.jpg)
 
-#### Generated testing suite
+<br>
+
+## Generated testing suite
 
 Next, let us try the generated testing suite. To use the generated testing classes, we can set the database environment using ***in-memory* database SQLite**. Open `phpunit.xml`. Add two lines below on the `env` :
 
@@ -207,13 +238,13 @@ All tests should be passed.
 
 ![Generated Testing Suite on Simple CRUD Generator](screenshots/simple-crud-generator-02.jpg)
 
----
+<br>
 
 ## Issue/Proposal
 
 If you find any issue, or want to propose some idea to help this package better, please [create an issue](https://github.com/nafiesl/SimpleCrudGenerator/issues) in this github repo.
 
----
+<br>
 
 ## License
 
