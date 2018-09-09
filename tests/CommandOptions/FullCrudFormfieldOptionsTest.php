@@ -242,4 +242,88 @@ class FullCrudFormfieldOptionsTest extends TestCase
         $this->assertEquals($editFormViewContent, file_get_contents($editFormViewPath));
     }
 
+    /** @test */
+    public function it_creates_correct_model_class_with_link_to_route_helper()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
+
+        $modelPath = app_path($this->model_name.'.php');
+        $this->assertFileExists($modelPath);
+        $modelClassContent = "<?php
+
+namespace App;
+
+use App\User;
+use Illuminate\Database\Eloquent\Model;
+
+class {$this->model_name} extends Model
+{
+    protected \$fillable = ['name', 'description', 'creator_id'];
+
+    public function getNameLinkAttribute()
+    {
+        return link_to_route('{$this->table_name}.show', \$this->name, [\$this], [
+            'title' => __(
+                'app.show_detail_title',
+                ['name' => \$this->name, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
+            ),
+        ]);
+    }
+
+    public function creator()
+    {
+        return \$this->belongsTo(User::class);
+    }
+}
+";
+        $this->assertEquals($modelClassContent, file_get_contents($modelPath));
+    }
+
+    /** @test */
+    public function it_creates_correct_unit_test_class_with_link_to_route_helper()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
+
+        $uniTestPath = base_path("tests/Unit/Models/{$this->model_name}Test.php");
+        $this->assertFileExists($uniTestPath);
+        $modelClassContent = "<?php
+
+namespace Tests\Unit\Models;
+
+use App\User;
+use {$this->full_model_name};
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\BrowserKitTest as TestCase;
+
+class {$this->model_name}Test extends TestCase
+{
+    use DatabaseMigrations;
+
+    /** @test */
+    public function a_{$this->lang_name}_has_name_link_attribute()
+    {
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+
+        \$this->assertEquals(
+            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}], [
+                'title' => __(
+                    'app.show_detail_title',
+                    ['name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
+                ),
+            ]), \${$this->single_model_var_name}->name_link
+        );
+    }
+
+    /** @test */
+    public function a_{$this->lang_name}_has_belongs_to_creator_relation()
+    {
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->make();
+
+        \$this->assertInstanceOf(User::class, \${$this->single_model_var_name}->creator);
+        \$this->assertEquals(\${$this->single_model_var_name}->creator_id, \${$this->single_model_var_name}->creator->id);
+    }
+}
+";
+        $this->assertEquals($modelClassContent, file_get_contents($uniTestPath));
+    }
 }

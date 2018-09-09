@@ -27,6 +27,10 @@ class ModelTestGenerator extends BaseGenerator
      */
     public function getContent(string $stubName)
     {
+        if ($this->command->option('formfield')) {
+            $stubName .= '-formfield';
+        }
+
         $modelFileContent = $this->getStubFileContent($stubName);
 
         $baseTestClass = config('simple-crud.base_test_class');

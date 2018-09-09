@@ -1,0 +1,26 @@
+<?php
+
+namespace mstrNmspc;
+
+use App\User;
+use Illuminate\Database\Eloquent\Model;
+
+class Master extends Model
+{
+    protected $fillable = ['name', 'description', 'creator_id'];
+
+    public function getNameLinkAttribute()
+    {
+        return link_to_route('masters.show', $this->name, [$this], [
+            'title' => __(
+                'app.show_detail_title',
+                ['name' => $this->name, 'type' => __('master.master')]
+            ),
+        ]);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class);
+    }
+}

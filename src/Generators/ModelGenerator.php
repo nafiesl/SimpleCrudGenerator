@@ -28,6 +28,10 @@ class ModelGenerator extends BaseGenerator
      */
     public function getContent(string $stubName)
     {
+        if ($this->command->option('formfield')) {
+            $stubName .= '-formfield';
+        }
+
         $modelFileContent = $this->getStubFileContent($stubName);
 
         $userModel = config('auth.providers.users.model');
