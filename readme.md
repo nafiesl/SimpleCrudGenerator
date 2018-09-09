@@ -14,7 +14,7 @@ With this package installed on local environment, we can use (e.g.) `php artisan
 
 - `App\Vehicle.php` eloquent model
 - `xxx_create_vehicles_table.php` migration file
-- `VehiclesController.php`
+- `VehicleController.php`
 - `index.blade.php` and `forms.blade.php` view file in `resources/views/vehicles` directory
 - `resources/lang/vehicle.php` lang file
 - `VehicleFactory.php` model factory file
@@ -88,7 +88,7 @@ $ php artisan make:crud-simple Vehicle
 Vehicle resource route generated on routes/web.php.
 Vehicle model generated.
 Vehicle table migration generated.
-VehiclesController generated.
+VehicleController generated.
 Vehicle index view file generated.
 Vehicle form view file generated.
 lang/app.php generated.
@@ -147,7 +147,7 @@ The generated view files **use Bootstrap 4 by default** (for Laravel 5.6 and lat
 
 <br>
 
-#### Bootstrap 4 Views
+#### Bootstrap 3 Views
 
 We can also generates views that use Bootstrap 3 with `--bs3` command option, eg for Laravel version 5.5.
 
