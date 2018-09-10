@@ -35,10 +35,10 @@ class ViewsGeneratorTest extends TestCase
                 <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
                     <div class=\"form-group\">
                         <label for=\"q\" class=\"control-label mr-sm-2\">{{ __('{$this->lang_name}.search') }}</label>
-                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control form-control-sm mr-sm-2\" value=\"{{ request('q') }}\">
+                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control mr-sm-2\" value=\"{{ request('q') }}\">
                     </div>
-                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-sm\">
-                    <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link btn-sm\">{{ __('app.reset') }}</a>
+                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-secondary\">
+                    <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.reset') }}</a>
                 </form>
             </div>
             <table class=\"table table-sm\">

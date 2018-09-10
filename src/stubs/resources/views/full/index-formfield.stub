@@ -17,9 +17,9 @@
         <div class="card table-responsive">
             <div class="card-header">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('master.search'), 'placeholder' => __('master.search_text'), 'class' => 'form-control-sm']) !!}
-                {{ Form::submit(__('master.search'), ['class' => 'btn btn-sm']) }}
-                {{ link_to_route('masters.index', __('app.reset')) }}
+                {!! FormField::text('q', ['label' => __('master.search'), 'placeholder' => __('master.search_text'), 'class' => 'mr-sm-2']) !!}
+                {{ Form::submit(__('master.search'), ['class' => 'btn btn-secondary']) }}
+                {{ link_to_route('masters.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}
             </div>
             <table class="table table-sm">
