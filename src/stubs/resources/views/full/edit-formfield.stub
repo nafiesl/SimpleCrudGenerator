@@ -22,7 +22,7 @@
                     {!! FormField::delete(
                         ['route' => ['masters.destroy', $singleMstr]],
                         __('app.delete_confirm_button'),
-                        ['class'=>'btn btn-danger'],
+                        ['class' => 'btn btn-danger'],
                         [
                             'master_id' => $singleMstr->id,
                             'page' => request('page'),

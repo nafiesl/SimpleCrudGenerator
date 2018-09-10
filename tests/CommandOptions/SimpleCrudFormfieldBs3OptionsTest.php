@@ -165,7 +165,7 @@ class SimpleCrudFormfieldBs3OptionsTest extends TestCase
             {!! FormField::delete(
                 ['route' => ['{$this->table_name}.destroy', \$editable{$this->model_name}]],
                 __('app.delete_confirm_button'),
-                ['class'=>'btn btn-danger'],
+                ['class' => 'btn btn-danger'],
                 [
                     '{$this->lang_name}_id' => \$editable{$this->model_name}->id,
                     'page' => request('page'),
