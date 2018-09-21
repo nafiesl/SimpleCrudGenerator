@@ -3,23 +3,23 @@
 @section('title', __('master.list'))
 
 @section('content')
-<h1>
+<div class="mb-3">
     <div class="float-right">
         @can('create', new fullMstr)
             <a href="{{ route('masters.create') }}" class="btn btn-success">{{ __('master.create') }}</a>
         @endcan
     </div>
-    {{ __('master.list') }}
-    <small>{{ __('app.total') }} : {{ $mstrCollections->total() }} {{ __('master.master') }}</small>
-</h1>
+    <h1 class="page-title">{{ __('master.list') }} <small>{{ __('app.total') }} : {{ $mstrCollections->total() }} {{ __('master.master') }}</small></h1>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="card table-responsive">
             <div class="card-header">
                 <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
                     <div class="form-group">
-                        <label for="q" class="control-label mr-sm-2">{{ __('master.search') }}</label>
-                        <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control mr-sm-2" value="{{ request('q') }}">
+                        <label for="q" class="control-label">{{ __('master.search') }}</label>
+                        <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control mx-sm-2" value="{{ request('q') }}">
                     </div>
                     <input type="submit" value="{{ __('master.search') }}" class="btn btn-secondary">
                     <a href="{{ route('masters.index') }}" class="btn btn-link">{{ __('app.reset') }}</a>

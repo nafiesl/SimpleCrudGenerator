@@ -3,21 +3,21 @@
 @section('title', __('master.list'))
 
 @section('content')
-<h1>
+<div class="mb-3">
     <div class="float-right">
         @can('create', new fullMstr)
             {{ link_to_route('masters.create', __('master.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
     </div>
-    {{ __('master.list') }}
-    <small>{{ __('app.total') }} : {{ $mstrCollections->total() }} {{ __('master.master') }}</small>
-</h1>
+    <h1 class="page-title">{{ __('master.list') }} <small>{{ __('app.total') }} : {{ $mstrCollections->total() }} {{ __('master.master') }}</small></h1>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="card table-responsive">
             <div class="card-header">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('master.search'), 'placeholder' => __('master.search_text'), 'class' => 'mr-sm-2']) !!}
+                {!! FormField::text('q', ['label' => __('master.search'), 'placeholder' => __('master.search_text'), 'class' => 'mx-sm-2']) !!}
                 {{ Form::submit(__('master.search'), ['class' => 'btn btn-secondary']) }}
                 {{ link_to_route('masters.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}

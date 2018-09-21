@@ -47,21 +47,21 @@ class FullCrudFormfieldOptionsTest extends TestCase
 @section('title', __('{$this->lang_name}.list'))
 
 @section('content')
-<h1>
+<div class=\"mb-3\">
     <div class=\"float-right\">
         @can('create', new {$this->full_model_name})
             {{ link_to_route('{$this->table_name}.create', __('{$this->lang_name}.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
     </div>
-    {{ __('{$this->lang_name}.list') }}
-    <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small>
-</h1>
+    <h1 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h1>
+</div>
+
 <div class=\"row\">
     <div class=\"col-md-12\">
         <div class=\"card table-responsive\">
             <div class=\"card-header\">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'mr-sm-2']) !!}
+                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'mx-sm-2']) !!}
                 {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
                 {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}

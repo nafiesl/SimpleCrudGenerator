@@ -19,23 +19,23 @@ class ViewsGeneratorTest extends TestCase
 @section('title', __('{$this->lang_name}.list'))
 
 @section('content')
-<h1>
+<div class=\"mb-3\">
     <div class=\"float-right\">
         @can('create', new {$this->full_model_name})
-            <a href=\"{{ route('{$this->table_name}.index', ['action' => 'create']) }}\" class=\"btn btn-success\">{{ __('{$this->lang_name}.create') }}</a>
+            <a href=\"{{ route('{$this->table_name}.create') }}\" class=\"btn btn-success\">{{ __('{$this->lang_name}.create') }}</a>
         @endcan
     </div>
-    {{ __('{$this->lang_name}.list') }}
-    <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small>
-</h1>
+    <h1 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h1>
+</div>
+
 <div class=\"row\">
     <div class=\"col-md-8\">
         <div class=\"card table-responsive\">
             <div class=\"card-header\">
                 <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
                     <div class=\"form-group\">
-                        <label for=\"q\" class=\"control-label mr-sm-2\">{{ __('{$this->lang_name}.search') }}</label>
-                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control mr-sm-2\" value=\"{{ request('q') }}\">
+                        <label for=\"q\" class=\"control-label\">{{ __('{$this->lang_name}.search') }}</label>
+                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control mx-sm-2\" value=\"{{ request('q') }}\">
                     </div>
                     <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-secondary\">
                     <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.reset') }}</a>
