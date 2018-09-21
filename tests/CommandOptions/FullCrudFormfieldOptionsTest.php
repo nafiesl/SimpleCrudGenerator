@@ -121,12 +121,14 @@ class FullCrudFormfieldOptionsTest extends TestCase
     <div class=\"col-md-6\">
         <div class=\"card\">
             <div class=\"card-header\">{{ __('{$this->lang_name}.detail') }}</div>
-            <table class=\"table table-sm\">
-                <tbody>
-                    <tr><td>{{ __('{$this->lang_name}.name') }}</td><td>{{ \${$this->single_model_var_name}->name }}</td></tr>
-                    <tr><td>{{ __('{$this->lang_name}.description') }}</td><td>{{ \${$this->single_model_var_name}->description }}</td></tr>
-                </tbody>
-            </table>
+            <div class=\"card-body\">
+                <table class=\"table table-sm\">
+                    <tbody>
+                        <tr><td>{{ __('{$this->lang_name}.name') }}</td><td>{{ \${$this->single_model_var_name}->name }}</td></tr>
+                        <tr><td>{{ __('{$this->lang_name}.description') }}</td><td>{{ \${$this->single_model_var_name}->description }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
             <div class=\"card-footer\">
                 @can('update', \${$this->single_model_var_name})
                     {{ link_to_route('{$this->table_name}.edit', __('{$this->lang_name}.edit'), [\${$this->single_model_var_name}], ['class' => 'btn btn-warning', 'id' => 'edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
