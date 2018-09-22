@@ -9,7 +9,10 @@ class CrudApiMake extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:crud-api {name} {--p|parent=} {--t|tests-only} {--f|formfield}';
+    protected $signature = 'make:crud-api {name : The model name}
+                            {--p|parent= : The generated API controller parent directory}
+                            {--t|tests-only : Generate API CRUD testcases only}
+                            {--f|formfield : Generate CRUD with FormField facades}';
 
     /**
      * The console command description.

@@ -9,7 +9,11 @@ class CrudSimpleMake extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:crud-simple {name} {--p|parent=} {--t|tests-only} {--f|formfield} {--bs3}';
+    protected $signature = 'make:crud-simple {name : The model name}
+                            {--p|parent= : The generated controller parent directory}
+                            {--t|tests-only : Generate CRUD testcases only}
+                            {--f|formfield : Generate CRUD with FormField facades}
+                            {--bs3 : Generate CRUD with Bootstrap 3 views}';
 
     /**
      * The console command description.
