@@ -6,7 +6,7 @@
 <div class="mb-3">
     <div class="float-right">
         @can('create', new fullMstr)
-            <a href="{{ route('masters.create') }}" class="btn btn-success">{{ __('master.create') }}</a>
+            <a href="{{ route('masters.index', ['action' => 'create']) }}" class="btn btn-success">{{ __('master.create') }}</a>
         @endcan
     </div>
     <h1 class="page-title">{{ __('master.list') }} <small>{{ __('app.total') }} : {{ $mstrCollections->total() }} {{ __('master.master') }}</small></h1>
