@@ -34,6 +34,8 @@ class Create{$this->plural_model_name}Table extends Migration
             \$table->string('description')->nullable();
             \$table->unsignedInteger('creator_id');
             \$table->timestamps();
+
+            \$table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
