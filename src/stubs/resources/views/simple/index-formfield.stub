@@ -14,7 +14,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <div class="card table-responsive">
+        <div class="card">
             <div class="card-header">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
                 {!! FormField::text('q', ['label' => __('master.search'), 'placeholder' => __('master.search_text'), 'class' => 'mx-sm-2']) !!}
@@ -22,7 +22,7 @@
                 {{ link_to_route('masters.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}
             </div>
-            <table class="table table-sm">
+            <table class="table table-sm table-responsive-sm">
                 <thead>
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>

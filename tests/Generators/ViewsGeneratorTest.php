@@ -30,7 +30,7 @@ class ViewsGeneratorTest extends TestCase
 
 <div class=\"row\">
     <div class=\"col-md-12\">
-        <div class=\"card table-responsive\">
+        <div class=\"card\">
             <div class=\"card-header\">
                 <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
                     <div class=\"form-group\">
@@ -41,7 +41,7 @@ class ViewsGeneratorTest extends TestCase
                     <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.reset') }}</a>
                 </form>
             </div>
-            <table class=\"table table-sm\">
+            <table class=\"table table-sm table-responsive-sm\">
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>

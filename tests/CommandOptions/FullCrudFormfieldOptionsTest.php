@@ -58,7 +58,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
 
 <div class=\"row\">
     <div class=\"col-md-12\">
-        <div class=\"card table-responsive\">
+        <div class=\"card\">
             <div class=\"card-header\">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
                 {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'mx-sm-2']) !!}
@@ -66,7 +66,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
                 {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}
             </div>
-            <table class=\"table table-sm\">
+            <table class=\"table table-sm table-responsive-sm\">
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>
