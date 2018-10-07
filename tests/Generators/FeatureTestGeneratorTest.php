@@ -101,19 +101,31 @@ class Manage{$this->model_name}Test extends TestCase
     }
 
     /** @test */
-    public function create_{$this->lang_name}_action_must_pass_validations()
+    public function validate_{$this->lang_name}_name_is_required()
     {
         \$this->loginAsUser();
 
         // Name empty
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
 
         // Name 70 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
             'name' => str_repeat('Test Title', 7),
         ]));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
 
         // Description 256 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
@@ -298,19 +310,31 @@ class Manage{$this->model_name}Test extends TestCase
     }
 
     /** @test */
-    public function create_{$this->lang_name}_action_must_pass_validations()
+    public function validate_{$this->lang_name}_name_is_required()
     {
         \$this->loginAsUser();
 
         // Name empty
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
 
         // Name 70 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
             'name' => str_repeat('Test Title', 7),
         ]));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
 
         // Description 256 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
@@ -447,19 +471,31 @@ class Manage{$this->model_name}Test extends TestCase
     }
 
     /** @test */
-    public function create_{$this->lang_name}_action_must_pass_validations()
+    public function validate_{$this->lang_name}_name_is_required()
     {
         \$this->loginAsUser();
 
         // Name empty
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
 
         // Name 70 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
             'name' => str_repeat('Test Title', 7),
         ]));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
 
         // Description 256 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([

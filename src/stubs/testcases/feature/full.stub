@@ -45,19 +45,31 @@ class ManageMasterTest extends TestCase
     }
 
     /** @test */
-    public function create_master_action_must_pass_validations()
+    public function validate_master_name_is_required()
     {
         $this->loginAsUser();
 
         // Name empty
         $this->post(route('masters.store'), $this->getCreateFields(['name' => '']));
         $this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_master_name_is_not_more_than_60_characters()
+    {
+        $this->loginAsUser();
 
         // Name 70 characters
         $this->post(route('masters.store'), $this->getCreateFields([
             'name' => str_repeat('Test Title', 7),
         ]));
         $this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_master_description_is_not_more_than_255_characters()
+    {
+        $this->loginAsUser();
 
         // Description 256 characters
         $this->post(route('masters.store'), $this->getCreateFields([
