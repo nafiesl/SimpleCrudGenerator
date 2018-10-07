@@ -98,6 +98,48 @@ class Manage{$this->model_name}Test extends TestCase
         ]);
     }
 
+    private function getCreateFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ], \$overrides);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_required()
+    {
+        \$this->loginAsUser();
+
+        // Name empty
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields(['name' => '']));
+        \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
+
+        // Name 70 characters
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
+            'name' => str_repeat('Test Title', 7),
+        ]));
+        \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
+
+        // Description 256 characters
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        \$this->assertSessionHasErrors('description');
+    }
+
     /** @test */
     public function user_can_edit_a_{$this->lang_name}_within_search_query()
     {
@@ -119,6 +161,51 @@ class Manage{$this->model_name}Test extends TestCase
             'name'        => '{$this->model_name} 1 name',
             'description' => '{$this->model_name} 1 description',
         ]);
+    }
+
+    private function getEditFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ], \$overrides);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_required()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+
+        // Name empty
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
+        \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+
+        // Name 70 characters
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
+            'name' => str_repeat('Test Title', 7),
+        ]));
+        \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+
+        // Description 256 characters
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        \$this->assertSessionHasErrors('description');
     }
 
     /** @test */
@@ -248,6 +335,48 @@ class Manage{$this->model_name}Test extends TestCase
         ]);
     }
 
+    private function getCreateFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ], \$overrides);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_required()
+    {
+        \$this->loginAsUser();
+
+        // Name empty
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields(['name' => '']));
+        \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
+
+        // Name 70 characters
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
+            'name' => str_repeat('Test Title', 7),
+        ]));
+        \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
+
+        // Description 256 characters
+        \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        \$this->assertSessionHasErrors('description');
+    }
+
     /** @test */
     public function user_can_edit_a_{$this->lang_name}_within_search_query()
     {
@@ -269,6 +398,51 @@ class Manage{$this->model_name}Test extends TestCase
             'name'        => '{$this->model_name} 1 name',
             'description' => '{$this->model_name} 1 description',
         ]);
+    }
+
+    private function getEditFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
+        ], \$overrides);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_required()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+
+        // Name empty
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
+        \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+
+        // Name 70 characters
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
+            'name' => str_repeat('Test Title', 7),
+        ]));
+        \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+
+        // Description 256 characters
+        \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        \$this->assertSessionHasErrors('description');
     }
 
     /** @test */

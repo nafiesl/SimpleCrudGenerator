@@ -62,6 +62,65 @@ class Manage{$this->model_name}Test extends TestCase
         ]);
     }
 
+    private function getCreateFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => 'Vehicle 1 name',
+            'description' => 'Vehicle 1 description',
+        ], \$overrides);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_required()
+    {
+        \$user = \$this->createUser();
+
+        // Name empty
+        \$requestBody = \$this->getCreateFields(['name' => '']);
+        \$this->postJson(
+            route('api.{$this->table_name}.store'),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_not_more_than_60_characters()
+    {
+        \$user = \$this->createUser();
+
+        // Name 70 characters
+        \$requestBody = \$this->getCreateFields(['name' => str_repeat('Test Title', 7)]);
+        \$this->postJson(
+            route('api.{$this->table_name}.store'),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_is_not_more_than_255_characters()
+    {
+        \$user = \$this->createUser();
+
+        // Description 256 characters
+        \$requestBody = \$this->getCreateFields(['description' => str_repeat('Long description', 16)]);
+        \$this->postJson(
+            route('api.{$this->table_name}.store'),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['description' => []]]);
+    }
+
     /** @test */
     public function user_can_get_a_{$this->lang_name}_detail()
     {
@@ -99,6 +158,68 @@ class Manage{$this->model_name}Test extends TestCase
             'name'        => '{$this->model_name} 1 name',
             'description' => '{$this->model_name} 1 description',
         ]);
+    }
+
+    private function getEditFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => 'Vehicle 1 name',
+            'description' => 'Vehicle 1 description',
+        ], \$overrides);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_required()
+    {
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory(Vehicle::class)->create();
+
+        // Name empty
+        \$requestBody = \$this->getEditFields(['name' => '']);
+        \$this->patchJson(
+            route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
+    {
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory(Vehicle::class)->create();
+
+        // Name 70 characters
+        \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
+        \$this->patchJson(
+            route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
+    {
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory(Vehicle::class)->create(['name' => 'Testing 123']);
+
+        // Description 256 characters
+        \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);
+        \$this->patchJson(
+            route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['description' => []]]);
     }
 
     /** @test */
@@ -186,6 +307,65 @@ class Manage{$this->model_name}Test extends TestCase
         ]);
     }
 
+    private function getCreateFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => 'Vehicle 1 name',
+            'description' => 'Vehicle 1 description',
+        ], \$overrides);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_required()
+    {
+        \$user = \$this->createUser();
+
+        // Name empty
+        \$requestBody = \$this->getCreateFields(['name' => '']);
+        \$this->postJson(
+            route('api.{$this->table_name}.store'),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_is_not_more_than_60_characters()
+    {
+        \$user = \$this->createUser();
+
+        // Name 70 characters
+        \$requestBody = \$this->getCreateFields(['name' => str_repeat('Test Title', 7)]);
+        \$this->postJson(
+            route('api.{$this->table_name}.store'),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_is_not_more_than_255_characters()
+    {
+        \$user = \$this->createUser();
+
+        // Description 256 characters
+        \$requestBody = \$this->getCreateFields(['description' => str_repeat('Long description', 16)]);
+        \$this->postJson(
+            route('api.{$this->table_name}.store'),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['description' => []]]);
+    }
+
     /** @test */
     public function user_can_get_a_{$this->lang_name}_detail()
     {
@@ -223,6 +403,68 @@ class Manage{$this->model_name}Test extends TestCase
             'name'        => '{$this->model_name} 1 name',
             'description' => '{$this->model_name} 1 description',
         ]);
+    }
+
+    private function getEditFields(array \$overrides = [])
+    {
+        return array_merge([
+            'name'        => 'Vehicle 1 name',
+            'description' => 'Vehicle 1 description',
+        ], \$overrides);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_required()
+    {
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory(Vehicle::class)->create();
+
+        // Name empty
+        \$requestBody = \$this->getEditFields(['name' => '']);
+        \$this->patchJson(
+            route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
+    {
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory(Vehicle::class)->create();
+
+        // Name 70 characters
+        \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
+        \$this->patchJson(
+            route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
+    {
+        \$user = \$this->createUser();
+        \${$this->single_model_var_name} = factory(Vehicle::class)->create(['name' => 'Testing 123']);
+
+        // Description 256 characters
+        \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);
+        \$this->patchJson(
+            route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
+            \$requestBody,
+            ['Authorization' => 'Bearer '.\$user->api_token]
+        );
+
+        \$this->seeStatusCode(422);
+        \$this->seeJsonSubset(['errors' => ['description' => []]]);
     }
 
     /** @test */
