@@ -106,7 +106,7 @@ class ManageMasterTest extends TestCase
     }
 
     /** @test */
-    public function edit_master_action_must_pass_validations()
+    public function validate_master_name_update_is_required()
     {
         $this->loginAsUser();
         $master = factory(Master::class)->create(['name' => 'Testing 123']);
@@ -114,12 +114,26 @@ class ManageMasterTest extends TestCase
         // Name empty
         $this->patch(route('masters.update', $master), $this->getEditFields(['name' => '']));
         $this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_master_name_update_is_not_more_than_60_characters()
+    {
+        $this->loginAsUser();
+        $master = factory(Master::class)->create(['name' => 'Testing 123']);
 
         // Name 70 characters
         $this->patch(route('masters.update', $master), $this->getEditFields([
             'name' => str_repeat('Test Title', 7),
         ]));
         $this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_master_description_update_is_not_more_than_255_characters()
+    {
+        $this->loginAsUser();
+        $master = factory(Master::class)->create(['name' => 'Testing 123']);
 
         // Description 256 characters
         $this->patch(route('masters.update', $master), $this->getEditFields([

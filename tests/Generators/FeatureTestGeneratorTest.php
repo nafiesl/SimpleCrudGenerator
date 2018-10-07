@@ -162,7 +162,7 @@ class Manage{$this->model_name}Test extends TestCase
     }
 
     /** @test */
-    public function edit_{$this->lang_name}_action_must_pass_validations()
+    public function validate_{$this->lang_name}_name_update_is_required()
     {
         \$this->loginAsUser();
         \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
@@ -170,12 +170,26 @@ class Manage{$this->model_name}Test extends TestCase
         // Name empty
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         // Name 70 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
             'name' => str_repeat('Test Title', 7),
         ]));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         // Description 256 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
@@ -371,7 +385,7 @@ class Manage{$this->model_name}Test extends TestCase
     }
 
     /** @test */
-    public function edit_{$this->lang_name}_action_must_pass_validations()
+    public function validate_{$this->lang_name}_name_update_is_required()
     {
         \$this->loginAsUser();
         \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
@@ -379,12 +393,26 @@ class Manage{$this->model_name}Test extends TestCase
         // Name empty
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         // Name 70 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
             'name' => str_repeat('Test Title', 7),
         ]));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         // Description 256 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
@@ -532,7 +560,7 @@ class Manage{$this->model_name}Test extends TestCase
     }
 
     /** @test */
-    public function edit_{$this->lang_name}_action_must_pass_validations()
+    public function validate_{$this->lang_name}_name_update_is_required()
     {
         \$this->loginAsUser();
         \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
@@ -540,12 +568,26 @@ class Manage{$this->model_name}Test extends TestCase
         // Name empty
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         // Name 70 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
             'name' => str_repeat('Test Title', 7),
         ]));
         \$this->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
+    {
+        \$this->loginAsUser();
+        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         // Description 256 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
