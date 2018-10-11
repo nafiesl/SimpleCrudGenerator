@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Requests\Masters;
+
+use fullMstr;
+use Illuminate\Foundation\Http\FormRequest;
+
+class CreateRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return $this->user()->can('create', new Master);
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'name'        => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ];
+    }
+
+    /**
+     * Save proposal to database.
+     *
+     * @return \fullMstr
+     */
+    public function save()
+    {
+        $newMaster = $this->validated();
+        $newMaster['creator_id'] = auth()->id();
+
+        return Master::create($newMaster);
+    }
+}

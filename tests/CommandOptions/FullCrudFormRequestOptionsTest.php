@@ -3,9 +3,40 @@
 namespace Tests\CommandOptions;
 
 use Tests\TestCase;
+use Illuminate\Contracts\Console\Kernel;
 
 class FullCrudFormRequestOptionsTest extends TestCase
 {
+    /** @test */
+    public function it_can_generate_form_request_classes()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true, '--form-requests' => true]);
+
+        $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
+
+        $this->assertFileExists(app_path($this->model_name.'.php'));
+        $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
+        $this->assertFileExists(app_path("Http/Requests/{$this->plural_model_name}/CreateRequest.php"));
+        $this->assertFileExists(app_path("Http/Requests/{$this->plural_model_name}/UpdateRequest.php"));
+
+        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
+        $this->assertFileExists($migrationFilePath);
+
+        $this->assertFileExists(resource_path("views/{$this->table_name}/index.blade.php"));
+        $this->assertFileExists(resource_path("views/{$this->table_name}/create.blade.php"));
+        $this->assertFileExists(resource_path("views/{$this->table_name}/edit.blade.php"));
+        $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
+
+        $localeConfig = config('app.locale');
+        $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
+
+        $this->assertFileExists(base_path("routes/web.php"));
+        $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
+        $this->assertFileExists(database_path("factories/{$this->model_name}Factory.php"));
+        $this->assertFileExists(base_path("tests/Unit/Models/{$this->model_name}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Manage{$this->model_name}Test.php"));
+    }
+
     /** @test */
     public function it_can_generate_controller_file_with_form_requests_class()
     {
@@ -123,5 +154,105 @@ class {$this->model_name}Controller extends Controller
 }
 ";
         $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->model_name}Controller.php")));
+    }
+
+    /** @test */
+    public function it_generates_correct_create_form_request_file_content()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true, '--form-requests' => true]);
+
+        $classFilePath = app_path("Http/Requests/{$this->plural_model_name}/CreateRequest.php");
+
+        $this->assertFileExists($classFilePath);
+        $formRequestClassContent = "<?php
+
+namespace App\Http\Requests\\{$this->plural_model_name};
+
+use {$this->full_model_name};
+use Illuminate\Foundation\Http\FormRequest;
+
+class CreateRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return \$this->user()->can('create', new {$this->model_name});
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'name'        => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ];
+    }
+
+    /**
+     * Save proposal to database.
+     *
+     * @return \\{$this->full_model_name}
+     */
+    public function save()
+    {
+        \$new{$this->model_name} = \$this->validated();
+        \$new{$this->model_name}['creator_id'] = auth()->id();
+
+        return {$this->model_name}::create(\$new{$this->model_name});
+    }
+}
+";
+        $this->assertEquals($formRequestClassContent, file_get_contents($classFilePath));
+    }
+
+    /** @test */
+    public function it_generates_correct_update_form_request_file_content()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true, '--form-requests' => true]);
+
+        $classFilePath = app_path("Http/Requests/{$this->plural_model_name}/UpdateRequest.php");
+
+        $this->assertFileExists($classFilePath);
+        $formRequestClassContent = "<?php
+
+namespace App\Http\Requests\\{$this->plural_model_name};
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return \$this->user()->can('update', \$this->route('{$this->lang_name}'));
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'name'        => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ];
+    }
+}
+";
+        $this->assertEquals($formRequestClassContent, file_get_contents($classFilePath));
     }
 }

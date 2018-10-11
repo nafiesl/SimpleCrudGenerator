@@ -56,6 +56,10 @@ class CrudMake extends GeneratorCommand
         $this->generateResources();
         $this->generateTestFiles();
 
+        if ($this->option('form-requests')) {
+            $this->generateRequestClasses();
+        }
+
         $this->info('CRUD files generated successfully!');
     }
 
@@ -115,5 +119,13 @@ class CrudMake extends GeneratorCommand
         app('Luthfi\CrudGenerator\Generators\FormViewGenerator', ['command' => $this])->generate();
         app('Luthfi\CrudGenerator\Generators\IndexViewGenerator', ['command' => $this])->generate();
         app('Luthfi\CrudGenerator\Generators\ShowViewGenerator', ['command' => $this])->generate();
+    }
+
+    /**
+     * Generate Form Requests
+     */
+    public function generateRequestClasses()
+    {
+        app('Luthfi\CrudGenerator\Generators\FormRequestGenerator', ['command' => $this])->generate();
     }
 }
