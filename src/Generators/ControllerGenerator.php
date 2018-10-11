@@ -39,6 +39,10 @@ class ControllerGenerator extends BaseGenerator
      */
     public function getContent(string $stubName)
     {
+        if ($this->command->option('form-requests')) {
+            $stubName .= '-formrequests';
+        }
+
         $stub = $this->getStubFileContent($stubName);
 
         $controllerFileContent = $this->replaceStubString($stub);

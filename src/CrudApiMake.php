@@ -12,6 +12,7 @@ class CrudApiMake extends GeneratorCommand
     protected $signature = 'make:crud-api {name : The model name}
                             {--p|parent= : The generated API controller parent directory}
                             {--t|tests-only : Generate API CRUD testcases only}
+                            {--r|form-requests : Generate CRUD with Form Request on create and update actions}
                             {--f|formfield : Generate CRUD with FormField facades}';
 
     /**
