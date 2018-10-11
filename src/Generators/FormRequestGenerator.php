@@ -8,7 +8,10 @@ namespace Luthfi\CrudGenerator\Generators;
 class FormRequestGenerator extends BaseGenerator
 {
     /**
-     * {@inheritDoc}
+     * Generate class file content.
+     *
+     * @param  string  $type Type of crud
+     * @return void
      */
     public function generate(string $type = 'full')
     {
@@ -16,17 +19,22 @@ class FormRequestGenerator extends BaseGenerator
         $pluralModelName = $this->modelNames['plural_model_name'];
 
         $requestPath = $this->makeDirectory(app_path('Http/Requests/'.$pluralModelName));
-        $createRequestPath = $requestPath.'/CreateRequest.php';
-        $this->generateFile($createRequestPath, $this->getContent('requests/create-request'));
 
-        $updateRequestPath = $requestPath.'/UpdateRequest.php';
-        $this->generateFile($updateRequestPath, $this->getContent('requests/update-request'));
+        $this->generateFile(
+            $requestPath.'/CreateRequest.php', $this->getContent('requests/create-request')
+        );
+        $this->generateFile(
+            $requestPath.'/UpdateRequest.php', $this->getContent('requests/update-request')
+        );
 
         $this->command->info($modelName.' Form Requests generated.');
     }
 
     /**
-     * {@inheritDoc}
+     * Get class file content.
+     *
+     * @param  string  $stubName Name of stub file
+     * @return string
      */
     public function getContent(string $stubName)
     {
