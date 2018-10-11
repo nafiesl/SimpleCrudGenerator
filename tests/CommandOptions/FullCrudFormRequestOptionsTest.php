@@ -49,6 +49,8 @@ namespace App\Http\Controllers;
 
 use {$this->full_model_name};
 use Illuminate\Http\Request;
+use App\Http\Requests\\{$this->plural_model_name}\CreateRequest;
+use App\Http\Requests\\{$this->plural_model_name}\UpdateRequest;
 
 class {$this->model_name}Controller extends Controller
 {
