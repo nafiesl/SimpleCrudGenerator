@@ -6,6 +6,7 @@ return [
     'list'           => 'Daftar Master',
     'search'         => 'Cari Master',
     'search_text'    => 'Nama ...',
+    'all'            => 'Semua Master',
     'select'         => 'Pilih Master',
     'detail'         => 'Detail Master',
     'not_found'      => 'Master tidak ditemukan',
