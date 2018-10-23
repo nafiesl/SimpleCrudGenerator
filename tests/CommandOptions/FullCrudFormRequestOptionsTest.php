@@ -146,9 +146,7 @@ class {$this->model_name}Controller extends Controller
         ]);
 
         if (request('{$this->lang_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
-            \$routeParam = request()->only('page', 'q');
-
-            return redirect()->route('{$this->table_name}.index', \$routeParam);
+            return redirect()->route('{$this->table_name}.index');
         }
 
         return back();

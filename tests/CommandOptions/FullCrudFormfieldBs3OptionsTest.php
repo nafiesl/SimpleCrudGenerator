@@ -207,11 +207,7 @@ class FullCrudFormfieldBs3OptionsTest extends TestCase
                         ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
                         __('app.delete_confirm_button'),
                         ['class' => 'btn btn-danger'],
-                        [
-                            '{$this->lang_name}_id' => \${$this->single_model_var_name}->id,
-                            'page' => request('page'),
-                            'q' => request('q'),
-                        ]
+                        ['{$this->lang_name}_id' => \${$this->single_model_var_name}->id]
                     ) !!}
                     {{ link_to_route('{$this->table_name}.edit', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-default']) }}
                 </div>

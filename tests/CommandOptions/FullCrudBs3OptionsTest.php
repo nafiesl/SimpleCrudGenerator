@@ -213,8 +213,6 @@ class FullCrudBs3OptionsTest extends TestCase
                     <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \${$this->single_model_var_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;Are you sure to delete this?&quot;)\" class=\"del-form pull-right\" style=\"display: inline;\">
                         {{ csrf_field() }} {{ method_field('delete') }}
                         <input name=\"{$this->lang_name}_id\" type=\"hidden\" value=\"{{ \${$this->single_model_var_name}->id }}\">
-                        <input name=\"{{ request('page') }}\" type=\"hidden\">
-                        <input name=\"{{ request('q') }}\" type=\"hidden\">
                         <button title=\"Delete this item\" type=\"submit\" class=\"btn btn-danger\">{{ __('app.delete_confirm_button') }}</button>
                     </form>
                     <a href=\"{{ route('{$this->table_name}.edit', \${$this->single_model_var_name}) }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>

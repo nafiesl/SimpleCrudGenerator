@@ -23,11 +23,7 @@
                         ['route' => ['masters.destroy', $singleMstr]],
                         __('app.delete_confirm_button'),
                         ['class' => 'btn btn-danger'],
-                        [
-                            'master_id' => $singleMstr->id,
-                            'page' => request('page'),
-                            'q' => request('q'),
-                        ]
+                        ['master_id' => $singleMstr->id]
                     ) !!}
                     {{ link_to_route('masters.edit', __('app.cancel'), [$singleMstr], ['class' => 'btn btn-link']) }}
                 </div>

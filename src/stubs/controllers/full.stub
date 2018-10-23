@@ -113,9 +113,7 @@ class MasterController extends Controller
         ]);
 
         if (request('master_id') == $singleMstr->id && $singleMstr->delete()) {
-            $routeParam = request()->only('page', 'q');
-
-            return redirect()->route('masters.index', $routeParam);
+            return redirect()->route('masters.index');
         }
 
         return back();
