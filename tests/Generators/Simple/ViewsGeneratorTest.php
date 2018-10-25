@@ -143,12 +143,12 @@ class ViewsGeneratorTest extends TestCase
         <hr style=\"margin:0\">
         <div class=\"card-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
         <div class=\"card-footer\">
-            <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;Are you sure to delete this?&quot;)\" class=\"del-form float-right\" style=\"display: inline;\">
+            <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)\" class=\"del-form float-right\" style=\"display: inline;\">
                 {{ csrf_field() }} {{ method_field('delete') }}
                 <input name=\"{$this->lang_name}_id\" type=\"hidden\" value=\"{{ \$editable{$this->model_name}->id }}\">
                 <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">
                 <input name=\"q\" value=\"{{ request('q') }}\" type=\"hidden\">
-                <button title=\"Delete this item\" type=\"submit\" class=\"btn btn-danger\">{{ __('app.delete_confirm_button') }}</button>
+                <button type=\"submit\" class=\"btn btn-danger\">{{ __('app.delete_confirm_button') }}</button>
             </form>
             <a href=\"{{ route('{$this->table_name}.index', Request::only('q', 'page')) }}\" class=\"btn btn-link\">{{ __('app.cancel') }}</a>
         </div>
