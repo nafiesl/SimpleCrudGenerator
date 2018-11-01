@@ -75,7 +75,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$user = \$this->createUser();
 
-        // Name empty
+        // name empty
         \$requestBody = \$this->getCreateFields(['name' => '']);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
@@ -92,7 +92,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$user = \$this->createUser();
 
-        // Name 70 characters
+        // name 70 characters
         \$requestBody = \$this->getCreateFields(['name' => str_repeat('Test Title', 7)]);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
@@ -109,7 +109,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$user = \$this->createUser();
 
-        // Description 256 characters
+        // description 256 characters
         \$requestBody = \$this->getCreateFields(['description' => str_repeat('Long description', 16)]);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
@@ -174,7 +174,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = factory(Vehicle::class)->create();
 
-        // Name empty
+        // name empty
         \$requestBody = \$this->getEditFields(['name' => '']);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
@@ -192,7 +192,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = factory(Vehicle::class)->create();
 
-        // Name 70 characters
+        // name 70 characters
         \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
@@ -210,7 +210,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = factory(Vehicle::class)->create(['name' => 'Testing 123']);
 
-        // Description 256 characters
+        // description 256 characters
         \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
@@ -320,7 +320,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$user = \$this->createUser();
 
-        // Name empty
+        // name empty
         \$requestBody = \$this->getCreateFields(['name' => '']);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
@@ -337,7 +337,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$user = \$this->createUser();
 
-        // Name 70 characters
+        // name 70 characters
         \$requestBody = \$this->getCreateFields(['name' => str_repeat('Test Title', 7)]);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
@@ -354,7 +354,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$user = \$this->createUser();
 
-        // Description 256 characters
+        // description 256 characters
         \$requestBody = \$this->getCreateFields(['description' => str_repeat('Long description', 16)]);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
@@ -419,7 +419,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = factory(Vehicle::class)->create();
 
-        // Name empty
+        // name empty
         \$requestBody = \$this->getEditFields(['name' => '']);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
@@ -437,7 +437,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = factory(Vehicle::class)->create();
 
-        // Name 70 characters
+        // name 70 characters
         \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
@@ -455,7 +455,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = factory(Vehicle::class)->create(['name' => 'Testing 123']);
 
-        // Description 256 characters
+        // description 256 characters
         \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),

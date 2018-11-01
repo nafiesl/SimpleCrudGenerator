@@ -111,7 +111,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$this->loginAsUser();
 
-        // Name empty
+        // name empty
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
     }
@@ -121,7 +121,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$this->loginAsUser();
 
-        // Name 70 characters
+        // name 70 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
             'name' => str_repeat('Test Title', 7),
         ]));
@@ -133,7 +133,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$this->loginAsUser();
 
-        // Description 256 characters
+        // description 256 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
             'description' => str_repeat('Long description', 16),
         ]));
@@ -177,7 +177,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        // Name empty
+        // name empty
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
     }
@@ -188,7 +188,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        // Name 70 characters
+        // name 70 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
             'name' => str_repeat('Test Title', 7),
         ]));
@@ -201,7 +201,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        // Description 256 characters
+        // description 256 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
             'description' => str_repeat('Long description', 16),
         ]));
@@ -348,7 +348,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$this->loginAsUser();
 
-        // Name empty
+        // name empty
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
     }
@@ -358,7 +358,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$this->loginAsUser();
 
-        // Name 70 characters
+        // name 70 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
             'name' => str_repeat('Test Title', 7),
         ]));
@@ -370,7 +370,7 @@ class Manage{$this->model_name}Test extends TestCase
     {
         \$this->loginAsUser();
 
-        // Description 256 characters
+        // description 256 characters
         \$this->post(route('{$this->table_name}.store'), \$this->getCreateFields([
             'description' => str_repeat('Long description', 16),
         ]));
@@ -414,7 +414,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        // Name empty
+        // name empty
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
         \$this->assertSessionHasErrors('name');
     }
@@ -425,7 +425,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        // Name 70 characters
+        // name 70 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
             'name' => str_repeat('Test Title', 7),
         ]));
@@ -438,7 +438,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->loginAsUser();
         \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
-        // Description 256 characters
+        // description 256 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
             'description' => str_repeat('Long description', 16),
         ]));

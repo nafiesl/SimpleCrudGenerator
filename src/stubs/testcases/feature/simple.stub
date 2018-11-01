@@ -55,7 +55,7 @@ class ManageMasterTest extends TestCase
     {
         $this->loginAsUser();
 
-        // Name empty
+        // name empty
         $this->post(route('masters.store'), $this->getCreateFields(['name' => '']));
         $this->assertSessionHasErrors('name');
     }
@@ -65,7 +65,7 @@ class ManageMasterTest extends TestCase
     {
         $this->loginAsUser();
 
-        // Name 70 characters
+        // name 70 characters
         $this->post(route('masters.store'), $this->getCreateFields([
             'name' => str_repeat('Test Title', 7),
         ]));
@@ -77,7 +77,7 @@ class ManageMasterTest extends TestCase
     {
         $this->loginAsUser();
 
-        // Description 256 characters
+        // description 256 characters
         $this->post(route('masters.store'), $this->getCreateFields([
             'description' => str_repeat('Long description', 16),
         ]));
@@ -121,7 +121,7 @@ class ManageMasterTest extends TestCase
         $this->loginAsUser();
         $master = factory(Master::class)->create(['name' => 'Testing 123']);
 
-        // Name empty
+        // name empty
         $this->patch(route('masters.update', $master), $this->getEditFields(['name' => '']));
         $this->assertSessionHasErrors('name');
     }
@@ -132,7 +132,7 @@ class ManageMasterTest extends TestCase
         $this->loginAsUser();
         $master = factory(Master::class)->create(['name' => 'Testing 123']);
 
-        // Name 70 characters
+        // name 70 characters
         $this->patch(route('masters.update', $master), $this->getEditFields([
             'name' => str_repeat('Test Title', 7),
         ]));
@@ -145,7 +145,7 @@ class ManageMasterTest extends TestCase
         $this->loginAsUser();
         $master = factory(Master::class)->create(['name' => 'Testing 123']);
 
-        // Description 256 characters
+        // description 256 characters
         $this->patch(route('masters.update', $master), $this->getEditFields([
             'description' => str_repeat('Long description', 16),
         ]));
