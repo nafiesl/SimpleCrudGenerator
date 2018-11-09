@@ -38,12 +38,12 @@ class MasterController extends Controller
     /**
      * Store a newly created singleMstr in storage.
      *
-     * @param  \App\Http\Requests\Masters\CreateRequest  $createMasterForm
+     * @param  \App\Http\Requests\Masters\CreateRequest  $singleMstrCreateForm
      * @return \Illuminate\Routing\Redirector
      */
-    public function store(CreateRequest $createMasterForm)
+    public function store(CreateRequest $singleMstrCreateForm)
     {
-        $singleMstr = $createMasterForm->save();
+        $singleMstr = $singleMstrCreateForm->save();
 
         return redirect()->route('masters.show', $singleMstr);
     }

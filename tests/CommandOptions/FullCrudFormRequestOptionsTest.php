@@ -83,12 +83,12 @@ class {$this->model_name}Controller extends Controller
     /**
      * Store a newly created {$this->single_model_var_name} in storage.
      *
-     * @param  \App\Http\Requests\\{$this->plural_model_name}\CreateRequest  \$create{$this->model_name}Form
+     * @param  \App\Http\Requests\\{$this->plural_model_name}\CreateRequest  \${$this->single_model_var_name}CreateForm
      * @return \Illuminate\Routing\Redirector
      */
-    public function store(CreateRequest \$create{$this->model_name}Form)
+    public function store(CreateRequest \${$this->single_model_var_name}CreateForm)
     {
-        \${$this->single_model_var_name} = \$create{$this->model_name}Form->save();
+        \${$this->single_model_var_name} = \${$this->single_model_var_name}CreateForm->save();
 
         return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
     }
