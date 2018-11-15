@@ -50,8 +50,8 @@ class ControllerGenerator extends BaseGenerator
         $appNamespace = $this->getAppNamespace();
 
         $controllerFileContent = str_replace(
-            "App\Http\Controllers",
-            "{$appNamespace}Http\Controllers",
+            ["App\Http\Controllers", "App\Http\Requests"],
+            ["{$appNamespace}Http\Controllers", "{$appNamespace}Http\Requests"],
             $controllerFileContent
         );
 

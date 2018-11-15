@@ -40,16 +40,16 @@ class FormRequestGenerator extends BaseGenerator
     {
         $stub = $this->getStubFileContent($stubName);
 
-        $controllerFileContent = $this->replaceStubString($stub);
+        $requestFileContent = $this->replaceStubString($stub);
 
         $appNamespace = $this->getAppNamespace();
 
-        $controllerFileContent = str_replace(
-            "App\Http\Controllers",
-            "{$appNamespace}Http\Controllers",
-            $controllerFileContent
+        $requestFileContent = str_replace(
+            "App\Http\Requests",
+            "{$appNamespace}Http\Requests",
+            $requestFileContent
         );
 
-        return $controllerFileContent;
+        return $requestFileContent;
     }
 }
