@@ -101,18 +101,17 @@ class MasterController extends Controller
     /**
      * Remove the specified singleMstr from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \fullMstr  $singleMstr
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Master $singleMstr)
+    public function destroy(Request $request, Master $singleMstr)
     {
         $this->authorize('delete', $singleMstr);
 
-        request()->validate([
-            'master_id' => 'required',
-        ]);
+        $request->validate(['master_id' => 'required']);
 
-        if (request('master_id') == $singleMstr->id && $singleMstr->delete()) {
+        if ($request->get('master_id') == $singleMstr->id && $singleMstr->delete()) {
             return redirect()->route('masters.index');
         }
 
