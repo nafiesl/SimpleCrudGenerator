@@ -86,18 +86,17 @@ class {$this->model_name}Controller extends Controller
     /**
      * Remove the specified {$this->single_model_var_name} from storage.
      *
+     * @param  \Illuminate\Http\Request  \$request
      * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy({$this->model_name} \${$this->single_model_var_name})
+    public function destroy(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('delete', \${$this->single_model_var_name});
 
-        request()->validate([
-            '{$this->lang_name}_id' => 'required',
-        ]);
+        \$request->validate(['{$this->lang_name}_id' => 'required']);
 
-        if (request('{$this->lang_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
+        if (\$request->get('{$this->lang_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
             \$routeParam = request()->only('page', 'q');
 
             return redirect()->route('{$this->table_name}.index', \$routeParam);
@@ -190,18 +189,17 @@ class CategoryController extends Controller
     /**
      * Remove the specified category from storage.
      *
+     * @param  \Illuminate\Http\Request  \$request
      * @param  \App\Entities\References\Category  \$category
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Category \$category)
+    public function destroy(Request \$request, Category \$category)
     {
         \$this->authorize('delete', \$category);
 
-        request()->validate([
-            'category_id' => 'required',
-        ]);
+        \$request->validate(['category_id' => 'required']);
 
-        if (request('category_id') == \$category->id && \$category->delete()) {
+        if (\$request->get('category_id') == \$category->id && \$category->delete()) {
             \$routeParam = request()->only('page', 'q');
 
             return redirect()->route('categories.index', \$routeParam);
@@ -295,18 +293,17 @@ class CategoryController extends Controller
     /**
      * Remove the specified category from storage.
      *
+     * @param  \Illuminate\Http\Request  \$request
      * @param  \App\Entities\References\Category  \$category
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Category \$category)
+    public function destroy(Request \$request, Category \$category)
     {
         \$this->authorize('delete', \$category);
 
-        request()->validate([
-            'category_id' => 'required',
-        ]);
+        \$request->validate(['category_id' => 'required']);
 
-        if (request('category_id') == \$category->id && \$category->delete()) {
+        if (\$request->get('category_id') == \$category->id && \$category->delete()) {
             \$routeParam = request()->only('page', 'q');
 
             return redirect()->route('categories.index', \$routeParam);

@@ -97,18 +97,17 @@ class {$this->model_name}Controller extends Controller
     /**
      * Remove the specified {$this->single_model_var_name} from storage.
      *
+     * @param  \Illuminate\Http\Request  \$request
      * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy({$this->model_name} \${$this->single_model_var_name})
+    public function destroy(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('delete', \${$this->single_model_var_name});
 
-        request()->validate([
-            '{$this->lang_name}_id' => 'required',
-        ]);
+        \$request->validate(['{$this->lang_name}_id' => 'required']);
 
-        if (request('{$this->lang_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
+        if (\$request->get('{$this->lang_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
             return response()->json(['message' => __('{$this->lang_name}.deleted')]);
         }
 
