@@ -18,7 +18,7 @@
             <div class="card-header">
                 <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
                     <div class="form-group">
-                        <label for="q" class="control-label">{{ __('master.search') }}</label>
+                        <label for="q" class="form-label">{{ __('master.search') }}</label>
                         <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control mx-sm-2" value="{{ request('q') }}">
                     </div>
                     <input type="submit" value="{{ __('master.search') }}" class="btn btn-secondary">
