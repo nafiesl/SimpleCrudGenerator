@@ -10,9 +10,9 @@
             <div class="card">
                 <div class="card-header">{{ __('master.delete') }}</div>
                 <div class="card-body">
-                    <label class="control-label text-primary">{{ __('master.name') }}</label>
+                    <label class="form-label text-primary">{{ __('master.name') }}</label>
                     <p>{{ $singleMstr->name }}</p>
-                    <label class="control-label text-primary">{{ __('master.description') }}</label>
+                    <label class="form-label text-primary">{{ __('master.description') }}</label>
                     <p>{{ $singleMstr->description }}</p>
                     {!! $errors->first('master_id', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                 </div>
@@ -35,12 +35,12 @@
                 {{ csrf_field() }} {{ method_field('patch') }}
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="name" class="control-label">{{ __('master.name') }}</label>
+                        <label for="name" class="form-label">{{ __('master.name') }} <span class="form-required">*</span></label>
                         <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name', $singleMstr->name) }}" required>
                         {!! $errors->first('name', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                     </div>
                     <div class="form-group">
-                        <label for="description" class="control-label">{{ __('master.description') }}</label>
+                        <label for="description" class="form-label">{{ __('master.description') }}</label>
                         <textarea id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="4">{{ old('description', $singleMstr->description) }}</textarea>
                         {!! $errors->first('description', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                     </div>

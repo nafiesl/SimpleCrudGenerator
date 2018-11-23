@@ -34,7 +34,7 @@ class ViewsGeneratorTest extends TestCase
             <div class=\"card-header\">
                 <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
                     <div class=\"form-group\">
-                        <label for=\"q\" class=\"control-label\">{{ __('{$this->lang_name}.search') }}</label>
+                        <label for=\"q\" class=\"form-label\">{{ __('{$this->lang_name}.search') }}</label>
                         <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control mx-sm-2\" value=\"{{ request('q') }}\">
                     </div>
                     <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-secondary\">
@@ -91,12 +91,12 @@ class ViewsGeneratorTest extends TestCase
     <form method=\"POST\" action=\"{{ route('{$this->table_name}.store') }}\" accept-charset=\"UTF-8\">
         {{ csrf_field() }}
         <div class=\"form-group\">
-            <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+            <label for=\"name\" class=\"form-label\">{{ __('{$this->lang_name}.name') }} <span class=\"form-required\">*</span></label>
             <input id=\"name\" type=\"text\" class=\"form-control{{ \$errors->has('name') ? ' is-invalid' : '' }}\" name=\"name\" value=\"{{ old('name') }}\" required>
             {!! \$errors->first('name', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
         <div class=\"form-group\">
-            <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+            <label for=\"description\" class=\"form-label\">{{ __('{$this->lang_name}.description') }}</label>
             <textarea id=\"description\" class=\"form-control{{ \$errors->has('description') ? ' is-invalid' : '' }}\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
             {!! \$errors->first('description', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
@@ -110,12 +110,12 @@ class ViewsGeneratorTest extends TestCase
     <form method=\"POST\" action=\"{{ route('{$this->table_name}.update', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\">
         {{ csrf_field() }} {{ method_field('patch') }}
         <div class=\"form-group\">
-            <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
+            <label for=\"name\" class=\"form-label\">{{ __('{$this->lang_name}.name') }} <span class=\"form-required\">*</span></label>
             <input id=\"name\" type=\"text\" class=\"form-control{{ \$errors->has('name') ? ' is-invalid' : '' }}\" name=\"name\" value=\"{{ old('name', \$editable{$this->model_name}->name) }}\" required>
             {!! \$errors->first('name', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
         <div class=\"form-group\">
-            <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
+            <label for=\"description\" class=\"form-label\">{{ __('{$this->lang_name}.description') }}</label>
             <textarea id=\"description\" class=\"form-control{{ \$errors->has('description') ? ' is-invalid' : '' }}\" name=\"description\" rows=\"4\">{{ old('description', \$editable{$this->model_name}->description) }}</textarea>
             {!! \$errors->first('description', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
@@ -134,9 +134,9 @@ class ViewsGeneratorTest extends TestCase
     <div class=\"card\">
         <div class=\"card-header\">{{ __('{$this->lang_name}.delete') }}</div>
         <div class=\"card-body\">
-            <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
+            <label class=\"form-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
             <p>{{ \$editable{$this->model_name}->name }}</p>
-            <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
+            <label class=\"form-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
             <p>{{ \$editable{$this->model_name}->description }}</p>
             {!! \$errors->first('{$this->lang_name}_id', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
