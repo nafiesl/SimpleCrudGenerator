@@ -51,6 +51,11 @@ $ composer require luthfi/simple-crud-generator --dev
 ```
 
 > For Laravel 5.5 or later, the package will **auto-discovered** and ready to go.
+>
+> **For Laravel 5.5 with php ^7.1**, we get some [dependency issue](https://github.com/nafiesl/SimpleCrudGenerator/issues/6#issuecomment-441333411). To install this package, we need to:
+>
+> - Add `luthfi/simple-crud-generator` manually on **require-dev** in `composer.json` file.
+> - Then run `composer update`.
 
 #### For Laravel 5.4
 
