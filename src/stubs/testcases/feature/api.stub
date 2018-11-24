@@ -51,8 +51,8 @@ class ManageMasterTest extends TestCase
     private function getCreateFields(array $overrides = [])
     {
         return array_merge([
-            'name'        => 'Vehicle 1 name',
-            'description' => 'Vehicle 1 description',
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
         ], $overrides);
     }
 
@@ -149,8 +149,8 @@ class ManageMasterTest extends TestCase
     private function getEditFields(array $overrides = [])
     {
         return array_merge([
-            'name'        => 'Vehicle 1 name',
-            'description' => 'Vehicle 1 description',
+            'name'        => 'Master 1 name',
+            'description' => 'Master 1 description',
         ], $overrides);
     }
 
@@ -158,7 +158,7 @@ class ManageMasterTest extends TestCase
     public function validate_master_name_update_is_required()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Vehicle::class)->create();
+        $singleMstr = factory(Master::class)->create();
 
         // name empty
         $requestBody = $this->getEditFields(['name' => '']);
@@ -176,7 +176,7 @@ class ManageMasterTest extends TestCase
     public function validate_master_name_update_is_not_more_than_60_characters()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Vehicle::class)->create();
+        $singleMstr = factory(Master::class)->create();
 
         // name 70 characters
         $requestBody = $this->getEditFields(['name' => str_repeat('Test Title', 7)]);
@@ -194,7 +194,7 @@ class ManageMasterTest extends TestCase
     public function validate_master_description_update_is_not_more_than_255_characters()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Vehicle::class)->create(['name' => 'Testing 123']);
+        $singleMstr = factory(Master::class)->create(['name' => 'Testing 123']);
 
         // description 256 characters
         $requestBody = $this->getEditFields(['description' => str_repeat('Long description', 16)]);

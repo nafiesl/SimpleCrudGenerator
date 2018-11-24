@@ -65,8 +65,8 @@ class Manage{$this->model_name}Test extends TestCase
     private function getCreateFields(array \$overrides = [])
     {
         return array_merge([
-            'name'        => 'Vehicle 1 name',
-            'description' => 'Vehicle 1 description',
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
 
@@ -163,8 +163,8 @@ class Manage{$this->model_name}Test extends TestCase
     private function getEditFields(array \$overrides = [])
     {
         return array_merge([
-            'name'        => 'Vehicle 1 name',
-            'description' => 'Vehicle 1 description',
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
 
@@ -172,7 +172,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_required()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory(Vehicle::class)->create();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         // name empty
         \$requestBody = \$this->getEditFields(['name' => '']);
@@ -190,7 +190,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory(Vehicle::class)->create();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         // name 70 characters
         \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
@@ -208,7 +208,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory(Vehicle::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         // description 256 characters
         \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);
@@ -310,8 +310,8 @@ class Manage{$this->model_name}Test extends TestCase
     private function getCreateFields(array \$overrides = [])
     {
         return array_merge([
-            'name'        => 'Vehicle 1 name',
-            'description' => 'Vehicle 1 description',
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
 
@@ -408,8 +408,8 @@ class Manage{$this->model_name}Test extends TestCase
     private function getEditFields(array \$overrides = [])
     {
         return array_merge([
-            'name'        => 'Vehicle 1 name',
-            'description' => 'Vehicle 1 description',
+            'name'        => '{$this->model_name} 1 name',
+            'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
 
@@ -417,7 +417,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_required()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory(Vehicle::class)->create();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         // name empty
         \$requestBody = \$this->getEditFields(['name' => '']);
@@ -435,7 +435,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory(Vehicle::class)->create();
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
 
         // name 70 characters
         \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
@@ -453,7 +453,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory(Vehicle::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
 
         // description 256 characters
         \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);
