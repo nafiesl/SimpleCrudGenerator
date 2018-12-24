@@ -4,12 +4,12 @@ namespace Tests\Unit\Models;
 
 use App\User;
 use fullMstr;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\BrowserKitTest as TestCase;
 
 class MasterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function a_master_has_name_link_attribute()

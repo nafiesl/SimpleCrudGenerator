@@ -3,12 +3,12 @@
 namespace Tests\Unit\Policies;
 
 use fullMstr;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\BrowserKitTest as TestCase;
 
 class MasterPolicyTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function user_can_create_master()

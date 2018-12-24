@@ -19,12 +19,12 @@ namespace Tests\Unit\Models;
 
 use App\User;
 use {$this->full_model_name};
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\BrowserKitTest as TestCase;
 
 class {$this->model_name}Test extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function a_{$this->lang_name}_has_name_link_attribute()
@@ -71,12 +71,12 @@ namespace Tests\Unit\Models;
 
 use App\User;
 use {$this->full_model_name};
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\MyTestCase as TestCase;
 
 class {$this->model_name}Test extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function a_{$this->lang_name}_has_name_link_attribute()
@@ -123,12 +123,12 @@ namespace Tests\Unit\Models;
 
 use App\User;
 use {$this->full_model_name};
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class {$this->model_name}Test extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function a_{$this->lang_name}_has_name_link_attribute()

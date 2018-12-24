@@ -60,11 +60,11 @@ namespace Tests\Feature;
 
 use {$this->full_model_name};
 use Tests\BrowserKitTest as TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class Manage{$this->model_name}Test extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
@@ -297,11 +297,11 @@ namespace Tests\Feature;
 
 use {$this->full_model_name};
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class Manage{$this->model_name}Test extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()

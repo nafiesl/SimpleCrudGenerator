@@ -4,11 +4,11 @@ namespace Tests\Feature;
 
 use fullMstr;
 use Tests\BrowserKitTest as TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ManageMasterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function user_can_see_master_list_in_master_index_page()

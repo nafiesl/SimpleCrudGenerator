@@ -21,12 +21,12 @@ class ModelPolicyTestGeneratorTest extends TestCase
 namespace Tests\Unit\Policies;
 
 use {$this->full_model_name};
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\BrowserKitTest as TestCase;
 
 class {$this->model_name}PolicyTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function user_can_create_{$this->lang_name}()
@@ -81,12 +81,12 @@ class {$this->model_name}PolicyTest extends TestCase
 namespace Tests\Unit\Policies;
 
 use {$this->full_model_name};
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\MyTestCase as TestCase;
 
 class {$this->model_name}PolicyTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function user_can_create_{$this->lang_name}()
@@ -141,12 +141,12 @@ class {$this->model_name}PolicyTest extends TestCase
 namespace Tests\Unit\Policies;
 
 use {$this->full_model_name};
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class {$this->model_name}PolicyTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function user_can_create_{$this->lang_name}()
