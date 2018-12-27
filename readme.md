@@ -43,19 +43,34 @@ The main purpose of this package is for **faster Test-driven Development**, it g
 
 ## How to install
 
-#### For Laravel 5.5 or later
+#### For Laravel 5.6 or later
 
 ```bash
 # Get the package
 $ composer require luthfi/simple-crud-generator --dev
 ```
 
-> For Laravel 5.5 or later, the package will **auto-discovered** and ready to go.
->
-> **For Laravel 5.5 with php ^7.1**, we get some [dependency issue](https://github.com/nafiesl/SimpleCrudGenerator/issues/6#issuecomment-441333411). To install this package, we need to:
->
-> - Add `luthfi/simple-crud-generator` manually on **require-dev** in `composer.json` file.
-> - Then run `composer update`.
+> The package will **auto-discovered** and ready to go.
+
+#### For Laravel 5.5
+
+To use this package on laravel 5.5, we need to **add the package** (with browserkit) within `require-dev` in `composer.json` file, like so :
+
+```json
+    "require-dev": {
+
+        "laravel/browser-kit-testing": "2.0.x-dev",
+        "luthfi/simple-crud-generator": "^1.2"
+    },
+```
+
+Then run composer update in terminal :
+
+```bash
+$ composer update
+```
+
+> The package will **auto-discovered**.
 
 #### For Laravel 5.4
 
