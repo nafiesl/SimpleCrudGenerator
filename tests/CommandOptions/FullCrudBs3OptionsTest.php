@@ -69,7 +69,7 @@ class FullCrudBs3OptionsTest extends TestCase
                     <a href=\"{{ route('{$this->table_name}.index') }}\">{{ __('app.reset') }}</a>
                 </form>
             </div>
-            <table class=\"table table-condensed\">
+            <table class=\"table table-condensed table-hover\">
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>

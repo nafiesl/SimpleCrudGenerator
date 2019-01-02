@@ -64,7 +64,7 @@ class SimpleCrudFormfieldBs3OptionsTest extends TestCase
                 {{ link_to_route('{$this->table_name}.index', __('app.reset')) }}
                 {{ Form::close() }}
             </div>
-            <table class=\"table table-condensed\">
+            <table class=\"table table-condensed table-hover\">
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>

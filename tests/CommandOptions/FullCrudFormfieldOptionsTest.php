@@ -66,7 +66,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
                 {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}
             </div>
-            <table class=\"table table-sm table-responsive-sm\">
+            <table class=\"table table-sm table-responsive-sm table-hover\">
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>

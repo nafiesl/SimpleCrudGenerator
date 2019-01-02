@@ -41,7 +41,7 @@ class ViewsGeneratorTest extends TestCase
                     <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.reset') }}</a>
                 </form>
             </div>
-            <table class=\"table table-sm table-responsive-sm\">
+            <table class=\"table table-sm table-responsive-sm table-hover\">
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>
