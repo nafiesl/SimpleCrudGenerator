@@ -25,12 +25,6 @@ abstract class BrowserKitTest extends BaseTestCase
 
     protected \$baseUrl = 'http://localhost';
 
-    protected function setUp()
-    {
-        parent::setUp();
-        \Hash::setRounds(5);
-    }
-
     protected function loginAsUser()
     {
         \$user = \$this->createUser();
@@ -258,12 +252,6 @@ abstract class {$baseTestClass} extends BaseTestCase
     use CreatesApplication;
 
     protected \$baseUrl = 'http://localhost';
-
-    protected function setUp()
-    {
-        parent::setUp();
-        \Hash::setRounds(5);
-    }
 
     protected function loginAsUser()
     {
