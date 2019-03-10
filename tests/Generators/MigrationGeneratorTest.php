@@ -29,10 +29,10 @@ class Create{$this->plural_model_name}Table extends Migration
     public function up()
     {
         Schema::create('{$this->table_name}', function (Blueprint \$table) {
-            \$table->increments('id');
+            \$table->bigIncrements('id');
             \$table->string('name', 60);
             \$table->string('description')->nullable();
-            \$table->unsignedInteger('creator_id');
+            \$table->unsignedBigInteger('creator_id');
             \$table->timestamps();
 
             \$table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
