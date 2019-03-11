@@ -14,7 +14,7 @@ abstract class TestCase extends BaseTestCase
     protected $collection_model_var_name;
     protected $single_model_var_name;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->model_name = 'MemberType';
@@ -27,7 +27,7 @@ abstract class TestCase extends BaseTestCase
         $this->single_model_var_name = camel_case($this->model_name);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->cleanUpGeneratedFiles();
 

@@ -6,7 +6,7 @@ use Luthfi\CrudGenerator\CrudMake;
 
 class CrudMakeClassPropertiesTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->crudMaker = app(CrudMake::class);
