@@ -29,6 +29,7 @@ class CrudSimpleCommandTest extends TestCase
         $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
         $this->assertFileExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$this->model_name}Test.php"));
+        $this->assertFileExists(base_path("tests/Unit/Policies/{$this->model_name}PolicyTest.php"));
         $this->assertFileExists(base_path("tests/Feature/Manage{$this->model_name}Test.php"));
     }
 
@@ -56,6 +57,7 @@ class CrudSimpleCommandTest extends TestCase
         $this->assertFileNotExists(app_path("Policies/{$this->model_name}Policy.php"));
         $this->assertFileNotExists(database_path("factories/{$this->model_name}Factory.php"));
         $this->assertFileNotExists(base_path("tests/Unit/Models/{$this->model_name}Test.php"));
+        $this->assertFileNotExists(base_path("tests/Unit/Policies/{$this->model_name}PolicyTest.php"));
         $this->assertFileNotExists(base_path("tests/Feature/Manage{$this->model_name}Test.php"));
     }
 
@@ -82,6 +84,7 @@ class CrudSimpleCommandTest extends TestCase
         $this->assertFileNotExists(app_path("Policies/ProblemPolicy.php"));
         $this->assertFileNotExists(database_path("factories/ProblemFactory.php"));
         $this->assertFileNotExists(base_path("tests/Unit/Models/ProblemTest.php"));
+        $this->assertFileNotExists(base_path("tests/Unit/Policies/ProblemPolicyTest.php"));
         $this->assertFileNotExists(base_path("tests/Feature/ManageProblemTest.php"));
 
         $this->removeFileOrDir(app_path('Entities/Projects'));
@@ -118,6 +121,7 @@ class CrudSimpleCommandTest extends TestCase
         $this->assertFileExists(app_path("Policies/{$modelName}Policy.php"));
         $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
+        $this->assertFileExists(base_path("tests/Unit/Policies/{$modelName}PolicyTest.php"));
         $this->assertFileExists(base_path("tests/Feature/Manage{$modelName}Test.php"));
     }
 
@@ -150,6 +154,7 @@ class CrudSimpleCommandTest extends TestCase
 
         $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
+        $this->assertFileExists(base_path("tests/Unit/Policies/{$modelName}PolicyTest.php"));
         $this->assertFileExists(app_path("Policies/{$parentName}/{$modelName}Policy.php"));
         $this->assertFileExists(base_path("tests/Feature/Manage{$modelName}Test.php"));
     }
