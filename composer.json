@@ -25,7 +25,7 @@
         "laravel/browser-kit-testing": "2.0.x-dev || ^4.0 || ^5.0"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.0"
+        "orchestra/testbench": ">=3.0 <3.8"
     },
     "extra": {
         "laravel": {
