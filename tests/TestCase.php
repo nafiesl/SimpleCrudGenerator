@@ -25,8 +25,6 @@ abstract class TestCase extends BaseTestCase
         $this->lang_name = snake_case($this->model_name);
         $this->collection_model_var_name = camel_case($this->plural_model_name);
         $this->single_model_var_name = camel_case($this->model_name);
-
-        $this->withoutMockingConsoleOutput();
     }
 
     public function tearDown()
