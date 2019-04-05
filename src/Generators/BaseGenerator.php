@@ -121,6 +121,11 @@ abstract class BaseGenerator implements GeneratorContract
         return $this->files->get(__DIR__.'/../stubs/'.$stubName.'.stub');
     }
 
+    /**
+     * Check whether we generating API CRUD or not.
+     *
+     * @return bool
+     */
     protected function isForApi()
     {
         return $this->command->getName() == 'make:crud-api';
