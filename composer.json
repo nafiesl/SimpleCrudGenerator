@@ -21,7 +21,7 @@
     },
     "require": {
         "php": ">=7.0.0",
-        "illuminate/support": "5.8.*",
+        "illuminate/support": "5.8.*||^6.0",
         "laravel/browser-kit-testing": "^5.0"
     },
     "require-dev": {
