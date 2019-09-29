@@ -2,6 +2,8 @@
 
 namespace Luthfi\CrudGenerator\Generators;
 
+use Illuminate\Support\Str;
+
 /**
  * Lang File Generator Class
  */
@@ -35,7 +37,7 @@ class LangFileGenerator extends BaseGenerator
             $stub = $this->files->get(__DIR__.'/../stubs/resources/lang/en/master.stub');
         }
 
-        $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->modelNames['model_name'])));
+        $displayModelName = ucwords(str_replace('_', ' ', Str::snake($this->modelNames['model_name'])));
 
         $properLangFileContent = str_replace(
             $this->modelNames['model_name'],

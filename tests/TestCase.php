@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -21,10 +22,10 @@ abstract class TestCase extends BaseTestCase
 
         $this->full_model_name = 'App\\'.$this->model_name;
         $this->plural_model_name = str_plural($this->model_name);
-        $this->table_name = snake_case($this->plural_model_name);
-        $this->lang_name = snake_case($this->model_name);
-        $this->collection_model_var_name = camel_case($this->plural_model_name);
-        $this->single_model_var_name = camel_case($this->model_name);
+        $this->table_name = Str::snake($this->plural_model_name);
+        $this->lang_name = Str::snake($this->model_name);
+        $this->collection_model_var_name = Str::camel($this->plural_model_name);
+        $this->single_model_var_name = Str::camel($this->model_name);
     }
 
     public function tearDown()

@@ -3,6 +3,7 @@
 namespace Tests\Generators;
 
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class LangGeneratorTest extends TestCase
 {
@@ -13,7 +14,7 @@ class LangGeneratorTest extends TestCase
 
         $locale = config('app.locale');
         $langPath = resource_path('lang/'.$locale.'/'.$this->lang_name.'.php');
-        $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->model_name)));
+        $displayModelName = ucwords(str_replace('_', ' ', Str::snake($this->model_name)));
         $this->assertFileExists($langPath);
         $langFileContent = "<?php
 
@@ -60,7 +61,7 @@ return [
 
         $locale = config('app.locale');
         $langPath = resource_path('lang/'.$locale.'/'.$this->lang_name.'.php');
-        $displayModelName = ucwords(str_replace('_', ' ', snake_case($this->model_name)));
+        $displayModelName = ucwords(str_replace('_', ' ', Str::snake($this->model_name)));
         $this->assertFileExists($langPath);
         $langFileContent = "<?php
 
