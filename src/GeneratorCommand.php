@@ -2,6 +2,7 @@
 
 namespace Luthfi\CrudGenerator;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Console\DetectsApplicationNamespace;
@@ -61,7 +62,7 @@ class GeneratorCommand extends Command
     {
         $modelName = is_null($modelName) ? $this->argument('name') : $modelName;
         $model_name = ucfirst(class_basename($modelName));
-        $plural_model_name = str_plural($model_name);
+        $plural_model_name = Str::plural($model_name);
         $modelPath = $this->getModelPath($modelName);
         $modelNamespace = $this->getModelNamespace($modelPath);
 
@@ -70,10 +71,10 @@ class GeneratorCommand extends Command
             'full_model_name'           => $modelNamespace.'\\'.$model_name,
             'plural_model_name'         => $plural_model_name,
             'model_name'                => $model_name,
-            'table_name'                => snake_case($plural_model_name),
-            'lang_name'                 => snake_case($model_name),
-            'collection_model_var_name' => camel_case($plural_model_name),
-            'single_model_var_name'     => camel_case($model_name),
+            'table_name'                => Str::snake($plural_model_name),
+            'lang_name'                 => Str::snake($model_name),
+            'collection_model_var_name' => Str::camel($plural_model_name),
+            'single_model_var_name'     => Str::camel($model_name),
             'model_path'                => $modelPath,
         ];
     }
