@@ -21,8 +21,8 @@
     },
     "require": {
         "php": ">=7.0.0",
-        "illuminate/support": "5.8.*||^6.0",
-        "laravel/browser-kit-testing": "^5.0"
+        "illuminate/support": "5.8.*||^6.0||^7.0",
+        "laravel/browser-kit-testing": "^5.0||^6.0"
     },
     "require-dev": {
         "orchestra/testbench": "~3.0"
