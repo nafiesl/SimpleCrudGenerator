@@ -5,12 +5,10 @@ namespace Luthfi\CrudGenerator;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Console\DetectsApplicationNamespace;
+use Illuminate\Container\Container;
 
 class GeneratorCommand extends Command
 {
-    use DetectsApplicationNamespace;
-
     /**
      * The injected Filesystem class
      *
@@ -129,5 +127,11 @@ class GeneratorCommand extends Command
         return !$this->files->exists(
             resource_path('views/'.str_replace('.', '/', config('simple-crud.default_layout_view')).'.blade.php')
         );
+    }
+
+
+    protected function getAppNamespace()
+    {
+        return Container::getInstance()->getNamespace();
     }
 }
