@@ -2,10 +2,10 @@
 
 namespace Luthfi\CrudGenerator;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Container\Container;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 
 class GeneratorCommand extends Command
 {
@@ -128,7 +128,6 @@ class GeneratorCommand extends Command
             resource_path('views/'.str_replace('.', '/', config('simple-crud.default_layout_view')).'.blade.php')
         );
     }
-
 
     protected function getAppNamespace()
     {

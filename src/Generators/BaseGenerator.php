@@ -2,18 +2,16 @@
 
 namespace Luthfi\CrudGenerator\Generators;
 
+use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
-use Luthfi\CrudGenerator\GeneratorCommand;
-use Illuminate\Console\DetectsApplicationNamespace;
 use Luthfi\CrudGenerator\Contracts\Generator as GeneratorContract;
+use Luthfi\CrudGenerator\GeneratorCommand;
 
 /**
  * Base Generator Class
  */
 abstract class BaseGenerator implements GeneratorContract
 {
-    use DetectsApplicationNamespace;
-
     /**
      * The injected Filesystem class
      *
@@ -129,5 +127,10 @@ abstract class BaseGenerator implements GeneratorContract
     protected function isForApi()
     {
         return $this->command->getName() == 'make:crud-api';
+    }
+
+    protected function getAppNamespace()
+    {
+        return Container::getInstance()->getNamespace();
     }
 }
