@@ -84,7 +84,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+        \$this->seeJsonStructure(['errors' => ['name']]);
     }
 
     /** @test */
@@ -101,7 +101,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+        \$this->seeJsonStructure(['errors' => ['name']]);
     }
 
     /** @test */
@@ -118,7 +118,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['description' => []]]);
+        \$this->seeJsonStructure(['errors' => ['description']]);
     }
 
     /** @test */
@@ -183,7 +183,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+        \$this->seeJsonStructure(['errors' => ['name']]);
     }
 
     /** @test */
@@ -201,7 +201,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+        \$this->seeJsonStructure(['errors' => ['name']]);
     }
 
     /** @test */
@@ -219,7 +219,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['description' => []]]);
+        \$this->seeJsonStructure(['errors' => ['description']]);
     }
 
     /** @test */
@@ -329,7 +329,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+        \$this->seeJsonStructure(['errors' => ['name']]);
     }
 
     /** @test */
@@ -346,7 +346,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+        \$this->seeJsonStructure(['errors' => ['name']]);
     }
 
     /** @test */
@@ -363,7 +363,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['description' => []]]);
+        \$this->seeJsonStructure(['errors' => ['description']]);
     }
 
     /** @test */
@@ -428,7 +428,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+        \$this->seeJsonStructure(['errors' => ['name']]);
     }
 
     /** @test */
@@ -446,7 +446,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['name' => []]]);
+        \$this->seeJsonStructure(['errors' => ['name']]);
     }
 
     /** @test */
@@ -464,7 +464,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonSubset(['errors' => ['description' => []]]);
+        \$this->seeJsonStructure(['errors' => ['description']]);
     }
 
     /** @test */
