@@ -56,44 +56,16 @@ $ composer require luthfi/simple-crud-generator --dev
 
 To use this package on laravel 5.5, we need to **add the package** (with browserkit) within `require-dev` in `composer.json` file, like so :
 
-```json
-    "require-dev": {
-
-        "laravel/browser-kit-testing": "2.0.x-dev",
-        "luthfi/simple-crud-generator": "^1.2"
-    },
-```
-
-Then run composer update in terminal :
 
 ```bash
-$ composer update
+# Install required package for laravel/browser-kit-testing
+$ composer require symfony/css-selector:^3.0
+
+# Get the package
+$ composer require luthfi/simple-crud-generator 1.2.* --dev
 ```
 
 > The package will **auto-discovered**.
-
-#### For Laravel 5.4
-
-```bash
-# Bootstrap Form Field generator
-$ composer require luthfi/formfield
-
-# Get the package
-$ composer require luthfi/simple-crud-generator:1.0.* --dev
-```
-
-Update `config/app.php`, add provider and aliases :
-
-```php
-// providers
-Luthfi\FormField\FormFieldServiceProvider::class,
-Luthfi\CrudGenerator\ServiceProvider::class,
-
-// aliases
-'FormField' => Luthfi\FormField\FormFieldFacade::class,
-'Form'      => Collective\Html\FormFacade::class,
-'Html'      => Collective\Html\HtmlFacade::class,
-```
 
 <br>
 
@@ -134,21 +106,18 @@ Then visit our application url: `http://localhost:8000/vehicles`.
 
 <br>
 
-#### Usage on Fresh Install Laravel
+#### Usage on Fresh Install Laravel 7.x
 
-If you are using this package from from the fresh laravel project.
+In this example, we are using the [laravel installer](https://packagist.org/packages/laravel/installer) package to install new laravel project.
 
 ```bash
 # This is example commands for Ubuntu users.
-$ composer create-project laravel/laravel --prefer-dist project-directory
+$ laravel new --auth project-directory
 $ cd project-directory
 $ vim .env # Edit your .env file to update database configuration
 
 # Install the package
 $ composer require luthfi/simple-crud-generator --dev
-
-# Create auth scaffolds to get layout.app view, register and login feature
-$ php artisan make:auth
 
 $ php artisan make:crud Vehicle # Model name in singular
 # I really suggest "git commit" your project right before run make:crud command
@@ -221,7 +190,7 @@ The generated API is a REST API, using GET and POST verbs, with a URI of `/api/m
 
 Example code for calling the generated API, using Guzzle:
 
-    //Read data a specific Vehicle record...
+    // Read data a specific Vehicle record...
     $uri = 'http://your-domain.com/api/vehicles/'.$vehicleID;
     $headers = ['Authorization' => 'Bearer '.$apiToken];
 
@@ -229,7 +198,7 @@ Example code for calling the generated API, using Guzzle:
     $res = $client->request('GET', $uri, ['headers' => $headers]);
 <br>
 
-    //Create a new Vehicle record...
+    // Create a new Vehicle record...
     $uri = 'http://your-domain.com/api/vehicles';
     $headers = ['Authorization' => 'Bearer '.$apiToken];
     $payload = json_encode([
