@@ -36,10 +36,11 @@ class CrudSimpleCommandTest extends TestCase
     /** @test */
     public function it_cannot_generate_crud_files_if_model_exists()
     {
+        $this->mockConsoleOutput = true;
         $this->artisan('make:model', ['name' => $this->model_name, '--no-interaction' => true]);
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
-
-        $this->assertContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true])
+            ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', 'no')
+            ->expectsOutput("{$this->model_name} model already exists.");
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
         $this->assertFileNotExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
