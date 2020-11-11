@@ -21,7 +21,7 @@ abstract class TestCase extends BaseTestCase
         $this->model_name = 'MemberType';
 
         $this->full_model_name = 'App\\'.$this->model_name;
-        $this->plural_model_name = str_plural($this->model_name);
+        $this->plural_model_name = Str::plural($this->model_name);
         $this->table_name = Str::snake($this->plural_model_name);
         $this->lang_name = Str::snake($this->model_name);
         $this->collection_model_var_name = Str::camel($this->plural_model_name);
