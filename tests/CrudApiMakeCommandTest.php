@@ -59,7 +59,7 @@ class CrudApiMakeCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_not_generate_api_crud_files_if_namespaced_model_exists()
+    public function it_still_generates_api_crud_files_even_if_namespaced_model_exists()
     {
         $this->artisan('make:model', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
         $this->artisan('make:crud-api', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
