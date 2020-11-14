@@ -41,7 +41,7 @@ class CrudMakeCommandTest extends TestCase
         $this->mockConsoleOutput = true;
         $this->artisan('make:model', ['name' => $this->model_name, '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true])
-            ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', 'yes');
+            ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', true);
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
@@ -71,7 +71,7 @@ class CrudMakeCommandTest extends TestCase
         $this->mockConsoleOutput = true;
         $this->artisan('make:model', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true])
-            ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', 'no')
+            ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', false)
             ->expectsOutput('Problem model already exists.');
 
         $this->assertFileExists(app_path('Entities/Projects/Problem.php'));

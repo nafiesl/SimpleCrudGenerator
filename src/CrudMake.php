@@ -33,8 +33,8 @@ class CrudMake extends GeneratorCommand
         $this->getModelName();
 
         if ($this->modelExists()) {
-            $confirm = $this->confirm('Model file exists, are you sure to generate CRUD files?', 'no');
-            if (in_array($confirm, ['yes', 'y']) == false) {
+            $confirm = $this->confirm('Model file exists, are you sure to generate CRUD files?');
+            if (!$confirm) {
                 $this->error("{$this->modelNames['model_name']} model already exists.");
                 return;
             }
