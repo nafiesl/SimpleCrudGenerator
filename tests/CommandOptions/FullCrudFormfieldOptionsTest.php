@@ -2,8 +2,8 @@
 
 namespace Tests\CommandOptions;
 
-use Tests\TestCase;
 use Illuminate\Contracts\Console\Kernel;
+use Tests\TestCase;
 
 class FullCrudFormfieldOptionsTest extends TestCase
 {
@@ -12,7 +12,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
 
-        $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
+        $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
@@ -23,7 +23,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
         $this->assertFileExists(resource_path("views/{$this->table_name}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$this->table_name}/create.blade.php"));
         $this->assertFileExists(resource_path("views/{$this->table_name}/edit.blade.php"));
-        $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
@@ -243,6 +243,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
     /** @test */
     public function it_creates_correct_model_class_with_link_to_route_helper()
     {
+        config(['auth.providers.users.model' => 'App\User']);
         $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
 
         $modelPath = app_path($this->model_name.'.php');
@@ -280,6 +281,7 @@ class {$this->model_name} extends Model
     /** @test */
     public function it_creates_correct_unit_test_class_with_link_to_route_helper()
     {
+        config(['auth.providers.users.model' => 'App\User']);
         $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
 
         $uniTestPath = base_path("tests/Unit/Models/{$this->model_name}Test.php");

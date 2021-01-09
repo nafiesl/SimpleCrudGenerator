@@ -12,7 +12,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     {
         $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
 
-        $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
+        $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));

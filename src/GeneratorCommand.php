@@ -88,7 +88,7 @@ class GeneratorCommand extends Command
         $inputName = explode('/', ucfirst($modelName));
         array_pop($inputName);
 
-        return implode('/', $inputName);
+        return implode('/', $inputName) ?: 'Models';
     }
 
     /**

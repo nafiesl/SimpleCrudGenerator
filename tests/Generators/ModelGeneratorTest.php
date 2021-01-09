@@ -15,13 +15,16 @@ class ModelGeneratorTest extends TestCase
         $this->assertFileExists($modelPath);
         $modelClassContent = "<?php
 
-namespace App;
+namespace App\Models;
 
-use App\User;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class {$this->model_name} extends Model
 {
+    use HasFactory;
+
     protected \$fillable = ['name', 'description', 'creator_id'];
 
     public function getNameLinkAttribute()
@@ -58,10 +61,13 @@ class {$this->model_name} extends Model
 namespace App\Entities\References;
 
 use App\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    use HasFactory;
+
     protected \$fillable = ['name', 'description', 'creator_id'];
 
     public function getNameLinkAttribute()
