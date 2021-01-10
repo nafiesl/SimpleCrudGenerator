@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use App\User;
+use App\Models\User;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
 abstract class BrowserKitTest extends BaseTestCase
@@ -21,6 +21,6 @@ abstract class BrowserKitTest extends BaseTestCase
 
     protected function createUser()
     {
-        return factory(User::class)->create();
+        return User::factory()->create();
     }
 }

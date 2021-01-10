@@ -14,7 +14,7 @@ class ManageMasterTest extends TestCase
     public function user_can_see_master_list_in_master_index_page()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create();
+        $singleMstr = Master::factory()->create();
 
         $this->getJson(route('api.masters.index'), [
             'Authorization' => 'Bearer '.$user->api_token
@@ -111,7 +111,7 @@ class ManageMasterTest extends TestCase
     public function user_can_get_a_master_detail()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create(['name' => 'Testing 123']);
+        $singleMstr = Master::factory()->create(['name' => 'Testing 123']);
 
         $this->getJson(route('api.masters.show', $singleMstr), [
             'Authorization' => 'Bearer '.$user->api_token
@@ -124,7 +124,7 @@ class ManageMasterTest extends TestCase
     public function user_can_update_a_master()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create(['name' => 'Testing 123']);
+        $singleMstr = Master::factory()->create(['name' => 'Testing 123']);
 
         $this->patchJson(route('api.masters.update', $singleMstr), [
             'name'        => 'Master 1 name',
@@ -158,7 +158,7 @@ class ManageMasterTest extends TestCase
     public function validate_master_name_update_is_required()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create();
+        $singleMstr = Master::factory()->create();
 
         // name empty
         $requestBody = $this->getEditFields(['name' => '']);
@@ -176,7 +176,7 @@ class ManageMasterTest extends TestCase
     public function validate_master_name_update_is_not_more_than_60_characters()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create();
+        $singleMstr = Master::factory()->create();
 
         // name 70 characters
         $requestBody = $this->getEditFields(['name' => str_repeat('Test Title', 7)]);
@@ -194,7 +194,7 @@ class ManageMasterTest extends TestCase
     public function validate_master_description_update_is_not_more_than_255_characters()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create(['name' => 'Testing 123']);
+        $singleMstr = Master::factory()->create(['name' => 'Testing 123']);
 
         // description 256 characters
         $requestBody = $this->getEditFields(['description' => str_repeat('Long description', 16)]);
@@ -212,7 +212,7 @@ class ManageMasterTest extends TestCase
     public function user_can_delete_a_master()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create();
+        $singleMstr = Master::factory()->create();
 
         $this->deleteJson(route('api.masters.destroy', $singleMstr), [
             'master_id' => $singleMstr->id,
