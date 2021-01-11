@@ -2,10 +2,10 @@
 
 namespace Tests\CommandOptions;
 
-use Tests\TestCase;
 use Illuminate\Contracts\Console\Kernel;
+use Tests\TestCase;
 
-class TestOnlyOptionsTest extends TestCase
+class TestsOnlyOptionsTest extends TestCase
 {
     /** @test */
     public function it_can_generate_only_tests_files()

@@ -4,7 +4,7 @@ namespace Tests;
 
 use Illuminate\Contracts\Console\Kernel;
 
-class CrudSimpleCommandTest extends TestCase
+class CrudSimpleMakeCommandTest extends TestCase
 {
     /** @test */
     public function it_can_generate_simple_crud_files()
