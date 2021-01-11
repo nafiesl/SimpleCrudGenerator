@@ -14,7 +14,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
 
         $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
-        $this->assertFileExists(app_path($this->model_name.'.php'));
+        $this->assertFileExists(app_path('Models/'.$this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
@@ -243,20 +243,23 @@ class FullCrudFormfieldOptionsTest extends TestCase
     /** @test */
     public function it_creates_correct_model_class_with_link_to_route_helper()
     {
-        config(['auth.providers.users.model' => 'App\User']);
+        config(['auth.providers.users.model' => 'App\Models\User']);
         $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
 
-        $modelPath = app_path($this->model_name.'.php');
+        $modelPath = app_path('Models/'.$this->model_name.'.php');
         $this->assertFileExists($modelPath);
         $modelClassContent = "<?php
 
-namespace App;
+namespace App\Models;
 
-use App\User;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class {$this->model_name} extends Model
 {
+    use HasFactory;
+
     protected \$fillable = ['name', 'description', 'creator_id'];
 
     public function getNameLinkAttribute()
@@ -302,7 +305,7 @@ class {$this->model_name}Test extends TestCase
     /** @test */
     public function a_{$this->lang_name}_has_name_link_attribute()
     {
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$this->assertEquals(
             link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}], [
@@ -317,7 +320,7 @@ class {$this->model_name}Test extends TestCase
     /** @test */
     public function a_{$this->lang_name}_has_belongs_to_creator_relation()
     {
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->make();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->make();
 
         \$this->assertInstanceOf(User::class, \${$this->single_model_var_name}->creator);
         \$this->assertEquals(\${$this->single_model_var_name}->creator_id, \${$this->single_model_var_name}->creator->id);

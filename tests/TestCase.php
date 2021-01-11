@@ -20,7 +20,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         $this->model_name = 'MemberType';
 
-        $this->full_model_name = 'App\\'.$this->model_name;
+        $this->full_model_name = 'App\\Models\\'.$this->model_name;
         $this->plural_model_name = Str::plural($this->model_name);
         $this->table_name = Str::snake($this->plural_model_name);
         $this->lang_name = Str::snake($this->model_name);
@@ -41,6 +41,7 @@ abstract class TestCase extends BaseTestCase
     {
         $this->removeFileOrDir(app_path($this->model_name.'.php'));
         $this->removeFileOrDir(app_path('Entities'));
+        $this->removeFileOrDir(app_path('Models'));
         $this->removeFileOrDir(app_path('Http'));
         $this->removeFileOrDir(database_path('migrations'));
         $this->removeFileOrDir(database_path('factories'));

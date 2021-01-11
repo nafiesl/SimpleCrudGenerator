@@ -36,7 +36,7 @@ class CrudApiMakeCommandTest extends TestCase
     /** @test */
     public function it_generate_api_crud_files_even_if_model_exists()
     {
-        $this->artisan('make:model', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:model', ['name' => 'Models/'.$this->model_name, '--no-interaction' => true]);
         $this->artisan('make:crud-api', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $this->assertStringContainsString("We will use existing {$this->model_name} model.", app(Kernel::class)->output());

@@ -28,7 +28,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$this->getJson(route('api.{$this->table_name}.index'), [
             'Authorization' => 'Bearer '.\$user->api_token
@@ -125,7 +125,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_get_a_{$this->lang_name}_detail()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         \$this->getJson(route('api.{$this->table_name}.show', \${$this->single_model_var_name}), [
             'Authorization' => 'Bearer '.\$user->api_token
@@ -138,7 +138,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_update_a_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         \$this->patchJson(route('api.{$this->table_name}.update', \${$this->single_model_var_name}), [
             'name'        => '{$this->model_name} 1 name',
@@ -172,7 +172,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_required()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         // name empty
         \$requestBody = \$this->getEditFields(['name' => '']);
@@ -190,7 +190,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         // name 70 characters
         \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
@@ -208,7 +208,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         // description 256 characters
         \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);
@@ -226,7 +226,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_delete_a_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$this->deleteJson(route('api.{$this->table_name}.destroy', \${$this->single_model_var_name}), [
             '{$this->lang_name}_id' => \${$this->single_model_var_name}->id,
@@ -273,7 +273,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$this->getJson(route('api.{$this->table_name}.index'), [
             'Authorization' => 'Bearer '.\$user->api_token
@@ -370,7 +370,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_get_a_{$this->lang_name}_detail()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         \$this->getJson(route('api.{$this->table_name}.show', \${$this->single_model_var_name}), [
             'Authorization' => 'Bearer '.\$user->api_token
@@ -383,7 +383,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_update_a_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         \$this->patchJson(route('api.{$this->table_name}.update', \${$this->single_model_var_name}), [
             'name'        => '{$this->model_name} 1 name',
@@ -417,7 +417,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_required()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         // name empty
         \$requestBody = \$this->getEditFields(['name' => '']);
@@ -435,7 +435,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         // name 70 characters
         \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
@@ -453,7 +453,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         // description 256 characters
         \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);
@@ -471,7 +471,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_delete_a_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$this->deleteJson(route('api.{$this->table_name}.destroy', \${$this->single_model_var_name}), [
             '{$this->lang_name}_id' => \${$this->single_model_var_name}->id,

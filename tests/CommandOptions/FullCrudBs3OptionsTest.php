@@ -2,8 +2,8 @@
 
 namespace Tests\CommandOptions;
 
-use Tests\TestCase;
 use Illuminate\Contracts\Console\Kernel;
+use Tests\TestCase;
 
 class FullCrudBs3OptionsTest extends TestCase
 {
@@ -14,7 +14,7 @@ class FullCrudBs3OptionsTest extends TestCase
 
         $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
-        $this->assertFileExists(app_path($this->model_name.'.php'));
+        $this->assertFileExists(app_path('Models/'.$this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');

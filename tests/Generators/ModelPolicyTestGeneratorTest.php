@@ -39,7 +39,7 @@ class {$this->model_name}PolicyTest extends TestCase
     public function user_can_view_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
         \$this->assertTrue(\$user->can('view', \${$this->single_model_var_name}));
     }
 
@@ -47,7 +47,7 @@ class {$this->model_name}PolicyTest extends TestCase
     public function user_can_update_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
         \$this->assertTrue(\$user->can('update', \${$this->single_model_var_name}));
     }
 
@@ -55,7 +55,7 @@ class {$this->model_name}PolicyTest extends TestCase
     public function user_can_delete_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
         \$this->assertTrue(\$user->can('delete', \${$this->single_model_var_name}));
     }
 }
@@ -99,7 +99,7 @@ class {$this->model_name}PolicyTest extends TestCase
     public function user_can_view_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
         \$this->assertTrue(\$user->can('view', \${$this->single_model_var_name}));
     }
 
@@ -107,7 +107,7 @@ class {$this->model_name}PolicyTest extends TestCase
     public function user_can_update_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
         \$this->assertTrue(\$user->can('update', \${$this->single_model_var_name}));
     }
 
@@ -115,7 +115,7 @@ class {$this->model_name}PolicyTest extends TestCase
     public function user_can_delete_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
         \$this->assertTrue(\$user->can('delete', \${$this->single_model_var_name}));
     }
 }
@@ -159,7 +159,7 @@ class {$this->model_name}PolicyTest extends TestCase
     public function user_can_view_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
         \$this->assertTrue(\$user->can('view', \${$this->single_model_var_name}));
     }
 
@@ -167,7 +167,7 @@ class {$this->model_name}PolicyTest extends TestCase
     public function user_can_update_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
         \$this->assertTrue(\$user->can('update', \${$this->single_model_var_name}));
     }
 
@@ -175,7 +175,7 @@ class {$this->model_name}PolicyTest extends TestCase
     public function user_can_delete_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
         \$this->assertTrue(\$user->can('delete', \${$this->single_model_var_name}));
     }
 }

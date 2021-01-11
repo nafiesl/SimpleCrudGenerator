@@ -39,7 +39,7 @@ class CrudMakeCommandTest extends TestCase
     public function it_generates_crud_files_for_existing_model()
     {
         $this->mockConsoleOutput = true;
-        $this->artisan('make:model', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:model', ['name' => 'Models/'.$this->model_name, '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true])
             ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', true);
 

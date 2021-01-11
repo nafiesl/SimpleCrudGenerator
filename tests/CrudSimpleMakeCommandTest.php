@@ -13,7 +13,7 @@ class CrudSimpleCommandTest extends TestCase
 
         $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
-        $this->assertFileExists(app_path($this->model_name.'.php'));
+        $this->assertFileExists(app_path('Models/'.$this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
@@ -37,12 +37,12 @@ class CrudSimpleCommandTest extends TestCase
     public function it_cannot_generate_crud_files_if_model_exists()
     {
         $this->mockConsoleOutput = true;
-        $this->artisan('make:model', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:model', ['name' => 'Models/'.$this->model_name, '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true])
             ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', false)
             ->expectsOutput("{$this->model_name} model already exists.");
 
-        $this->assertFileExists(app_path($this->model_name.'.php'));
+        $this->assertFileExists(app_path('Models/'.$this->model_name.'.php'));
         $this->assertFileDoesNotExist(app_path("Http/Controllers/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');

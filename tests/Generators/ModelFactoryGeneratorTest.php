@@ -15,21 +15,27 @@ class ModelFactoryGeneratorTest extends TestCase
         $this->assertFileExists($modelFactoryPath);
         $modelFactoryContent = "<?php
 
-use App\User;
+namespace Database\Factories;
+
+use App\Models\User;
 use {$this->full_model_name};
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-\$factory->define({$this->model_name}::class, function (Faker \$faker) {
+class {$this->model_name}Factory extends Factory
+{
+    protected \$model = {$this->model_name}::class;
 
-    return [
-        'name' => \$faker->word,
-        'description' => \$faker->sentence,
-        'creator_id' => function () {
-            return factory(User::class)->create()->id;
-        },
-    ];
-});
-";
+    public function definition()
+    {
+        return [
+            'name'        => \$this->faker->word,
+            'description' => \$this->faker->sentence,
+            'creator_id'  => function () {
+                return User::factory()->create()->id;
+            },
+        ];
+    }
+}";
         $this->assertEquals($modelFactoryContent, file_get_contents($modelFactoryPath));
     }
 }

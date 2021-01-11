@@ -2,8 +2,8 @@
 
 namespace Tests\CommandOptions;
 
-use Tests\TestCase;
 use Illuminate\Contracts\Console\Kernel;
+use Tests\TestCase;
 
 class FullCrudFormRequestOptionsTest extends TestCase
 {
@@ -14,7 +14,7 @@ class FullCrudFormRequestOptionsTest extends TestCase
 
         $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
-        $this->assertFileExists(app_path($this->model_name.'.php'));
+        $this->assertFileExists(app_path('Models/'.$this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
         $this->assertFileExists(app_path("Http/Requests/{$this->plural_model_name}/CreateRequest.php"));
         $this->assertFileExists(app_path("Http/Requests/{$this->plural_model_name}/UpdateRequest.php"));
