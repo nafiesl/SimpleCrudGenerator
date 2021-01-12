@@ -35,7 +35,8 @@ class {$this->model_name}Factory extends Factory
             },
         ];
     }
-}";
+}
+";
         $this->assertEquals($modelFactoryContent, file_get_contents($modelFactoryPath));
     }
 }
