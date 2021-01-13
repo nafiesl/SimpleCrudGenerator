@@ -16,7 +16,7 @@ class FeatureTestGeneratorTest extends TestCase
 
 namespace Tests;
 
-use App\User;
+use App\Models\User;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
 abstract class BrowserKitTest extends BaseTestCase
@@ -35,7 +35,7 @@ abstract class BrowserKitTest extends BaseTestCase
 
     protected function createUser()
     {
-        return factory(User::class)->create();
+        return User::factory()->create();
     }
 }
 ";
@@ -63,7 +63,7 @@ class Manage{$this->model_name}Test extends TestCase
     /** @test */
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
     {
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$this->loginAsUser();
         \$this->visitRoute('{$this->table_name}.index');
@@ -138,7 +138,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_edit_a_{$this->lang_name}_within_search_query()
     {
         \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         \$this->visitRoute('{$this->table_name}.index', ['q' => '123']);
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
@@ -169,7 +169,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_required()
     {
         \$this->loginAsUser();
-        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->lang_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         // name empty
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
@@ -180,7 +180,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
     {
         \$this->loginAsUser();
-        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->lang_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         // name 70 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
@@ -193,7 +193,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
     {
         \$this->loginAsUser();
-        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->lang_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         // description 256 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
@@ -206,8 +206,8 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_delete_a_{$this->lang_name}()
     {
         \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
-        factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
+        {$this->model_name}::factory()->create();
 
         \$this->visitRoute('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id]);
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
@@ -244,7 +244,7 @@ class Manage{$this->model_name}Test extends TestCase
 
 namespace Tests;
 
-use App\User;
+use App\Models\User;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
 abstract class {$baseTestClass} extends BaseTestCase
@@ -263,7 +263,7 @@ abstract class {$baseTestClass} extends BaseTestCase
 
     protected function createUser()
     {
-        return factory(User::class)->create();
+        return User::factory()->create();
     }
 }
 ";
@@ -294,7 +294,7 @@ class Manage{$this->model_name}Test extends TestCase
     /** @test */
     public function user_can_see_{$this->lang_name}_list_in_{$this->lang_name}_index_page()
     {
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$this->loginAsUser();
         \$this->visitRoute('{$this->table_name}.index');
@@ -369,7 +369,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_edit_a_{$this->lang_name}_within_search_query()
     {
         \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         \$this->visitRoute('{$this->table_name}.index', ['q' => '123']);
         \$this->click('edit-{$this->lang_name}-'.\${$this->single_model_var_name}->id);
@@ -400,7 +400,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_required()
     {
         \$this->loginAsUser();
-        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->lang_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         // name empty
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields(['name' => '']));
@@ -411,7 +411,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
     {
         \$this->loginAsUser();
-        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->lang_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         // name 70 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
@@ -424,7 +424,7 @@ class Manage{$this->model_name}Test extends TestCase
     public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
     {
         \$this->loginAsUser();
-        \${$this->lang_name} = factory({$this->model_name}::class)->create(['name' => 'Testing 123']);
+        \${$this->lang_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
 
         // description 256 characters
         \$this->patch(route('{$this->table_name}.update', \${$this->lang_name}), \$this->getEditFields([
@@ -437,8 +437,8 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_delete_a_{$this->lang_name}()
     {
         \$this->loginAsUser();
-        \${$this->single_model_var_name} = factory({$this->model_name}::class)->create();
-        factory({$this->model_name}::class)->create();
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
+        {$this->model_name}::factory()->create();
 
         \$this->visitRoute('{$this->table_name}.index', ['action' => 'edit', 'id' => \${$this->single_model_var_name}->id]);
         \$this->click('del-{$this->lang_name}-'.\${$this->single_model_var_name}->id);

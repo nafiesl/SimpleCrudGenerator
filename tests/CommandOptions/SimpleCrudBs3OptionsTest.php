@@ -2,8 +2,8 @@
 
 namespace Tests\CommandOptions;
 
-use Tests\TestCase;
 use Illuminate\Contracts\Console\Kernel;
+use Tests\TestCase;
 
 class SimpleCrudBs3OptionsTest extends TestCase
 {
@@ -12,9 +12,9 @@ class SimpleCrudBs3OptionsTest extends TestCase
     {
         $this->artisan('make:crud-simple', ['name' => $this->model_name, '--bs3' => true]);
 
-        $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
+        $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
-        $this->assertFileExists(app_path($this->model_name.'.php'));
+        $this->assertFileExists(app_path('Models/'.$this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');

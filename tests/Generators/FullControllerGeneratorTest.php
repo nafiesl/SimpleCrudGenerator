@@ -201,7 +201,7 @@ class CategoryController extends Controller
     /**
      * Display the specified category.
      *
-     * @param  \App\Category  \$category
+     * @param  \App\Models\Category  \$category
      * @return \Illuminate\View\View
      */
     public function show(Category \$category)
@@ -212,7 +212,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified category.
      *
-     * @param  \App\Category  \$category
+     * @param  \App\Models\Category  \$category
      * @return \Illuminate\View\View
      */
     public function edit(Category \$category)
@@ -332,7 +332,7 @@ class CategoryController extends Controller
     /**
      * Display the specified category.
      *
-     * @param  \App\Category  \$category
+     * @param  \App\Models\Category  \$category
      * @return \Illuminate\View\View
      */
     public function show(Category \$category)
@@ -343,7 +343,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified category.
      *
-     * @param  \App\Category  \$category
+     * @param  \App\Models\Category  \$category
      * @return \Illuminate\View\View
      */
     public function edit(Category \$category)

@@ -18,7 +18,7 @@ class RouteWebGeneratorTest extends TestCase
 /*
  * {$this->plural_model_name} Routes
  */
-Route::resource('{$this->table_name}', '{$this->model_name}Controller');
+Route::resource('{$this->table_name}', App\\Http\\Controllers\\{$this->model_name}Controller::class);
 ";
         $this->assertEquals($routeWebFileContent, file_get_contents($routeWebPath));
     }
@@ -35,7 +35,7 @@ Route::resource('{$this->table_name}', '{$this->model_name}Controller');
 /*
  * {$this->plural_model_name} Routes
  */
-Route::resource('{$this->table_name}', 'Projects\\{$this->model_name}Controller');
+Route::resource('{$this->table_name}', App\\Http\\Controllers\\Projects\\{$this->model_name}Controller::class);
 ";
         $this->assertEquals($routeWebFileContent, file_get_contents($routeWebPath));
     }

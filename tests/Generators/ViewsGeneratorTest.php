@@ -234,7 +234,7 @@ class ViewsGeneratorTest extends TestCase
 
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertNotRegExp("/{$defaultLayoutView} view does not exists./", app(Kernel::class)->output());
+        $this->assertDoesNotMatchRegularExpression("/{$defaultLayoutView} view does not exists./", app(Kernel::class)->output());
     }
 
     /** @test */
@@ -243,7 +243,7 @@ class ViewsGeneratorTest extends TestCase
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
         $defaultLayoutView = config('simple-crud.default_layout_view');
 
-        $this->assertRegExp("/{$defaultLayoutView} view does not exists./", app(Kernel::class)->output());
+        $this->assertMatchesRegularExpression("/{$defaultLayoutView} view does not exists./", app(Kernel::class)->output());
     }
 
     public function generateDefaultLayoutView($defaultLayoutView)

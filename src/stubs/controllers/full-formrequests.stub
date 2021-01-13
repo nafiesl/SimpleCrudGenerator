@@ -51,7 +51,7 @@ class MasterController extends Controller
     /**
      * Display the specified singleMstr.
      *
-     * @param  \App\Master  $singleMstr
+     * @param  \App\Models\Master  $singleMstr
      * @return \Illuminate\View\View
      */
     public function show(Master $singleMstr)
@@ -62,7 +62,7 @@ class MasterController extends Controller
     /**
      * Show the form for editing the specified singleMstr.
      *
-     * @param  \App\Master  $singleMstr
+     * @param  \App\Models\Master  $singleMstr
      * @return \Illuminate\View\View
      */
     public function edit(Master $singleMstr)

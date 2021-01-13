@@ -21,7 +21,7 @@ class MasterPolicyTest extends TestCase
     public function user_can_view_master()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create();
+        $singleMstr = Master::factory()->create();
         $this->assertTrue($user->can('view', $singleMstr));
     }
 
@@ -29,7 +29,7 @@ class MasterPolicyTest extends TestCase
     public function user_can_update_master()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create();
+        $singleMstr = Master::factory()->create();
         $this->assertTrue($user->can('update', $singleMstr));
     }
 
@@ -37,7 +37,7 @@ class MasterPolicyTest extends TestCase
     public function user_can_delete_master()
     {
         $user = $this->createUser();
-        $singleMstr = factory(Master::class)->create();
+        $singleMstr = Master::factory()->create();
         $this->assertTrue($user->can('delete', $singleMstr));
     }
 }

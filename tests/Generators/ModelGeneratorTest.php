@@ -9,19 +9,23 @@ class ModelGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_model_class_content()
     {
+        config(['auth.providers.users.model' => 'App\Models\User']);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $modelPath = app_path($this->model_name.'.php');
+        $modelPath = app_path('Models/'.$this->model_name.'.php');
         $this->assertFileExists($modelPath);
         $modelClassContent = "<?php
 
-namespace App;
+namespace App\Models;
 
-use App\User;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class {$this->model_name} extends Model
 {
+    use HasFactory;
+
     protected \$fillable = ['name', 'description', 'creator_id'];
 
     public function getNameLinkAttribute()
@@ -49,6 +53,7 @@ class {$this->model_name} extends Model
     /** @test */
     public function it_creates_correct_namespaced_model_class_content()
     {
+        config(['auth.providers.users.model' => 'App\Models\User']);
         $this->artisan('make:crud', ['name' => 'Entities/References/Category', '--no-interaction' => true]);
 
         $modelPath = app_path('Entities/References/Category.php');
@@ -57,11 +62,14 @@ class {$this->model_name} extends Model
 
 namespace App\Entities\References;
 
-use App\User;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    use HasFactory;
+
     protected \$fillable = ['name', 'description', 'creator_id'];
 
     public function getNameLinkAttribute()

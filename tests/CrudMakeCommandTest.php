@@ -11,9 +11,9 @@ class CrudMakeCommandTest extends TestCase
     {
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
-        $this->assertNotContains("{$this->model_name} model already exists.", app(Kernel::class)->output());
+        $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
-        $this->assertFileExists(app_path($this->model_name.'.php'));
+        $this->assertFileExists(app_path('Models/'.$this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
@@ -22,7 +22,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileExists(resource_path("views/{$this->table_name}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$this->table_name}/create.blade.php"));
         $this->assertFileExists(resource_path("views/{$this->table_name}/edit.blade.php"));
-        $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
@@ -39,11 +39,11 @@ class CrudMakeCommandTest extends TestCase
     public function it_generates_crud_files_for_existing_model()
     {
         $this->mockConsoleOutput = true;
-        $this->artisan('make:model', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:model', ['name' => 'Models/'.$this->model_name, '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true])
             ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', true);
 
-        $this->assertFileExists(app_path($this->model_name.'.php'));
+        $this->assertFileExists(app_path('Models/'.$this->model_name.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
@@ -52,7 +52,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileExists(resource_path("views/{$this->table_name}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$this->table_name}/create.blade.php"));
         $this->assertFileExists(resource_path("views/{$this->table_name}/edit.blade.php"));
-        $this->assertFileNotExists(resource_path("views/{$this->table_name}/forms.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
@@ -69,30 +69,30 @@ class CrudMakeCommandTest extends TestCase
     public function it_cannot_generate_crud_files_if_namespaced_model_exists()
     {
         $this->mockConsoleOutput = true;
-        $this->artisan('make:model', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true]);
+        $this->artisan('make:model', ['name' => 'App/Entities/Projects/Problem', '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => 'Entities/Projects/Problem', '--no-interaction' => true])
             ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', false)
             ->expectsOutput('Problem model already exists.');
 
         $this->assertFileExists(app_path('Entities/Projects/Problem.php'));
-        $this->assertFileNotExists(app_path("Http/Controllers/ProblemsController.php"));
+        $this->assertFileDoesNotExist(app_path("Http/Controllers/ProblemsController.php"));
 
         $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_problems_table.php');
-        $this->assertFileNotExists($migrationFilePath);
+        $this->assertFileDoesNotExist($migrationFilePath);
 
-        $this->assertFileNotExists(resource_path("views/problems/index.blade.php"));
-        $this->assertFileNotExists(resource_path("views/problems/create.blade.php"));
-        $this->assertFileNotExists(resource_path("views/problems/edit.blade.php"));
-        $this->assertFileNotExists(resource_path("views/problems/forms.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/problems/index.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/problems/create.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/problems/edit.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/problems/forms.blade.php"));
 
         $localeConfig = config('app.locale');
-        $this->assertFileNotExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
+        $this->assertFileDoesNotExist(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
 
-        $this->assertFileNotExists(app_path("Policies/ProblemPolicy.php"));
-        $this->assertFileNotExists(database_path("factories/ProblemFactory.php"));
-        $this->assertFileNotExists(base_path("tests/Unit/Models/ProblemTest.php"));
-        $this->assertFileNotExists(base_path("tests/Unit/Policies/ProblemPolicyTest.php"));
-        $this->assertFileNotExists(base_path("tests/Feature/ManageProblemTest.php"));
+        $this->assertFileDoesNotExist(app_path("Policies/ProblemPolicy.php"));
+        $this->assertFileDoesNotExist(database_path("factories/ProblemFactory.php"));
+        $this->assertFileDoesNotExist(base_path("tests/Unit/Models/ProblemTest.php"));
+        $this->assertFileDoesNotExist(base_path("tests/Unit/Policies/ProblemPolicyTest.php"));
+        $this->assertFileDoesNotExist(base_path("tests/Feature/ManageProblemTest.php"));
 
         $this->removeFileOrDir(app_path('Entities/Projects'));
         $this->removeFileOrDir(resource_path('views/problems'));
@@ -111,7 +111,7 @@ class CrudMakeCommandTest extends TestCase
 
         $this->artisan('make:crud', ['name' => $inputName, '--no-interaction' => true]);
 
-        $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
+        $this->assertStringNotContainsString("{$modelName} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($modelPath.'/'.$modelName.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$modelName}Controller.php"));
@@ -122,7 +122,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileExists(resource_path("views/{$tableName}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$tableName}/create.blade.php"));
         $this->assertFileExists(resource_path("views/{$tableName}/edit.blade.php"));
-        $this->assertFileNotExists(resource_path("views/{$tableName}/forms.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/{$tableName}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
@@ -147,7 +147,7 @@ class CrudMakeCommandTest extends TestCase
 
         $this->artisan('make:crud', ['name' => $inputName, '--parent' => $parentName, '--no-interaction' => true]);
 
-        $this->assertNotContains("{$modelName} model already exists.", app(Kernel::class)->output());
+        $this->assertStringNotContainsString("{$modelName} model already exists.", app(Kernel::class)->output());
 
         $this->assertFileExists(app_path($modelPath.'/'.$modelName.'.php'));
         $this->assertFileExists(app_path("Http/Controllers/{$parentName}/{$modelName}Controller.php"));
@@ -158,7 +158,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileExists(resource_path("views/{$tableName}/index.blade.php"));
         $this->assertFileExists(resource_path("views/{$tableName}/create.blade.php"));
         $this->assertFileExists(resource_path("views/{$tableName}/edit.blade.php"));
-        $this->assertFileNotExists(resource_path("views/{$tableName}/forms.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/{$tableName}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
