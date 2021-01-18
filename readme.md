@@ -43,14 +43,19 @@ The main purpose of this package is for **faster Test-driven Development**, it g
 
 ## How to install
 
-#### For Laravel 5.6 or later
+#### For Laravel 8.x
 
 ```bash
 # Get the package
-$ composer require luthfi/simple-crud-generator --dev
+$ composer require luthfi/simple-crud-generator:^2.0
 ```
 
-> The package will **auto-discovered** and ready to go.
+#### For Laravel 5.6 to 7.x
+
+```bash
+# Get the package
+$ composer require luthfi/simple-crud-generator:^1.0
+```
 
 #### For Laravel 5.5
 
