@@ -1,7 +1,7 @@
 @if (Request::get('action') == 'create')
 @can('create', new fullMstr)
     {{ Form::open(['route' => 'masters.store']) }}
-    {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
+    {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
     {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
     {{ Form::submit(__('master.create'), ['class' => 'btn btn-success']) }}
     {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
@@ -11,7 +11,7 @@
 @if (Request::get('action') == 'edit' && $editableMaster)
 @can('update', $editableMaster)
     {{ Form::model($editableMaster, ['route' => ['masters.update', $editableMaster], 'method' => 'patch']) }}
-    {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
+    {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
     {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
     @if (request('q'))
         {{ Form::hidden('q', request('q')) }}
@@ -37,8 +37,8 @@
     <div class="card">
         <div class="card-header">{{ __('master.delete') }}</div>
         <div class="card-body">
-            <label class="control-label text-primary">{{ __('master.name') }}</label>
-            <p>{{ $editableMaster->name }}</p>
+            <label class="control-label text-primary">{{ __('master.title') }}</label>
+            <p>{{ $editableMaster->title }}</p>
             <label class="control-label text-primary">{{ __('master.description') }}</label>
             <p>{{ $editableMaster->description }}</p>
             {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}

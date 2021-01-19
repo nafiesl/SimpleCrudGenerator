@@ -28,6 +28,6 @@ return [
     'undeleteable'   => 'Master data cannot be deleted.',
 
     // Attributes
-    'name'           => 'Master Name',
+    'title'          => 'Master Title',
     'description'    => 'Master Description',
 ];

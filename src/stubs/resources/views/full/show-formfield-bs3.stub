@@ -9,7 +9,7 @@
             <div class="panel-heading"><h3 class="panel-title">{{ __('master.detail') }}</h3></div>
             <table class="table table-condensed">
                 <tbody>
-                    <tr><td>{{ __('master.name') }}</td><td>{{ $singleMstr->name }}</td></tr>
+                    <tr><td>{{ __('master.title') }}</td><td>{{ $singleMstr->title }}</td></tr>
                     <tr><td>{{ __('master.description') }}</td><td>{{ $singleMstr->description }}</td></tr>
                 </tbody>
             </table>

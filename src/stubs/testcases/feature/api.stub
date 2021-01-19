@@ -20,7 +20,7 @@ class ManageMasterTest extends TestCase
             'Authorization' => 'Bearer '.$user->api_token
         ]);
 
-        $this->seeJson(['name' => $singleMstr->name]);
+        $this->seeJson(['title' => $singleMstr->title]);
     }
 
     /** @test */
@@ -29,21 +29,21 @@ class ManageMasterTest extends TestCase
         $user = $this->createUser();
 
         $this->postJson(route('api.masters.store'), [
-            'name'        => 'Master 1 name',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ], [
             'Authorization' => 'Bearer '.$user->api_token
         ]);
 
         $this->seeInDatabase('masters', [
-            'name'        => 'Master 1 name',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
 
         $this->seeStatusCode(201);
         $this->seeJson([
             'message'     => __('master.created'),
-            'name'        => 'Master 1 name',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
     }
@@ -51,18 +51,18 @@ class ManageMasterTest extends TestCase
     private function getCreateFields(array $overrides = [])
     {
         return array_merge([
-            'name'        => 'Master 1 name',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ], $overrides);
     }
 
     /** @test */
-    public function validate_master_name_is_required()
+    public function validate_master_title_is_required()
     {
         $user = $this->createUser();
 
-        // name empty
-        $requestBody = $this->getCreateFields(['name' => '']);
+        // title empty
+        $requestBody = $this->getCreateFields(['title' => '']);
         $this->postJson(
             route('api.masters.store'),
             $requestBody,
@@ -70,16 +70,16 @@ class ManageMasterTest extends TestCase
         );
 
         $this->seeStatusCode(422);
-        $this->seeJsonStructure(['errors' => ['name']]);
+        $this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
-    public function validate_master_name_is_not_more_than_60_characters()
+    public function validate_master_title_is_not_more_than_60_characters()
     {
         $user = $this->createUser();
 
-        // name 70 characters
-        $requestBody = $this->getCreateFields(['name' => str_repeat('Test Title', 7)]);
+        // title 70 characters
+        $requestBody = $this->getCreateFields(['title' => str_repeat('Test Title', 7)]);
         $this->postJson(
             route('api.masters.store'),
             $requestBody,
@@ -87,7 +87,7 @@ class ManageMasterTest extends TestCase
         );
 
         $this->seeStatusCode(422);
-        $this->seeJsonStructure(['errors' => ['name']]);
+        $this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
@@ -111,37 +111,37 @@ class ManageMasterTest extends TestCase
     public function user_can_get_a_master_detail()
     {
         $user = $this->createUser();
-        $singleMstr = Master::factory()->create(['name' => 'Testing 123']);
+        $singleMstr = Master::factory()->create(['title' => 'Testing 123']);
 
         $this->getJson(route('api.masters.show', $singleMstr), [
             'Authorization' => 'Bearer '.$user->api_token
         ]);
 
-        $this->seeJson(['name' => 'Testing 123']);
+        $this->seeJson(['title' => 'Testing 123']);
     }
 
     /** @test */
     public function user_can_update_a_master()
     {
         $user = $this->createUser();
-        $singleMstr = Master::factory()->create(['name' => 'Testing 123']);
+        $singleMstr = Master::factory()->create(['title' => 'Testing 123']);
 
         $this->patchJson(route('api.masters.update', $singleMstr), [
-            'name'        => 'Master 1 name',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ], [
             'Authorization' => 'Bearer '.$user->api_token
         ]);
 
         $this->seeInDatabase('masters', [
-            'name'        => 'Master 1 name',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
 
         $this->seeStatusCode(200);
         $this->seeJson([
             'message'     => __('master.updated'),
-            'name'        => 'Master 1 name',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
     }
@@ -149,19 +149,19 @@ class ManageMasterTest extends TestCase
     private function getEditFields(array $overrides = [])
     {
         return array_merge([
-            'name'        => 'Master 1 name',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ], $overrides);
     }
 
     /** @test */
-    public function validate_master_name_update_is_required()
+    public function validate_master_title_update_is_required()
     {
         $user = $this->createUser();
         $singleMstr = Master::factory()->create();
 
-        // name empty
-        $requestBody = $this->getEditFields(['name' => '']);
+        // title empty
+        $requestBody = $this->getEditFields(['title' => '']);
         $this->patchJson(
             route('api.masters.update', $singleMstr),
             $requestBody,
@@ -169,17 +169,17 @@ class ManageMasterTest extends TestCase
         );
 
         $this->seeStatusCode(422);
-        $this->seeJsonStructure(['errors' => ['name']]);
+        $this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
-    public function validate_master_name_update_is_not_more_than_60_characters()
+    public function validate_master_title_update_is_not_more_than_60_characters()
     {
         $user = $this->createUser();
         $singleMstr = Master::factory()->create();
 
-        // name 70 characters
-        $requestBody = $this->getEditFields(['name' => str_repeat('Test Title', 7)]);
+        // title 70 characters
+        $requestBody = $this->getEditFields(['title' => str_repeat('Test Title', 7)]);
         $this->patchJson(
             route('api.masters.update', $singleMstr),
             $requestBody,
@@ -187,14 +187,14 @@ class ManageMasterTest extends TestCase
         );
 
         $this->seeStatusCode(422);
-        $this->seeJsonStructure(['errors' => ['name']]);
+        $this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
     public function validate_master_description_update_is_not_more_than_255_characters()
     {
         $user = $this->createUser();
-        $singleMstr = Master::factory()->create(['name' => 'Testing 123']);
+        $singleMstr = Master::factory()->create(['title' => 'Testing 123']);
 
         // description 256 characters
         $requestBody = $this->getEditFields(['description' => str_repeat('Long description', 16)]);

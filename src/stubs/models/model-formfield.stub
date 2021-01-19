@@ -10,14 +10,14 @@ class Master extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'creator_id'];
+    protected $fillable = ['title', 'description', 'creator_id'];
 
-    public function getNameLinkAttribute()
+    public function getTitleLinkAttribute()
     {
-        return link_to_route('masters.show', $this->name, [$this], [
+        return link_to_route('masters.show', $this->title, [$this], [
             'title' => __(
                 'app.show_detail_title',
-                ['name' => $this->name, 'type' => __('master.master')]
+                ['title' => $this->title, 'type' => __('master.master')]
             ),
         ]);
     }

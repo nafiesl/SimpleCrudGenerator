@@ -28,6 +28,6 @@ return [
     'undeleteable'   => 'Data Master tidak dapat dihapus.',
 
     // Attributes
-    'name'           => 'Nama Master',
+    'title'          => 'Judul Master',
     'description'    => 'Deskripsi Master',
 ];

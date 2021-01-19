@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+titlespace App\Http\Controllers;
 
 use fullMstr;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class MasterController extends Controller
     public function index()
     {
         $singleMstrQuery = Master::query();
-        $singleMstrQuery->where('name', 'like', '%'.request('q').'%');
+        $singleMstrQuery->where('title', 'like', '%'.request('q').'%');
         $mstrCollections = $singleMstrQuery->paginate(25);
 
         return view('masters.index', compact('mstrCollections'));
