@@ -34,7 +34,7 @@ class Manage{$this->model_name}Test extends TestCase
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
-        \$this->seeJson(['name' => \${$this->single_model_var_name}->name]);
+        \$this->seeJson(['title' => \${$this->single_model_var_name}->title]);
     }
 
     /** @test */
@@ -43,21 +43,21 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
 
         \$this->postJson(route('api.{$this->table_name}.store'), [
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
 
         \$this->seeStatusCode(201);
         \$this->seeJson([
             'message'     => __('{$this->lang_name}.created'),
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
     }
@@ -65,18 +65,18 @@ class Manage{$this->model_name}Test extends TestCase
     private function getCreateFields(array \$overrides = [])
     {
         return array_merge([
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
 
     /** @test */
-    public function validate_{$this->lang_name}_name_is_required()
+    public function validate_{$this->lang_name}_title_is_required()
     {
         \$user = \$this->createUser();
 
-        // name empty
-        \$requestBody = \$this->getCreateFields(['name' => '']);
+        // title empty
+        \$requestBody = \$this->getCreateFields(['title' => '']);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
             \$requestBody,
@@ -84,16 +84,16 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonStructure(['errors' => ['name']]);
+        \$this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
-    public function validate_{$this->lang_name}_name_is_not_more_than_60_characters()
+    public function validate_{$this->lang_name}_title_is_not_more_than_60_characters()
     {
         \$user = \$this->createUser();
 
-        // name 70 characters
-        \$requestBody = \$this->getCreateFields(['name' => str_repeat('Test Title', 7)]);
+        // title 70 characters
+        \$requestBody = \$this->getCreateFields(['title' => str_repeat('Test Title', 7)]);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
             \$requestBody,
@@ -101,7 +101,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonStructure(['errors' => ['name']]);
+        \$this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
@@ -125,37 +125,37 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_get_a_{$this->lang_name}_detail()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['title' => 'Testing 123']);
 
         \$this->getJson(route('api.{$this->table_name}.show', \${$this->single_model_var_name}), [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
-        \$this->seeJson(['name' => 'Testing 123']);
+        \$this->seeJson(['title' => 'Testing 123']);
     }
 
     /** @test */
     public function user_can_update_a_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['title' => 'Testing 123']);
 
         \$this->patchJson(route('api.{$this->table_name}.update', \${$this->single_model_var_name}), [
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
 
         \$this->seeStatusCode(200);
         \$this->seeJson([
             'message'     => __('{$this->lang_name}.updated'),
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
     }
@@ -163,19 +163,19 @@ class Manage{$this->model_name}Test extends TestCase
     private function getEditFields(array \$overrides = [])
     {
         return array_merge([
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
 
     /** @test */
-    public function validate_{$this->lang_name}_name_update_is_required()
+    public function validate_{$this->lang_name}_title_update_is_required()
     {
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
-        // name empty
-        \$requestBody = \$this->getEditFields(['name' => '']);
+        // title empty
+        \$requestBody = \$this->getEditFields(['title' => '']);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
             \$requestBody,
@@ -183,17 +183,17 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonStructure(['errors' => ['name']]);
+        \$this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
-    public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
+    public function validate_{$this->lang_name}_title_update_is_not_more_than_60_characters()
     {
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
-        // name 70 characters
-        \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
+        // title 70 characters
+        \$requestBody = \$this->getEditFields(['title' => str_repeat('Test Title', 7)]);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
             \$requestBody,
@@ -201,14 +201,14 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonStructure(['errors' => ['name']]);
+        \$this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
     public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['title' => 'Testing 123']);
 
         // description 256 characters
         \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);
@@ -279,7 +279,7 @@ class Manage{$this->model_name}Test extends TestCase
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
-        \$this->seeJson(['name' => \${$this->single_model_var_name}->name]);
+        \$this->seeJson(['title' => \${$this->single_model_var_name}->title]);
     }
 
     /** @test */
@@ -288,21 +288,21 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
 
         \$this->postJson(route('api.{$this->table_name}.store'), [
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
 
         \$this->seeStatusCode(201);
         \$this->seeJson([
             'message'     => __('{$this->lang_name}.created'),
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
     }
@@ -310,18 +310,18 @@ class Manage{$this->model_name}Test extends TestCase
     private function getCreateFields(array \$overrides = [])
     {
         return array_merge([
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
 
     /** @test */
-    public function validate_{$this->lang_name}_name_is_required()
+    public function validate_{$this->lang_name}_title_is_required()
     {
         \$user = \$this->createUser();
 
-        // name empty
-        \$requestBody = \$this->getCreateFields(['name' => '']);
+        // title empty
+        \$requestBody = \$this->getCreateFields(['title' => '']);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
             \$requestBody,
@@ -329,16 +329,16 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonStructure(['errors' => ['name']]);
+        \$this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
-    public function validate_{$this->lang_name}_name_is_not_more_than_60_characters()
+    public function validate_{$this->lang_name}_title_is_not_more_than_60_characters()
     {
         \$user = \$this->createUser();
 
-        // name 70 characters
-        \$requestBody = \$this->getCreateFields(['name' => str_repeat('Test Title', 7)]);
+        // title 70 characters
+        \$requestBody = \$this->getCreateFields(['title' => str_repeat('Test Title', 7)]);
         \$this->postJson(
             route('api.{$this->table_name}.store'),
             \$requestBody,
@@ -346,7 +346,7 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonStructure(['errors' => ['name']]);
+        \$this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
@@ -370,37 +370,37 @@ class Manage{$this->model_name}Test extends TestCase
     public function user_can_get_a_{$this->lang_name}_detail()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['title' => 'Testing 123']);
 
         \$this->getJson(route('api.{$this->table_name}.show', \${$this->single_model_var_name}), [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
-        \$this->seeJson(['name' => 'Testing 123']);
+        \$this->seeJson(['title' => 'Testing 123']);
     }
 
     /** @test */
     public function user_can_update_a_{$this->lang_name}()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['title' => 'Testing 123']);
 
         \$this->patchJson(route('api.{$this->table_name}.update', \${$this->single_model_var_name}), [
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
 
         \$this->seeStatusCode(200);
         \$this->seeJson([
             'message'     => __('{$this->lang_name}.updated'),
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
     }
@@ -408,19 +408,19 @@ class Manage{$this->model_name}Test extends TestCase
     private function getEditFields(array \$overrides = [])
     {
         return array_merge([
-            'name'        => '{$this->model_name} 1 name',
+            'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
 
     /** @test */
-    public function validate_{$this->lang_name}_name_update_is_required()
+    public function validate_{$this->lang_name}_title_update_is_required()
     {
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
-        // name empty
-        \$requestBody = \$this->getEditFields(['name' => '']);
+        // title empty
+        \$requestBody = \$this->getEditFields(['title' => '']);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
             \$requestBody,
@@ -428,17 +428,17 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonStructure(['errors' => ['name']]);
+        \$this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
-    public function validate_{$this->lang_name}_name_update_is_not_more_than_60_characters()
+    public function validate_{$this->lang_name}_title_update_is_not_more_than_60_characters()
     {
         \$user = \$this->createUser();
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
-        // name 70 characters
-        \$requestBody = \$this->getEditFields(['name' => str_repeat('Test Title', 7)]);
+        // title 70 characters
+        \$requestBody = \$this->getEditFields(['title' => str_repeat('Test Title', 7)]);
         \$this->patchJson(
             route('api.{$this->table_name}.update', \${$this->single_model_var_name}),
             \$requestBody,
@@ -446,14 +446,14 @@ class Manage{$this->model_name}Test extends TestCase
         );
 
         \$this->seeStatusCode(422);
-        \$this->seeJsonStructure(['errors' => ['name']]);
+        \$this->seeJsonStructure(['errors' => ['title']]);
     }
 
     /** @test */
     public function validate_{$this->lang_name}_description_update_is_not_more_than_255_characters()
     {
         \$user = \$this->createUser();
-        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['name' => 'Testing 123']);
+        \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['title' => 'Testing 123']);
 
         // description 256 characters
         \$requestBody = \$this->getEditFields(['description' => str_repeat('Long description', 16)]);

@@ -62,7 +62,7 @@ class {$this->model_name}Controller extends Controller
     public function index()
     {
         \${$this->single_model_var_name}Query = {$this->model_name}::query();
-        \${$this->single_model_var_name}Query->where('name', 'like', '%'.request('q').'%');
+        \${$this->single_model_var_name}Query->where('title', 'like', '%'.request('q').'%');
         \${$this->collection_model_var_name} = \${$this->single_model_var_name}Query->paginate(25);
 
         return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}'));
@@ -190,7 +190,7 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ];
     }
@@ -246,7 +246,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ];
     }

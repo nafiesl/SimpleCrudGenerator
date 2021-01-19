@@ -1,6 +1,6 @@
 <?php
 
-titlespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
 use fullMstr;
 use Illuminate\Http\Request;

@@ -2,8 +2,8 @@
 
 namespace Tests\Generators;
 
-use Tests\TestCase;
 use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class LangGeneratorTest extends TestCase
 {
@@ -46,7 +46,7 @@ return [
     'undeleteable'   => '{$displayModelName} data cannot be deleted.',
 
     // Attributes
-    'name'           => '{$displayModelName} Name',
+    'title'          => '{$displayModelName} Title',
     'description'    => '{$displayModelName} Description',
 ];
 ";
@@ -93,7 +93,7 @@ return [
     'undeleteable'   => 'Data {$displayModelName} tidak dapat dihapus.',
 
     // Attributes
-    'name'           => 'Nama {$displayModelName}',
+    'title'          => 'Judul {$displayModelName}',
     'description'    => 'Deskripsi {$displayModelName}',
 ];
 ";

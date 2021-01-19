@@ -124,7 +124,7 @@ class {$this->model_name}PolicyTest extends TestCase
     }
 
     /** @test */
-    public function same_base_test_case_class_name_dont_use_alias()
+    public function same_base_test_case_class_title_dont_use_alias()
     {
         config(['simple-crud.base_test_path' => 'tests/TestCase.php']);
         config(['simple-crud.base_test_class' => 'Tests\TestCase']);

@@ -28,7 +28,7 @@ class {$this->model_name}Factory extends Factory
     public function definition()
     {
         return [
-            'name'        => \$this->faker->word,
+            'title'       => \$this->faker->word,
             'description' => \$this->faker->sentence,
             'creator_id'  => function () {
                 return User::factory()->create()->id;

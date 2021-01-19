@@ -71,7 +71,7 @@ class SimpleCrudBs3OptionsTest extends TestCase
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>
-                        <th>{{ __('{$this->lang_name}.name') }}</th>
+                        <th>{{ __('{$this->lang_name}.title') }}</th>
                         <th>{{ __('{$this->lang_name}.description') }}</th>
                         <th class=\"text-center\">{{ __('app.action') }}</th>
                     </tr>
@@ -80,7 +80,7 @@ class SimpleCrudBs3OptionsTest extends TestCase
                     @foreach(\${$this->collection_model_var_name} as \$key => \${$this->single_model_var_name})
                     <tr>
                         <td class=\"text-center\">{{ \${$this->collection_model_var_name}->firstItem() + \$key }}</td>
-                        <td>{{ \${$this->single_model_var_name}->name }}</td>
+                        <td>{{ \${$this->single_model_var_name}->title }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                             @can('update', \${$this->single_model_var_name})
@@ -116,10 +116,10 @@ class SimpleCrudBs3OptionsTest extends TestCase
 @can('create', new {$this->full_model_name})
     <form method=\"POST\" action=\"{{ route('{$this->table_name}.store') }}\" accept-charset=\"UTF-8\">
         {{ csrf_field() }}
-        <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
-            <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
-            <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name') }}\" required>
-            {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
+        <div class=\"form-group{{ \$errors->has('title') ? ' has-error' : '' }}\">
+            <label for=\"title\" class=\"control-label\">{{ __('{$this->lang_name}.title') }}</label>
+            <input id=\"title\" type=\"text\" class=\"form-control\" name=\"title\" value=\"{{ old('title') }}\" required>
+            {!! \$errors->first('title', '<span class=\"help-block small\">:message</span>') !!}
         </div>
         <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
             <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
@@ -135,10 +135,10 @@ class SimpleCrudBs3OptionsTest extends TestCase
 @can('update', \$editable{$this->model_name})
     <form method=\"POST\" action=\"{{ route('{$this->table_name}.update', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\">
         {{ csrf_field() }} {{ method_field('patch') }}
-        <div class=\"form-group{{ \$errors->has('name') ? ' has-error' : '' }}\">
-            <label for=\"name\" class=\"control-label\">{{ __('{$this->lang_name}.name') }}</label>
-            <input id=\"name\" type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ old('name', \$editable{$this->model_name}->name) }}\" required>
-            {!! \$errors->first('name', '<span class=\"help-block small\">:message</span>') !!}
+        <div class=\"form-group{{ \$errors->has('title') ? ' has-error' : '' }}\">
+            <label for=\"title\" class=\"control-label\">{{ __('{$this->lang_name}.title') }}</label>
+            <input id=\"title\" type=\"text\" class=\"form-control\" name=\"title\" value=\"{{ old('title', \$editable{$this->model_name}->title) }}\" required>
+            {!! \$errors->first('title', '<span class=\"help-block small\">:message</span>') !!}
         </div>
         <div class=\"form-group{{ \$errors->has('description') ? ' has-error' : '' }}\">
             <label for=\"description\" class=\"control-label\">{{ __('{$this->lang_name}.description') }}</label>
@@ -160,8 +160,8 @@ class SimpleCrudBs3OptionsTest extends TestCase
     <div class=\"panel panel-default\">
         <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.delete') }}</h3></div>
         <div class=\"panel-body\">
-            <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
-            <p>{{ \$editable{$this->model_name}->name }}</p>
+            <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.title') }}</label>
+            <p>{{ \$editable{$this->model_name}->title }}</p>
             <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
             <p>{{ \$editable{$this->model_name}->description }}</p>
             {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}

@@ -30,7 +30,7 @@ class {$this->model_name}Controller extends Controller
     public function index()
     {
         \${$this->single_model_var_name}Query = {$this->model_name}::query();
-        \${$this->single_model_var_name}Query->where('name', 'like', '%'.request('q').'%');
+        \${$this->single_model_var_name}Query->where('title', 'like', '%'.request('q').'%');
         \${$this->collection_model_var_name} = \${$this->single_model_var_name}Query->paginate(25);
 
         return \${$this->collection_model_var_name};
@@ -47,7 +47,7 @@ class {$this->model_name}Controller extends Controller
         \$this->authorize('create', new {$this->model_name});
 
         \$new{$this->model_name} = \$request->validate([
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$new{$this->model_name}['creator_id'] = auth()->id();
@@ -83,7 +83,7 @@ class {$this->model_name}Controller extends Controller
         \$this->authorize('update', \${$this->single_model_var_name});
 
         \${$this->single_model_var_name}Data = \$request->validate([
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \${$this->single_model_var_name}->update(\${$this->single_model_var_name}Data);

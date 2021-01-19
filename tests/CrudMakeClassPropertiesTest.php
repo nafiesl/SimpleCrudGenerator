@@ -56,7 +56,7 @@ class CrudMakeClassPropertiesTest extends TestCase
     }
 
     /** @test */
-    public function it_set_proper_model_names_property_for_namespaced_model_name_entry()
+    public function it_set_proper_model_names_property_for_namespaced_model_title_entry()
     {
         $this->assertEquals([
             'model_namespace'           => 'App\Entities\References',

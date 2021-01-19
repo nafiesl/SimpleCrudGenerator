@@ -28,19 +28,19 @@ class {$this->model_name}Test extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_{$this->lang_name}_has_name_link_attribute()
+    public function a_{$this->lang_name}_has_title_link_attribute()
     {
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$title = __('app.show_detail_title', [
-            'name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
+            'title' => \${$this->single_model_var_name}->title, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
         ]);
         \$link = '<a href=\"'.route('{$this->table_name}.show', \${$this->single_model_var_name}).'\"';
         \$link .= ' title=\"'.\$title.'\">';
-        \$link .= \${$this->single_model_var_name}->name;
+        \$link .= \${$this->single_model_var_name}->title;
         \$link .= '</a>';
 
-        \$this->assertEquals(\$link, \${$this->single_model_var_name}->name_link);
+        \$this->assertEquals(\$link, \${$this->single_model_var_name}->title_link);
     }
 
     /** @test */
@@ -81,19 +81,19 @@ class {$this->model_name}Test extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_{$this->lang_name}_has_name_link_attribute()
+    public function a_{$this->lang_name}_has_title_link_attribute()
     {
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$title = __('app.show_detail_title', [
-            'name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
+            'title' => \${$this->single_model_var_name}->title, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
         ]);
         \$link = '<a href=\"'.route('{$this->table_name}.show', \${$this->single_model_var_name}).'\"';
         \$link .= ' title=\"'.\$title.'\">';
-        \$link .= \${$this->single_model_var_name}->name;
+        \$link .= \${$this->single_model_var_name}->title;
         \$link .= '</a>';
 
-        \$this->assertEquals(\$link, \${$this->single_model_var_name}->name_link);
+        \$this->assertEquals(\$link, \${$this->single_model_var_name}->title_link);
     }
 
     /** @test */
@@ -110,7 +110,7 @@ class {$this->model_name}Test extends TestCase
     }
 
     /** @test */
-    public function same_base_test_case_class_name_dont_use_alias()
+    public function same_base_test_case_class_title_dont_use_alias()
     {
         config(['auth.providers.users.model' => 'App\Models\User']);
         config(['simple-crud.base_test_path' => 'tests/TestCase.php']);
@@ -134,19 +134,19 @@ class {$this->model_name}Test extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_{$this->lang_name}_has_name_link_attribute()
+    public function a_{$this->lang_name}_has_title_link_attribute()
     {
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$title = __('app.show_detail_title', [
-            'name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
+            'title' => \${$this->single_model_var_name}->title, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
         ]);
         \$link = '<a href=\"'.route('{$this->table_name}.show', \${$this->single_model_var_name}).'\"';
         \$link .= ' title=\"'.\$title.'\">';
-        \$link .= \${$this->single_model_var_name}->name;
+        \$link .= \${$this->single_model_var_name}->title;
         \$link .= '</a>';
 
-        \$this->assertEquals(\$link, \${$this->single_model_var_name}->name_link);
+        \$this->assertEquals(\$link, \${$this->single_model_var_name}->title_link);
     }
 
     /** @test */

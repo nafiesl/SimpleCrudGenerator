@@ -30,14 +30,14 @@ class ManageMasterTest extends TestCase
         $this->seeRouteIs('masters.index', ['action' => 'create']);
 
         $this->submitForm(__('master.create'), [
-            'title'        => 'Master 1 title',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
 
         $this->seeRouteIs('masters.index');
 
         $this->seeInDatabase('masters', [
-            'title'        => 'Master 1 title',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
     }
@@ -45,7 +45,7 @@ class ManageMasterTest extends TestCase
     private function getCreateFields(array $overrides = [])
     {
         return array_merge([
-            'title'        => 'Master 1 title',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ], $overrides);
     }
@@ -95,14 +95,14 @@ class ManageMasterTest extends TestCase
         $this->seeRouteIs('masters.index', ['action' => 'edit', 'id' => $singleMstr->id, 'q' => '123']);
 
         $this->submitForm(__('master.update'), [
-            'title'        => 'Master 1 title',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
 
         $this->seeRouteIs('masters.index', ['q' => '123']);
 
         $this->seeInDatabase('masters', [
-            'title'        => 'Master 1 title',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
     }
@@ -110,7 +110,7 @@ class ManageMasterTest extends TestCase
     private function getEditFields(array $overrides = [])
     {
         return array_merge([
-            'title'        => 'Master 1 title',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ], $overrides);
     }

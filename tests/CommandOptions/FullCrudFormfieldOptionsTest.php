@@ -70,7 +70,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>
-                        <th>{{ __('{$this->lang_name}.name') }}</th>
+                        <th>{{ __('{$this->lang_name}.title') }}</th>
                         <th>{{ __('{$this->lang_name}.description') }}</th>
                         <th class=\"text-center\">{{ __('app.action') }}</th>
                     </tr>
@@ -79,7 +79,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
                     @foreach(\${$this->collection_model_var_name} as \$key => \${$this->single_model_var_name})
                     <tr>
                         <td class=\"text-center\">{{ \${$this->collection_model_var_name}->firstItem() + \$key }}</td>
-                        <td>{{ \${$this->single_model_var_name}->name_link }}</td>
+                        <td>{{ \${$this->single_model_var_name}->title_link }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                             @can('view', \${$this->single_model_var_name})
@@ -124,7 +124,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
             <div class=\"card-body\">
                 <table class=\"table table-sm\">
                     <tbody>
-                        <tr><td>{{ __('{$this->lang_name}.name') }}</td><td>{{ \${$this->single_model_var_name}->name }}</td></tr>
+                        <tr><td>{{ __('{$this->lang_name}.title') }}</td><td>{{ \${$this->single_model_var_name}->title }}</td></tr>
                         <tr><td>{{ __('{$this->lang_name}.description') }}</td><td>{{ \${$this->single_model_var_name}->description }}</td></tr>
                     </tbody>
                 </table>
@@ -161,7 +161,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
             <div class=\"card-header\">{{ __('{$this->lang_name}.create') }}</div>
             {{ Form::open(['route' => '{$this->table_name}.store']) }}
             <div class=\"card-body\">
-                {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+                {!! FormField::text('title', ['required' => true, 'label' => __('{$this->lang_name}.title')]) !!}
                 {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
             </div>
             <div class=\"card-footer\">
@@ -196,8 +196,8 @@ class FullCrudFormfieldOptionsTest extends TestCase
             <div class=\"card\">
                 <div class=\"card-header\">{{ __('{$this->lang_name}.delete') }}</div>
                 <div class=\"card-body\">
-                    <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
-                    <p>{{ \${$this->single_model_var_name}->name }}</p>
+                    <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.title') }}</label>
+                    <p>{{ \${$this->single_model_var_name}->title }}</p>
                     <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
                     <p>{{ \${$this->single_model_var_name}->description }}</p>
                     {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
@@ -220,7 +220,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
             <div class=\"card-header\">{{ __('{$this->lang_name}.edit') }}</div>
             {{ Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}], 'method' => 'patch']) }}
             <div class=\"card-body\">
-                {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+                {!! FormField::text('title', ['required' => true, 'label' => __('{$this->lang_name}.title')]) !!}
                 {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
             </div>
             <div class=\"card-footer\">
@@ -260,14 +260,14 @@ class {$this->model_name} extends Model
 {
     use HasFactory;
 
-    protected \$fillable = ['name', 'description', 'creator_id'];
+    protected \$fillable = ['title', 'description', 'creator_id'];
 
-    public function getNameLinkAttribute()
+    public function getTitleLinkAttribute()
     {
-        return link_to_route('{$this->table_name}.show', \$this->name, [\$this], [
+        return link_to_route('{$this->table_name}.show', \$this->title, [\$this], [
             'title' => __(
                 'app.show_detail_title',
-                ['name' => \$this->name, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
+                ['title' => \$this->title, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
             ),
         ]);
     }
@@ -303,17 +303,17 @@ class {$this->model_name}Test extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_{$this->lang_name}_has_name_link_attribute()
+    public function a_{$this->lang_name}_has_title_link_attribute()
     {
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
 
         \$this->assertEquals(
-            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->name, [\${$this->single_model_var_name}], [
+            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->title, [\${$this->single_model_var_name}], [
                 'title' => __(
                     'app.show_detail_title',
-                    ['name' => \${$this->single_model_var_name}->name, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
+                    ['title' => \${$this->single_model_var_name}->title, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
                 ),
-            ]), \${$this->single_model_var_name}->name_link
+            ]), \${$this->single_model_var_name}->title_link
         );
     }
 

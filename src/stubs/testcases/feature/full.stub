@@ -23,7 +23,7 @@ class ManageMasterTest extends TestCase
     private function getCreateFields(array $overrides = [])
     {
         return array_merge([
-            'title'        => 'Master 1 title',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ], $overrides);
     }
@@ -81,7 +81,7 @@ class ManageMasterTest extends TestCase
     private function getEditFields(array $overrides = [])
     {
         return array_merge([
-            'title'        => 'Master 1 title',
+            'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ], $overrides);
     }
