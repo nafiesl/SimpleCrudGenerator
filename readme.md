@@ -12,7 +12,7 @@ This package contains artisan `make:crud` commands to create a simple CRUD featu
 
 With this package installed on local environment, we can use (e.g.) `php artisan make:crud Vehicle` command to generate some files :
 
-- `App\Vehicle.php` eloquent model
+- `App\Models\Vehicle.php` eloquent model
 - `xxx_create_vehicles_table.php` migration file
 - `VehicleController.php`
 - `index.blade.php` and `forms.blade.php` view file in `resources/views/vehicles` directory
@@ -43,14 +43,19 @@ The main purpose of this package is for **faster Test-driven Development**, it g
 
 ## How to install
 
-#### For Laravel 5.6 or later
+#### For Laravel 8.x
 
 ```bash
 # Get the package
-$ composer require luthfi/simple-crud-generator --dev
+$ composer require luthfi/simple-crud-generator:^2.0
 ```
 
-> The package will **auto-discovered** and ready to go.
+#### For Laravel 5.6 to 7.x
+
+```bash
+# Get the package
+$ composer require luthfi/simple-crud-generator:^1.0
+```
 
 #### For Laravel 5.5
 
@@ -72,7 +77,7 @@ $ composer require luthfi/simple-crud-generator 1.2.* --dev
 ## How to use
 Just type in terminal `$ php artisan make:crud ModelName` command, it will create simple Laravel CRUD files of given **model name** completed with tests.
 
-For example we want to create CRUD for '**App\Vehicle**' model.
+For example we want to create CRUD for '**App\Models\Vehicle**' model.
 
 ```bash
 $ php artisan make:crud-simple Vehicle
@@ -106,27 +111,34 @@ Then visit our application url: `http://localhost:8000/vehicles`.
 
 <br>
 
-#### Usage on Fresh Install Laravel 7.x
+#### Usage on Fresh Install Laravel 8.x
 
 In this example, we are using the [laravel installer](https://packagist.org/packages/laravel/installer) package to install new laravel project.
 
 ```bash
 # This is example commands for Ubuntu users.
-$ laravel new --auth project-directory
+$ laravel new project-directory
 $ cd project-directory
+$ composer require laravel/ui
+$ php artisan ui bootstrap --auth
+$ npm install && npm run dev # Might need to run twice, minimum requirement: NodeJS v12.x
 $ vim .env # Edit your .env file to update database configuration
 
 # Install the package
-$ composer require luthfi/simple-crud-generator --dev
+$ composer require luthfi/simple-crud-generator:^2.0
 
+# I really suggest "git commit" your project right before you run the make:crud command
 $ php artisan make:crud Vehicle # Model name in singular
-# I really suggest "git commit" your project right before run make:crud command
 
 $ php artisan migrate
 $ php artisan serve
 # Visit your route http://127.0.0.1:8000
-# Register as new user
+# Register as a new user
 # Visit your route http://127.0.0.1:8000/vehicles
+
+# Run the unit tests
+$ vim phpunit.xml # Remove comments on the DB_CONNECTION and DB_DATABASE lines
+$ vendor/bin/phpunit
 ```
 
 #### Available Commands
