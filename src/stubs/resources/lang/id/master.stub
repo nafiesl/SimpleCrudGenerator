@@ -2,17 +2,17 @@
 
 return [
     // Labels
-    'master'     => 'Master',
-    'list'           => 'Daftar Master',
-    'search'         => 'Cari Master',
-    'search_text'    => 'Judul ...',
-    'all'            => 'Semua Master',
-    'select'         => 'Pilih Master',
-    'detail'         => 'Detail Master',
-    'not_found'      => 'Master tidak ditemukan',
-    'empty'          => 'Belum ada Master',
-    'back_to_show'   => 'Kembali ke detail Master',
-    'back_to_index'  => 'Kembali ke daftar Master',
+    'master'    => 'Master',
+    'list'          => 'Daftar Master',
+    'search'        => 'Cari Master',
+    'search_text'   => 'Judul ...',
+    'all'           => 'Semua Master',
+    'select'        => 'Pilih Master',
+    'detail'        => 'Detail Master',
+    'not_found'     => 'Master tidak ditemukan',
+    'empty'         => 'Belum ada Master',
+    'back_to_show'  => 'Kembali ke detail Master',
+    'back_to_index' => 'Kembali ke daftar Master',
 
     // Actions
     'create'         => 'Input Master Baru',

@@ -2,17 +2,17 @@
 
 return [
     // Labels
-    'master'     => 'Master',
-    'list'           => 'Master List',
-    'search'         => 'Search Master',
-    'search_text'    => 'Title ...',
-    'all'            => 'All Master',
-    'select'         => 'Select Master',
-    'detail'         => 'Master Detail',
-    'not_found'      => 'Master not found.',
-    'empty'          => 'Master is empty.',
-    'back_to_show'   => 'Back to Master Detail',
-    'back_to_index'  => 'Back to Master List',
+    'master'    => 'Master',
+    'list'          => 'Master List',
+    'search'        => 'Search Master',
+    'search_text'   => 'Title ...',
+    'all'           => 'All Master',
+    'select'        => 'Select Master',
+    'detail'        => 'Master Detail',
+    'not_found'     => 'Master not found.',
+    'empty'         => 'Master is empty.',
+    'back_to_show'  => 'Back to Master Detail',
+    'back_to_index' => 'Back to Master List',
 
     // Actions
     'create'         => 'Create new Master',

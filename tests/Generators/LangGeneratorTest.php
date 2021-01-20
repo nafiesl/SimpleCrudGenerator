@@ -20,17 +20,17 @@ class LangGeneratorTest extends TestCase
 
 return [
     // Labels
-    '{$this->lang_name}'     => '{$displayModelName}',
-    'list'           => '{$displayModelName} List',
-    'search'         => 'Search {$displayModelName}',
-    'search_text'    => 'Title ...',
-    'all'            => 'All {$displayModelName}',
-    'select'         => 'Select {$displayModelName}',
-    'detail'         => '{$displayModelName} Detail',
-    'not_found'      => '{$displayModelName} not found.',
-    'empty'          => '{$displayModelName} is empty.',
-    'back_to_show'   => 'Back to {$displayModelName} Detail',
-    'back_to_index'  => 'Back to {$displayModelName} List',
+    '{$this->lang_name}'    => '{$displayModelName}',
+    'list'          => '{$displayModelName} List',
+    'search'        => 'Search {$displayModelName}',
+    'search_text'   => 'Title ...',
+    'all'           => 'All {$displayModelName}',
+    'select'        => 'Select {$displayModelName}',
+    'detail'        => '{$displayModelName} Detail',
+    'not_found'     => '{$displayModelName} not found.',
+    'empty'         => '{$displayModelName} is empty.',
+    'back_to_show'  => 'Back to {$displayModelName} Detail',
+    'back_to_index' => 'Back to {$displayModelName} List',
 
     // Actions
     'create'         => 'Create new {$displayModelName}',
@@ -67,17 +67,17 @@ return [
 
 return [
     // Labels
-    '{$this->lang_name}'     => '{$displayModelName}',
-    'list'           => 'Daftar {$displayModelName}',
-    'search'         => 'Cari {$displayModelName}',
-    'search_text'    => 'Judul ...',
-    'all'            => 'Semua {$displayModelName}',
-    'select'         => 'Pilih {$displayModelName}',
-    'detail'         => 'Detail {$displayModelName}',
-    'not_found'      => '{$displayModelName} tidak ditemukan',
-    'empty'          => 'Belum ada {$displayModelName}',
-    'back_to_show'   => 'Kembali ke detail {$displayModelName}',
-    'back_to_index'  => 'Kembali ke daftar {$displayModelName}',
+    '{$this->lang_name}'    => '{$displayModelName}',
+    'list'          => 'Daftar {$displayModelName}',
+    'search'        => 'Cari {$displayModelName}',
+    'search_text'   => 'Judul ...',
+    'all'           => 'Semua {$displayModelName}',
+    'select'        => 'Pilih {$displayModelName}',
+    'detail'        => 'Detail {$displayModelName}',
+    'not_found'     => '{$displayModelName} tidak ditemukan',
+    'empty'         => 'Belum ada {$displayModelName}',
+    'back_to_show'  => 'Kembali ke detail {$displayModelName}',
+    'back_to_index' => 'Kembali ke daftar {$displayModelName}',
 
     // Actions
     'create'         => 'Input {$displayModelName} Baru',
