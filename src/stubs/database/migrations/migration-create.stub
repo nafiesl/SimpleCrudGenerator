@@ -17,10 +17,8 @@ class CreateMastersTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 60);
             $table->string('description')->nullable();
-            $table->unsignedBigInteger('creator_id');
+            $table->foreignId('creator_id')->constrained('users')->onDelete('restrict');
             $table->timestamps();
-
-            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
