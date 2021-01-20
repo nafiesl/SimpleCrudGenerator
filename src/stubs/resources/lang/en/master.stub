@@ -5,7 +5,7 @@ return [
     'master'     => 'Master',
     'list'           => 'Master List',
     'search'         => 'Search Master',
-    'search_text'    => 'Name ...',
+    'search_text'    => 'Title ...',
     'all'            => 'All Master',
     'select'         => 'Select Master',
     'detail'         => 'Master Detail',

@@ -5,7 +5,7 @@ return [
     'master'     => 'Master',
     'list'           => 'Daftar Master',
     'search'         => 'Cari Master',
-    'search_text'    => 'Nama ...',
+    'search_text'    => 'Judul ...',
     'all'            => 'Semua Master',
     'select'         => 'Pilih Master',
     'detail'         => 'Detail Master',
