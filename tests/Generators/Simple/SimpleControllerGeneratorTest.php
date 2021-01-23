@@ -26,11 +26,12 @@ class {$this->model_name}Controller extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request \$request)
     {
         \$editable{$this->model_name} = null;
         \${$this->single_model_var_name}Query = {$this->model_name}::query();
-        \${$this->single_model_var_name}Query->where('title', 'like', '%'.request('q').'%');
+        \${$this->single_model_var_name}Query->where('title', 'like', '%'.\$request->get('q').'%');
+        \${$this->single_model_var_name}Query->orderBy('title');
         \${$this->collection_model_var_name} = \${$this->single_model_var_name}Query->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
@@ -129,11 +130,12 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request \$request)
     {
         \$editableCategory = null;
         \$categoryQuery = Category::query();
-        \$categoryQuery->where('title', 'like', '%'.request('q').'%');
+        \$categoryQuery->where('title', 'like', '%'.\$request->get('q').'%');
+        \$categoryQuery->orderBy('title');
         \$categories = \$categoryQuery->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
@@ -233,11 +235,12 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request \$request)
     {
         \$editableCategory = null;
         \$categoryQuery = Category::query();
-        \$categoryQuery->where('title', 'like', '%'.request('q').'%');
+        \$categoryQuery->where('title', 'like', '%'.\$request->get('q').'%');
+        \$categoryQuery->orderBy('title');
         \$categories = \$categoryQuery->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {

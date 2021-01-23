@@ -13,10 +13,11 @@ class MasterController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         $singleMstrQuery = Master::query();
-        $singleMstrQuery->where('title', 'like', '%'.request('q').'%');
+        $singleMstrQuery->where('title', 'like', '%'.$request->get('q').'%');
+        $singleMstrQuery->orderBy('title');
         $mstrCollections = $singleMstrQuery->paginate(25);
 
         return $mstrCollections;

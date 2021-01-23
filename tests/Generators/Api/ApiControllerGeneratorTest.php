@@ -27,10 +27,11 @@ class {$this->model_name}Controller extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request \$request)
     {
         \${$this->single_model_var_name}Query = {$this->model_name}::query();
-        \${$this->single_model_var_name}Query->where('title', 'like', '%'.request('q').'%');
+        \${$this->single_model_var_name}Query->where('title', 'like', '%'.\$request->get('q').'%');
+        \${$this->single_model_var_name}Query->orderBy('title');
         \${$this->collection_model_var_name} = \${$this->single_model_var_name}Query->paginate(25);
 
         return \${$this->collection_model_var_name};

@@ -26,10 +26,11 @@ class {$this->model_name}Controller extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request \$request)
     {
         \${$this->single_model_var_name}Query = {$this->model_name}::query();
-        \${$this->single_model_var_name}Query->where('title', 'like', '%'.request('q').'%');
+        \${$this->single_model_var_name}Query->where('title', 'like', '%'.\$request->get('q').'%');
+        \${$this->single_model_var_name}Query->orderBy('title');
         \${$this->collection_model_var_name} = \${$this->single_model_var_name}Query->paginate(25);
 
         return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}'));
@@ -156,10 +157,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request \$request)
     {
         \$categoryQuery = Category::query();
-        \$categoryQuery->where('title', 'like', '%'.request('q').'%');
+        \$categoryQuery->where('title', 'like', '%'.\$request->get('q').'%');
+        \$categoryQuery->orderBy('title');
         \$categories = \$categoryQuery->paginate(25);
 
         return view('categories.index', compact('categories'));
@@ -287,10 +289,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request \$request)
     {
         \$categoryQuery = Category::query();
-        \$categoryQuery->where('title', 'like', '%'.request('q').'%');
+        \$categoryQuery->where('title', 'like', '%'.\$request->get('q').'%');
+        \$categoryQuery->orderBy('title');
         \$categories = \$categoryQuery->paginate(25);
 
         return view('categories.index', compact('categories'));
