@@ -164,7 +164,7 @@ $ php artisan make:crud-api ModelName
 
 #### Model Attribute/column
 
-The Model and table will **only have 2 pre-definded** attributes or columns : **name** and **description** on each generated model and database table. You can continue working on other column on the table.
+The Model and table will **only have 2 pre-definded** attributes or columns : **title** and **description** on each generated model and database table. You can continue working on other column on the table.
 
 <br>
 
@@ -214,7 +214,7 @@ Example code for calling the generated API, using Guzzle:
     $uri = 'http://your-domain.com/api/vehicles';
     $headers = ['Authorization' => 'Bearer '.$apiToken];
     $payload = json_encode([
-        'name' => 'Vehicle Name 1',
+        'title' => 'Vehicle Name 1',
         'description' => 'Vehicle Description 1',
     ]);
 
@@ -278,8 +278,8 @@ Next, let us try the generated testing suite. To use the generated testing class
     <!-- ..... -->
     <php>
         <!-- ..... -->
-        <env name="DB_CONNECTION" value="sqlite"/>
-        <env name="DB_DATABASE" value=":memory:"/>
+        <server name="DB_CONNECTION" value="sqlite"/>
+        <server name="DB_DATABASE" value=":memory:"/>
     </php>
 </phpunit>
 ```

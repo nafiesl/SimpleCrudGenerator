@@ -9,7 +9,7 @@
             <div class="panel-heading"><h3 class="panel-title">{{ __('master.create') }}</h3></div>
             {{ Form::open(['route' => 'masters.store']) }}
             <div class="panel-body">
-                {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
+                {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
                 {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
             </div>
             <div class="panel-footer">

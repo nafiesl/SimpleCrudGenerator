@@ -2,8 +2,8 @@
 
 namespace Tests\Generators;
 
-use Tests\TestCase;
 use Illuminate\Contracts\Console\Kernel;
+use Tests\TestCase;
 
 class ViewsGeneratorTest extends TestCase
 {
@@ -45,7 +45,7 @@ class ViewsGeneratorTest extends TestCase
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>
-                        <th>{{ __('{$this->lang_name}.name') }}</th>
+                        <th>{{ __('{$this->lang_name}.title') }}</th>
                         <th>{{ __('{$this->lang_name}.description') }}</th>
                         <th class=\"text-center\">{{ __('app.action') }}</th>
                     </tr>
@@ -54,7 +54,7 @@ class ViewsGeneratorTest extends TestCase
                     @foreach(\${$this->collection_model_var_name} as \$key => \${$this->single_model_var_name})
                     <tr>
                         <td class=\"text-center\">{{ \${$this->collection_model_var_name}->firstItem() + \$key }}</td>
-                        <td>{!! \${$this->single_model_var_name}->name_link !!}</td>
+                        <td>{!! \${$this->single_model_var_name}->title_link !!}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                             @can('view', \${$this->single_model_var_name})
@@ -93,7 +93,7 @@ class ViewsGeneratorTest extends TestCase
             <div class=\"card-body\">
                 <table class=\"table table-sm\">
                     <tbody>
-                        <tr><td>{{ __('{$this->lang_name}.name') }}</td><td>{{ \${$this->single_model_var_name}->name }}</td></tr>
+                        <tr><td>{{ __('{$this->lang_name}.title') }}</td><td>{{ \${$this->single_model_var_name}->title }}</td></tr>
                         <tr><td>{{ __('{$this->lang_name}.description') }}</td><td>{{ \${$this->single_model_var_name}->description }}</td></tr>
                     </tbody>
                 </table>
@@ -132,9 +132,9 @@ class ViewsGeneratorTest extends TestCase
                 {{ csrf_field() }}
                 <div class=\"card-body\">
                     <div class=\"form-group\">
-                        <label for=\"name\" class=\"form-label\">{{ __('{$this->lang_name}.name') }} <span class=\"form-required\">*</span></label>
-                        <input id=\"name\" type=\"text\" class=\"form-control{{ \$errors->has('name') ? ' is-invalid' : '' }}\" name=\"name\" value=\"{{ old('name') }}\" required>
-                        {!! \$errors->first('name', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
+                        <label for=\"title\" class=\"form-label\">{{ __('{$this->lang_name}.title') }} <span class=\"form-required\">*</span></label>
+                        <input id=\"title\" type=\"text\" class=\"form-control{{ \$errors->has('title') ? ' is-invalid' : '' }}\" name=\"title\" value=\"{{ old('title') }}\" required>
+                        {!! \$errors->first('title', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
                     </div>
                     <div class=\"form-group\">
                         <label for=\"description\" class=\"form-label\">{{ __('{$this->lang_name}.description') }}</label>
@@ -174,8 +174,8 @@ class ViewsGeneratorTest extends TestCase
             <div class=\"card\">
                 <div class=\"card-header\">{{ __('{$this->lang_name}.delete') }}</div>
                 <div class=\"card-body\">
-                    <label class=\"form-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
-                    <p>{{ \${$this->single_model_var_name}->name }}</p>
+                    <label class=\"form-label text-primary\">{{ __('{$this->lang_name}.title') }}</label>
+                    <p>{{ \${$this->single_model_var_name}->title }}</p>
                     <label class=\"form-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
                     <p>{{ \${$this->single_model_var_name}->description }}</p>
                     {!! \$errors->first('{$this->lang_name}_id', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
@@ -199,9 +199,9 @@ class ViewsGeneratorTest extends TestCase
                 {{ csrf_field() }} {{ method_field('patch') }}
                 <div class=\"card-body\">
                     <div class=\"form-group\">
-                        <label for=\"name\" class=\"form-label\">{{ __('{$this->lang_name}.name') }} <span class=\"form-required\">*</span></label>
-                        <input id=\"name\" type=\"text\" class=\"form-control{{ \$errors->has('name') ? ' is-invalid' : '' }}\" name=\"name\" value=\"{{ old('name', \${$this->single_model_var_name}->name) }}\" required>
-                        {!! \$errors->first('name', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
+                        <label for=\"title\" class=\"form-label\">{{ __('{$this->lang_name}.title') }} <span class=\"form-required\">*</span></label>
+                        <input id=\"title\" type=\"text\" class=\"form-control{{ \$errors->has('title') ? ' is-invalid' : '' }}\" name=\"title\" value=\"{{ old('title', \${$this->single_model_var_name}->title) }}\" required>
+                        {!! \$errors->first('title', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
                     </div>
                     <div class=\"form-group\">
                         <label for=\"description\" class=\"form-label\">{{ __('{$this->lang_name}.description') }}</label>

@@ -26,7 +26,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
-                        <th>{{ __('master.name') }}</th>
+                        <th>{{ __('master.title') }}</th>
                         <th>{{ __('master.description') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
@@ -35,7 +35,7 @@
                     @foreach($mstrCollections as $key => $singleMstr)
                     <tr>
                         <td class="text-center">{{ $mstrCollections->firstItem() + $key }}</td>
-                        <td>{{ $singleMstr->name }}</td>
+                        <td>{{ $singleMstr->title }}</td>
                         <td>{{ $singleMstr->description }}</td>
                         <td class="text-center">
                             @can('update', $singleMstr)

@@ -70,7 +70,7 @@ class FullCrudFormfieldBs3OptionsTest extends TestCase
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>
-                        <th>{{ __('{$this->lang_name}.name') }}</th>
+                        <th>{{ __('{$this->lang_name}.title') }}</th>
                         <th>{{ __('{$this->lang_name}.description') }}</th>
                         <th class=\"text-center\">{{ __('app.action') }}</th>
                     </tr>
@@ -79,7 +79,7 @@ class FullCrudFormfieldBs3OptionsTest extends TestCase
                     @foreach(\${$this->collection_model_var_name} as \$key => \${$this->single_model_var_name})
                     <tr>
                         <td class=\"text-center\">{{ \${$this->collection_model_var_name}->firstItem() + \$key }}</td>
-                        <td>{{ \${$this->single_model_var_name}->name_link }}</td>
+                        <td>{{ \${$this->single_model_var_name}->title_link }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                             @can('view', \${$this->single_model_var_name})
@@ -123,7 +123,7 @@ class FullCrudFormfieldBs3OptionsTest extends TestCase
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.detail') }}</h3></div>
             <table class=\"table table-condensed\">
                 <tbody>
-                    <tr><td>{{ __('{$this->lang_name}.name') }}</td><td>{{ \${$this->single_model_var_name}->name }}</td></tr>
+                    <tr><td>{{ __('{$this->lang_name}.title') }}</td><td>{{ \${$this->single_model_var_name}->title }}</td></tr>
                     <tr><td>{{ __('{$this->lang_name}.description') }}</td><td>{{ \${$this->single_model_var_name}->description }}</td></tr>
                 </tbody>
             </table>
@@ -159,7 +159,7 @@ class FullCrudFormfieldBs3OptionsTest extends TestCase
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.create') }}</h3></div>
             {{ Form::open(['route' => '{$this->table_name}.store']) }}
             <div class=\"panel-body\">
-                {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+                {!! FormField::text('title', ['required' => true, 'label' => __('{$this->lang_name}.title')]) !!}
                 {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
             </div>
             <div class=\"panel-footer\">
@@ -194,8 +194,8 @@ class FullCrudFormfieldBs3OptionsTest extends TestCase
             <div class=\"panel panel-default\">
                 <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.delete') }}</h3></div>
                 <div class=\"panel-body\">
-                    <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
-                    <p>{{ \${$this->single_model_var_name}->name }}</p>
+                    <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.title') }}</label>
+                    <p>{{ \${$this->single_model_var_name}->title }}</p>
                     <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
                     <p>{{ \${$this->single_model_var_name}->description }}</p>
                     {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}
@@ -218,7 +218,7 @@ class FullCrudFormfieldBs3OptionsTest extends TestCase
             <div class=\"panel-heading\"><h3 class=\"panel-title\">{{ __('{$this->lang_name}.edit') }}</h3></div>
             {{ Form::model(\${$this->single_model_var_name}, ['route' => ['{$this->table_name}.update', \${$this->single_model_var_name}], 'method' => 'patch']) }}
             <div class=\"panel-body\">
-                {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+                {!! FormField::text('title', ['required' => true, 'label' => __('{$this->lang_name}.title')]) !!}
                 {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
             </div>
             <div class=\"panel-footer\">

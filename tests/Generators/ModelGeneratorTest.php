@@ -26,16 +26,16 @@ class {$this->model_name} extends Model
 {
     use HasFactory;
 
-    protected \$fillable = ['name', 'description', 'creator_id'];
+    protected \$fillable = ['title', 'description', 'creator_id'];
 
-    public function getNameLinkAttribute()
+    public function getTitleLinkAttribute()
     {
         \$title = __('app.show_detail_title', [
-            'name' => \$this->name, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
+            'title' => \$this->title, 'type' => __('{$this->lang_name}.{$this->lang_name}'),
         ]);
         \$link = '<a href=\"'.route('{$this->table_name}.show', \$this).'\"';
         \$link .= ' title=\"'.\$title.'\">';
-        \$link .= \$this->name;
+        \$link .= \$this->title;
         \$link .= '</a>';
 
         return \$link;
@@ -70,16 +70,16 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected \$fillable = ['name', 'description', 'creator_id'];
+    protected \$fillable = ['title', 'description', 'creator_id'];
 
-    public function getNameLinkAttribute()
+    public function getTitleLinkAttribute()
     {
         \$title = __('app.show_detail_title', [
-            'name' => \$this->name, 'type' => __('category.category'),
+            'title' => \$this->title, 'type' => __('category.category'),
         ]);
         \$link = '<a href=\"'.route('categories.show', \$this).'\"';
         \$link .= ' title=\"'.\$title.'\">';
-        \$link .= \$this->name;
+        \$link .= \$this->title;
         \$link .= '</a>';
 
         return \$link;

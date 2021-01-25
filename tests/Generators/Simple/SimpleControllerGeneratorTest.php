@@ -26,11 +26,12 @@ class {$this->model_name}Controller extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request \$request)
     {
         \$editable{$this->model_name} = null;
         \${$this->single_model_var_name}Query = {$this->model_name}::query();
-        \${$this->single_model_var_name}Query->where('name', 'like', '%'.request('q').'%');
+        \${$this->single_model_var_name}Query->where('title', 'like', '%'.\$request->get('q').'%');
+        \${$this->single_model_var_name}Query->orderBy('title');
         \${$this->collection_model_var_name} = \${$this->single_model_var_name}Query->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
@@ -51,7 +52,7 @@ class {$this->model_name}Controller extends Controller
         \$this->authorize('create', new {$this->model_name});
 
         \$new{$this->model_name} = \$request->validate([
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$new{$this->model_name}['creator_id'] = auth()->id();
@@ -73,7 +74,7 @@ class {$this->model_name}Controller extends Controller
         \$this->authorize('update', \${$this->single_model_var_name});
 
         \${$this->single_model_var_name}Data = \$request->validate([
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \${$this->single_model_var_name}->update(\${$this->single_model_var_name}Data);
@@ -129,11 +130,12 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request \$request)
     {
         \$editableCategory = null;
         \$categoryQuery = Category::query();
-        \$categoryQuery->where('name', 'like', '%'.request('q').'%');
+        \$categoryQuery->where('title', 'like', '%'.\$request->get('q').'%');
+        \$categoryQuery->orderBy('title');
         \$categories = \$categoryQuery->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
@@ -154,7 +156,7 @@ class CategoryController extends Controller
         \$this->authorize('create', new Category);
 
         \$newCategory = \$request->validate([
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$newCategory['creator_id'] = auth()->id();
@@ -176,7 +178,7 @@ class CategoryController extends Controller
         \$this->authorize('update', \$category);
 
         \$categoryData = \$request->validate([
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$category->update(\$categoryData);
@@ -233,11 +235,12 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request \$request)
     {
         \$editableCategory = null;
         \$categoryQuery = Category::query();
-        \$categoryQuery->where('name', 'like', '%'.request('q').'%');
+        \$categoryQuery->where('title', 'like', '%'.\$request->get('q').'%');
+        \$categoryQuery->orderBy('title');
         \$categories = \$categoryQuery->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
@@ -258,7 +261,7 @@ class CategoryController extends Controller
         \$this->authorize('create', new Category);
 
         \$newCategory = \$request->validate([
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$newCategory['creator_id'] = auth()->id();
@@ -280,7 +283,7 @@ class CategoryController extends Controller
         \$this->authorize('update', \$category);
 
         \$categoryData = \$request->validate([
-            'name'        => 'required|max:60',
+            'title'       => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$category->update(\$categoryData);

@@ -10,8 +10,8 @@
             <div class="card">
                 <div class="card-header">{{ __('master.delete') }}</div>
                 <div class="card-body">
-                    <label class="control-label text-primary">{{ __('master.name') }}</label>
-                    <p>{{ $singleMstr->name }}</p>
+                    <label class="control-label text-primary">{{ __('master.title') }}</label>
+                    <p>{{ $singleMstr->title }}</p>
                     <label class="control-label text-primary">{{ __('master.description') }}</label>
                     <p>{{ $singleMstr->description }}</p>
                     {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
@@ -34,7 +34,7 @@
             <div class="card-header">{{ __('master.edit') }}</div>
             {{ Form::model($singleMstr, ['route' => ['masters.update', $singleMstr], 'method' => 'patch']) }}
             <div class="card-body">
-                {!! FormField::text('name', ['required' => true, 'label' => __('master.name')]) !!}
+                {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
                 {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
             </div>
             <div class="card-footer">

@@ -68,7 +68,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
                 <thead>
                     <tr>
                         <th class=\"text-center\">{{ __('app.table_no') }}</th>
-                        <th>{{ __('{$this->lang_name}.name') }}</th>
+                        <th>{{ __('{$this->lang_name}.title') }}</th>
                         <th>{{ __('{$this->lang_name}.description') }}</th>
                         <th class=\"text-center\">{{ __('app.action') }}</th>
                     </tr>
@@ -77,7 +77,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
                     @foreach(\${$this->collection_model_var_name} as \$key => \${$this->single_model_var_name})
                     <tr>
                         <td class=\"text-center\">{{ \${$this->collection_model_var_name}->firstItem() + \$key }}</td>
-                        <td>{{ \${$this->single_model_var_name}->name }}</td>
+                        <td>{{ \${$this->single_model_var_name}->title }}</td>
                         <td>{{ \${$this->single_model_var_name}->description }}</td>
                         <td class=\"text-center\">
                             @can('update', \${$this->single_model_var_name})
@@ -117,7 +117,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
         $formViewContent = "@if (Request::get('action') == 'create')
 @can('create', new {$this->full_model_name})
     {{ Form::open(['route' => '{$this->table_name}.store']) }}
-    {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+    {!! FormField::text('title', ['required' => true, 'label' => __('{$this->lang_name}.title')]) !!}
     {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
     {{ Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) }}
     {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
@@ -127,7 +127,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
 @if (Request::get('action') == 'edit' && \$editable{$this->model_name})
 @can('update', \$editable{$this->model_name})
     {{ Form::model(\$editable{$this->model_name}, ['route' => ['{$this->table_name}.update', \$editable{$this->model_name}], 'method' => 'patch']) }}
-    {!! FormField::text('name', ['required' => true, 'label' => __('{$this->lang_name}.name')]) !!}
+    {!! FormField::text('title', ['required' => true, 'label' => __('{$this->lang_name}.title')]) !!}
     {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
     @if (request('q'))
         {{ Form::hidden('q', request('q')) }}
@@ -153,8 +153,8 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     <div class=\"card\">
         <div class=\"card-header\">{{ __('{$this->lang_name}.delete') }}</div>
         <div class=\"card-body\">
-            <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.name') }}</label>
-            <p>{{ \$editable{$this->model_name}->name }}</p>
+            <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.title') }}</label>
+            <p>{{ \$editable{$this->model_name}->title }}</p>
             <label class=\"control-label text-primary\">{{ __('{$this->lang_name}.description') }}</label>
             <p>{{ \$editable{$this->model_name}->description }}</p>
             {!! \$errors->first('{$this->lang_name}_id', '<span class=\"form-error small\">:message</span>') !!}

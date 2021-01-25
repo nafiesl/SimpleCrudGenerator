@@ -30,12 +30,10 @@ class Create{$this->plural_model_name}Table extends Migration
     {
         Schema::create('{$this->table_name}', function (Blueprint \$table) {
             \$table->bigIncrements('id');
-            \$table->string('name', 60);
+            \$table->string('title', 60);
             \$table->string('description')->nullable();
-            \$table->unsignedBigInteger('creator_id');
+            \$table->foreignId('creator_id')->constrained('users')->onDelete('restrict');
             \$table->timestamps();
-
-            \$table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
