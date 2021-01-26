@@ -116,6 +116,12 @@ abstract class BaseGenerator implements GeneratorContract
      */
     protected function getStubFileContent(string $stubName)
     {
+        $publishedStubPath = base_path('stubs/simple-crud/'.$stubName.'.stub');
+
+        if (is_file($publishedStubPath)) {
+            return $this->files->get($publishedStubPath);
+        }
+
         return $this->files->get(__DIR__.'/../stubs/'.$stubName.'.stub');
     }
 
