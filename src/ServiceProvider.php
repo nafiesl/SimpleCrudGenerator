@@ -27,5 +27,9 @@ class ServiceProvider extends BaseServiceProvider
         $this->publishes([
             __DIR__.'/config.php' => config_path('simple-crud.php'),
         ], 'config');
+
+        $this->publishes([
+            __DIR__.'/stubs' => base_path('stubs/simple-crud'),
+        ], 'stubs');
     }
 }
