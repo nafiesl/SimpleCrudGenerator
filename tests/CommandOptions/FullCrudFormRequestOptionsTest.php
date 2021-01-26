@@ -57,6 +57,7 @@ class {$this->model_name}Controller extends Controller
     /**
      * Display a listing of the {$this->single_model_var_name}.
      *
+     * @param  \Illuminate\Http\Request  \$request
      * @return \Illuminate\View\View
      */
     public function index(Request \$request)

@@ -12,6 +12,7 @@ class MasterController extends Controller
     /**
      * Display a listing of the singleMstr.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
