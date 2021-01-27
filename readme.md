@@ -254,6 +254,18 @@ return [
 
 <br>
 
+## Publishing Stub Files
+
+Stub files is the templates which we use to generate the code for each model classes and files. We can customize the stub files as we needed by publishing them to our project directory.
+
+```bash
+$ php artisan vendor:publish --provider="Luthfi\CrudGenerator\ServiceProvider" --tag=stubs
+```
+
+That will generate stub files on `stubs/simple-crud` directory. Now we can change some stub files based on our project needs.
+
+<br>
+
 ## Attention
 
 - The package will creates the **Model** class file, the command will stop if the **Model already exists**.
