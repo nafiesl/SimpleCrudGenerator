@@ -218,7 +218,7 @@ The generated functional tests will give you examples of how to adapt this code 
 You can configure your own by publishing the config file:
 
 ```bash
-$ php artisan vendor:publish --provider="Luthfi\CrudGenerator\ServiceProvider"
+$ php artisan vendor:publish --provider="Luthfi\CrudGenerator\ServiceProvider" --tag=config
 ```
 
 That will generate `config/simple-crud.php` file.
@@ -239,6 +239,18 @@ return [
     'base_test_class' => 'Tests\BrowserKitTest',
 ];
 ```
+
+<br>
+
+## Publishing Stub Files
+
+Stub files is the templates which we use to generate the code for each model classes and files. We can customize the stub files as we needed by publishing them to our project directory.
+
+```bash
+$ php artisan vendor:publish --provider="Luthfi\CrudGenerator\ServiceProvider" --tag=stubs
+```
+
+That will generate stub files on `stubs/simple-crud` directory. Now we can change some stub files based on our project needs.
 
 <br>
 
