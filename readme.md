@@ -230,7 +230,7 @@ The generated functional tests will give you examples of how to adapt this code 
 You can configure your own by publishing the config file:
 
 ```bash
-$ php artisan vendor:publish --provider="Luthfi\CrudGenerator\ServiceProvider"
+$ php artisan vendor:publish --provider="Luthfi\CrudGenerator\ServiceProvider" --tag=config
 ```
 
 That will generate `config/simple-crud.php` file.
