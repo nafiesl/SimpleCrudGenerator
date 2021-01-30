@@ -4,7 +4,9 @@
 
 Need faster TDD in Laravel project? This is a simple CRUD generator complete with automated testing suite.
 
-<br>
+## Documentation
+
+For installation instructions and usage, please take a look at the [official documentation](https://nafiesl.github.io/SimpleCrudGenerator/docs/).
 
 ## About this package
 
