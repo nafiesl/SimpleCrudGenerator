@@ -74,4 +74,45 @@ class {$this->model_name}Factory extends Factory
         $this->assertEquals($modelFactoryContent, file_get_contents($modelFactoryPath));
         $this->removeFileOrDir(base_path('stubs'));
     }
+
+    /** @test */
+    public function it_doesnt_override_the_existing_model_factory_content()
+    {
+        // $this->artisan('make:model', ['name' => 'Models/'.$this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:factory', ['name' => $this->model_name.'Factory', '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $modelFactoryPath = database_path('factories/'.$this->model_name.'Factory.php');
+        $this->assertFileExists($modelFactoryPath);
+        $modelFactoryContent = "<?php
+
+namespace Database\Factories;
+
+use App\Model;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class {$this->model_name}Factory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected \$model = Model::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            //
+        ];
+    }
+}
+";
+        $this->assertEquals($modelFactoryContent, file_get_contents($modelFactoryPath));
+    }
 }
