@@ -78,7 +78,6 @@ class {$this->model_name}Factory extends Factory
     /** @test */
     public function it_doesnt_override_the_existing_model_factory_content()
     {
-        // $this->artisan('make:model', ['name' => 'Models/'.$this->model_name, '--no-interaction' => true]);
         $this->artisan('make:factory', ['name' => $this->model_name.'Factory', '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 

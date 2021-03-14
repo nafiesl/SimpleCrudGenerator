@@ -239,7 +239,6 @@ class AuthServiceProvider extends ServiceProvider
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $modelPolicyPath = app_path('Policies/'.$this->model_name.'Policy.php');
-        // dd(file_get_contents($modelPolicyPath));
         $this->assertFileExists($modelPolicyPath);
         $modelPolicyContent = "<?php
 
