@@ -229,4 +229,40 @@ class AuthServiceProvider extends ServiceProvider
 ";
         $this->assertEquals($authSPContent, file_get_contents($authSPPath));
     }
+
+    /** @test */
+    public function it_doesnt_override_the_existing_model_policy_content()
+    {
+        $userModel = config('auth.providers.users.model');
+
+        $this->artisan('make:policy', ['name' => $this->model_name.'Policy', '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $modelPolicyPath = app_path('Policies/'.$this->model_name.'Policy.php');
+        // dd(file_get_contents($modelPolicyPath));
+        $this->assertFileExists($modelPolicyPath);
+        $modelPolicyContent = "<?php
+
+namespace App\Policies;
+
+use Illuminate\Auth\Access\HandlesAuthorization;
+use {$userModel};
+
+class {$this->model_name}Policy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+}
+";
+        $this->assertEquals($modelPolicyContent, file_get_contents($modelPolicyPath));
+    }
 }
