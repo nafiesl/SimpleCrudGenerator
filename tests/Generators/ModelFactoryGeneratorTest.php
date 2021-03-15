@@ -74,4 +74,28 @@ class {$this->model_name}Factory extends Factory
         $this->assertEquals($modelFactoryContent, file_get_contents($modelFactoryPath));
         $this->removeFileOrDir(base_path('stubs'));
     }
+
+    /** @test */
+    public function it_doesnt_override_the_existing_model_factory_content()
+    {
+        $this->artisan('make:factory', ['name' => $this->model_name.'Factory', '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+
+        $modelFactoryPath = database_path('factories/'.$this->model_name.'Factory.php');
+        $this->assertFileExists($modelFactoryPath);
+        $modelFactoryContent = "<?php
+
+/* @var \$factory \Illuminate\Database\Eloquent\Factory */
+
+use App\Model;
+use Faker\Generator as Faker;
+
+\$factory->define(Model::class, function (Faker \$faker) {
+    return [
+        //
+    ];
+});
+";
+        $this->assertEquals($modelFactoryContent, file_get_contents($modelFactoryPath));
+    }
 }

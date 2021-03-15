@@ -89,4 +89,28 @@ class Category extends Model
         $this->removeFileOrDir(resource_path('views/categories'));
         $this->removeFileOrDir(resource_path("lang/en/category.php"));
     }
+
+    /** @test */
+    public function it_doesnt_override_the_existing_model()
+    {
+        $this->mockConsoleOutput = true;
+        $this->artisan('make:model', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true])
+            ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', true);
+
+        $modelPath = app_path($this->model_name.'.php');
+        $this->assertFileExists($modelPath);
+        $modelClassContent = "<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class {$this->model_name} extends Model
+{
+    //
+}
+";
+        $this->assertEquals($modelClassContent, file_get_contents($modelPath));
+    }
 }

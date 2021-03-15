@@ -17,11 +17,14 @@ class ModelPolicyGenerator extends BaseGenerator
             $parentDirectory = '/'.$this->command->option('parent');
         }
         $modelPolicyPath = $this->makeDirectory(app_path('Policies'.$parentDirectory));
+        $modelPolicyClassPath = $modelPolicyPath.'/'.$this->modelNames['model_name'].'Policy.php';
 
-        $this->generateFile(
-            $modelPolicyPath.'/'.$this->modelNames['model_name'].'Policy.php',
-            $this->getContent('models/model-policy')
-        );
+        if ($this->files->exists($modelPolicyClassPath)) {
+            $this->command->warn('Use the existing '.$this->modelNames['model_name'].' model policy.');
+            return;
+        }
+
+        $this->generateFile($modelPolicyClassPath, $this->getContent('models/model-policy'));
 
         $this->command->info($this->modelNames['model_name'].' model policy generated.');
 
