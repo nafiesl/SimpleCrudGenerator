@@ -20,6 +20,7 @@ class ModelPolicyGenerator extends BaseGenerator
         $modelPolicyClassPath = $modelPolicyPath.'/'.$this->modelNames['model_name'].'Policy.php';
 
         if ($this->files->exists($modelPolicyClassPath)) {
+            $this->command->warn('Use the existing '.$this->modelNames['model_name'].' model policy.');
             return;
         }
 

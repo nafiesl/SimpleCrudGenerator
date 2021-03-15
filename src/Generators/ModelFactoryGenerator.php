@@ -16,6 +16,7 @@ class ModelFactoryGenerator extends BaseGenerator
         $modelFactoryClassPath = $modelFactoryPath.'/'.$this->modelNames['model_name'].'Factory.php';
 
         if ($this->files->exists($modelFactoryClassPath)) {
+            $this->command->warn('Use the existing '.$this->modelNames['model_name'].' model factory.');
             return;
         }
 

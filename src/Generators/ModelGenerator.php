@@ -17,6 +17,7 @@ class ModelGenerator extends BaseGenerator
         $modelClassPath = $modelDirectory.'/'.$this->modelNames['model_name'].'.php';
 
         if ($this->files->exists($modelClassPath)) {
+            $this->command->warn('Use the existing '.$this->modelNames['model_name'].' model.');
             return;
         }
 
