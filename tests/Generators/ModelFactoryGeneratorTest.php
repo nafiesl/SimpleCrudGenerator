@@ -85,32 +85,16 @@ class {$this->model_name}Factory extends Factory
         $this->assertFileExists($modelFactoryPath);
         $modelFactoryContent = "<?php
 
-namespace Database\Factories;
+/* @var \$factory \Illuminate\Database\Eloquent\Factory */
 
 use App\Model;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Faker\Generator as Faker;
 
-class {$this->model_name}Factory extends Factory
-{
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected \$model = Model::class;
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
-        return [
-            //
-        ];
-    }
-}
+\$factory->define(Model::class, function (Faker \$faker) {
+    return [
+        //
+    ];
+});
 ";
         $this->assertEquals($modelFactoryContent, file_get_contents($modelFactoryPath));
     }

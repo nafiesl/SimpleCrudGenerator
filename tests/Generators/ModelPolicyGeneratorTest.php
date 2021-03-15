@@ -244,8 +244,8 @@ class AuthServiceProvider extends ServiceProvider
 
 namespace App\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
 use {$userModel};
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class {$this->model_name}Policy
 {

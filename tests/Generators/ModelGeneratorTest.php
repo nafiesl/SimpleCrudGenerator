@@ -94,8 +94,7 @@ class Category extends Model
     public function it_doesnt_override_the_existing_model()
     {
         $this->mockConsoleOutput = true;
-        config(['auth.providers.users.model' => 'App\Models\User']);
-        $this->artisan('make:model', ['name' => 'Models/'.$this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:model', ['name' => $this->model_name, '--no-interaction' => true]);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true])
             ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', true);
 
@@ -105,12 +104,11 @@ class Category extends Model
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class {$this->model_name} extends Model
 {
-    use HasFactory;
+    //
 }
 ";
         $this->assertEquals($modelClassContent, file_get_contents($modelPath));
