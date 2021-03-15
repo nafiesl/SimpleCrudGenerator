@@ -14,11 +14,14 @@ class ModelGenerator extends BaseGenerator
     {
         $modelPath = $this->modelNames['model_path'];
         $modelDirectory = $this->makeDirectory(app_path($modelPath));
+        $modelClassPath = $modelDirectory.'/'.$this->modelNames['model_name'].'.php';
 
-        $this->generateFile(
-            $modelDirectory.'/'.$this->modelNames['model_name'].'.php',
-            $this->getContent('models/model')
-        );
+        if ($this->files->exists($modelClassPath)) {
+            $this->command->warn('Use the existing '.$this->modelNames['model_name'].' model.');
+            return;
+        }
+
+        $this->generateFile($modelClassPath, $this->getContent('models/model'));
 
         $this->command->info($this->modelNames['model_name'].' model generated.');
     }
