@@ -98,11 +98,11 @@ class Category extends Model
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true])
             ->expectsQuestion('Model file exists, are you sure to generate CRUD files?', true);
 
-        $modelPath = app_path('Models/'.$this->model_name.'.php');
+        $modelPath = app_path($this->model_name.'.php');
         $this->assertFileExists($modelPath);
         $modelClassContent = "<?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
