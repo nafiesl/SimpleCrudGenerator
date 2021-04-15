@@ -14,7 +14,8 @@ class CrudMake extends GeneratorCommand
                             {--t|tests-only : Generate CRUD testcases only}
                             {--f|formfield : Generate CRUD with FormField facades}
                             {--r|form-requests : Generate CRUD with Form Request on create and update actions}
-                            {--bs3 : Generate CRUD with Bootstrap 3 views}';
+                            {--bs3 : Generate CRUD with Bootstrap 3 views}
+                            {--uuid : Generate CRUD with UUID primary keys}';
 
     /**
      * The console command description.

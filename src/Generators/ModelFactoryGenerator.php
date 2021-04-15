@@ -41,6 +41,12 @@ class ModelFactoryGenerator extends BaseGenerator
             $modelFactoryFileContent = str_replace('App\User', $userModel, $modelFactoryFileContent);
         }
 
+        if ($this->command->option('uuid')) {
+            $string = "'title'       => \$this->faker->word,\n";
+            $replacement = "'id'       => \$this->faker->uuid,\n            'title'       => \$this->faker->word,\n";
+            $modelFactoryFileContent = str_replace($string, $replacement, $modelFactoryFileContent);
+        }
+
         return $this->replaceStubString($modelFactoryFileContent);
     }
 }
