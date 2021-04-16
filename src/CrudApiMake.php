@@ -13,7 +13,8 @@ class CrudApiMake extends GeneratorCommand
                             {--p|parent= : The generated API controller parent directory}
                             {--t|tests-only : Generate API CRUD testcases only}
                             {--r|form-requests : Generate CRUD with Form Request on create and update actions}
-                            {--f|formfield : Generate CRUD with FormField facades}';
+                            {--f|formfield : Generate CRUD with FormField facades}
+                            {--uuid : Generate CRUD with UUID primary keys}';
 
     /**
      * The console command description.

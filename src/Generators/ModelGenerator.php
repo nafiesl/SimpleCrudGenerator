@@ -43,6 +43,14 @@ class ModelGenerator extends BaseGenerator
             $modelFileContent = str_replace('App\User', $userModel, $modelFileContent);
         }
 
+        if ($this->command->option('uuid')) {
+            $string = "protected \$fillable = ['title', 'description', 'creator_id'];\n";
+            $replacement = "public \$incrementing = false;\n\n";
+            $replacement .= "    protected \$keyType = 'string';\n\n";
+            $replacement .= "    protected \$fillable = ['id', 'title', 'description', 'creator_id'];\n";
+            $modelFileContent = str_replace($string, $replacement, $modelFileContent);
+        }
+
         return $this->replaceStubString($modelFileContent);
     }
 }
