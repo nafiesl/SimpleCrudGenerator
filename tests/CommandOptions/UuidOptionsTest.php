@@ -237,4 +237,138 @@ class {$this->model_name}Controller extends Controller
 ";
         $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->model_name}Controller.php")));
     }
+
+    /** @test */
+    public function it_creates_correct_full_controller_class_content_for_uuid_primary_key()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--uuid' => true, '--no-interaction' => true]);
+
+        $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
+        $ctrlClassContent = "<?php
+
+namespace App\Http\Controllers;
+
+use {$this->full_model_name};
+use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
+
+class {$this->model_name}Controller extends Controller
+{
+    /**
+     * Display a listing of the {$this->single_model_var_name}.
+     *
+     * @param  \Illuminate\Http\Request  \$request
+     * @return \Illuminate\View\View
+     */
+    public function index(Request \$request)
+    {
+        \${$this->single_model_var_name}Query = {$this->model_name}::query();
+        \${$this->single_model_var_name}Query->where('title', 'like', '%'.\$request->get('q').'%');
+        \${$this->single_model_var_name}Query->orderBy('title');
+        \${$this->collection_model_var_name} = \${$this->single_model_var_name}Query->paginate(25);
+
+        return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}'));
+    }
+
+    /**
+     * Show the form for creating a new {$this->single_model_var_name}.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        \$this->authorize('create', new {$this->model_name});
+
+        return view('{$this->table_name}.create');
+    }
+
+    /**
+     * Store a newly created {$this->single_model_var_name} in storage.
+     *
+     * @param  \Illuminate\Http\Request  \$request
+     * @return \Illuminate\Routing\Redirector
+     */
+    public function store(Request \$request)
+    {
+        \$this->authorize('create', new {$this->model_name});
+
+        \$new{$this->model_name} = \$request->validate([
+            'title'       => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ]);
+        \$new{$this->model_name}['id'] = Uuid::uuid4()->toString();
+        \$new{$this->model_name}['creator_id'] = auth()->id();
+
+        \${$this->single_model_var_name} = {$this->model_name}::create(\$new{$this->model_name});
+
+        return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
+    }
+
+    /**
+     * Display the specified {$this->single_model_var_name}.
+     *
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\View\View
+     */
+    public function show({$this->model_name} \${$this->single_model_var_name})
+    {
+        return view('{$this->table_name}.show', compact('{$this->single_model_var_name}'));
+    }
+
+    /**
+     * Show the form for editing the specified {$this->single_model_var_name}.
+     *
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\View\View
+     */
+    public function edit({$this->model_name} \${$this->single_model_var_name})
+    {
+        \$this->authorize('update', \${$this->single_model_var_name});
+
+        return view('{$this->table_name}.edit', compact('{$this->single_model_var_name}'));
+    }
+
+    /**
+     * Update the specified {$this->single_model_var_name} in storage.
+     *
+     * @param  \Illuminate\Http\Request  \$request
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\Routing\Redirector
+     */
+    public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
+    {
+        \$this->authorize('update', \${$this->single_model_var_name});
+
+        \${$this->single_model_var_name}Data = \$request->validate([
+            'title'       => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ]);
+        \${$this->single_model_var_name}->update(\${$this->single_model_var_name}Data);
+
+        return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
+    }
+
+    /**
+     * Remove the specified {$this->single_model_var_name} from storage.
+     *
+     * @param  \Illuminate\Http\Request  \$request
+     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
+     * @return \Illuminate\Routing\Redirector
+     */
+    public function destroy(Request \$request, {$this->model_name} \${$this->single_model_var_name})
+    {
+        \$this->authorize('delete', \${$this->single_model_var_name});
+
+        \$request->validate(['{$this->lang_name}_id' => 'required']);
+
+        if (\$request->get('{$this->lang_name}_id') == \${$this->single_model_var_name}->id && \${$this->single_model_var_name}->delete()) {
+            return redirect()->route('{$this->table_name}.index');
+        }
+
+        return back();
+    }
+}
+";
+        $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->model_name}Controller.php")));
+    }
 }

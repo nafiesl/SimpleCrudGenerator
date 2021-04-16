@@ -78,7 +78,7 @@ class ControllerGenerator extends BaseGenerator
             $replacement = "use Illuminate\Http\Request;\nuse Ramsey\Uuid\Uuid;\n";
             $controllerFileContent = str_replace($string, $replacement, $controllerFileContent);
 
-            $string = "\$newMemberType['creator_id'] = auth()->id();\n";
+            $string = "\$new{$this->modelNames['model_name']}['creator_id'] = auth()->id();\n";
             $replacement = "\$new{$this->modelNames['model_name']}['id'] = Uuid::uuid4()->toString();\n";
             $replacement .= "        \$new{$this->modelNames['model_name']}['creator_id'] = auth()->id();\n";
 
