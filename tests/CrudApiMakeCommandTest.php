@@ -115,7 +115,7 @@ class CrudApiMakeCommandTest extends TestCase
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
 
         $this->assertFileExists(app_path("Policies/{$modelName}Policy.php"));
-        $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
+        $this->assertFileExists(database_path("factories/{$inputName}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
         $this->assertFileExists(base_path("tests/Unit/Policies/{$modelName}PolicyTest.php"));
         $this->assertFileExists(base_path("tests/Feature/Api/Manage{$modelName}Test.php"));
@@ -148,7 +148,7 @@ class CrudApiMakeCommandTest extends TestCase
         $localeConfig = config('app.locale');
         $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
 
-        $this->assertFileExists(database_path("factories/{$modelName}Factory.php"));
+        $this->assertFileExists(database_path("factories/{$inputName}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));
         $this->assertFileExists(base_path("tests/Unit/Policies/{$modelName}PolicyTest.php"));
         $this->assertFileExists(app_path("Policies/{$parentName}/{$modelName}Policy.php"));

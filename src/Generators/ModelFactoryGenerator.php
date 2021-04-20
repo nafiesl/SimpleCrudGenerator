@@ -12,7 +12,11 @@ class ModelFactoryGenerator extends BaseGenerator
      */
     public function generate(string $type = 'full')
     {
-        $modelFactoryPath = $this->makeDirectory(database_path('factories'));
+        $modelFactoryPath = database_path('factories');
+        if ($this->modelNames['model_path'] != 'Models') {
+            $modelFactoryPath .= '/'.$this->modelNames['model_path'];
+        }
+        $modelFactoryPath = $this->makeDirectory($modelFactoryPath);
         $modelFactoryClassPath = $modelFactoryPath.'/'.$this->modelNames['model_name'].'Factory.php';
 
         if ($this->files->exists($modelFactoryClassPath)) {
