@@ -51,6 +51,12 @@ class ModelFactoryGenerator extends BaseGenerator
             $modelFactoryFileContent = str_replace($string, $replacement, $modelFactoryFileContent);
         }
 
+        if ($this->modelNames['model_path'] != 'Models') {
+            $string = 'Database\Factories';
+            $replacement = $string.'\\'.str_replace('/', '\\', $this->modelNames['model_path']);
+            $modelFactoryFileContent = str_replace($string, $replacement, $modelFactoryFileContent);
+        }
+
         return $this->replaceStubString($modelFactoryFileContent);
     }
 }
