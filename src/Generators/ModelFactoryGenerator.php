@@ -12,7 +12,11 @@ class ModelFactoryGenerator extends BaseGenerator
      */
     public function generate(string $type = 'full')
     {
-        $modelFactoryPath = $this->makeDirectory(database_path('factories'));
+        $modelFactoryPath = database_path('factories');
+        if ($this->modelNames['model_path'] != 'Models') {
+            $modelFactoryPath .= '/'.$this->modelNames['model_path'];
+        }
+        $modelFactoryPath = $this->makeDirectory($modelFactoryPath);
         $modelFactoryClassPath = $modelFactoryPath.'/'.$this->modelNames['model_name'].'Factory.php';
 
         if ($this->files->exists($modelFactoryClassPath)) {
@@ -44,6 +48,12 @@ class ModelFactoryGenerator extends BaseGenerator
         if ($this->command->option('uuid')) {
             $string = "'title'       => \$this->faker->word,\n";
             $replacement = "'id'       => \$this->faker->uuid,\n            'title'       => \$this->faker->word,\n";
+            $modelFactoryFileContent = str_replace($string, $replacement, $modelFactoryFileContent);
+        }
+
+        if ($this->modelNames['model_path'] != 'Models') {
+            $string = 'Database\Factories';
+            $replacement = $string.'\\'.str_replace('/', '\\', $this->modelNames['model_path']);
             $modelFactoryFileContent = str_replace($string, $replacement, $modelFactoryFileContent);
         }
 

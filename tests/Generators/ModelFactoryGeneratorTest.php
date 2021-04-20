@@ -41,6 +41,50 @@ class {$this->model_name}Factory extends Factory
     }
 
     /** @test */
+    public function it_creates_correct_model_factory_content_with_namespaced_model()
+    {
+        $inputName = 'Entities/References/Category';
+        $modelName = 'Category';
+        $fullModelName = 'App\Entities\References\Category';
+        $pluralModelName = 'Categories';
+        $tableName = 'categories';
+        $langName = 'category';
+        $modelPath = 'Entities/References';
+        $factoryNamespace = 'Entities\References';
+
+        $this->artisan('make:crud-api', ['name' => $inputName, '--no-interaction' => true]);
+
+        $modelFactoryPath = database_path('factories/'.$inputName.'Factory.php');
+        $this->assertFileExists($modelFactoryPath);
+        $modelFactoryContent = "<?php
+
+namespace Database\Factories\\{$factoryNamespace};
+
+use App\Models\User;
+use {$fullModelName};
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class {$modelName}Factory extends Factory
+{
+    protected \$model = {$modelName}::class;
+
+    public function definition()
+    {
+        return [
+            'title'       => \$this->faker->word,
+            'description' => \$this->faker->sentence,
+            'creator_id'  => function () {
+                return User::factory()->create()->id;
+            },
+        ];
+    }
+}
+";
+        $this->assertEquals($modelFactoryContent, file_get_contents($modelFactoryPath));
+    }
+
+
+    /** @test */
     public function it_creates_model_factory_file_content_from_published_stub()
     {
         app('files')->makeDirectory(base_path('stubs/simple-crud/database/factories'), 0777, true, true);
