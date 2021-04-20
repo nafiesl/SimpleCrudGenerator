@@ -29,7 +29,7 @@ class Create{$this->plural_model_name}Table extends Migration
     public function up()
     {
         Schema::create('{$this->table_name}', function (Blueprint \$table) {
-            \$table->uuid('id');
+            \$table->uuid('id')->primary();
             \$table->string('title', 60);
             \$table->string('description')->nullable();
             \$table->foreignId('creator_id')->constrained('users')->onDelete('restrict');

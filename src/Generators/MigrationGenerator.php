@@ -31,7 +31,7 @@ class MigrationGenerator extends BaseGenerator
         $content = $this->replaceStubString($this->getStubFileContent($stubName));
 
         if ($this->command->option('uuid')) {
-            $content = str_replace("\$table->bigIncrements('id')", "\$table->uuid('id')", $content);
+            $content = str_replace("\$table->bigIncrements('id')", "\$table->uuid('id')->primary()", $content);
         }
 
         return $content;
