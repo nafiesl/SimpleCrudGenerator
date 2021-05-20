@@ -119,6 +119,7 @@ return [
     'show_detail_title' => 'View :name :type detail',
 
     // Actions
+    'create'         => 'Create',
     'show'           => 'View Detail',
     'edit'           => 'Edit',
     'delete'         => 'Delete',
@@ -151,6 +152,7 @@ return [
     'show_detail_title' => 'Lihat detail :type :name',
 
     // Actions
+    'create'         => 'Input',
     'show'           => 'Lihat Detail',
     'edit'           => 'Edit',
     'delete'         => 'Hapus',

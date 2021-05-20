@@ -87,7 +87,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->click(__('{$this->lang_name}.create'));
         \$this->seeRouteIs('{$this->table_name}.create');
 
-        \$this->submitForm(__('{$this->lang_name}.create'), \$this->getCreateFields());
+        \$this->submitForm(__('app.create'), \$this->getCreateFields());
 
         \$this->seeRouteIs('{$this->table_name}.show', {$this->model_name}::first());
 
@@ -304,7 +304,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->click(__('{$this->lang_name}.create'));
         \$this->seeRouteIs('{$this->table_name}.create');
 
-        \$this->submitForm(__('{$this->lang_name}.create'), \$this->getCreateFields());
+        \$this->submitForm(__('app.create'), \$this->getCreateFields());
 
         \$this->seeRouteIs('{$this->table_name}.show', {$this->model_name}::first());
 
@@ -479,7 +479,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->click(__('{$this->lang_name}.create'));
         \$this->seeRouteIs('{$this->table_name}.create');
 
-        \$this->submitForm(__('{$this->lang_name}.create'), \$this->getCreateFields());
+        \$this->submitForm(__('app.create'), \$this->getCreateFields());
 
         \$this->seeRouteIs('{$this->table_name}.show', {$this->model_name}::first());
 

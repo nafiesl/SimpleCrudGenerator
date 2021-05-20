@@ -8,6 +8,7 @@ return [
     'show_detail_title' => 'Lihat detail :type :name',
 
     // Actions
+    'create'         => 'Input',
     'show'           => 'Lihat Detail',
     'edit'           => 'Edit',
     'delete'         => 'Hapus',

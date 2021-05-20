@@ -79,7 +79,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->click(__('{$this->lang_name}.create'));
         \$this->seeRouteIs('{$this->table_name}.index', ['action' => 'create']);
 
-        \$this->submitForm(__('{$this->lang_name}.create'), [
+        \$this->submitForm(__('app.create'), [
             'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
@@ -310,7 +310,7 @@ class Manage{$this->model_name}Test extends TestCase
         \$this->click(__('{$this->lang_name}.create'));
         \$this->seeRouteIs('{$this->table_name}.index', ['action' => 'create']);
 
-        \$this->submitForm(__('{$this->lang_name}.create'), [
+        \$this->submitForm(__('app.create'), [
             'title'       => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
