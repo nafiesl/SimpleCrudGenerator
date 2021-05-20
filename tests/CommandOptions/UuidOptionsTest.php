@@ -21,11 +21,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Create{$this->plural_model_name}Table extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('{$this->table_name}', function (Blueprint \$table) {
@@ -37,11 +32,6 @@ class Create{$this->plural_model_name}Table extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('{$this->table_name}');
@@ -147,12 +137,6 @@ use Ramsey\Uuid\Uuid;
 
 class {$this->model_name}Controller extends Controller
 {
-    /**
-     * Display a listing of the {$this->single_model_var_name}.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\View\View
-     */
     public function index(Request \$request)
     {
         \$editable{$this->model_name} = null;
@@ -168,12 +152,6 @@ class {$this->model_name}Controller extends Controller
         return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}', 'editable{$this->model_name}'));
     }
 
-    /**
-     * Store a newly created {$this->single_model_var_name} in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\Routing\Redirector
-     */
     public function store(Request \$request)
     {
         \$this->authorize('create', new {$this->model_name});
@@ -190,13 +168,6 @@ class {$this->model_name}Controller extends Controller
         return redirect()->route('{$this->table_name}.index');
     }
 
-    /**
-     * Update the specified {$this->single_model_var_name} in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('update', \${$this->single_model_var_name});
@@ -212,13 +183,6 @@ class {$this->model_name}Controller extends Controller
         return redirect()->route('{$this->table_name}.index', \$routeParam);
     }
 
-    /**
-     * Remove the specified {$this->single_model_var_name} from storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('delete', \${$this->single_model_var_name});
@@ -254,12 +218,6 @@ use Ramsey\Uuid\Uuid;
 
 class {$this->model_name}Controller extends Controller
 {
-    /**
-     * Display a listing of the {$this->single_model_var_name}.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\View\View
-     */
     public function index(Request \$request)
     {
         \${$this->single_model_var_name}Query = {$this->model_name}::query();
@@ -270,11 +228,6 @@ class {$this->model_name}Controller extends Controller
         return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}'));
     }
 
-    /**
-     * Show the form for creating a new {$this->single_model_var_name}.
-     *
-     * @return \Illuminate\View\View
-     */
     public function create()
     {
         \$this->authorize('create', new {$this->model_name});
@@ -282,12 +235,6 @@ class {$this->model_name}Controller extends Controller
         return view('{$this->table_name}.create');
     }
 
-    /**
-     * Store a newly created {$this->single_model_var_name} in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\Routing\Redirector
-     */
     public function store(Request \$request)
     {
         \$this->authorize('create', new {$this->model_name});
@@ -304,23 +251,11 @@ class {$this->model_name}Controller extends Controller
         return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
     }
 
-    /**
-     * Display the specified {$this->single_model_var_name}.
-     *
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\View\View
-     */
     public function show({$this->model_name} \${$this->single_model_var_name})
     {
         return view('{$this->table_name}.show', compact('{$this->single_model_var_name}'));
     }
 
-    /**
-     * Show the form for editing the specified {$this->single_model_var_name}.
-     *
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\View\View
-     */
     public function edit({$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('update', \${$this->single_model_var_name});
@@ -328,13 +263,6 @@ class {$this->model_name}Controller extends Controller
         return view('{$this->table_name}.edit', compact('{$this->single_model_var_name}'));
     }
 
-    /**
-     * Update the specified {$this->single_model_var_name} in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('update', \${$this->single_model_var_name});
@@ -348,13 +276,6 @@ class {$this->model_name}Controller extends Controller
         return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
     }
 
-    /**
-     * Remove the specified {$this->single_model_var_name} from storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('delete', \${$this->single_model_var_name});

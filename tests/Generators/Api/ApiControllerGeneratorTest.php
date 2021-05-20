@@ -22,12 +22,6 @@ use Illuminate\Http\Request;
 
 class {$this->model_name}Controller extends Controller
 {
-    /**
-     * Get a listing of the {$this->single_model_var_name}.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function index(Request \$request)
     {
         \${$this->single_model_var_name}Query = {$this->model_name}::query();
@@ -38,12 +32,6 @@ class {$this->model_name}Controller extends Controller
         return \${$this->collection_model_var_name};
     }
 
-    /**
-     * Store a newly created {$this->single_model_var_name} in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Request \$request)
     {
         \$this->authorize('create', new {$this->model_name});
@@ -62,24 +50,11 @@ class {$this->model_name}Controller extends Controller
         ], 201);
     }
 
-    /**
-     * Get the specified {$this->single_model_var_name}.
-     *
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function show({$this->model_name} \${$this->single_model_var_name})
     {
         return \${$this->single_model_var_name};
     }
 
-    /**
-     * Update the specified {$this->single_model_var_name} in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('update', \${$this->single_model_var_name});
@@ -96,13 +71,6 @@ class {$this->model_name}Controller extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified {$this->single_model_var_name} from storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function destroy(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('delete', \${$this->single_model_var_name});

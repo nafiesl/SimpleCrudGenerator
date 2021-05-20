@@ -27,52 +27,24 @@ class {$this->model_name}Policy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view the $this->lang_name.
-     *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return mixed
-     */
     public function view(User \$user, {$this->model_name} \${$this->single_model_var_name})
     {
         // Update \$user authorization to view \${$this->single_model_var_name} here.
         return true;
     }
 
-    /**
-     * Determine whether the user can create $this->lang_name.
-     *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return mixed
-     */
     public function create(User \$user, {$this->model_name} \${$this->single_model_var_name})
     {
         // Update \$user authorization to create \${$this->single_model_var_name} here.
         return true;
     }
 
-    /**
-     * Determine whether the user can update the $this->lang_name.
-     *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return mixed
-     */
     public function update(User \$user, {$this->model_name} \${$this->single_model_var_name})
     {
         // Update \$user authorization to update \${$this->single_model_var_name} here.
         return true;
     }
 
-    /**
-     * Determine whether the user can delete the $this->lang_name.
-     *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return mixed
-     */
     public function delete(User \$user, {$this->model_name} \${$this->single_model_var_name})
     {
         // Update \$user authorization to delete \${$this->single_model_var_name} here.
@@ -139,52 +111,24 @@ class {$this->model_name}Policy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view the $this->lang_name.
-     *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return mixed
-     */
     public function view(User \$user, {$this->model_name} \${$this->single_model_var_name})
     {
         // Update \$user authorization to view \${$this->single_model_var_name} here.
         return true;
     }
 
-    /**
-     * Determine whether the user can create $this->lang_name.
-     *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return mixed
-     */
     public function create(User \$user, {$this->model_name} \${$this->single_model_var_name})
     {
         // Update \$user authorization to create \${$this->single_model_var_name} here.
         return true;
     }
 
-    /**
-     * Determine whether the user can update the $this->lang_name.
-     *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return mixed
-     */
     public function update(User \$user, {$this->model_name} \${$this->single_model_var_name})
     {
         // Update \$user authorization to update \${$this->single_model_var_name} here.
         return true;
     }
 
-    /**
-     * Determine whether the user can delete the $this->lang_name.
-     *
-     * @param  \\{$userModel}  \$user
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return mixed
-     */
     public function delete(User \$user, {$this->model_name} \${$this->single_model_var_name})
     {
         // Update \$user authorization to delete \${$this->single_model_var_name} here.

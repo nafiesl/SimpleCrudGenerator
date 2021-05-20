@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class MasterController extends Controller
 {
-    /**
-     * Get a listing of the singleMstr.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function index(Request $request)
     {
         $singleMstrQuery = Master::query();
@@ -24,12 +18,6 @@ class MasterController extends Controller
         return $mstrCollections;
     }
 
-    /**
-     * Store a newly created singleMstr in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Request $request)
     {
         $this->authorize('create', new Master);
@@ -48,24 +36,11 @@ class MasterController extends Controller
         ], 201);
     }
 
-    /**
-     * Get the specified singleMstr.
-     *
-     * @param  \fullMstr  $singleMstr
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function show(Master $singleMstr)
     {
         return $singleMstr;
     }
 
-    /**
-     * Update the specified singleMstr in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \fullMstr  $singleMstr
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function update(Request $request, Master $singleMstr)
     {
         $this->authorize('update', $singleMstr);
@@ -82,13 +57,6 @@ class MasterController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified singleMstr from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \fullMstr  $singleMstr
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function destroy(Request $request, Master $singleMstr)
     {
         $this->authorize('delete', $singleMstr);

@@ -21,12 +21,6 @@ use Illuminate\Http\Request;
 
 class {$this->model_name}Controller extends Controller
 {
-    /**
-     * Display a listing of the {$this->single_model_var_name}.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\View\View
-     */
     public function index(Request \$request)
     {
         \${$this->single_model_var_name}Query = {$this->model_name}::query();
@@ -37,11 +31,6 @@ class {$this->model_name}Controller extends Controller
         return view('{$this->table_name}.index', compact('{$this->collection_model_var_name}'));
     }
 
-    /**
-     * Show the form for creating a new {$this->single_model_var_name}.
-     *
-     * @return \Illuminate\View\View
-     */
     public function create()
     {
         \$this->authorize('create', new {$this->model_name});
@@ -49,12 +38,6 @@ class {$this->model_name}Controller extends Controller
         return view('{$this->table_name}.create');
     }
 
-    /**
-     * Store a newly created {$this->single_model_var_name} in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\Routing\Redirector
-     */
     public function store(Request \$request)
     {
         \$this->authorize('create', new {$this->model_name});
@@ -70,23 +53,11 @@ class {$this->model_name}Controller extends Controller
         return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
     }
 
-    /**
-     * Display the specified {$this->single_model_var_name}.
-     *
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\View\View
-     */
     public function show({$this->model_name} \${$this->single_model_var_name})
     {
         return view('{$this->table_name}.show', compact('{$this->single_model_var_name}'));
     }
 
-    /**
-     * Show the form for editing the specified {$this->single_model_var_name}.
-     *
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\View\View
-     */
     public function edit({$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('update', \${$this->single_model_var_name});
@@ -94,13 +65,6 @@ class {$this->model_name}Controller extends Controller
         return view('{$this->table_name}.edit', compact('{$this->single_model_var_name}'));
     }
 
-    /**
-     * Update the specified {$this->single_model_var_name} in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('update', \${$this->single_model_var_name});
@@ -114,13 +78,6 @@ class {$this->model_name}Controller extends Controller
         return redirect()->route('{$this->table_name}.show', \${$this->single_model_var_name});
     }
 
-    /**
-     * Remove the specified {$this->single_model_var_name} from storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \\{$this->full_model_name}  \${$this->single_model_var_name}
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Request \$request, {$this->model_name} \${$this->single_model_var_name})
     {
         \$this->authorize('delete', \${$this->single_model_var_name});
@@ -153,12 +110,6 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the category.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\View\View
-     */
     public function index(Request \$request)
     {
         \$categoryQuery = Category::query();
@@ -169,11 +120,6 @@ class CategoryController extends Controller
         return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new category.
-     *
-     * @return \Illuminate\View\View
-     */
     public function create()
     {
         \$this->authorize('create', new Category);
@@ -181,12 +127,6 @@ class CategoryController extends Controller
         return view('categories.create');
     }
 
-    /**
-     * Store a newly created category in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\Routing\Redirector
-     */
     public function store(Request \$request)
     {
         \$this->authorize('create', new Category);
@@ -202,23 +142,11 @@ class CategoryController extends Controller
         return redirect()->route('categories.show', \$category);
     }
 
-    /**
-     * Display the specified category.
-     *
-     * @param  \App\Models\Category  \$category
-     * @return \Illuminate\View\View
-     */
     public function show(Category \$category)
     {
         return view('categories.show', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified category.
-     *
-     * @param  \App\Models\Category  \$category
-     * @return \Illuminate\View\View
-     */
     public function edit(Category \$category)
     {
         \$this->authorize('update', \$category);
@@ -226,13 +154,6 @@ class CategoryController extends Controller
         return view('categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified category in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \App\Entities\References\Category  \$category
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(Request \$request, Category \$category)
     {
         \$this->authorize('update', \$category);
@@ -246,13 +167,6 @@ class CategoryController extends Controller
         return redirect()->route('categories.show', \$category);
     }
 
-    /**
-     * Remove the specified category from storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \App\Entities\References\Category  \$category
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Request \$request, Category \$category)
     {
         \$this->authorize('delete', \$category);
@@ -286,12 +200,6 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the category.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\View\View
-     */
     public function index(Request \$request)
     {
         \$categoryQuery = Category::query();
@@ -302,11 +210,6 @@ class CategoryController extends Controller
         return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new category.
-     *
-     * @return \Illuminate\View\View
-     */
     public function create()
     {
         \$this->authorize('create', new Category);
@@ -314,12 +217,6 @@ class CategoryController extends Controller
         return view('categories.create');
     }
 
-    /**
-     * Store a newly created category in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @return \Illuminate\Routing\Redirector
-     */
     public function store(Request \$request)
     {
         \$this->authorize('create', new Category);
@@ -335,23 +232,11 @@ class CategoryController extends Controller
         return redirect()->route('categories.show', \$category);
     }
 
-    /**
-     * Display the specified category.
-     *
-     * @param  \App\Models\Category  \$category
-     * @return \Illuminate\View\View
-     */
     public function show(Category \$category)
     {
         return view('categories.show', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified category.
-     *
-     * @param  \App\Models\Category  \$category
-     * @return \Illuminate\View\View
-     */
     public function edit(Category \$category)
     {
         \$this->authorize('update', \$category);
@@ -359,13 +244,6 @@ class CategoryController extends Controller
         return view('categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified category in storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \App\Entities\References\Category  \$category
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(Request \$request, Category \$category)
     {
         \$this->authorize('update', \$category);
@@ -379,13 +257,6 @@ class CategoryController extends Controller
         return redirect()->route('categories.show', \$category);
     }
 
-    /**
-     * Remove the specified category from storage.
-     *
-     * @param  \Illuminate\Http\Request  \$request
-     * @param  \App\Entities\References\Category  \$category
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Request \$request, Category \$category)
     {
         \$this->authorize('delete', \$category);

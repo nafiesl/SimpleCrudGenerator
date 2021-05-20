@@ -21,11 +21,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Create{$this->plural_model_name}Table extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('{$this->table_name}', function (Blueprint \$table) {
@@ -37,11 +32,6 @@ class Create{$this->plural_model_name}Table extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('{$this->table_name}');
