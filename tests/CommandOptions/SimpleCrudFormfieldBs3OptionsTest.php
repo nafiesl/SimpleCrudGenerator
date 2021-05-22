@@ -119,7 +119,7 @@ class SimpleCrudFormfieldBs3OptionsTest extends TestCase
     {{ Form::open(['route' => '{$this->table_name}.store']) }}
     {!! FormField::text('title', ['required' => true, 'label' => __('{$this->lang_name}.title')]) !!}
     {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
-    {{ Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) }}
+    {{ Form::submit(__('app.create'), ['class' => 'btn btn-success']) }}
     {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {{ Form::close() }}
 @endcan

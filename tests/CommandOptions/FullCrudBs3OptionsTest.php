@@ -170,7 +170,7 @@ class FullCrudBs3OptionsTest extends TestCase
                     </div>
                 </div>
                 <div class=\"panel-footer\">
-                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.create') }}\" class=\"btn btn-success\">
+                    <input type=\"submit\" value=\"{{ __('app.create') }}\" class=\"btn btn-success\">
                     <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
                 </div>
             </form>

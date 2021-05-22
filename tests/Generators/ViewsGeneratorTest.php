@@ -143,7 +143,7 @@ class ViewsGeneratorTest extends TestCase
                     </div>
                 </div>
                 <div class=\"card-footer\">
-                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.create') }}\" class=\"btn btn-success\">
+                    <input type=\"submit\" value=\"{{ __('app.create') }}\" class=\"btn btn-success\">
                     <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.cancel') }}</a>
                 </div>
             </form>

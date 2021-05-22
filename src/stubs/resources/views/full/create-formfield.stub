@@ -13,7 +13,7 @@
                 {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
             </div>
             <div class="card-footer">
-                {{ Form::submit(__('master.create'), ['class' => 'btn btn-success']) }}
+                {{ Form::submit(__('app.create'), ['class' => 'btn btn-success']) }}
                 {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
             </div>
             {{ Form::close() }}
