@@ -100,7 +100,7 @@ class ViewsGeneratorTest extends TestCase
             <textarea id=\"description\" class=\"form-control{{ \$errors->has('description') ? ' is-invalid' : '' }}\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
             {!! \$errors->first('description', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
-        <input type=\"submit\" value=\"{{ __('{$this->lang_name}.create') }}\" class=\"btn btn-success\">
+        <input type=\"submit\" value=\"{{ __('app.create') }}\" class=\"btn btn-success\">
         <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.cancel') }}</a>
     </form>
 @endcan

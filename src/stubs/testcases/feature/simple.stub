@@ -29,7 +29,7 @@ class ManageMasterTest extends TestCase
         $this->click(__('master.create'));
         $this->seeRouteIs('masters.index', ['action' => 'create']);
 
-        $this->submitForm(__('master.create'), [
+        $this->submitForm(__('app.create'), [
             'title'       => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);

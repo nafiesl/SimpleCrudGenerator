@@ -7,12 +7,6 @@ use Illuminate\Http\Request;
 
 class MasterController extends Controller
 {
-    /**
-     * Display a listing of the singleMstr.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
-     */
     public function index(Request $request)
     {
         $editableMaster = null;
@@ -28,12 +22,6 @@ class MasterController extends Controller
         return view('masters.index', compact('mstrCollections', 'editableMaster'));
     }
 
-    /**
-     * Store a newly created singleMstr in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Routing\Redirector
-     */
     public function store(Request $request)
     {
         $this->authorize('create', new Master);
@@ -49,13 +37,6 @@ class MasterController extends Controller
         return redirect()->route('masters.index');
     }
 
-    /**
-     * Update the specified singleMstr in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \fullMstr  $singleMstr
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(Request $request, Master $singleMstr)
     {
         $this->authorize('update', $singleMstr);
@@ -71,13 +52,6 @@ class MasterController extends Controller
         return redirect()->route('masters.index', $routeParam);
     }
 
-    /**
-     * Remove the specified singleMstr from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \fullMstr  $singleMstr
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Request $request, Master $singleMstr)
     {
         $this->authorize('delete', $singleMstr);

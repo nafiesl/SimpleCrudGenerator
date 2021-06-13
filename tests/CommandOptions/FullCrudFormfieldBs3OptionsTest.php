@@ -163,7 +163,7 @@ class FullCrudFormfieldBs3OptionsTest extends TestCase
                 {!! FormField::textarea('description', ['label' => __('{$this->lang_name}.description')]) !!}
             </div>
             <div class=\"panel-footer\">
-                {{ Form::submit(__('{$this->lang_name}.create'), ['class' => 'btn btn-success']) }}
+                {{ Form::submit(__('app.create'), ['class' => 'btn btn-success']) }}
                 {{ link_to_route('{$this->table_name}.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
             </div>
             {{ Form::close() }}

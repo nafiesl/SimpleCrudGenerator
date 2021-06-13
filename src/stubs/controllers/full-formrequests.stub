@@ -9,12 +9,6 @@ use App\Http\Requests\Masters\UpdateRequest;
 
 class MasterController extends Controller
 {
-    /**
-     * Display a listing of the singleMstr.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
-     */
     public function index(Request $request)
     {
         $singleMstrQuery = Master::query();
@@ -25,11 +19,6 @@ class MasterController extends Controller
         return view('masters.index', compact('mstrCollections'));
     }
 
-    /**
-     * Show the form for creating a new singleMstr.
-     *
-     * @return \Illuminate\View\View
-     */
     public function create()
     {
         $this->authorize('create', new Master);
@@ -37,12 +26,6 @@ class MasterController extends Controller
         return view('masters.create');
     }
 
-    /**
-     * Store a newly created singleMstr in storage.
-     *
-     * @param  \App\Http\Requests\Masters\CreateRequest  $singleMstrCreateForm
-     * @return \Illuminate\Routing\Redirector
-     */
     public function store(CreateRequest $singleMstrCreateForm)
     {
         $singleMstr = $singleMstrCreateForm->save();
@@ -50,23 +33,11 @@ class MasterController extends Controller
         return redirect()->route('masters.show', $singleMstr);
     }
 
-    /**
-     * Display the specified singleMstr.
-     *
-     * @param  \App\Models\Master  $singleMstr
-     * @return \Illuminate\View\View
-     */
     public function show(Master $singleMstr)
     {
         return view('masters.show', compact('singleMstr'));
     }
 
-    /**
-     * Show the form for editing the specified singleMstr.
-     *
-     * @param  \App\Models\Master  $singleMstr
-     * @return \Illuminate\View\View
-     */
     public function edit(Master $singleMstr)
     {
         $this->authorize('update', $singleMstr);
@@ -74,13 +45,6 @@ class MasterController extends Controller
         return view('masters.edit', compact('singleMstr'));
     }
 
-    /**
-     * Update the specified singleMstr in storage.
-     *
-     * @param  \App\Http\Requests\Masters\UpdateRequest  $singleMstrUpdateForm
-     * @param  \fullMstr  $singleMstr
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(UpdateRequest $singleMstrUpdateForm, Master $singleMstr)
     {
         $singleMstr->update($singleMstrUpdateForm->validated());
@@ -88,13 +52,6 @@ class MasterController extends Controller
         return redirect()->route('masters.show', $singleMstr);
     }
 
-    /**
-     * Remove the specified singleMstr from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \fullMstr  $singleMstr
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Request $request, Master $singleMstr)
     {
         $this->authorize('delete', $singleMstr);

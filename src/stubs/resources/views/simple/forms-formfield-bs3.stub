@@ -3,7 +3,7 @@
     {{ Form::open(['route' => 'masters.store']) }}
     {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
     {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
-    {{ Form::submit(__('master.create'), ['class' => 'btn btn-success']) }}
+    {{ Form::submit(__('app.create'), ['class' => 'btn btn-success']) }}
     {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
     {{ Form::close() }}
 @endcan

@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <input type="submit" value="{{ __('master.create') }}" class="btn btn-success">
+                    <input type="submit" value="{{ __('app.create') }}" class="btn btn-success">
                     <a href="{{ route('masters.index') }}" class="btn btn-default">{{ __('app.cancel') }}</a>
                 </div>
             </form>

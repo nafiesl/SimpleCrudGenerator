@@ -10,52 +10,24 @@ class MasterPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view the master.
-     *
-     * @param  \App\User  $user
-     * @param  \fullMstr  $singleMstr
-     * @return mixed
-     */
     public function view(User $user, Master $singleMstr)
     {
         // Update $user authorization to view $singleMstr here.
         return true;
     }
 
-    /**
-     * Determine whether the user can create master.
-     *
-     * @param  \App\User  $user
-     * @param  \fullMstr  $singleMstr
-     * @return mixed
-     */
     public function create(User $user, Master $singleMstr)
     {
         // Update $user authorization to create $singleMstr here.
         return true;
     }
 
-    /**
-     * Determine whether the user can update the master.
-     *
-     * @param  \App\User  $user
-     * @param  \fullMstr  $singleMstr
-     * @return mixed
-     */
     public function update(User $user, Master $singleMstr)
     {
         // Update $user authorization to update $singleMstr here.
         return true;
     }
 
-    /**
-     * Determine whether the user can delete the master.
-     *
-     * @param  \App\User  $user
-     * @param  \fullMstr  $singleMstr
-     * @return mixed
-     */
     public function delete(User $user, Master $singleMstr)
     {
         // Update $user authorization to delete $singleMstr here.

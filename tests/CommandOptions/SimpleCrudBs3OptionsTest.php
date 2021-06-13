@@ -126,7 +126,7 @@ class SimpleCrudBs3OptionsTest extends TestCase
             <textarea id=\"description\" class=\"form-control\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
             {!! \$errors->first('description', '<span class=\"help-block small\">:message</span>') !!}
         </div>
-        <input type=\"submit\" value=\"{{ __('{$this->lang_name}.create') }}\" class=\"btn btn-success\">
+        <input type=\"submit\" value=\"{{ __('app.create') }}\" class=\"btn btn-success\">
         <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-default\">{{ __('app.cancel') }}</a>
     </form>
 @endcan
