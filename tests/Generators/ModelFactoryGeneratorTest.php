@@ -9,6 +9,7 @@ class ModelFactoryGeneratorTest extends TestCase
     /** @test */
     public function it_creates_correct_model_factory_content()
     {
+        config(['auth.providers.users.model' => 'App\Models\User']);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $modelFactoryPath = database_path('factories/'.$this->model_name.'Factory.php');
@@ -52,6 +53,7 @@ class {$this->model_name}Factory extends Factory
         $modelPath = 'Entities/References';
         $factoryNamespace = 'Entities\References';
 
+        config(['auth.providers.users.model' => 'App\Entities\Users\User']);
         $this->artisan('make:crud-api', ['name' => $inputName, '--no-interaction' => true]);
 
         $modelFactoryPath = database_path('factories/'.$inputName.'Factory.php');
@@ -60,7 +62,7 @@ class {$this->model_name}Factory extends Factory
 
 namespace Database\Factories\\{$factoryNamespace};
 
-use App\Models\User;
+use App\Entities\Users\User;
 use {$fullModelName};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -83,7 +85,6 @@ class {$modelName}Factory extends Factory
         $this->assertEquals($modelFactoryContent, file_get_contents($modelFactoryPath));
     }
 
-
     /** @test */
     public function it_creates_model_factory_file_content_from_published_stub()
     {
@@ -92,6 +93,7 @@ class {$modelName}Factory extends Factory
             __DIR__.'/../stubs/database/factories/model-factory.stub',
             base_path('stubs/simple-crud/database/factories/model-factory.stub')
         );
+        config(['auth.providers.users.model' => 'App\Models\User']);
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $modelFactoryPath = database_path('factories/'.$this->model_name.'Factory.php');

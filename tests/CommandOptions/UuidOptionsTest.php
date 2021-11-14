@@ -43,6 +43,7 @@ class Create{$this->plural_model_name}Table extends Migration
     /** @test */
     public function it_creates_correct_model_factory_content_for_uuid_primary_key()
     {
+        config(['auth.providers.users.model' => 'App\Models\User']);
         $this->artisan('make:crud', ['name' => $this->model_name, '--uuid' => true, '--no-interaction' => true]);
 
         $modelFactoryPath = database_path('factories/'.$this->model_name.'Factory.php');

@@ -41,8 +41,8 @@ class ModelFactoryGenerator extends BaseGenerator
 
         $userModel = config('auth.providers.users.model');
 
-        if ('App\User' !== $userModel) {
-            $modelFactoryFileContent = str_replace('App\User', $userModel, $modelFactoryFileContent);
+        if ('App\Models\User' !== $userModel) {
+            $modelFactoryFileContent = str_replace('App\Models\User', $userModel, $modelFactoryFileContent);
         }
 
         if ($this->command->option('uuid')) {
