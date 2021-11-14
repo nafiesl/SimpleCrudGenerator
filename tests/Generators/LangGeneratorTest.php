@@ -20,34 +20,34 @@ class LangGeneratorTest extends TestCase
 
 return [
     // Labels
-    '{$this->lang_name}'    => '{$displayModelName}',
-    'list'          => '{$displayModelName} List',
-    'search'        => 'Search {$displayModelName}',
-    'search_text'   => 'Title ...',
-    'all'           => 'All {$displayModelName}',
-    'select'        => 'Select {$displayModelName}',
-    'detail'        => '{$displayModelName} Detail',
-    'not_found'     => '{$displayModelName} not found.',
-    'empty'         => '{$displayModelName} is empty.',
-    'back_to_show'  => 'Back to {$displayModelName} Detail',
+    '{$this->lang_name}' => '{$displayModelName}',
+    'list' => '{$displayModelName} List',
+    'search' => 'Search {$displayModelName}',
+    'search_text' => 'Title ...',
+    'all' => 'All {$displayModelName}',
+    'select' => 'Select {$displayModelName}',
+    'detail' => '{$displayModelName} Detail',
+    'not_found' => '{$displayModelName} not found.',
+    'empty' => '{$displayModelName} is empty.',
+    'back_to_show' => 'Back to {$displayModelName} Detail',
     'back_to_index' => 'Back to {$displayModelName} List',
 
     // Actions
-    'create'         => 'Create new {$displayModelName}',
-    'created'        => 'A new {$displayModelName} has been created.',
-    'show'           => 'View {$displayModelName} Detail',
-    'edit'           => 'Edit {$displayModelName}',
-    'update'         => 'Update {$displayModelName}',
-    'updated'        => '{$displayModelName} data has been updated.',
-    'delete'         => 'Delete {$displayModelName}',
+    'create' => 'Create new {$displayModelName}',
+    'created' => 'A new {$displayModelName} has been created.',
+    'show' => 'View {$displayModelName} Detail',
+    'edit' => 'Edit {$displayModelName}',
+    'update' => 'Update {$displayModelName}',
+    'updated' => '{$displayModelName} data has been updated.',
+    'delete' => 'Delete {$displayModelName}',
     'delete_confirm' => 'Are you sure to delete this {$displayModelName}?',
-    'deleted'        => '{$displayModelName} has been deleted.',
-    'undeleted'      => '{$displayModelName} not deleted.',
-    'undeleteable'   => '{$displayModelName} data cannot be deleted.',
+    'deleted' => '{$displayModelName} has been deleted.',
+    'undeleted' => '{$displayModelName} not deleted.',
+    'undeleteable' => '{$displayModelName} data cannot be deleted.',
 
     // Attributes
-    'title'          => '{$displayModelName} Title',
-    'description'    => '{$displayModelName} Description',
+    'title' => '{$displayModelName} Title',
+    'description' => '{$displayModelName} Description',
 ];
 ";
         $this->assertEquals($langFileContent, file_get_contents($langPath));
@@ -67,34 +67,34 @@ return [
 
 return [
     // Labels
-    '{$this->lang_name}'    => '{$displayModelName}',
-    'list'          => 'Daftar {$displayModelName}',
-    'search'        => 'Cari {$displayModelName}',
-    'search_text'   => 'Judul ...',
-    'all'           => 'Semua {$displayModelName}',
-    'select'        => 'Pilih {$displayModelName}',
-    'detail'        => 'Detail {$displayModelName}',
-    'not_found'     => '{$displayModelName} tidak ditemukan',
-    'empty'         => 'Belum ada {$displayModelName}',
-    'back_to_show'  => 'Kembali ke detail {$displayModelName}',
+    '{$this->lang_name}' => '{$displayModelName}',
+    'list' => 'Daftar {$displayModelName}',
+    'search' => 'Cari {$displayModelName}',
+    'search_text' => 'Judul ...',
+    'all' => 'Semua {$displayModelName}',
+    'select' => 'Pilih {$displayModelName}',
+    'detail' => 'Detail {$displayModelName}',
+    'not_found' => '{$displayModelName} tidak ditemukan',
+    'empty' => 'Belum ada {$displayModelName}',
+    'back_to_show' => 'Kembali ke detail {$displayModelName}',
     'back_to_index' => 'Kembali ke daftar {$displayModelName}',
 
     // Actions
-    'create'         => 'Input {$displayModelName} Baru',
-    'created'        => 'Input {$displayModelName} baru telah berhasil.',
-    'show'           => 'Lihat Detail {$displayModelName}',
-    'edit'           => 'Edit {$displayModelName}',
-    'update'         => 'Update {$displayModelName}',
-    'updated'        => 'Update data {$displayModelName} telah berhasil.',
-    'delete'         => 'Hapus {$displayModelName}',
+    'create' => 'Input {$displayModelName} Baru',
+    'created' => 'Input {$displayModelName} baru telah berhasil.',
+    'show' => 'Lihat Detail {$displayModelName}',
+    'edit' => 'Edit {$displayModelName}',
+    'update' => 'Update {$displayModelName}',
+    'updated' => 'Update data {$displayModelName} telah berhasil.',
+    'delete' => 'Hapus {$displayModelName}',
     'delete_confirm' => 'Anda yakin akan menghapus {$displayModelName} ini?',
-    'deleted'        => 'Hapus data {$displayModelName} telah berhasil.',
-    'undeleted'      => 'Data {$displayModelName} gagal dihapus.',
-    'undeleteable'   => 'Data {$displayModelName} tidak dapat dihapus.',
+    'deleted' => 'Hapus data {$displayModelName} telah berhasil.',
+    'undeleted' => 'Data {$displayModelName} gagal dihapus.',
+    'undeleteable' => 'Data {$displayModelName} tidak dapat dihapus.',
 
     // Attributes
-    'title'          => 'Judul {$displayModelName}',
-    'description'    => 'Deskripsi {$displayModelName}',
+    'title' => 'Judul {$displayModelName}',
+    'description' => 'Deskripsi {$displayModelName}',
 ];
 ";
         $this->assertEquals($langFileContent, file_get_contents($langPath));
@@ -113,18 +113,18 @@ return [
 
 return [
     // Labels
-    'table_no'          => '#',
-    'total'             => 'Total',
-    'action'            => 'Actions',
-    'show_detail_title' => 'View :name :type detail',
+    'table_no' => '#',
+    'total' => 'Total',
+    'action' => 'Actions',
+    'show_detail_title' => 'View :title :type detail',
 
     // Actions
-    'create'         => 'Create',
-    'show'           => 'View Detail',
-    'edit'           => 'Edit',
-    'delete'         => 'Delete',
-    'cancel'         => 'Cancel',
-    'reset'          => 'Reset',
+    'create' => 'Create',
+    'show' => 'View Detail',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'cancel' => 'Cancel',
+    'reset' => 'Reset',
     'delete_confirm' => 'Are you sure to delete this?',
     'delete_confirm_button' => 'YES, delete it!',
 ];
@@ -146,18 +146,18 @@ return [
 
 return [
     // Labels
-    'table_no'          => '#',
-    'total'             => 'Total',
-    'action'            => 'Pilihan',
-    'show_detail_title' => 'Lihat detail :type :name',
+    'table_no' => '#',
+    'total' => 'Total',
+    'action' => 'Pilihan',
+    'show_detail_title' => 'Lihat detail :type :title',
 
     // Actions
-    'create'         => 'Input',
-    'show'           => 'Lihat Detail',
-    'edit'           => 'Edit',
-    'delete'         => 'Hapus',
-    'cancel'         => 'Batal',
-    'reset'          => 'Reset',
+    'create' => 'Input',
+    'show' => 'Lihat Detail',
+    'edit' => 'Edit',
+    'delete' => 'Hapus',
+    'cancel' => 'Batal',
+    'reset' => 'Reset',
     'delete_confirm' => 'Anda yakin akan menghapus?',
     'delete_confirm_button' => 'YA, hapus saja!',
 ];
