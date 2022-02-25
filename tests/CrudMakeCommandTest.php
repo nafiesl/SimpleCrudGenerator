@@ -25,7 +25,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileDoesNotExist(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
-        $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
+        $this->assertFileExists(base_path("lang/{$localeConfig}/{$this->lang_name}.php"));
 
         $this->assertFileExists(base_path("routes/web.php"));
         $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
@@ -55,7 +55,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileDoesNotExist(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
-        $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
+        $this->assertFileExists(base_path("lang/{$localeConfig}/{$this->lang_name}.php"));
 
         $this->assertFileExists(base_path("routes/web.php"));
         $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
@@ -125,7 +125,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileDoesNotExist(resource_path("views/{$tableName}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
-        $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
+        $this->assertFileExists(base_path("lang/{$localeConfig}/{$langName}.php"));
 
         $this->assertFileExists(app_path("Policies/{$modelName}Policy.php"));
         $this->assertFileExists(database_path("factories/{$inputName}Factory.php"));
@@ -161,7 +161,7 @@ class CrudMakeCommandTest extends TestCase
         $this->assertFileDoesNotExist(resource_path("views/{$tableName}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
-        $this->assertFileExists(resource_path("lang/{$localeConfig}/{$langName}.php"));
+        $this->assertFileExists(base_path("lang/{$localeConfig}/{$langName}.php"));
 
         $this->assertFileExists(database_path("factories/{$inputName}Factory.php"));
         $this->assertFileExists(base_path("tests/Unit/Models/{$modelName}Test.php"));

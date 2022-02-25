@@ -15,7 +15,7 @@ class LangFileGenerator extends BaseGenerator
     public function generate(string $type = 'full')
     {
         $locale = config('app.locale');
-        $langPath = $this->makeDirectory(resource_path('lang/'.$locale));
+        $langPath = $this->makeDirectory(base_path('lang/'.$locale));
 
         $this->createAppLangFile($langPath);
 
