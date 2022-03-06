@@ -142,6 +142,9 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Model>
+ */
 class {$this->model_name}Factory extends Factory
 {
     /**

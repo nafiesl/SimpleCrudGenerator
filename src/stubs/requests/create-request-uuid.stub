@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Requests\Masters;
+
+use fullMstr;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+
+class CreateRequest extends FormRequest
+{
+    public function authorize()
+    {
+        return $this->user()->can('create', new Master);
+    }
+
+    public function rules()
+    {
+        return [
+            'title'       => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ];
+    }
+
+    public function save()
+    {
+        $newMaster = $this->validated();
+        $newMaster['id'] = Str::uuid();
+        $newMaster['creator_id'] = auth()->id();
+
+        return Master::create($newMaster);
+    }
+}

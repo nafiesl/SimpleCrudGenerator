@@ -13,7 +13,7 @@ class LangGeneratorTest extends TestCase
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $locale = config('app.locale');
-        $langPath = resource_path('lang/'.$locale.'/'.$this->lang_name.'.php');
+        $langPath = base_path('lang/'.$locale.'/'.$this->lang_name.'.php');
         $displayModelName = ucwords(str_replace('_', ' ', Str::snake($this->model_name)));
         $this->assertFileExists($langPath);
         $langFileContent = "<?php
@@ -60,7 +60,7 @@ return [
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $locale = config('app.locale');
-        $langPath = resource_path('lang/'.$locale.'/'.$this->lang_name.'.php');
+        $langPath = base_path('lang/'.$locale.'/'.$this->lang_name.'.php');
         $displayModelName = ucwords(str_replace('_', ' ', Str::snake($this->model_name)));
         $this->assertFileExists($langPath);
         $langFileContent = "<?php
@@ -106,7 +106,7 @@ return [
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $locale = config('app.locale');
-        $langPath = resource_path('lang/'.$locale.'/app.php');
+        $langPath = base_path('lang/'.$locale.'/app.php');
 
         $this->assertFileExists($langPath);
         $appLangContent = "<?php
@@ -139,7 +139,7 @@ return [
         $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
 
         $locale = config('app.locale');
-        $langPath = resource_path('lang/'.$locale.'/app.php');
+        $langPath = base_path('lang/'.$locale.'/app.php');
 
         $this->assertFileExists($langPath);
         $appLangContent = "<?php

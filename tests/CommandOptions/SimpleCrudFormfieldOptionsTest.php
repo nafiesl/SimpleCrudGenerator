@@ -24,7 +24,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
         $this->assertFileExists(resource_path("views/{$this->table_name}/forms.blade.php"));
 
         $localeConfig = config('app.locale');
-        $this->assertFileExists(resource_path("lang/{$localeConfig}/{$this->lang_name}.php"));
+        $this->assertFileExists(base_path("lang/{$localeConfig}/{$this->lang_name}.php"));
 
         $this->assertFileExists(base_path("routes/web.php"));
         $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
