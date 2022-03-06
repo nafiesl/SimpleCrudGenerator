@@ -20,9 +20,11 @@ class FormRequestGenerator extends BaseGenerator
 
         $requestPath = $this->makeDirectory(app_path('Http/Requests/'.$pluralModelName));
 
-        $this->generateFile(
-            $requestPath.'/CreateRequest.php', $this->getContent('requests/create-request')
-        );
+        if ($this->command->option('uuid')) {
+            $this->generateFile($requestPath.'/CreateRequest.php', $this->getContent('requests/create-request-uuid'));
+        } else {
+            $this->generateFile($requestPath.'/CreateRequest.php', $this->getContent('requests/create-request'));
+        }
         $this->generateFile(
             $requestPath.'/UpdateRequest.php', $this->getContent('requests/update-request')
         );

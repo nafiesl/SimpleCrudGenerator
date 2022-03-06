@@ -293,4 +293,49 @@ class {$this->model_name}Controller extends Controller
 ";
         $this->assertEquals($ctrlClassContent, file_get_contents(app_path("Http/Controllers/{$this->model_name}Controller.php")));
     }
+
+    /** @test */
+    public function it_creates_correct_create_form_request_class_content_for_uuid_primary_key()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--uuid' => true, '--form-requests' => true, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true, '--form-requests' => true]);
+
+        $classFilePath = app_path("Http/Requests/{$this->plural_model_name}/CreateRequest.php");
+
+        $this->assertFileExists($classFilePath);
+        $formRequestClassContent = "<?php
+
+namespace App\Http\Requests\\{$this->plural_model_name};
+
+use {$this->full_model_name};
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+
+class CreateRequest extends FormRequest
+{
+    public function authorize()
+    {
+        return \$this->user()->can('create', new {$this->model_name});
+    }
+
+    public function rules()
+    {
+        return [
+            'title'       => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ];
+    }
+
+    public function save()
+    {
+        \$new{$this->model_name} = \$this->validated();
+        \$new{$this->model_name}['id'] = Str::uuid();
+        \$new{$this->model_name}['creator_id'] = auth()->id();
+
+        return {$this->model_name}::create(\$new{$this->model_name});
+    }
+}
+";
+        $this->assertEquals($formRequestClassContent, file_get_contents($classFilePath));
+    }
 }
