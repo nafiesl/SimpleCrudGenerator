@@ -1,0 +1,61 @@
+@extends('layouts.app')
+
+@section('title', __('master.list'))
+
+@section('content')
+<div class="mb-3">
+    <div class="float-right">
+        @can('create', new fullMstr)
+            <a href="{{ route('masters.index', ['action' => 'create']) }}" class="btn btn-success">{{ __('master.create') }}</a>
+        @endcan
+    </div>
+    <h1 class="page-title">{{ __('master.list') }} <small>{{ __('app.total') }} : {{ $mstrCollections->total() }} {{ __('master.master') }}</small></h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
+                    <div class="form-group">
+                        <label for="q" class="form-label">{{ __('master.search') }}</label>
+                        <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control mx-sm-2" value="{{ request('q') }}">
+                    </div>
+                    <input type="submit" value="{{ __('master.search') }}" class="btn btn-secondary">
+                    <a href="{{ route('masters.index') }}" class="btn btn-link">{{ __('app.reset') }}</a>
+                </form>
+            </div>
+            <table class="table table-sm table-responsive-sm table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">{{ __('app.table_no') }}</th>
+                        <th>{{ __('master.title') }}</th>
+                        <th>{{ __('master.description') }}</th>
+                        <th class="text-center">{{ __('app.action') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($mstrCollections as $key => $singleMstr)
+                    <tr>
+                        <td class="text-center">{{ $mstrCollections->firstItem() + $key }}</td>
+                        <td>{{ $singleMstr->title }}</td>
+                        <td>{{ $singleMstr->description }}</td>
+                        <td class="text-center">
+                            @can('update', $singleMstr)
+                                <a href="{{ route('masters.index', ['action' => 'edit', 'id' => $singleMstr->id] + Request::only('page', 'q')) }}" id="edit-master-{{ $singleMstr->id }}">{{ __('app.edit') }}</a>
+                            @endcan
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="card-body">{{ $mstrCollections->appends(Request::except('page'))->render() }}</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        @if(Request::has('action'))
+        @include('masters.forms')
+        @endif
+    </div>
+</div>
+@endsection
