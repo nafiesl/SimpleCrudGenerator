@@ -1,0 +1,23 @@
+@extends('layouts.app')
+
+@section('title', __('master.create'))
+
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">{{ __('master.create') }}</div>
+            {{ Form::open(['route' => 'masters.store']) }}
+            <div class="card-body">
+                {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
+                {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
+            </div>
+            <div class="card-footer">
+                {{ Form::submit(__('app.create'), ['class' => 'btn btn-success']) }}
+                {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
+@endsection

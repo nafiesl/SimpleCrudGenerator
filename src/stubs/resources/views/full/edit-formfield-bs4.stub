@@ -1,0 +1,52 @@
+@extends('layouts.app')
+
+@section('title', __('master.edit'))
+
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        @if (request('action') == 'delete' && $singleMstr)
+        @can('delete', $singleMstr)
+            <div class="card">
+                <div class="card-header">{{ __('master.delete') }}</div>
+                <div class="card-body">
+                    <label class="control-label text-primary">{{ __('master.title') }}</label>
+                    <p>{{ $singleMstr->title }}</p>
+                    <label class="control-label text-primary">{{ __('master.description') }}</label>
+                    <p>{{ $singleMstr->description }}</p>
+                    {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
+                </div>
+                <hr style="margin:0">
+                <div class="card-body text-danger">{{ __('master.delete_confirm') }}</div>
+                <div class="card-footer">
+                    {!! FormField::delete(
+                        ['route' => ['masters.destroy', $singleMstr]],
+                        __('app.delete_confirm_button'),
+                        ['class' => 'btn btn-danger'],
+                        ['master_id' => $singleMstr->id]
+                    ) !!}
+                    {{ link_to_route('masters.edit', __('app.cancel'), [$singleMstr], ['class' => 'btn btn-link']) }}
+                </div>
+            </div>
+        @endcan
+        @else
+        <div class="card">
+            <div class="card-header">{{ __('master.edit') }}</div>
+            {{ Form::model($singleMstr, ['route' => ['masters.update', $singleMstr], 'method' => 'patch']) }}
+            <div class="card-body">
+                {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
+                {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
+            </div>
+            <div class="card-footer">
+                {{ Form::submit(__('master.update'), ['class' => 'btn btn-success']) }}
+                {{ link_to_route('masters.show', __('app.cancel'), [$singleMstr], ['class' => 'btn btn-link']) }}
+                @can('delete', $singleMstr)
+                    {{ link_to_route('masters.edit', __('app.delete'), [$singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger float-right', 'id' => 'del-master-'.$singleMstr->id]) }}
+                @endcan
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
+@endif
+@endsection

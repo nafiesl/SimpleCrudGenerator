@@ -1,0 +1,63 @@
+@if (Request::get('action') == 'create')
+@can('create', new fullMstr)
+    {{ Form::open(['route' => 'masters.store']) }}
+    {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
+    {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
+    {{ Form::submit(__('app.create'), ['class' => 'btn btn-success']) }}
+    {{ link_to_route('masters.index', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
+    {{ Form::close() }}
+@endcan
+@endif
+@if (Request::get('action') == 'edit' && $editableMaster)
+@can('update', $editableMaster)
+    {{ Form::model($editableMaster, ['route' => ['masters.update', $editableMaster], 'method' => 'patch']) }}
+    {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
+    {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
+    @if (request('q'))
+        {{ Form::hidden('q', request('q')) }}
+    @endif
+    @if (request('page'))
+        {{ Form::hidden('page', request('page')) }}
+    @endif
+    {{ Form::submit(__('master.update'), ['class' => 'btn btn-success']) }}
+    {{ link_to_route('masters.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-link']) }}
+    @can('delete', $editableMaster)
+        {{ link_to_route(
+            'masters.index',
+            __('app.delete'),
+            ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q'),
+            ['id' => 'del-master-'.$editableMaster->id, 'class' => 'btn btn-danger float-right']
+        ) }}
+    @endcan
+    {{ Form::close() }}
+@endcan
+@endif
+@if (Request::get('action') == 'delete' && $editableMaster)
+@can('delete', $editableMaster)
+    <div class="card">
+        <div class="card-header">{{ __('master.delete') }}</div>
+        <div class="card-body">
+            <label class="control-label text-primary">{{ __('master.title') }}</label>
+            <p>{{ $editableMaster->title }}</p>
+            <label class="control-label text-primary">{{ __('master.description') }}</label>
+            <p>{{ $editableMaster->description }}</p>
+            {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
+        </div>
+        <hr style="margin:0">
+        <div class="card-body text-danger">{{ __('master.delete_confirm') }}</div>
+        <div class="card-footer">
+            {!! FormField::delete(
+                ['route' => ['masters.destroy', $editableMaster]],
+                __('app.delete_confirm_button'),
+                ['class' => 'btn btn-danger'],
+                [
+                    'master_id' => $editableMaster->id,
+                    'page' => request('page'),
+                    'q' => request('q'),
+                ]
+            ) !!}
+            {{ link_to_route('masters.index', __('app.cancel'), Request::only('page', 'q'), ['class' => 'btn btn-link']) }}
+        </div>
+    </div>
+@endcan
+@endif
