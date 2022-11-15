@@ -19,7 +19,7 @@
                 <hr style="margin:0">
                 <div class="card-body text-danger">{{ __('master.delete_confirm') }}</div>
                 <div class="card-footer">
-                    <form method="POST" action="{{ route('masters.destroy', $singleMstr) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
+                    <form method="POST" action="{{ route('masters.destroy', $singleMstr) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-end" style="display: inline;">
                         {{ csrf_field() }} {{ method_field('delete') }}
                         <input name="master_id" type="hidden" value="{{ $singleMstr->id }}">
                         <button type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
@@ -49,12 +49,12 @@
                     <input type="submit" value="{{ __('master.update') }}" class="btn btn-success">
                     <a href="{{ route('masters.show', $singleMstr) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
                     @can('delete', $singleMstr)
-                        <a href="{{ route('masters.edit', [$singleMstr, 'action' => 'delete']) }}" id="del-master-{{ $singleMstr->id }}" class="btn btn-danger float-right">{{ __('app.delete') }}</a>
+                        <a href="{{ route('masters.edit', [$singleMstr, 'action' => 'delete']) }}" id="del-master-{{ $singleMstr->id }}" class="btn btn-danger float-end">{{ __('app.delete') }}</a>
                     @endcan
                 </div>
             </form>
         </div>
+        @endif
     </div>
 </div>
-@endif
 @endsection
