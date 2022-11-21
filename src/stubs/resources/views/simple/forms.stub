@@ -3,17 +3,19 @@
     <form method="POST" action="{{ route('masters.store') }}" accept-charset="UTF-8">
         {{ csrf_field() }}
         <div class="form-group">
-            <label for="title" class="form-label">{{ __('master.title') }} <span class="form-required">*</span></label>
+            <label for="title" class="col-form-label">{{ __('master.title') }} <span class="form-required">*</span></label>
             <input id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title') }}" required>
             {!! $errors->first('title', '<span class="invalid-feedback" role="alert">:message</span>') !!}
         </div>
         <div class="form-group">
-            <label for="description" class="form-label">{{ __('master.description') }}</label>
+            <label for="description" class="col-form-label">{{ __('master.description') }}</label>
             <textarea id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="4">{{ old('description') }}</textarea>
             {!! $errors->first('description', '<span class="invalid-feedback" role="alert">:message</span>') !!}
         </div>
-        <input type="submit" value="{{ __('app.create') }}" class="btn btn-success">
-        <a href="{{ route('masters.index') }}" class="btn btn-link">{{ __('app.cancel') }}</a>
+        <div class="form-group my-2">
+            <input type="submit" value="{{ __('app.create') }}" class="btn btn-success">
+            <a href="{{ route('masters.index') }}" class="btn btn-link">{{ __('app.cancel') }}</a>
+        </div>
     </form>
 @endcan
 @endif
@@ -22,22 +24,24 @@
     <form method="POST" action="{{ route('masters.update', $editableMaster) }}" accept-charset="UTF-8">
         {{ csrf_field() }} {{ method_field('patch') }}
         <div class="form-group">
-            <label for="title" class="form-label">{{ __('master.title') }} <span class="form-required">*</span></label>
+            <label for="title" class="col-form-label">{{ __('master.title') }} <span class="form-required">*</span></label>
             <input id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title', $editableMaster->title) }}" required>
             {!! $errors->first('title', '<span class="invalid-feedback" role="alert">:message</span>') !!}
         </div>
         <div class="form-group">
-            <label for="description" class="form-label">{{ __('master.description') }}</label>
+            <label for="description" class="col-form-label">{{ __('master.description') }}</label>
             <textarea id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="4">{{ old('description', $editableMaster->description) }}</textarea>
             {!! $errors->first('description', '<span class="invalid-feedback" role="alert">:message</span>') !!}
         </div>
         <input name="page" value="{{ request('page') }}" type="hidden">
         <input name="q" value="{{ request('q') }}" type="hidden">
-        <input type="submit" value="{{ __('master.update') }}" class="btn btn-success">
-        <a href="{{ route('masters.index', Request::only('q', 'page')) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
-        @can('delete', $editableMaster)
-            <a href="{{ route('masters.index', ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q')) }}" id="del-master-{{ $editableMaster->id }}" class="btn btn-danger float-right">{{ __('app.delete') }}</a>
-        @endcan
+        <div class="form-group my-2">
+            <input type="submit" value="{{ __('master.update') }}" class="btn btn-success">
+            <a href="{{ route('masters.index', Request::only('q', 'page')) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
+            @can('delete', $editableMaster)
+                <a href="{{ route('masters.index', ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q')) }}" id="del-master-{{ $editableMaster->id }}" class="btn btn-danger float-end">{{ __('app.delete') }}</a>
+            @endcan
+        </div>
     </form>
 @endcan
 @endif
@@ -55,7 +59,7 @@
         <hr style="margin:0">
         <div class="card-body text-danger">{{ __('master.delete_confirm') }}</div>
         <div class="card-footer">
-            <form method="POST" action="{{ route('masters.destroy', $editableMaster) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
+            <form method="POST" action="{{ route('masters.destroy', $editableMaster) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-end" style="display: inline;">
                 {{ csrf_field() }} {{ method_field('delete') }}
                 <input name="master_id" type="hidden" value="{{ $editableMaster->id }}">
                 <input name="page" value="{{ request('page') }}" type="hidden">
