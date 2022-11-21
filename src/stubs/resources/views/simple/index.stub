@@ -24,7 +24,7 @@
                             <label for="q" class="col-form-label">{{ __('master.search') }}</label>
                         </div>
                         <div class="col-auto">
-                            <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control mx-sm-2" value="{{ request('q') }}">
+                            <input placeholder="{{ __('master.search_text') }}" name="q" type="text" id="q" class="form-control" value="{{ request('q') }}">
                         </div>
                         <div class="col-auto">
                             <input type="submit" value="{{ __('master.search') }}" class="btn btn-secondary">
