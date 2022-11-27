@@ -48,7 +48,7 @@ class FullCrudFormfieldOptionsTest extends TestCase
 
 @section('content')
 <div class=\"mb-3\">
-    <div class=\"float-right\">
+    <div class=\"float-end\">
         @can('create', new {$this->full_model_name})
             {{ link_to_route('{$this->table_name}.create', __('{$this->lang_name}.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
@@ -60,10 +60,19 @@ class FullCrudFormfieldOptionsTest extends TestCase
     <div class=\"col-md-12\">
         <div class=\"card\">
             <div class=\"card-header\">
-                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'mx-sm-2']) !!}
-                {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
-                {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
+                {{ Form::open(['method' => 'get']) }}
+                <div class=\"row g-2\">
+                    <div class=\"col-auto\">
+                        <label for=\"q\" class=\"col-form-label\">{{ __('{$this->lang_name}.search') }}</label>
+                    </div>
+                    <div class=\"col-auto\">
+                        {!! FormField::text('q', ['label' => false, 'placeholder' => __('{$this->lang_name}.search_text')]) !!}
+                    </div>
+                    <div class=\"col-auto\">
+                        {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
+                        {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
+                    </div>
+                </div>
                 {{ Form::close() }}
             </div>
             <table class=\"table table-sm table-responsive-sm table-hover\">

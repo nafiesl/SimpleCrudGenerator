@@ -46,10 +46,12 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
 
 @section('content')
 <div class=\"mb-3\">
-    <div class=\"float-right\">
-        @can('create', new {$this->full_model_name})
-            {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
-        @endcan
+    <div class=\"float-end\">
+        @if (!Request::get('action'))
+            @can('create', new {$this->full_model_name})
+                {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+            @endcan
+        @endif
     </div>
     <h1 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h1>
 </div>
@@ -58,10 +60,19 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     <div class=\"col-md-8\">
         <div class=\"card\">
             <div class=\"card-header\">
-                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'mx-sm-2']) !!}
-                {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
-                {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
+                {{ Form::open(['method' => 'get']) }}
+                <div class=\"row g-2\">
+                    <div class=\"col-auto\">
+                        <label for=\"q\" class=\"col-form-label\">{{ __('{$this->lang_name}.search') }}</label>
+                    </div>
+                    <div class=\"col-auto\">
+                        {!! FormField::text('q', ['label' => false, 'placeholder' => __('{$this->lang_name}.search_text')]) !!}
+                    </div>
+                    <div class=\"col-auto\">
+                        {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
+                        {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
+                    </div>
+                </div>
                 {{ Form::close() }}
             </div>
             <table class=\"table table-sm table-responsive-sm table-hover\">
@@ -142,7 +153,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
             '{$this->table_name}.index',
             __('app.delete'),
             ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q'),
-            ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger float-right']
+            ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger float-end']
         ) }}
     @endcan
     {{ Form::close() }}
