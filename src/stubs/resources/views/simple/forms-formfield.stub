@@ -26,7 +26,7 @@
             'masters.index',
             __('app.delete'),
             ['action' => 'delete', 'id' => $editableMaster->id] + Request::only('page', 'q'),
-            ['id' => 'del-master-'.$editableMaster->id, 'class' => 'btn btn-danger float-right']
+            ['id' => 'del-master-'.$editableMaster->id, 'class' => 'btn btn-danger float-end']
         ) }}
     @endcan
     {{ Form::close() }}

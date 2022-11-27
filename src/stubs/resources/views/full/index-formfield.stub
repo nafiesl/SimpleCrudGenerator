@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-auto">
                         {{ Form::submit(__('master.search'), ['class' => 'btn btn-secondary']) }}
-                        {{ link_to_route('brothers.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
+                        {{ link_to_route('masters.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                     </div>
                 </div>
                 {{ Form::close() }}
