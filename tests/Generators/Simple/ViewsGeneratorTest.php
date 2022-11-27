@@ -20,10 +20,12 @@ class ViewsGeneratorTest extends TestCase
 
 @section('content')
 <div class=\"mb-3\">
-    <div class=\"float-right\">
-        @can('create', new {$this->full_model_name})
-            <a href=\"{{ route('{$this->table_name}.index', ['action' => 'create']) }}\" class=\"btn btn-success\">{{ __('{$this->lang_name}.create') }}</a>
-        @endcan
+    <div class=\"float-end\">
+        @if (!Request::get('action'))
+            @can('create', new {$this->full_model_name})
+                <a href=\"{{ route('{$this->table_name}.index', ['action' => 'create']) }}\" class=\"btn btn-success\">{{ __('{$this->lang_name}.create') }}</a>
+            @endcan
+        @endif
     </div>
     <h1 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h1>
 </div>
@@ -32,13 +34,19 @@ class ViewsGeneratorTest extends TestCase
     <div class=\"col-md-8\">
         <div class=\"card\">
             <div class=\"card-header\">
-                <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\" class=\"form-inline\">
-                    <div class=\"form-group\">
-                        <label for=\"q\" class=\"form-label\">{{ __('{$this->lang_name}.search') }}</label>
-                        <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control mx-sm-2\" value=\"{{ request('q') }}\">
+                <form method=\"GET\" action=\"\" accept-charset=\"UTF-8\">
+                    <div class=\"row g-2\">
+                        <div class=\"col-auto\">
+                            <label for=\"q\" class=\"col-form-label\">{{ __('{$this->lang_name}.search') }}</label>
+                        </div>
+                        <div class=\"col-auto\">
+                            <input placeholder=\"{{ __('{$this->lang_name}.search_text') }}\" name=\"q\" type=\"text\" id=\"q\" class=\"form-control\" value=\"{{ request('q') }}\">
+                        </div>
+                        <div class=\"col-auto\">
+                            <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-secondary\">
+                            <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.reset') }}</a>
+                        </div>
                     </div>
-                    <input type=\"submit\" value=\"{{ __('{$this->lang_name}.search') }}\" class=\"btn btn-secondary\">
-                    <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.reset') }}</a>
                 </form>
             </div>
             <table class=\"table table-sm table-responsive-sm table-hover\">
@@ -90,18 +98,20 @@ class ViewsGeneratorTest extends TestCase
 @can('create', new {$this->full_model_name})
     <form method=\"POST\" action=\"{{ route('{$this->table_name}.store') }}\" accept-charset=\"UTF-8\">
         {{ csrf_field() }}
-        <div class=\"form-group\">
-            <label for=\"title\" class=\"form-label\">{{ __('{$this->lang_name}.title') }} <span class=\"form-required\">*</span></label>
+        <div class=\"mb-3\">
+            <label for=\"title\" class=\"form-label fw-bold\">{{ __('{$this->lang_name}.title') }} <span class=\"text-danger\">*</span></label>
             <input id=\"title\" type=\"text\" class=\"form-control{{ \$errors->has('title') ? ' is-invalid' : '' }}\" name=\"title\" value=\"{{ old('title') }}\" required>
             {!! \$errors->first('title', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
-        <div class=\"form-group\">
-            <label for=\"description\" class=\"form-label\">{{ __('{$this->lang_name}.description') }}</label>
+        <div class=\"mb-3\">
+            <label for=\"description\" class=\"form-label fw-bold\">{{ __('{$this->lang_name}.description') }}</label>
             <textarea id=\"description\" class=\"form-control{{ \$errors->has('description') ? ' is-invalid' : '' }}\" name=\"description\" rows=\"4\">{{ old('description') }}</textarea>
             {!! \$errors->first('description', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
-        <input type=\"submit\" value=\"{{ __('app.create') }}\" class=\"btn btn-success\">
-        <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.cancel') }}</a>
+        <div class=\"mb-3\">
+            <input type=\"submit\" value=\"{{ __('app.create') }}\" class=\"btn btn-success\">
+            <a href=\"{{ route('{$this->table_name}.index') }}\" class=\"btn btn-link\">{{ __('app.cancel') }}</a>
+        </div>
     </form>
 @endcan
 @endif
@@ -109,23 +119,25 @@ class ViewsGeneratorTest extends TestCase
 @can('update', \$editable{$this->model_name})
     <form method=\"POST\" action=\"{{ route('{$this->table_name}.update', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\">
         {{ csrf_field() }} {{ method_field('patch') }}
-        <div class=\"form-group\">
-            <label for=\"title\" class=\"form-label\">{{ __('{$this->lang_name}.title') }} <span class=\"form-required\">*</span></label>
+        <div class=\"mb-3\">
+            <label for=\"title\" class=\"form-label fw-bold\">{{ __('{$this->lang_name}.title') }} <span class=\"text-danger\">*</span></label>
             <input id=\"title\" type=\"text\" class=\"form-control{{ \$errors->has('title') ? ' is-invalid' : '' }}\" name=\"title\" value=\"{{ old('title', \$editable{$this->model_name}->title) }}\" required>
             {!! \$errors->first('title', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
-        <div class=\"form-group\">
-            <label for=\"description\" class=\"form-label\">{{ __('{$this->lang_name}.description') }}</label>
+        <div class=\"mb-3\">
+            <label for=\"description\" class=\"form-label fw-bold\">{{ __('{$this->lang_name}.description') }}</label>
             <textarea id=\"description\" class=\"form-control{{ \$errors->has('description') ? ' is-invalid' : '' }}\" name=\"description\" rows=\"4\">{{ old('description', \$editable{$this->model_name}->description) }}</textarea>
             {!! \$errors->first('description', '<span class=\"invalid-feedback\" role=\"alert\">:message</span>') !!}
         </div>
         <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">
         <input name=\"q\" value=\"{{ request('q') }}\" type=\"hidden\">
-        <input type=\"submit\" value=\"{{ __('{$this->lang_name}.update') }}\" class=\"btn btn-success\">
-        <a href=\"{{ route('{$this->table_name}.index', Request::only('q', 'page')) }}\" class=\"btn btn-link\">{{ __('app.cancel') }}</a>
-        @can('delete', \$editable{$this->model_name})
-            <a href=\"{{ route('{$this->table_name}.index', ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q')) }}\" id=\"del-{$this->lang_name}-{{ \$editable{$this->model_name}->id }}\" class=\"btn btn-danger float-right\">{{ __('app.delete') }}</a>
-        @endcan
+        <div class=\"mb-3\">
+            <input type=\"submit\" value=\"{{ __('{$this->lang_name}.update') }}\" class=\"btn btn-success\">
+            <a href=\"{{ route('{$this->table_name}.index', Request::only('q', 'page')) }}\" class=\"btn btn-link\">{{ __('app.cancel') }}</a>
+            @can('delete', \$editable{$this->model_name})
+                <a href=\"{{ route('{$this->table_name}.index', ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q')) }}\" id=\"del-{$this->lang_name}-{{ \$editable{$this->model_name}->id }}\" class=\"btn btn-danger float-end\">{{ __('app.delete') }}</a>
+            @endcan
+        </div>
     </form>
 @endcan
 @endif
@@ -143,7 +155,7 @@ class ViewsGeneratorTest extends TestCase
         <hr style=\"margin:0\">
         <div class=\"card-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
         <div class=\"card-footer\">
-            <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)\" class=\"del-form float-right\" style=\"display: inline;\">
+            <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)\" class=\"del-form float-end\" style=\"display: inline;\">
                 {{ csrf_field() }} {{ method_field('delete') }}
                 <input name=\"{$this->lang_name}_id\" type=\"hidden\" value=\"{{ \$editable{$this->model_name}->id }}\">
                 <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">
