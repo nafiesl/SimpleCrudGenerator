@@ -37,6 +37,10 @@ class FormViewGenerator extends BaseGenerator
             $stubName .= '-bs3';
         }
 
+        if ($this->command->option('bs4')) {
+            $stubName .= '-bs4';
+        }
+
         return $this->replaceStubString($this->getStubFileContent($stubName));
     }
 }
