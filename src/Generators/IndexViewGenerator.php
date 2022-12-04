@@ -30,10 +30,12 @@ class IndexViewGenerator extends BaseGenerator
 
         if ($this->command->option('bs3')) {
             $stubName .= '-bs3';
-        }
-
-        if ($this->command->option('bs4')) {
+        } elseif ($this->command->option('bs4')) {
             $stubName .= '-bs4';
+        } elseif ($this->command->option('bs5')) {
+            $stubName .= '-bs5';
+        } else {
+            $stubName .= '-bs5';
         }
 
         return $this->replaceStubString($this->getStubFileContent($stubName));

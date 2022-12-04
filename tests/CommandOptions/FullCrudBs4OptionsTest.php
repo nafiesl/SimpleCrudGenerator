@@ -10,7 +10,7 @@ class FullCrudBs4OptionsTest extends TestCase
     /** @test */
     public function it_can_generate_views_with_bootstrap4_for_full_crud()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--bs4' => true]);
 
         $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
