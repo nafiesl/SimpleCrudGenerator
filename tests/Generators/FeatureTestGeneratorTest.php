@@ -6,6 +6,8 @@ use Tests\TestCase;
 
 class FeatureTestGeneratorTest extends TestCase
 {
+
+    //////
     /** @test */
     public function it_creates_browser_kit_base_test_class()
     {
