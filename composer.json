@@ -25,7 +25,7 @@
         "laravel/browser-kit-testing": "^7.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^7.0"
+        "orchestra/testbench": "^8.0"
     },
     "extra": {
         "laravel": {
