@@ -45,7 +45,14 @@ The main purpose of this package is for **faster Test-driven Development**, it g
 
 ## How to install
 
-#### For Laravel 9.x to 10x
+#### For Laravel 10x
+
+```bash
+# Get the package
+$ composer require luthfi/simple-crud-generator:^4.0 --dev
+```
+
+#### For Laravel 9.x
 
 ```bash
 # Get the package
