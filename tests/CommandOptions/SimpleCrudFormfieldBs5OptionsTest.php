@@ -53,7 +53,7 @@ class SimpleCrudFormfieldBs5OptionsTest extends TestCase
             @endcan
         @endif
     </div>
-    <h1 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h1>
+    <h2 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h2>
 </div>
 
 <div class=\"row\">

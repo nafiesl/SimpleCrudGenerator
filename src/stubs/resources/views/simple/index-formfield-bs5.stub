@@ -11,7 +11,7 @@
             @endcan
         @endif
     </div>
-    <h1 class="page-title">{{ __('master.list') }} <small>{{ __('app.total') }} : {{ $mstrCollections->total() }} {{ __('master.master') }}</small></h1>
+    <h2 class="page-title">{{ __('master.list') }} <small>{{ __('app.total') }} : {{ $mstrCollections->total() }} {{ __('master.master') }}</small></h2>
 </div>
 
 <div class="row">
