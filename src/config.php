@@ -36,4 +36,15 @@ return [
 
     'base_test_class' => 'Tests\BrowserKitTest',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Default Bootstrap Version
+    |--------------------------------------------------------------------------
+    |
+    | Use this config to determine the default bootstrap version to use.
+    |
+    */
+
+    'default_bootstrap_version' => '5',
+
 ];
