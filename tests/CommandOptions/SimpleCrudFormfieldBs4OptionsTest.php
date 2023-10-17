@@ -5,12 +5,12 @@ namespace Tests\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
 use Tests\TestCase;
 
-class SimpleCrudFormfieldOptionsTest extends TestCase
+class SimpleCrudFormfieldBs4OptionsTest extends TestCase
 {
     /** @test */
     public function it_can_generate_views_with_formfield_for_simple_crud()
     {
-        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true, '--bs4' => true]);
 
         $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
@@ -36,7 +36,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     /** @test */
     public function it_creates_correct_index_view_content_with_formfield()
     {
-        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true, '--bs4' => true]);
 
         $indexViewPath = resource_path("views/{$this->table_name}/index.blade.php");
         $this->assertFileExists($indexViewPath);
@@ -46,33 +46,22 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
 
 @section('content')
 <div class=\"mb-3\">
-    <div class=\"float-end\">
-        @if (!Request::get('action'))
-            @can('create', new {$this->full_model_name})
-                {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
-            @endcan
-        @endif
+    <div class=\"float-right\">
+        @can('create', new {$this->full_model_name})
+            {{ link_to_route('{$this->table_name}.index', __('{$this->lang_name}.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+        @endcan
     </div>
-    <h2 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h2>
+    <h1 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h1>
 </div>
 
 <div class=\"row\">
     <div class=\"col-md-8\">
         <div class=\"card\">
             <div class=\"card-header\">
-                {{ Form::open(['method' => 'get']) }}
-                <div class=\"row g-2\">
-                    <div class=\"col-auto\">
-                        <label for=\"q\" class=\"col-form-label\">{{ __('{$this->lang_name}.search') }}</label>
-                    </div>
-                    <div class=\"col-auto\">
-                        {!! FormField::text('q', ['label' => false, 'placeholder' => __('{$this->lang_name}.search_text')]) !!}
-                    </div>
-                    <div class=\"col-auto\">
-                        {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
-                        {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
-                    </div>
-                </div>
+                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
+                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'mx-sm-2']) !!}
+                {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
+                {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}
             </div>
             <table class=\"table table-sm table-responsive-sm table-hover\">
@@ -121,7 +110,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     /** @test */
     public function it_creates_correct_forms_view_content_with_formfield()
     {
-        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true, '--bs4' => true]);
 
         $formViewPath = resource_path("views/{$this->table_name}/forms.blade.php");
         $this->assertFileExists($formViewPath);
@@ -153,7 +142,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
             '{$this->table_name}.index',
             __('app.delete'),
             ['action' => 'delete', 'id' => \$editable{$this->model_name}->id] + Request::only('page', 'q'),
-            ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger float-end']
+            ['id' => 'del-{$this->lang_name}-'.\$editable{$this->model_name}->id, 'class' => 'btn btn-danger float-right']
         ) }}
     @endcan
     {{ Form::close() }}

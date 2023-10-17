@@ -1,16 +1,44 @@
 <?php
 
-namespace Tests\Generators;
+namespace Tests\CommandOptions;
 
 use Illuminate\Contracts\Console\Kernel;
 use Tests\TestCase;
 
-class ViewsGeneratorTest extends TestCase
+class FullCrudBs5OptionsTest extends TestCase
 {
     /** @test */
-    public function it_creates_correct_index_view_content()
+    public function it_can_generate_views_with_bootstrap5_for_full_crud()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--bs5' => true]);
+
+        $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
+
+        $this->assertFileExists(app_path('Models/'.$this->model_name.'.php'));
+        $this->assertFileExists(app_path("Http/Controllers/{$this->model_name}Controller.php"));
+
+        $migrationFilePath = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->table_name.'_table.php');
+        $this->assertFileExists($migrationFilePath);
+
+        $this->assertFileExists(resource_path("views/{$this->table_name}/index.blade.php"));
+        $this->assertFileExists(resource_path("views/{$this->table_name}/create.blade.php"));
+        $this->assertFileExists(resource_path("views/{$this->table_name}/edit.blade.php"));
+        $this->assertFileDoesNotExist(resource_path("views/{$this->table_name}/forms.blade.php"));
+
+        $localeConfig = config('app.locale');
+        $this->assertFileExists(base_path("lang/{$localeConfig}/{$this->lang_name}.php"));
+
+        $this->assertFileExists(base_path("routes/web.php"));
+        $this->assertFileExists(app_path("Policies/{$this->model_name}Policy.php"));
+        $this->assertFileExists(database_path("factories/{$this->model_name}Factory.php"));
+        $this->assertFileExists(base_path("tests/Unit/Models/{$this->model_name}Test.php"));
+        $this->assertFileExists(base_path("tests/Feature/Manage{$this->model_name}Test.php"));
+    }
+
+    /** @test */
+    public function it_creates_correct_index_view_content_with_bootstrap5()
+    {
+        $this->artisan('make:crud', ['name' => $this->model_name, '--bs5' => true]);
 
         $indexViewPath = resource_path("views/{$this->table_name}/index.blade.php");
         $this->assertFileExists($indexViewPath);
@@ -81,12 +109,13 @@ class ViewsGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_show_view_content()
+    public function it_creates_correct_show_view_content_with_bootstrap5()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--bs5' => true]);
 
         $showFormViewPath = resource_path("views/{$this->table_name}/show.blade.php");
         $this->assertFileExists($showFormViewPath);
+
         $showFormViewContent = "@extends('layouts.app')
 
 @section('title', __('{$this->lang_name}.detail'))
@@ -119,9 +148,9 @@ class ViewsGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_create_view_content()
+    public function it_creates_correct_create_view_content_with_bootstrap5()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--bs5' => true]);
 
         $createFormViewPath = resource_path("views/{$this->table_name}/create.blade.php");
         $this->assertFileExists($createFormViewPath);
@@ -162,9 +191,9 @@ class ViewsGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_edit_view_content()
+    public function it_creates_correct_edit_view_content_with_bootstrap5()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--bs5' => true]);
 
         $editFormViewPath = resource_path("views/{$this->table_name}/edit.blade.php");
         $this->assertFileExists($editFormViewPath);
@@ -230,36 +259,5 @@ class ViewsGeneratorTest extends TestCase
 @endsection
 ";
         $this->assertEquals($editFormViewContent, file_get_contents($editFormViewPath));
-    }
-
-    /** @test */
-    public function it_not_gives_warning_message_if_default_layout_view_does_exists()
-    {
-        $defaultLayoutView = config('simple-crud.default_layout_view');
-        $this->generateDefaultLayoutView($defaultLayoutView);
-
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
-
-        $this->assertDoesNotMatchRegularExpression("/{$defaultLayoutView} view does not exists./", app(Kernel::class)->output());
-    }
-
-    /** @test */
-    public function it_gives_warning_message_if_default_layout_view_does_not_exists()
-    {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--no-interaction' => true]);
-        $defaultLayoutView = config('simple-crud.default_layout_view');
-
-        $this->assertMatchesRegularExpression("/{$defaultLayoutView} view does not exists./", app(Kernel::class)->output());
-    }
-
-    public function generateDefaultLayoutView($defaultLayoutView)
-    {
-        $dataViewPathArray = explode('.', $defaultLayoutView);
-        $fileName = array_pop($dataViewPathArray);
-        $defaultLayoutPath = resource_path('views/'.implode('/', $dataViewPathArray));
-
-        $files = app('Illuminate\Filesystem\Filesystem');
-        $files->makeDirectory($defaultLayoutPath);
-        $files->put($defaultLayoutPath.'/'.$fileName.'.blade.php', '');
     }
 }

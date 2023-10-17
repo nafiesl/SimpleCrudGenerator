@@ -139,4 +139,27 @@ abstract class BaseGenerator implements GeneratorContract
     {
         return Container::getInstance()->getNamespace();
     }
+
+    protected function getStubSuffix()
+    {
+        $stubSuffix = '';
+
+        if ($this->command->option('formfield')) {
+            $stubSuffix .= '-formfield';
+        }
+
+        if ($this->command->option('bs3')) {
+            return $stubSuffix .= '-bs3';
+        }
+        if ($this->command->option('bs4')) {
+            return $stubSuffix .= '-bs4';
+        }
+        if ($this->command->option('bs5')) {
+            return $stubSuffix .= '-bs5';
+        }
+
+        $defaultVersion = config('simple-crud.default_bootstrap_version', '5');
+
+        return $stubSuffix .= '-bs'.$defaultVersion;
+    }
 }

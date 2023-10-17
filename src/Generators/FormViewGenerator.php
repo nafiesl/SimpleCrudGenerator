@@ -13,12 +13,13 @@ class FormViewGenerator extends BaseGenerator
     public function generate(string $type = 'full')
     {
         $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
+        $stubSuffix = $this->getStubSuffix();
 
         if ($type == 'simple') {
-            $this->generateFile($viewPath.'/forms.blade.php', $this->getContent('resources/views/simple/forms'));
+            $this->generateFile($viewPath.'/forms.blade.php', $this->getContent('resources/views/simple/forms'.$stubSuffix));
         } else {
-            $this->generateFile($viewPath.'/create.blade.php', $this->getContent('resources/views/full/create'));
-            $this->generateFile($viewPath.'/edit.blade.php', $this->getContent('resources/views/full/edit'));
+            $this->generateFile($viewPath.'/create.blade.php', $this->getContent('resources/views/full/create'.$stubSuffix));
+            $this->generateFile($viewPath.'/edit.blade.php', $this->getContent('resources/views/full/edit'.$stubSuffix));
         }
 
         $this->command->info($this->modelNames['model_name'].' form view file generated.');
@@ -29,14 +30,6 @@ class FormViewGenerator extends BaseGenerator
      */
     public function getContent(string $stubName)
     {
-        if ($this->command->option('formfield')) {
-            $stubName .= '-formfield';
-        }
-
-        if ($this->command->option('bs3')) {
-            $stubName .= '-bs3';
-        }
-
         return $this->replaceStubString($this->getStubFileContent($stubName));
     }
 }

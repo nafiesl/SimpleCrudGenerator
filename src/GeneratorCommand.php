@@ -7,7 +7,7 @@ use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
-class GeneratorCommand extends Command
+abstract class GeneratorCommand extends Command
 {
     /**
      * The injected Filesystem class

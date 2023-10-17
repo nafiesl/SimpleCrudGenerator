@@ -5,12 +5,12 @@ namespace Tests\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
 use Tests\TestCase;
 
-class SimpleCrudFormfieldOptionsTest extends TestCase
+class SimpleCrudFormfieldBs5OptionsTest extends TestCase
 {
     /** @test */
     public function it_can_generate_views_with_formfield_for_simple_crud()
     {
-        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true, '--bs5' => true]);
 
         $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
@@ -36,7 +36,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     /** @test */
     public function it_creates_correct_index_view_content_with_formfield()
     {
-        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true, '--bs5' => true]);
 
         $indexViewPath = resource_path("views/{$this->table_name}/index.blade.php");
         $this->assertFileExists($indexViewPath);
@@ -121,7 +121,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
     /** @test */
     public function it_creates_correct_forms_view_content_with_formfield()
     {
-        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud-simple', ['name' => $this->model_name, '--formfield' => true, '--bs5' => true]);
 
         $formViewPath = resource_path("views/{$this->table_name}/forms.blade.php");
         $this->assertFileExists($formViewPath);

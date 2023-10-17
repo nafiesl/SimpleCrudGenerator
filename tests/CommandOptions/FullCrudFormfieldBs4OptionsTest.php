@@ -5,12 +5,12 @@ namespace Tests\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
 use Tests\TestCase;
 
-class FullCrudFormfieldOptionsTest extends TestCase
+class FullCrudFormfieldBs4OptionsTest extends TestCase
 {
     /** @test */
-    public function it_can_generate_views_with_formfield_for_full_crud()
+    public function it_can_generate_views_with_formfield_and_bootstrap4_for_full_crud()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs4' => true]);
 
         $this->assertStringNotContainsString("{$this->model_name} model already exists.", app(Kernel::class)->output());
 
@@ -36,9 +36,9 @@ class FullCrudFormfieldOptionsTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_index_view_content_with_formfield()
+    public function it_creates_correct_index_view_content_with_formfield_and_bootstrap4()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs4' => true]);
 
         $indexViewPath = resource_path("views/{$this->table_name}/index.blade.php");
         $this->assertFileExists($indexViewPath);
@@ -48,31 +48,22 @@ class FullCrudFormfieldOptionsTest extends TestCase
 
 @section('content')
 <div class=\"mb-3\">
-    <div class=\"float-end\">
+    <div class=\"float-right\">
         @can('create', new {$this->full_model_name})
             {{ link_to_route('{$this->table_name}.create', __('{$this->lang_name}.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
     </div>
-    <h2 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h2>
+    <h1 class=\"page-title\">{{ __('{$this->lang_name}.list') }} <small>{{ __('app.total') }} : {{ \${$this->collection_model_var_name}->total() }} {{ __('{$this->lang_name}.{$this->lang_name}') }}</small></h1>
 </div>
 
 <div class=\"row\">
     <div class=\"col-md-12\">
         <div class=\"card\">
             <div class=\"card-header\">
-                {{ Form::open(['method' => 'get']) }}
-                <div class=\"row g-2\">
-                    <div class=\"col-auto\">
-                        <label for=\"q\" class=\"col-form-label\">{{ __('{$this->lang_name}.search') }}</label>
-                    </div>
-                    <div class=\"col-auto\">
-                        {!! FormField::text('q', ['label' => false, 'placeholder' => __('{$this->lang_name}.search_text')]) !!}
-                    </div>
-                    <div class=\"col-auto\">
-                        {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
-                        {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
-                    </div>
-                </div>
+                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
+                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'mx-sm-2']) !!}
+                {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
+                {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}
             </div>
             <table class=\"table table-sm table-responsive-sm table-hover\">
@@ -114,9 +105,9 @@ class FullCrudFormfieldOptionsTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_show_view_content_with_formfield()
+    public function it_creates_correct_show_view_content_with_formfield_and_bootstrap4()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs4' => true]);
 
         $showFormViewPath = resource_path("views/{$this->table_name}/show.blade.php");
         $this->assertFileExists($showFormViewPath);
@@ -153,9 +144,9 @@ class FullCrudFormfieldOptionsTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_create_view_content_with_formfield()
+    public function it_creates_correct_create_view_content_with_formfield_and_bootstrap4()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs4' => true]);
 
         $createFormViewPath = resource_path("views/{$this->table_name}/create.blade.php");
         $this->assertFileExists($createFormViewPath);
@@ -187,9 +178,9 @@ class FullCrudFormfieldOptionsTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_correct_edit_view_content_with_formfield()
+    public function it_creates_correct_edit_view_content_with_formfield_and_bootstrap4()
     {
-        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
+        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true, '--bs4' => true]);
 
         $editFormViewPath = resource_path("views/{$this->table_name}/edit.blade.php");
         $this->assertFileExists($editFormViewPath);
@@ -249,93 +240,4 @@ class FullCrudFormfieldOptionsTest extends TestCase
         $this->assertEquals($editFormViewContent, file_get_contents($editFormViewPath));
     }
 
-    /** @test */
-    public function it_creates_correct_model_class_with_link_to_route_helper()
-    {
-        config(['auth.providers.users.model' => 'App\Models\User']);
-        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
-
-        $modelPath = app_path('Models/'.$this->model_name.'.php');
-        $this->assertFileExists($modelPath);
-        $modelClassContent = "<?php
-
-namespace App\Models;
-
-use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class {$this->model_name} extends Model
-{
-    use HasFactory;
-
-    protected \$fillable = ['title', 'description', 'creator_id'];
-
-    public function getTitleLinkAttribute()
-    {
-        return link_to_route('{$this->table_name}.show', \$this->title, [\$this], [
-            'title' => __(
-                'app.show_detail_title',
-                ['title' => \$this->title, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
-            ),
-        ]);
-    }
-
-    public function creator()
-    {
-        return \$this->belongsTo(User::class);
-    }
-}
-";
-        $this->assertEquals($modelClassContent, file_get_contents($modelPath));
-    }
-
-    /** @test */
-    public function it_creates_correct_unit_test_class_with_link_to_route_helper()
-    {
-        config(['auth.providers.users.model' => 'App\User']);
-        $this->artisan('make:crud', ['name' => $this->model_name, '--formfield' => true]);
-
-        $uniTestPath = base_path("tests/Unit/Models/{$this->model_name}Test.php");
-        $this->assertFileExists($uniTestPath);
-        $modelClassContent = "<?php
-
-namespace Tests\Unit\Models;
-
-use App\User;
-use {$this->full_model_name};
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\BrowserKitTest as TestCase;
-
-class {$this->model_name}Test extends TestCase
-{
-    use RefreshDatabase;
-
-    /** @test */
-    public function a_{$this->lang_name}_has_title_link_attribute()
-    {
-        \${$this->single_model_var_name} = {$this->model_name}::factory()->create();
-
-        \$this->assertEquals(
-            link_to_route('{$this->table_name}.show', \${$this->single_model_var_name}->title, [\${$this->single_model_var_name}], [
-                'title' => __(
-                    'app.show_detail_title',
-                    ['title' => \${$this->single_model_var_name}->title, 'type' => __('{$this->lang_name}.{$this->lang_name}')]
-                ),
-            ]), \${$this->single_model_var_name}->title_link
-        );
-    }
-
-    /** @test */
-    public function a_{$this->lang_name}_has_belongs_to_creator_relation()
-    {
-        \${$this->single_model_var_name} = {$this->model_name}::factory()->make();
-
-        \$this->assertInstanceOf(User::class, \${$this->single_model_var_name}->creator);
-        \$this->assertEquals(\${$this->single_model_var_name}->creator_id, \${$this->single_model_var_name}->creator->id);
-    }
-}
-";
-        $this->assertEquals($modelClassContent, file_get_contents($uniTestPath));
-    }
 }

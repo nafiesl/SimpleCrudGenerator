@@ -15,6 +15,8 @@ class CrudSimpleMake extends GeneratorCommand
                             {--f|formfield : Generate CRUD with FormField facades}
                             {--r|form-requests : Generate CRUD with Form Request on create and update actions}
                             {--bs3 : Generate CRUD with Bootstrap 3 views}
+                            {--bs4 : Generate CRUD with Bootstrap 4 views}
+                            {--bs5 : Generate CRUD with Bootstrap 5 views}
                             {--uuid : Generate CRUD with UUID primary keys}';
 
     /**
