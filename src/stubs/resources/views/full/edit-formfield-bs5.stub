@@ -41,7 +41,7 @@
                 {{ Form::submit(__('master.update'), ['class' => 'btn btn-success']) }}
                 {{ link_to_route('masters.show', __('app.cancel'), [$singleMstr], ['class' => 'btn btn-link']) }}
                 @can('delete', $singleMstr)
-                    {{ link_to_route('masters.edit', __('app.delete'), [$singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger float-right', 'id' => 'del-master-'.$singleMstr->id]) }}
+                    {{ link_to_route('masters.edit', __('app.delete'), [$singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger float-end', 'id' => 'del-master-'.$singleMstr->id]) }}
                 @endcan
             </div>
             {{ Form::close() }}
