@@ -181,7 +181,7 @@ class SimpleCrudBs5OptionsTest extends TestCase
         <hr style=\"margin:0\">
         <div class=\"card-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
         <div class=\"card-footer\">
-            <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)\" class=\"del-form float-end\" style=\"display: inline;\">
+            <form method=\"POST\" action=\"{{ route('{$this->table_name}.destroy', \$editable{$this->model_name}) }}\" accept-charset=\"UTF-8\" onsubmit=\"return confirm(&quot;{{ __('{$this->lang_name}.delete_confirm') }}&quot;)\" class=\"del-form float-end\" style=\"display: inline;\">
                 {{ csrf_field() }} {{ method_field('delete') }}
                 <input name=\"{$this->lang_name}_id\" type=\"hidden\" value=\"{{ \$editable{$this->model_name}->id }}\">
                 <input name=\"page\" value=\"{{ request('page') }}\" type=\"hidden\">

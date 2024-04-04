@@ -206,7 +206,7 @@ class FullCrudFormfieldBs4OptionsTest extends TestCase
                 <div class=\"card-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
                 <div class=\"card-footer\">
                     {!! FormField::delete(
-                        ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
+                        ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}], 'onsubmit' => __('{$this->lang_name}.delete_confirm')],
                         __('app.delete_confirm_button'),
                         ['class' => 'btn btn-danger'],
                         ['{$this->lang_name}_id' => \${$this->single_model_var_name}->id]

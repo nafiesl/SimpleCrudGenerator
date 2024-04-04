@@ -47,7 +47,7 @@
         <div class="card-body text-danger">{{ __('master.delete_confirm') }}</div>
         <div class="card-footer">
             {!! FormField::delete(
-                ['route' => ['masters.destroy', $editableMaster]],
+                ['route' => ['masters.destroy', $editableMaster], 'onsubmit' => __('master.delete_confirm')],
                 __('app.delete_confirm_button'),
                 ['class' => 'btn btn-danger'],
                 [

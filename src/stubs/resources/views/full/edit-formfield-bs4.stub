@@ -20,7 +20,7 @@
                 <div class="card-body text-danger">{{ __('master.delete_confirm') }}</div>
                 <div class="card-footer">
                     {!! FormField::delete(
-                        ['route' => ['masters.destroy', $singleMstr]],
+                        ['route' => ['masters.destroy', $singleMstr], 'onsubmit' => __('master.delete_confirm')],
                         __('app.delete_confirm_button'),
                         ['class' => 'btn btn-danger'],
                         ['master_id' => $singleMstr->id]

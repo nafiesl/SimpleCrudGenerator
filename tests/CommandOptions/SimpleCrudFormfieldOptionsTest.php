@@ -174,7 +174,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
         <div class=\"card-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
         <div class=\"card-footer\">
             {!! FormField::delete(
-                ['route' => ['{$this->table_name}.destroy', \$editable{$this->model_name}]],
+                ['route' => ['{$this->table_name}.destroy', \$editable{$this->model_name}], 'onsubmit' => __('{$this->lang_name}.delete_confirm')],
                 __('app.delete_confirm_button'),
                 ['class' => 'btn btn-danger'],
                 [

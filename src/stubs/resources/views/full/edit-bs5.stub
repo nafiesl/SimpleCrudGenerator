@@ -19,7 +19,7 @@
                 <hr style="margin:0">
                 <div class="card-body text-danger">{{ __('master.delete_confirm') }}</div>
                 <div class="card-footer">
-                    <form method="POST" action="{{ route('masters.destroy', $singleMstr) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-end" style="display: inline;">
+                    <form method="POST" action="{{ route('masters.destroy', $singleMstr) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('master.delete_confirm') }}&quot;)" class="del-form float-end" style="display: inline;">
                         {{ csrf_field() }} {{ method_field('delete') }}
                         <input name="master_id" type="hidden" value="{{ $singleMstr->id }}">
                         <button type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>

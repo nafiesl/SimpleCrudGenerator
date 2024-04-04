@@ -215,7 +215,7 @@ class FullCrudFormfieldBs5OptionsTest extends TestCase
                 <div class=\"card-body text-danger\">{{ __('{$this->lang_name}.delete_confirm') }}</div>
                 <div class=\"card-footer\">
                     {!! FormField::delete(
-                        ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}]],
+                        ['route' => ['{$this->table_name}.destroy', \${$this->single_model_var_name}], 'onsubmit' => __('{$this->lang_name}.delete_confirm')],
                         __('app.delete_confirm_button'),
                         ['class' => 'btn btn-danger'],
                         ['{$this->lang_name}_id' => \${$this->single_model_var_name}->id]
@@ -236,7 +236,7 @@ class FullCrudFormfieldBs5OptionsTest extends TestCase
                 {{ Form::submit(__('{$this->lang_name}.update'), ['class' => 'btn btn-success']) }}
                 {{ link_to_route('{$this->table_name}.show', __('app.cancel'), [\${$this->single_model_var_name}], ['class' => 'btn btn-link']) }}
                 @can('delete', \${$this->single_model_var_name})
-                    {{ link_to_route('{$this->table_name}.edit', __('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger float-right', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
+                    {{ link_to_route('{$this->table_name}.edit', __('app.delete'), [\${$this->single_model_var_name}, 'action' => 'delete'], ['class' => 'btn btn-danger float-end', 'id' => 'del-{$this->lang_name}-'.\${$this->single_model_var_name}->id]) }}
                 @endcan
             </div>
             {{ Form::close() }}
