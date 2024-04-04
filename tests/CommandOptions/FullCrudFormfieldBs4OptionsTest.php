@@ -61,7 +61,7 @@ class FullCrudFormfieldBs4OptionsTest extends TestCase
         <div class=\"card\">
             <div class=\"card-header\">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'mx-sm-2']) !!}
+                {!! FormField::text('q', ['value' => request('q'), 'label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'mx-sm-2']) !!}
                 {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}
                 {{ link_to_route('{$this->table_name}.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}

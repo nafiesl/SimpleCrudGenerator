@@ -59,7 +59,7 @@ class SimpleCrudFormfieldBs3OptionsTest extends TestCase
         <div class=\"panel panel-default table-responsive\">
             <div class=\"panel-heading\">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'input-sm']) !!}
+                {!! FormField::text('q', ['value' => request('q'), 'label' => __('{$this->lang_name}.search'), 'placeholder' => __('{$this->lang_name}.search_text'), 'class' => 'input-sm']) !!}
                 {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-sm']) }}
                 {{ link_to_route('{$this->table_name}.index', __('app.reset')) }}
                 {{ Form::close() }}

@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-header">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('master.search'), 'placeholder' => __('master.search_text'), 'class' => 'mx-sm-2']) !!}
+                {!! FormField::text('q', ['value' => request('q'), 'label' => __('master.search'), 'placeholder' => __('master.search_text'), 'class' => 'mx-sm-2']) !!}
                 {{ Form::submit(__('master.search'), ['class' => 'btn btn-secondary']) }}
                 {{ link_to_route('masters.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
                 {{ Form::close() }}

@@ -66,7 +66,7 @@ class SimpleCrudFormfieldOptionsTest extends TestCase
                         <label for=\"q\" class=\"col-form-label\">{{ __('{$this->lang_name}.search') }}</label>
                     </div>
                     <div class=\"col-auto\">
-                        {!! FormField::text('q', ['label' => false, 'placeholder' => __('{$this->lang_name}.search_text')]) !!}
+                        {!! FormField::text('q', ['value' => request('q'), 'label' => false, 'placeholder' => __('{$this->lang_name}.search_text')]) !!}
                     </div>
                     <div class=\"col-auto\">
                         {{ Form::submit(__('{$this->lang_name}.search'), ['class' => 'btn btn-secondary']) }}

@@ -22,7 +22,7 @@
                         <label for="q" class="col-form-label">{{ __('master.search') }}</label>
                     </div>
                     <div class="col-auto">
-                        {!! FormField::text('q', ['label' => false, 'placeholder' => __('master.search_text')]) !!}
+                        {!! FormField::text('q', ['value' => request('q'), 'label' => false, 'placeholder' => __('master.search_text')]) !!}
                     </div>
                     <div class="col-auto">
                         {{ Form::submit(__('master.search'), ['class' => 'btn btn-secondary']) }}
