@@ -1,5 +1,30 @@
 # Change Log
 
+## [4.3.0] - 2026-03-02
+
+### Added
+- Support for Laravel 12.x
+- Support for Laravel 13.x
+
+### Changed
+- Updated `illuminate/support` dependency to support Laravel 12 and 13
+- Updated `orchestra/testbench` to support testbench 9.0
+
+## [4.2.0] - 2024-04-01
+
+### Added
+- Support for Laravel 11.x
+
+## [4.1.0] - 2023-10-17
+
+### Added
+- Bootstrap 5 stubs
+
+## [4.0.0] - 2023-06-11
+
+### Added
+- Support for Laravel 10.x
+
 ## [1.3.1](https://github.com/nafiesl/SimpleCrudGenerator/tree/1.3.1) (2019-03-10)
 [Full Changelog](https://github.com/nafiesl/SimpleCrudGenerator/compare/1.3.0...1.3.1)
 

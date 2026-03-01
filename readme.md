@@ -10,7 +10,7 @@ For installation instructions and usage, please take a look at the [official doc
 
 ## About this package
 
-This package contains artisan `make:crud` commands to create a simple CRUD feature with test classes on our Laravel 5.5 (and later) application. This package is fairly simple, to **boost test-driven development** method on our laravel application.
+This package contains artisan `make:crud` commands to create a simple CRUD feature with test classes on our Laravel 5.5 (and later) application. This package is fairly simple, to **boost test-driven development** method on our laravel application. It now supports Laravel 12 and 13.
 
 With this package installed on local environment, we can use (e.g.) `php artisan make:crud Vehicle` command to generate some files :
 
@@ -45,7 +45,7 @@ The main purpose of this package is for **faster Test-driven Development**, it g
 
 ## How to install
 
-#### For Laravel 10x
+#### For Laravel 10x and later
 
 ```bash
 # Get the package
