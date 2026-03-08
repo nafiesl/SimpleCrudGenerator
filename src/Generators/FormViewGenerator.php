@@ -12,14 +12,20 @@ class FormViewGenerator extends BaseGenerator
      */
     public function generate(string $type = 'full')
     {
-        $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
+        $modelViewPath = '';
+        if ($this->modelNames['parent_table_name']) {
+            $modelViewPath .= $this->modelNames['parent_table_name'].'/';
+            $type = $type.'-parentmodel';
+        }
+        $modelViewPath .= $this->modelNames['table_name'];
+        $viewPath = $this->makeDirectory(resource_path('views/'.$modelViewPath));
         $stubSuffix = $this->getStubSuffix();
 
-        if ($type == 'simple') {
-            $this->generateFile($viewPath.'/forms.blade.php', $this->getContent('resources/views/simple/forms'.$stubSuffix));
+        if (in_array($type, ['simple', 'simple-parentmodel'])) {
+            $this->generateFile($viewPath.'/forms.blade.php', $this->getContent('resources/views/'.$type.'/forms'.$stubSuffix));
         } else {
-            $this->generateFile($viewPath.'/create.blade.php', $this->getContent('resources/views/full/create'.$stubSuffix));
-            $this->generateFile($viewPath.'/edit.blade.php', $this->getContent('resources/views/full/edit'.$stubSuffix));
+            $this->generateFile($viewPath.'/create.blade.php', $this->getContent('resources/views/'.$type.'/create'.$stubSuffix));
+            $this->generateFile($viewPath.'/edit.blade.php', $this->getContent('resources/views/'.$type.'/edit'.$stubSuffix));
         }
 
         $this->command->info($this->modelNames['model_name'].' form view file generated.');

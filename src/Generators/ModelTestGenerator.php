@@ -30,6 +30,9 @@ class ModelTestGenerator extends BaseGenerator
         if ($this->command->option('formfield')) {
             $stubName .= '-formfield';
         }
+        if ($this->command->option('parent-model')) {
+            $stubName .= '-parentmodel';
+        }
 
         $modelFileContent = $this->getStubFileContent($stubName);
 

@@ -1,0 +1,27 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\User;
+use fullMstr;
+use fullPrnt;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class MasterFactory extends Factory
+{
+    protected $model = Master::class;
+
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->word,
+            'description' => $this->faker->sentence,
+            'parent_id' => function () {
+                return Parent::factory()->create()->id;
+            },
+            'creator_id' => function () {
+                return User::factory()->create()->id;
+            },
+        ];
+    }
+}

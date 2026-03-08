@@ -11,6 +11,7 @@ class CrudSimpleMake extends GeneratorCommand
      */
     protected $signature = 'make:crud-simple {name : The model name}
                             {--p|parent= : The generated controller parent directory}
+                            {--pm|parent-model= : The generated API for a parent model}
                             {--t|tests-only : Generate CRUD testcases only}
                             {--f|formfield : Generate CRUD with FormField facades}
                             {--r|form-requests : Generate CRUD with Form Request on create and update actions}

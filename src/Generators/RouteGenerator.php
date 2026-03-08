@@ -2,6 +2,8 @@
 
 namespace Luthfi\CrudGenerator\Generators;
 
+use Illuminate\Support\Str;
+
 /**
  * Route Generator Class
  */
@@ -28,14 +30,27 @@ class RouteGenerator extends BaseGenerator
 
         $webRouteFileContent = $this->replaceStubString($stub);
 
-        if (!is_null($parentName = $this->command->option('parent'))) {
+        if (!is_null($parentModelName = $this->command->option('parent-model'))) {
             $modelName = $this->modelNames['model_name'];
 
             $webRouteFileContent = str_replace(
-                $modelName.'Controller',
-                $parentName.'\\'.$modelName.'Controller',
+                [$modelName.'Controller', $this->modelNames['table_name']],
+                [
+                    Str::plural($this->modelNames['parent_model_name']).'\\'.$modelName.'Controller',
+                    $this->modelNames['parent_table_name'].'.'.$this->modelNames['table_name'],
+                ],
                 $webRouteFileContent
             );
+        } else {
+            if (!is_null($parentName = $this->command->option('parent'))) {
+                $modelName = $this->modelNames['model_name'];
+
+                $webRouteFileContent = str_replace(
+                    $modelName.'Controller',
+                    $parentName.'\\'.$modelName.'Controller',
+                    $webRouteFileContent
+                );
+            }
         }
 
         return $webRouteFileContent;

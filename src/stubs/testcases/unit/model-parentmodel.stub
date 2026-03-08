@@ -1,0 +1,32 @@
+<?php
+
+namespace Tests\Unit\Models;
+
+use App\User;
+use fullMstr;
+use fullPrnt;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\BrowserKitTest as TestCase;
+
+class MasterTest extends TestCase
+{
+    use RefreshDatabase;
+
+    /** @test */
+    public function a_master_has_belongs_to_creator_relation()
+    {
+        $singleMstr = Master::factory()->make();
+
+        $this->assertInstanceOf(User::class, $singleMstr->creator);
+        $this->assertEquals($singleMstr->creator_id, $singleMstr->creator->id);
+    }
+
+    /** @test */
+    public function a_master_has_belongs_to_parent_relation()
+    {
+        $singleMstr = Master::factory()->make();
+
+        $this->assertInstanceOf(Parent::class, $singleMstr->singlePrnt);
+        $this->assertEquals($singleMstr->parent_id, $singleMstr->singlePrnt->id);
+    }
+}

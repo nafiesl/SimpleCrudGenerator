@@ -2,6 +2,8 @@
 
 namespace Luthfi\CrudGenerator\Generators;
 
+use Illuminate\Support\Str;
+
 /**
  * Feature Test Generator Class
  */
@@ -15,9 +17,12 @@ class FeatureTestGenerator extends BaseGenerator
         $this->createBrowserKitBaseTestClass();
 
         $featureTestPath = 'tests/Feature';
-
         if ($this->isForApi()) {
             $featureTestPath .= '/Api';
+        }
+        if ($this->modelNames['parent_table_name']) {
+            $featureTestPath .= '/'.Str::plural($this->modelNames['parent_model_name']);
+            $type = $type.'-parentmodel';
         }
 
         $featureTestPath = $this->makeDirectory(base_path($featureTestPath));
@@ -36,6 +41,10 @@ class FeatureTestGenerator extends BaseGenerator
     public function getContent(string $stubName)
     {
         $stub = $this->getStubFileContent($stubName);
+        if ($this->modelNames['parent_table_name']) {
+            $stub = str_replace('Tests\Feature\Api;', 'Tests\Feature\Api\\'.Str::plural($this->modelNames['parent_model_name']).';', $stub);
+            $stub = str_replace('Tests\Feature;', 'Tests\Feature\\'.Str::plural($this->modelNames['parent_model_name']).';', $stub);
+        }
         $baseTestClass = config('simple-crud.base_test_class');
         $stub = str_replace('use Tests\BrowserKitTest', 'use '.$baseTestClass, $stub);
         $stub = str_replace('use Tests\TestCase as TestCase', 'use Tests\TestCase', $stub);

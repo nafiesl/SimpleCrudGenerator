@@ -2,6 +2,8 @@
 
 namespace Luthfi\CrudGenerator\Generators;
 
+use Illuminate\Support\Str;
+
 /**
  * Controller Generator Class
  */
@@ -14,8 +16,13 @@ class ControllerGenerator extends BaseGenerator
     {
         $modelName = $this->modelNames['model_name'];
         $parentControllerDirectory = '';
-        if (!is_null($this->command->option('parent'))) {
-            $parentControllerDirectory = '/'.$this->command->option('parent');
+
+        if (!is_null($this->command->option('parent-model'))) {
+            $parentControllerDirectory = '/'.Str::plural($this->command->option('parent-model'));
+        } else {
+            if (!is_null($this->command->option('parent'))) {
+                $parentControllerDirectory = '/'.$this->command->option('parent');
+            }
         }
 
         if ($this->isForApi()) {
@@ -42,6 +49,9 @@ class ControllerGenerator extends BaseGenerator
         if ($this->command->option('form-requests')) {
             $stubName .= '-formrequests';
         }
+        if (!is_null($this->command->option('parent-model'))) {
+            $stubName .= '-parentmodel';
+        }
 
         $stub = $this->getStubFileContent($stubName);
 
@@ -55,22 +65,25 @@ class ControllerGenerator extends BaseGenerator
             $controllerFileContent
         );
 
-        if (!is_null($parentName = $this->command->option('parent'))) {
-            $searches = [
-                "{$appNamespace}Http\Controllers",
-                "use {$this->modelNames['full_model_name']};\n",
-            ];
+        if (!is_null($this->command->option('parent-model'))) {
+        } else {
+            if (!is_null($parentName = $this->command->option('parent'))) {
+                $searches = [
+                    "{$appNamespace}Http\Controllers",
+                    "use {$this->modelNames['full_model_name']};\n",
+                ];
 
-            $replacements = [
-                "{$appNamespace}Http\Controllers\\{$parentName}",
-                "use {$this->modelNames['full_model_name']};\nuse {$appNamespace}Http\Controllers\Controller;\n",
-            ];
+                $replacements = [
+                    "{$appNamespace}Http\Controllers\\{$parentName}",
+                    "use {$this->modelNames['full_model_name']};\nuse {$appNamespace}Http\Controllers\Controller;\n",
+                ];
 
-            $controllerFileContent = str_replace(
-                $searches,
-                $replacements,
-                $controllerFileContent
-            );
+                $controllerFileContent = str_replace(
+                    $searches,
+                    $replacements,
+                    $controllerFileContent
+                );
+            }
         }
 
         if ($this->command->option('uuid')) {

@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Http\Controllers\Parents;
+
+use fullMstr;
+use fullPrnt;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class MasterController extends Controller
+{
+    public function index(Request $request, Parent $singlePrnt)
+    {
+        $singleMstrQuery = $singlePrnt->mstrCollections();
+        $singleMstrQuery->where('title', 'like', '%'.$request->get('q').'%');
+        $singleMstrQuery->orderBy('title');
+        $mstrCollections = $singleMstrQuery->paginate(25);
+
+        return view('parents.masters.index', compact('singlePrnt', 'mstrCollections'));
+    }
+
+    public function create(Parent $singlePrnt)
+    {
+        $this->authorize('create', new Master);
+
+        return view('parents.masters.create', compact('singlePrnt'));
+    }
+
+    public function store(Request $request, Parent $singlePrnt)
+    {
+        $this->authorize('create', new Master);
+
+        $newMaster = $request->validate([
+            'title' => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ]);
+        $newMaster['creator_id'] = auth()->id();
+
+        $singleMstr = $singlePrnt->mstrCollections()->create($newMaster);
+
+        return redirect()->route('parents.masters.show', [$singlePrnt, $singleMstr]);
+    }
+
+    public function show(Parent $singlePrnt, Master $singleMstr)
+    {
+        return view('parents.masters.show', compact('singlePrnt', 'singleMstr'));
+    }
+
+    public function edit(Parent $singlePrnt, Master $singleMstr)
+    {
+        $this->authorize('update', $singleMstr);
+
+        return view('parents.masters.edit', compact('singlePrnt', 'singleMstr'));
+    }
+
+    public function update(Request $request, Parent $singlePrnt, Master $singleMstr)
+    {
+        $this->authorize('update', $singleMstr);
+
+        $singleMstrData = $request->validate([
+            'title' => 'required|max:60',
+            'description' => 'nullable|max:255',
+        ]);
+        $singleMstr->update($singleMstrData);
+
+        return redirect()->route('parents.masters.show', [$singlePrnt, $singleMstr]);
+    }
+
+    public function destroy(Request $request, Parent $singlePrnt, Master $singleMstr)
+    {
+        $this->authorize('delete', $singleMstr);
+
+        $request->validate(['master_id' => 'required']);
+
+        if ($request->get('master_id') == $singleMstr->id && $singleMstr->delete()) {
+            return redirect()->route('parents.masters.index', $singlePrnt);
+        }
+
+        return back();
+    }
+}

@@ -37,6 +37,9 @@ class ModelFactoryGenerator extends BaseGenerator
      */
     public function getContent(string $stubName)
     {
+        if ($this->modelNames['parent_table_name']) {
+            $stubName = $stubName.'-parentmodel';
+        }
         $modelFactoryFileContent = $this->getStubFileContent($stubName);
 
         $userModel = config('auth.providers.users.model');
@@ -46,8 +49,8 @@ class ModelFactoryGenerator extends BaseGenerator
         }
 
         if ($this->command->option('uuid')) {
-            $string = "'title'       => \$this->faker->word,\n";
-            $replacement = "'id'       => \$this->faker->uuid,\n            'title'       => \$this->faker->word,\n";
+            $string = "'title' => \$this->faker->word,\n";
+            $replacement = "'id' => \$this->faker->uuid,\n            'title' => \$this->faker->word,\n";
             $modelFactoryFileContent = str_replace($string, $replacement, $modelFactoryFileContent);
         }
 

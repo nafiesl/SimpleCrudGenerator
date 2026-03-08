@@ -63,10 +63,10 @@ class {$this->model_name}Factory extends Factory
     public function definition()
     {
         return [
-            'id'       => \$this->faker->uuid,
-            'title'       => \$this->faker->word,
+            'id' => \$this->faker->uuid,
+            'title' => \$this->faker->word,
             'description' => \$this->faker->sentence,
-            'creator_id'  => function () {
+            'creator_id' => function () {
                 return User::factory()->create()->id;
             },
         ];

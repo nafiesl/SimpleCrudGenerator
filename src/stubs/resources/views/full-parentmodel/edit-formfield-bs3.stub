@@ -1,0 +1,52 @@
+@extends('layouts.app')
+
+@section('title', __('master.edit'))
+
+@section('content')
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        @if (request('action') == 'delete' && $singleMstr)
+        @can('delete', $singleMstr)
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">{{ __('master.delete') }}</h3></div>
+                <div class="panel-body">
+                    <label class="control-label text-primary">{{ __('master.title') }}</label>
+                    <p>{{ $singleMstr->title }}</p>
+                    <label class="control-label text-primary">{{ __('master.description') }}</label>
+                    <p>{{ $singleMstr->description }}</p>
+                    {!! $errors->first('master_id', '<span class="form-error small">:message</span>') !!}
+                </div>
+                <hr style="margin:0">
+                <div class="panel-body text-danger">{{ __('master.delete_confirm') }}</div>
+                <div class="panel-footer">
+                    {!! FormField::delete(
+                        ['route' => ['parents.masters.destroy', $singlePrnt, $singleMstr], 'onsubmit' => __('master.delete_confirm')],
+                        __('app.delete_confirm_button'),
+                        ['class' => 'btn btn-danger'],
+                        ['master_id' => $singleMstr->id]
+                    ) !!}
+                    {{ link_to_route('parents.masters.edit', __('app.cancel'), [$singlePrnt, $singleMstr], ['class' => 'btn btn-default']) }}
+                </div>
+            </div>
+        @endcan
+        @else
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">{{ __('master.edit') }}</h3></div>
+            {{ Form::model($singleMstr, ['route' => ['parents.masters.update', $singlePrnt, $singleMstr], 'method' => 'patch']) }}
+            <div class="panel-body">
+                {!! FormField::text('title', ['required' => true, 'label' => __('master.title')]) !!}
+                {!! FormField::textarea('description', ['label' => __('master.description')]) !!}
+            </div>
+            <div class="panel-footer">
+                {{ Form::submit(__('master.update'), ['class' => 'btn btn-success']) }}
+                {{ link_to_route('parents.masters.show', __('app.cancel'), [$singlePrnt, $singleMstr], ['class' => 'btn btn-default']) }}
+                @can('delete', $singleMstr)
+                    {{ link_to_route('parents.masters.edit', __('app.delete'), [$singlePrnt, $singleMstr, 'action' => 'delete'], ['class' => 'btn btn-danger pull-right', 'id' => 'del-master-'.$singleMstr->id]) }}
+                @endcan
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
+@endif
+@endsection
