@@ -34,7 +34,7 @@ class CrudSimpleMake extends GeneratorCommand
      */
     public function handle()
     {
-        $this->getModelName();
+        $this->getModelName($this->argument('name'), $this->option('parent-model'));
 
         if ($this->modelExists()) {
             $confirm = $this->confirm('Model file exists, are you sure to generate CRUD files?');

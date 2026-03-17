@@ -31,7 +31,7 @@ class CrudApiMake extends GeneratorCommand
      */
     public function handle()
     {
-        $this->getModelName();
+        $this->getModelName($this->argument('name'), $this->option('parent-model'));
 
         if ($this->modelExists()) {
             $this->warn("We will use existing {$this->modelNames['model_name']} model.\n");

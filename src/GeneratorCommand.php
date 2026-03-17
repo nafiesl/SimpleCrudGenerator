@@ -56,15 +56,13 @@ abstract class GeneratorCommand extends Command
      *
      * @return array
      */
-    public function getModelName($modelName = null)
+    public function getModelName(string $modelName, ?string $parentModelName = null): array
     {
-        $modelName = is_null($modelName) ? $this->argument('name') : $modelName;
         $model_name = ucfirst(class_basename($modelName));
         $plural_model_name = Str::plural($model_name);
         $modelPath = $this->getModelPath($modelName);
         $modelNamespace = $this->getModelNamespace($modelPath);
-        $parentModelName = $this->option('parent-model') ?: null;
-        $plural_parent_model_name = $parentModelName ? Str::plural($parentModelName) : null;
+        $plural_parent_model_name = Str::plural($parentModelName);
         $parentModelPath = $this->getModelPath($parentModelName);
         $parentModelNamespace = $this->getModelNamespace($parentModelPath);
 
@@ -78,12 +76,12 @@ abstract class GeneratorCommand extends Command
             'collection_model_var_name' => Str::camel($plural_model_name),
             'single_model_var_name' => Str::camel($model_name),
             'parent_model_name' => $parentModelName,
-            'parent_table_name' => Str::snake($plural_parent_model_name),
-            'parent_lang_name' => Str::snake($parentModelName),
-            'single_parent_model_var_name' => Str::camel($parentModelName),
-            'full_parent_model_name' => $parentModelNamespace.'\\'.$parentModelName,
+            'parent_table_name' => $parentModelName ? Str::snake($plural_parent_model_name) : null,
+            'parent_lang_name' => $parentModelName ? Str::snake($parentModelName) : null,
+            'single_parent_model_var_name' => $parentModelName ? Str::camel($parentModelName) : null,
+            'full_parent_model_name' => $parentModelName ? $parentModelNamespace.'\\'.$parentModelName : null,
             'model_path' => $modelPath,
-            'parent_model_path' => $parentModelPath,
+            'parent_model_path' => $parentModelName ? $parentModelPath : null,
         ];
     }
 
