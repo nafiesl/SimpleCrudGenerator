@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Http\Controllers\Api\Parents;
+
+use fullMstr;
+use fullPrnt;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Requests\Masters\CreateRequest;
+use App\Http\Requests\Masters\UpdateRequest;
+
+class MasterController extends Controller
+{
+    public function index(Request $request, Parent $singlePrnt)
+    {
+        $singleMstrQuery = $singlePrnt->mstrCollections();
+        $singleMstrQuery->where('title', 'like', '%'.$request->get('q').'%');
+        $singleMstrQuery->orderBy('title');
+        $mstrCollections = $singleMstrQuery->paginate(25);
+
+        return $mstrCollections;
+    }
+
+    public function store(CreateRequest $singleMstrCreateForm, Parent $singlePrnt)
+    {
+        $singleMstr = $singleMstrCreateForm->save();
+
+        return response()->json([
+            'message' => __('master.created'),
+            'data' => $singleMstr,
+        ], 201);
+    }
+
+    public function show(Parent $singlePrnt, Master $singleMstr)
+    {
+        return $singleMstr;
+    }
+
+    public function update(UpdateRequest $singleMstrUpdateForm, Parent $singlePrnt, Master $singleMstr)
+    {
+        $singleMstr->update($singleMstrUpdateForm->validated());
+
+        return response()->json([
+            'message' => __('master.updated'),
+            'data' => $singleMstr,
+        ]);
+    }
+
+    public function destroy(Request $request, Parent $singlePrnt, Master $singleMstr)
+    {
+        $this->authorize('delete', $singleMstr);
+
+        $request->validate(['master_id' => 'required']);
+
+        if ($request->get('master_id') == $singleMstr->id && $singleMstr->delete()) {
+            return response()->json(['message' => __('master.deleted')]);
+        }
+
+        return response()->json('Unprocessable Entity.', 422);
+    }
+}

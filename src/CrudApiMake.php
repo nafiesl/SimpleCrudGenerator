@@ -58,6 +58,10 @@ class CrudApiMake extends GeneratorCommand
             $this->generateResources();
         }
 
+        if ($this->option('form-requests')) {
+            $this->generateRequestClasses();
+        }
+
         $this->info('API CRUD files generated successfully!');
     }
 
@@ -117,5 +121,10 @@ class CrudApiMake extends GeneratorCommand
     public function generateResources()
     {
         app('Luthfi\CrudGenerator\Generators\LangFileGenerator', ['command' => $this])->generate();
+    }
+
+    public function generateRequestClasses()
+    {
+        app('Luthfi\CrudGenerator\Generators\FormRequestGenerator', ['command' => $this])->generate();
     }
 }
