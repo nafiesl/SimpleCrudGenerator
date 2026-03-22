@@ -43,21 +43,21 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
 
         \$this->postJson(route('api.{$this->table_name}.store'), [
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
 
         \$this->seeStatusCode(201);
         \$this->seeJson([
-            'message'     => __('{$this->lang_name}.created'),
-            'title'       => '{$this->model_name} 1 title',
+            'message' => __('{$this->lang_name}.created'),
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
     }
@@ -65,7 +65,7 @@ class Manage{$this->model_name}Test extends TestCase
     private function getCreateFields(array \$overrides = [])
     {
         return array_merge([
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
@@ -141,21 +141,21 @@ class Manage{$this->model_name}Test extends TestCase
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['title' => 'Testing 123']);
 
         \$this->patchJson(route('api.{$this->table_name}.update', \${$this->single_model_var_name}), [
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
 
         \$this->seeStatusCode(200);
         \$this->seeJson([
-            'message'     => __('{$this->lang_name}.updated'),
-            'title'       => '{$this->model_name} 1 title',
+            'message' => __('{$this->lang_name}.updated'),
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
     }
@@ -163,7 +163,7 @@ class Manage{$this->model_name}Test extends TestCase
     private function getEditFields(array \$overrides = [])
     {
         return array_merge([
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
@@ -288,21 +288,21 @@ class Manage{$this->model_name}Test extends TestCase
         \$user = \$this->createUser();
 
         \$this->postJson(route('api.{$this->table_name}.store'), [
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
 
         \$this->seeStatusCode(201);
         \$this->seeJson([
-            'message'     => __('{$this->lang_name}.created'),
-            'title'       => '{$this->model_name} 1 title',
+            'message' => __('{$this->lang_name}.created'),
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
     }
@@ -310,7 +310,7 @@ class Manage{$this->model_name}Test extends TestCase
     private function getCreateFields(array \$overrides = [])
     {
         return array_merge([
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
@@ -386,21 +386,21 @@ class Manage{$this->model_name}Test extends TestCase
         \${$this->single_model_var_name} = {$this->model_name}::factory()->create(['title' => 'Testing 123']);
 
         \$this->patchJson(route('api.{$this->table_name}.update', \${$this->single_model_var_name}), [
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], [
             'Authorization' => 'Bearer '.\$user->api_token
         ]);
 
         \$this->seeInDatabase('{$this->table_name}', [
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
 
         \$this->seeStatusCode(200);
         \$this->seeJson([
-            'message'     => __('{$this->lang_name}.updated'),
-            'title'       => '{$this->model_name} 1 title',
+            'message' => __('{$this->lang_name}.updated'),
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ]);
     }
@@ -408,7 +408,7 @@ class Manage{$this->model_name}Test extends TestCase
     private function getEditFields(array \$overrides = [])
     {
         return array_merge([
-            'title'       => '{$this->model_name} 1 title',
+            'title' => '{$this->model_name} 1 title',
             'description' => '{$this->model_name} 1 description',
         ], \$overrides);
     }
