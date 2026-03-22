@@ -289,6 +289,45 @@ That will generate stub files on `stubs/simple-crud` directory. Now we can chang
 
 <br>
 
+## The `--parent-model` Command Option
+
+We have `--parent-model` option to create a CRUD feature nested with existing model.
+
+I often creating a CRUD feature nested with the existing model, like:
+- Adding payment history entries for an invoice
+- Adding work orders under a project
+- Adding attachments under document
+- Many more
+
+Since this package was (only) for creating the "first-class citizen" CRUD feature, we need to create the nested CRUD feature manually. The command `--parent-model` option can save our time more.
+
+### Example
+
+When one department has many section, then we are adding a nested controller like so:
+```
+Route::resource('departments.sections', Departements\SectionController::class);
+```
+So we will have routes like:
+```
+GET departments/{department}/sections
+GET departments/{department}/sections/{section}
+GET departments/{department}/sections/create
+POST departments/{department}/sections
+GET departments/{department}/sections/{section}
+GET departments/{department}/sections/{section}/edit
+PATCH departments/{department}/sections/{section}
+DELETE departments/{department}/sections/{section}
+```
+Including the model, controller, views, feature test, unit tests.
+
+To create the CRUD feature, we can run:
+```
+php artisan make:crud --parent-model=Department Section
+```
+We will have a working Section CRUD feature with `title` and `description` attribute under Departments namespace, completed with tests. (Where `Department` is the existing model and `Section` is the new model.)
+
+<br>
+
 ## Screenshots
 
 Visit your application in new resource route : `http://127.0.0.1:8000/vehicles`
