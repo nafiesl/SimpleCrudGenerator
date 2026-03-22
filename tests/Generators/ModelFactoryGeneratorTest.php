@@ -29,9 +29,9 @@ class {$this->model_name}Factory extends Factory
     public function definition()
     {
         return [
-            'title'       => \$this->faker->word,
+            'title' => \$this->faker->word,
             'description' => \$this->faker->sentence,
-            'creator_id'  => function () {
+            'creator_id' => function () {
                 return User::factory()->create()->id;
             },
         ];
@@ -73,9 +73,9 @@ class {$modelName}Factory extends Factory
     public function definition()
     {
         return [
-            'title'       => \$this->faker->word,
+            'title' => \$this->faker->word,
             'description' => \$this->faker->sentence,
-            'creator_id'  => function () {
+            'creator_id' => function () {
                 return User::factory()->create()->id;
             },
         ];
@@ -100,8 +100,6 @@ class {$modelName}Factory extends Factory
         $this->assertFileExists($modelFactoryPath);
         $modelFactoryContent = "<?php
 
-declare(strict_types = 1);
-
 namespace Database\Factories;
 
 use App\Models\User;
@@ -115,9 +113,9 @@ class {$this->model_name}Factory extends Factory
     public function definition()
     {
         return [
-            'title'       => \$this->faker->word,
+            'title' => \$this->faker->word,
             'description' => \$this->faker->sentence,
-            'creator_id'  => function () {
+            'creator_id' => function () {
                 return User::factory()->create()->id;
             },
         ];

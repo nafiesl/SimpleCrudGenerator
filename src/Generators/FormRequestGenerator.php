@@ -20,11 +20,16 @@ class FormRequestGenerator extends BaseGenerator
 
         $requestPath = $this->makeDirectory(app_path('Http/Requests/'.$pluralModelName));
 
+        $createRequestStubName = 'requests/create-request';
         if ($this->command->option('uuid')) {
-            $this->generateFile($requestPath.'/CreateRequest.php', $this->getContent('requests/create-request-uuid'));
-        } else {
-            $this->generateFile($requestPath.'/CreateRequest.php', $this->getContent('requests/create-request'));
+            $createRequestStubName .= '-uuid';
         }
+        if ($this->modelNames['parent_model_name']) {
+            $createRequestStubName .= '-parentmodel';
+        }
+
+        $this->generateFile($requestPath.'/CreateRequest.php', $this->getContent($createRequestStubName));
+
         $this->generateFile(
             $requestPath.'/UpdateRequest.php', $this->getContent('requests/update-request')
         );
@@ -40,11 +45,9 @@ class FormRequestGenerator extends BaseGenerator
      */
     public function getContent(string $stubName)
     {
-        $stub = $this->getStubFileContent($stubName);
-
-        $requestFileContent = $this->replaceStubString($stub);
-
         $appNamespace = $this->getAppNamespace();
+        $stub = $this->getStubFileContent($stubName);
+        $requestFileContent = $this->replaceStubString($stub);
 
         $requestFileContent = str_replace(
             "App\Http\Requests",

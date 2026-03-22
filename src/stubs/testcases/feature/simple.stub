@@ -30,14 +30,14 @@ class ManageMasterTest extends TestCase
         $this->seeRouteIs('masters.index', ['action' => 'create']);
 
         $this->submitForm(__('app.create'), [
-            'title'       => 'Master 1 title',
+            'title' => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
 
         $this->seeRouteIs('masters.index');
 
         $this->seeInDatabase('masters', [
-            'title'       => 'Master 1 title',
+            'title' => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
     }
@@ -45,7 +45,7 @@ class ManageMasterTest extends TestCase
     private function getCreateFields(array $overrides = [])
     {
         return array_merge([
-            'title'       => 'Master 1 title',
+            'title' => 'Master 1 title',
             'description' => 'Master 1 description',
         ], $overrides);
     }
@@ -95,14 +95,14 @@ class ManageMasterTest extends TestCase
         $this->seeRouteIs('masters.index', ['action' => 'edit', 'id' => $singleMstr->id, 'q' => '123']);
 
         $this->submitForm(__('master.update'), [
-            'title'       => 'Master 1 title',
+            'title' => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
 
         $this->seeRouteIs('masters.index', ['q' => '123']);
 
         $this->seeInDatabase('masters', [
-            'title'       => 'Master 1 title',
+            'title' => 'Master 1 title',
             'description' => 'Master 1 description',
         ]);
     }
@@ -110,7 +110,7 @@ class ManageMasterTest extends TestCase
     private function getEditFields(array $overrides = [])
     {
         return array_merge([
-            'title'       => 'Master 1 title',
+            'title' => 'Master 1 title',
             'description' => 'Master 1 description',
         ], $overrides);
     }
@@ -119,10 +119,10 @@ class ManageMasterTest extends TestCase
     public function validate_master_title_update_is_required()
     {
         $this->loginAsUser();
-        $master = Master::factory()->create(['title' => 'Testing 123']);
+        $singleMstr = Master::factory()->create(['title' => 'Testing 123']);
 
         // title empty
-        $this->patch(route('masters.update', $master), $this->getEditFields(['title' => '']));
+        $this->patch(route('masters.update', $singleMstr), $this->getEditFields(['title' => '']));
         $this->assertSessionHasErrors('title');
     }
 
@@ -130,10 +130,10 @@ class ManageMasterTest extends TestCase
     public function validate_master_title_update_is_not_more_than_60_characters()
     {
         $this->loginAsUser();
-        $master = Master::factory()->create(['title' => 'Testing 123']);
+        $singleMstr = Master::factory()->create(['title' => 'Testing 123']);
 
         // title 70 characters
-        $this->patch(route('masters.update', $master), $this->getEditFields([
+        $this->patch(route('masters.update', $singleMstr), $this->getEditFields([
             'title' => str_repeat('Test Title', 7),
         ]));
         $this->assertSessionHasErrors('title');
@@ -143,10 +143,10 @@ class ManageMasterTest extends TestCase
     public function validate_master_description_update_is_not_more_than_255_characters()
     {
         $this->loginAsUser();
-        $master = Master::factory()->create(['title' => 'Testing 123']);
+        $singleMstr = Master::factory()->create(['title' => 'Testing 123']);
 
         // description 256 characters
-        $this->patch(route('masters.update', $master), $this->getEditFields([
+        $this->patch(route('masters.update', $singleMstr), $this->getEditFields([
             'description' => str_repeat('Long description', 16),
         ]));
         $this->assertSessionHasErrors('description');

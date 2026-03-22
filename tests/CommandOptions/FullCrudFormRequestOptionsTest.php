@@ -139,7 +139,7 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ];
     }
@@ -180,7 +180,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ];
     }

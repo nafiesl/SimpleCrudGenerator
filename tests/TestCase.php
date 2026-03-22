@@ -14,11 +14,15 @@ abstract class TestCase extends BaseTestCase
     protected $lang_name;
     protected $collection_model_var_name;
     protected $single_model_var_name;
+    protected $full_parent_model_name;
+    protected $parent_model_name;
+    protected $parent_table_name;
+    protected $single_parent_model_var_name;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->model_name = 'MemberType';
+        $this->model_name = 'MemberItem';
 
         $this->full_model_name = 'App\\Models\\'.$this->model_name;
         $this->plural_model_name = Str::plural($this->model_name);
@@ -26,6 +30,13 @@ abstract class TestCase extends BaseTestCase
         $this->lang_name = Str::snake($this->model_name);
         $this->collection_model_var_name = Str::camel($this->plural_model_name);
         $this->single_model_var_name = Str::camel($this->model_name);
+
+        $this->parent_model_name = 'MemberType';
+        $this->full_parent_model_name = 'App\\Models\\'.$this->parent_model_name;
+        $this->plural_parent_model_name = Str::plural($this->parent_model_name);
+        $this->single_parent_model_var_name = Str::camel($this->parent_model_name);
+        $this->parent_table_name = Str::snake($this->plural_parent_model_name);
+        $this->parent_lang_name = Str::snake($this->parent_model_name);
 
         $this->withoutMockingConsoleOutput();
     }

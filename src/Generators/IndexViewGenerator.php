@@ -12,7 +12,13 @@ class IndexViewGenerator extends BaseGenerator
      */
     public function generate(string $type = 'full')
     {
-        $viewPath = $this->makeDirectory(resource_path('views/'.$this->modelNames['table_name']));
+        $modelViewPath = '';
+        if ($this->modelNames['parent_table_name']) {
+            $modelViewPath .= $this->modelNames['parent_table_name'].'/';
+            $type = $type.'-parentmodel';
+        }
+        $modelViewPath .= $this->modelNames['table_name'];
+        $viewPath = $this->makeDirectory(resource_path('views/'.$modelViewPath));
         $stubSuffix = $this->getStubSuffix();
         $this->generateFile($viewPath.'/index.blade.php', $this->getContent('resources/views/'.$type.'/index'.$stubSuffix));
 

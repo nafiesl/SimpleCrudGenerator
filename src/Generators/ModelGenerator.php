@@ -21,6 +21,29 @@ class ModelGenerator extends BaseGenerator
             return;
         }
 
+        if ($this->modelNames['parent_model_name']) {
+            $parentModelClassPath = app_path($this->modelNames['parent_model_path'].'/'.$this->modelNames['parent_model_name'].'.php');
+            if (!$this->files->exists($parentModelClassPath)) {
+                $this->command->error("Parent model {$this->modelNames['parent_model_name']} not exists!");
+                return;
+            }
+            $parentModelContent = file_get_contents($parentModelClassPath);
+            $lastBracePos = strrpos($parentModelContent, '}');
+            $parentModelRelationMethodContent = "
+    public function {$this->modelNames['collection_model_var_name']}()
+    {
+        return \$this->hasMany({$this->modelNames['model_name']}::class);
+    }
+";
+            if ($lastBracePos !== false) {
+                $modelClassContent = substr_replace($parentModelContent, $parentModelRelationMethodContent."\n", $lastBracePos, 0);
+                file_put_contents($parentModelClassPath, $modelClassContent);
+                $this->command->info($this->modelNames['parent_model_name'].' model relation updated.');
+            } else {
+                $this->command->error($this->modelNames['parent_model_name'].' model relation not updated.');
+            }
+        }
+
         $this->generateFile($modelClassPath, $this->getContent('models/model'));
 
         $this->command->info($this->modelNames['model_name'].' model generated.');
@@ -33,6 +56,9 @@ class ModelGenerator extends BaseGenerator
     {
         if ($this->command->option('formfield')) {
             $stubName .= '-formfield';
+        }
+        if ($this->modelNames['parent_table_name']) {
+            $stubName = $stubName.'-parentmodel';
         }
 
         $modelFileContent = $this->getStubFileContent($stubName);

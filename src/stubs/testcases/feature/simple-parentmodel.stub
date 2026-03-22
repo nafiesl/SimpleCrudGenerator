@@ -1,0 +1,188 @@
+<?php
+
+namespace Tests\Feature;
+
+use fullMstr;
+use fullPrnt;
+use Tests\BrowserKitTest as TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class ManageMasterTest extends TestCase
+{
+    use RefreshDatabase;
+
+    /** @test */
+    public function user_can_see_master_list_in_master_index_page()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+        $singleMstr = Master::factory()->create(['parent_id' => $singlePrnt->id]);
+
+        $this->visitRoute('parents.masters.index', $singlePrnt);
+        $this->see($singleMstr->title);
+    }
+
+    /** @test */
+    public function user_can_create_a_master()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+
+        $this->visitRoute('parents.masters.index', $singlePrnt);
+
+        $this->click(__('master.create'));
+        $this->seeRouteIs('parents.masters.index', [$singlePrnt, 'action' => 'create']);
+
+        $this->submitForm(__('app.create'), [
+            'title' => 'Master 1 title',
+            'description' => 'Master 1 description',
+        ]);
+
+        $this->seeRouteIs('parents.masters.index', $singlePrnt);
+
+        $this->seeInDatabase('masters', [
+            'title' => 'Master 1 title',
+            'description' => 'Master 1 description',
+        ]);
+    }
+
+    private function getCreateFields(array $overrides = [])
+    {
+        return array_merge([
+            'title' => 'Master 1 title',
+            'description' => 'Master 1 description',
+        ], $overrides);
+    }
+
+    /** @test */
+    public function validate_master_title_is_required()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+
+        // title empty
+        $this->post(route('parents.masters.store', $singlePrnt), $this->getCreateFields(['title' => '']));
+        $this->assertSessionHasErrors('title');
+    }
+
+    /** @test */
+    public function validate_master_title_is_not_more_than_60_characters()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+
+        // title 70 characters
+        $this->post(route('parents.masters.store', $singlePrnt), $this->getCreateFields([
+            'title' => str_repeat('Test Title', 7),
+        ]));
+        $this->assertSessionHasErrors('title');
+    }
+
+    /** @test */
+    public function validate_master_description_is_not_more_than_255_characters()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+
+        // description 256 characters
+        $this->post(route('parents.masters.store', $singlePrnt), $this->getCreateFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        $this->assertSessionHasErrors('description');
+    }
+
+    /** @test */
+    public function user_can_edit_a_master_within_search_query()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+        $singleMstr = Master::factory()->create(['parent_id' => $singlePrnt->id, 'title' => 'Testing 123']);
+
+        $this->visitRoute('parents.masters.index', [$singlePrnt, 'q' => '123']);
+        $this->click('edit-master-'.$singleMstr->id);
+        $this->seeRouteIs('parents.masters.index', [$singlePrnt, 'action' => 'edit', 'id' => $singleMstr->id, 'q' => '123']);
+
+        $this->submitForm(__('master.update'), [
+            'title' => 'Master 1 title',
+            'description' => 'Master 1 description',
+        ]);
+
+        $this->seeRouteIs('parents.masters.index', [$singlePrnt, 'q' => '123']);
+
+        $this->seeInDatabase('masters', [
+            'title' => 'Master 1 title',
+            'description' => 'Master 1 description',
+        ]);
+    }
+
+    private function getEditFields(array $overrides = [])
+    {
+        return array_merge([
+            'title' => 'Master 1 title',
+            'description' => 'Master 1 description',
+        ], $overrides);
+    }
+
+    /** @test */
+    public function validate_master_title_update_is_required()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+        $singleMstr = Master::factory()->create(['parent_id' => $singlePrnt->id, 'title' => 'Testing 123']);
+
+        // title empty
+        $this->patch(route('parents.masters.update', [$singlePrnt, $singleMstr]), $this->getEditFields(['title' => '']));
+        $this->assertSessionHasErrors('title');
+    }
+
+    /** @test */
+    public function validate_master_title_update_is_not_more_than_60_characters()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+        $singleMstr = Master::factory()->create(['parent_id' => $singlePrnt->id, 'title' => 'Testing 123']);
+
+        // title 70 characters
+        $this->patch(route('parents.masters.update', [$singlePrnt, $singleMstr]), $this->getEditFields([
+            'title' => str_repeat('Test Title', 7),
+        ]));
+        $this->assertSessionHasErrors('title');
+    }
+
+    /** @test */
+    public function validate_master_description_update_is_not_more_than_255_characters()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+        $singleMstr = Master::factory()->create(['parent_id' => $singlePrnt->id, 'title' => 'Testing 123']);
+
+        // description 256 characters
+        $this->patch(route('parents.masters.update', [$singlePrnt, $singleMstr]), $this->getEditFields([
+            'description' => str_repeat('Long description', 16),
+        ]));
+        $this->assertSessionHasErrors('description');
+    }
+
+    /** @test */
+    public function user_can_delete_a_master()
+    {
+        $this->loginAsUser();
+        $singlePrnt = Parent::factory()->create();
+        $singleMstr = Master::factory()->create(['parent_id' => $singlePrnt->id]);
+        Master::factory()->create();
+
+        $this->visitRoute('parents.masters.index', [$singlePrnt, 'action' => 'edit', 'id' => $singleMstr->id]);
+        $this->click('del-master-'.$singleMstr->id);
+        $this->seeRouteIs('parents.masters.index', [$singlePrnt, 'action' => 'delete', 'id' => $singleMstr->id]);
+
+        $this->seeInDatabase('masters', [
+            'id' => $singleMstr->id,
+        ]);
+
+        $this->press(__('app.delete_confirm_button'));
+
+        $this->dontSeeInDatabase('masters', [
+            'id' => $singleMstr->id,
+        ]);
+    }
+}

@@ -43,7 +43,7 @@ class {$this->model_name}Controller extends Controller
         \$this->authorize('create', new {$this->model_name});
 
         \$new{$this->model_name} = \$request->validate([
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$new{$this->model_name}['creator_id'] = auth()->id();
@@ -70,7 +70,7 @@ class {$this->model_name}Controller extends Controller
         \$this->authorize('update', \${$this->single_model_var_name});
 
         \${$this->single_model_var_name}Data = \$request->validate([
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \${$this->single_model_var_name}->update(\${$this->single_model_var_name}Data);
@@ -132,7 +132,7 @@ class CategoryController extends Controller
         \$this->authorize('create', new Category);
 
         \$newCategory = \$request->validate([
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$newCategory['creator_id'] = auth()->id();
@@ -159,7 +159,7 @@ class CategoryController extends Controller
         \$this->authorize('update', \$category);
 
         \$categoryData = \$request->validate([
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$category->update(\$categoryData);
@@ -222,7 +222,7 @@ class CategoryController extends Controller
         \$this->authorize('create', new Category);
 
         \$newCategory = \$request->validate([
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$newCategory['creator_id'] = auth()->id();
@@ -249,7 +249,7 @@ class CategoryController extends Controller
         \$this->authorize('update', \$category);
 
         \$categoryData = \$request->validate([
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         \$category->update(\$categoryData);

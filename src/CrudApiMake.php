@@ -11,6 +11,7 @@ class CrudApiMake extends GeneratorCommand
      */
     protected $signature = 'make:crud-api {name : The model name}
                             {--p|parent= : The generated API controller parent directory}
+                            {--pm|parent-model= : The generated API for a parent model}
                             {--t|tests-only : Generate API CRUD testcases only}
                             {--r|form-requests : Generate CRUD with Form Request on create and update actions}
                             {--f|formfield : Generate CRUD with FormField facades}
@@ -30,7 +31,7 @@ class CrudApiMake extends GeneratorCommand
      */
     public function handle()
     {
-        $this->getModelName();
+        $this->getModelName($this->argument('name'), $this->option('parent-model'));
 
         if ($this->modelExists()) {
             $this->warn("We will use existing {$this->modelNames['model_name']} model.\n");
@@ -55,6 +56,10 @@ class CrudApiMake extends GeneratorCommand
         if ($this->modelExists() == false) {
             $this->generateModel();
             $this->generateResources();
+        }
+
+        if ($this->option('form-requests')) {
+            $this->generateRequestClasses();
         }
 
         $this->info('API CRUD files generated successfully!');
@@ -116,5 +121,10 @@ class CrudApiMake extends GeneratorCommand
     public function generateResources()
     {
         app('Luthfi\CrudGenerator\Generators\LangFileGenerator', ['command' => $this])->generate();
+    }
+
+    public function generateRequestClasses()
+    {
+        app('Luthfi\CrudGenerator\Generators\FormRequestGenerator', ['command' => $this])->generate();
     }
 }

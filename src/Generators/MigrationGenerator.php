@@ -29,6 +29,14 @@ class MigrationGenerator extends BaseGenerator
     public function getContent(string $stubName)
     {
         $content = $this->replaceStubString($this->getStubFileContent($stubName));
+        if ($this->modelNames['parent_table_name']) {
+            $content = str_replace(
+                "\$table->string('description')->nullable();\n",
+                "\$table->string('description')->nullable();
+            \$table->foreignId('{$this->modelNames['parent_lang_name']}_id')->constrained('{$this->modelNames['parent_table_name']}')->onDelete('restrict');\n",
+                $content
+            );
+        }
 
         if ($this->command->option('uuid')) {
             $content = str_replace("\$table->bigIncrements('id')", "\$table->uuid('id')->primary()", $content);

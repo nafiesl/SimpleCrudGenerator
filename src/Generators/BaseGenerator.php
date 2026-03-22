@@ -58,14 +58,19 @@ abstract class BaseGenerator implements GeneratorContract
     protected function getStubModelNames()
     {
         return $this->stubModelNames = [
-            'model_namespace'           => 'mstrNmspc',
-            'full_model_name'           => 'fullMstr',
-            'plural_model_name'         => 'Masters',
-            'model_name'                => 'Master',
-            'table_name'                => 'masters',
-            'lang_name'                 => 'master',
+            'model_namespace' => 'mstrNmspc',
+            'full_model_name' => 'fullMstr',
+            'plural_model_name' => 'Masters',
+            'model_name' => 'Master',
+            'table_name' => 'masters',
+            'lang_name' => 'master',
             'collection_model_var_name' => 'mstrCollections',
-            'single_model_var_name'     => 'singleMstr',
+            'single_model_var_name' => 'singleMstr',
+            'parent_model_name' => 'Parent',
+            'parent_table_name' => 'parents',
+            'parent_lang_name' => 'parent',
+            'single_parent_model_var_name' => 'singlePrnt',
+            'full_parent_model_name' => 'fullPrnt',
         ];
     }
 

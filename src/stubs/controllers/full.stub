@@ -29,7 +29,7 @@ class MasterController extends Controller
         $this->authorize('create', new Master);
 
         $newMaster = $request->validate([
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         $newMaster['creator_id'] = auth()->id();
@@ -56,7 +56,7 @@ class MasterController extends Controller
         $this->authorize('update', $singleMstr);
 
         $singleMstrData = $request->validate([
-            'title'       => 'required|max:60',
+            'title' => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
         $singleMstr->update($singleMstrData);
