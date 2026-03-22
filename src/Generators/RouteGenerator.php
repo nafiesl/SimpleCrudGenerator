@@ -26,11 +26,13 @@ class RouteGenerator extends BaseGenerator
      */
     public function getContent(string $stubName)
     {
+
         $stub = $this->getStubFileContent($stubName);
-
+        $parentName = $this->command->option('parent');
         $webRouteFileContent = $this->replaceStubString($stub);
+        $parentModelName = $this->command->option('parent-model');
 
-        if (!is_null($parentModelName = $this->command->option('parent-model'))) {
+        if ($parentModelName) {
             $modelName = $this->modelNames['model_name'];
 
             $webRouteFileContent = str_replace(
@@ -41,16 +43,14 @@ class RouteGenerator extends BaseGenerator
                 ],
                 $webRouteFileContent
             );
-        } else {
-            if (!is_null($parentName = $this->command->option('parent'))) {
-                $modelName = $this->modelNames['model_name'];
+        } else if ($parentName) {
+            $modelName = $this->modelNames['model_name'];
 
-                $webRouteFileContent = str_replace(
-                    $modelName.'Controller',
-                    $parentName.'\\'.$modelName.'Controller',
-                    $webRouteFileContent
-                );
-            }
+            $webRouteFileContent = str_replace(
+                $modelName.'Controller',
+                $parentName.'\\'.$modelName.'Controller',
+                $webRouteFileContent
+            );
         }
 
         return $webRouteFileContent;

@@ -20,8 +20,9 @@ class FeatureTestGenerator extends BaseGenerator
         if ($this->isForApi()) {
             $featureTestPath .= '/Api';
         }
-        if ($this->modelNames['parent_table_name']) {
-            $featureTestPath .= '/'.Str::plural($this->modelNames['parent_model_name']);
+        $parentModelName = $this->modelNames['parent_model_name'];
+        if ($parentModelName) {
+            $featureTestPath .= '/'.Str::plural($parentModelName);
             $type = $type.'-parentmodel';
         }
 
@@ -41,9 +42,10 @@ class FeatureTestGenerator extends BaseGenerator
     public function getContent(string $stubName)
     {
         $stub = $this->getStubFileContent($stubName);
-        if ($this->modelNames['parent_table_name']) {
-            $stub = str_replace('Tests\Feature\Api;', 'Tests\Feature\Api\\'.Str::plural($this->modelNames['parent_model_name']).';', $stub);
-            $stub = str_replace('Tests\Feature;', 'Tests\Feature\\'.Str::plural($this->modelNames['parent_model_name']).';', $stub);
+        $parentModelName = $this->modelNames['parent_model_name'];
+        if ($parentModelName) {
+            $stub = str_replace('Tests\Feature\Api;', 'Tests\Feature\Api\\'.Str::plural($parentModelName).';', $stub);
+            $stub = str_replace('Tests\Feature;', 'Tests\Feature\\'.Str::plural($parentModelName).';', $stub);
         }
         $baseTestClass = config('simple-crud.base_test_class');
         $stub = str_replace('use Tests\BrowserKitTest', 'use '.$baseTestClass, $stub);

@@ -16,13 +16,12 @@ class ControllerGenerator extends BaseGenerator
     {
         $modelName = $this->modelNames['model_name'];
         $parentControllerDirectory = '';
-
-        if (!is_null($this->command->option('parent-model'))) {
-            $parentControllerDirectory = '/'.Str::plural($this->command->option('parent-model'));
-        } else {
-            if (!is_null($this->command->option('parent'))) {
-                $parentControllerDirectory = '/'.$this->command->option('parent');
-            }
+        $parentName = $this->command->option('parent');
+        $parentModelName = $this->modelNames['parent_model_name'];
+        if ($parentModelName) {
+            $parentControllerDirectory = '/'.Str::plural($parentModelName);
+        } elseif ($parentName) {
+            $parentControllerDirectory = '/'.$parentName;
         }
 
         if ($this->isForApi()) {
@@ -49,41 +48,37 @@ class ControllerGenerator extends BaseGenerator
         if ($this->command->option('form-requests')) {
             $stubName .= '-formrequests';
         }
-        if (!is_null($this->command->option('parent-model'))) {
+        $parentModelName = $this->modelNames['parent_model_name'];
+        if ($parentModelName) {
             $stubName .= '-parentmodel';
         }
 
-        $stub = $this->getStubFileContent($stubName);
-
-        $controllerFileContent = $this->replaceStubString($stub);
-
         $appNamespace = $this->getAppNamespace();
+        $stub = $this->getStubFileContent($stubName);
+        $controllerFileContent = $this->replaceStubString($stub);
 
         $controllerFileContent = str_replace(
             ["App\Http\Controllers", "App\Http\Requests"],
             ["{$appNamespace}Http\Controllers", "{$appNamespace}Http\Requests"],
             $controllerFileContent
         );
+        $parentName = $this->command->option('parent');
+        if (!$parentModelName && $parentName) {
+            $searches = [
+                "{$appNamespace}Http\Controllers",
+                "use {$this->modelNames['full_model_name']};\n",
+            ];
 
-        if (!is_null($this->command->option('parent-model'))) {
-        } else {
-            if (!is_null($parentName = $this->command->option('parent'))) {
-                $searches = [
-                    "{$appNamespace}Http\Controllers",
-                    "use {$this->modelNames['full_model_name']};\n",
-                ];
+            $replacements = [
+                "{$appNamespace}Http\Controllers\\{$parentName}",
+                "use {$this->modelNames['full_model_name']};\nuse {$appNamespace}Http\Controllers\Controller;\n",
+            ];
 
-                $replacements = [
-                    "{$appNamespace}Http\Controllers\\{$parentName}",
-                    "use {$this->modelNames['full_model_name']};\nuse {$appNamespace}Http\Controllers\Controller;\n",
-                ];
-
-                $controllerFileContent = str_replace(
-                    $searches,
-                    $replacements,
-                    $controllerFileContent
-                );
-            }
+            $controllerFileContent = str_replace(
+                $searches,
+                $replacements,
+                $controllerFileContent
+            );
         }
 
         if ($this->command->option('uuid')) {

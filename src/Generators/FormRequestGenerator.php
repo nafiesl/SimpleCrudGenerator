@@ -24,7 +24,7 @@ class FormRequestGenerator extends BaseGenerator
         if ($this->command->option('uuid')) {
             $createRequestStubName .= '-uuid';
         }
-        if ($this->command->option('parent-model')) {
+        if ($this->modelNames['parent_model_name']) {
             $createRequestStubName .= '-parentmodel';
         }
 
@@ -45,11 +45,9 @@ class FormRequestGenerator extends BaseGenerator
      */
     public function getContent(string $stubName)
     {
-        $stub = $this->getStubFileContent($stubName);
-
-        $requestFileContent = $this->replaceStubString($stub);
-
         $appNamespace = $this->getAppNamespace();
+        $stub = $this->getStubFileContent($stubName);
+        $requestFileContent = $this->replaceStubString($stub);
 
         $requestFileContent = str_replace(
             "App\Http\Requests",

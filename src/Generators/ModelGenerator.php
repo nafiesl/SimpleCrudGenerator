@@ -29,15 +29,15 @@ class ModelGenerator extends BaseGenerator
             }
             $parentModelContent = file_get_contents($parentModelClassPath);
             $lastBracePos = strrpos($parentModelContent, '}');
-            $replace = "
+            $parentModelRelationMethodContent = "
     public function {$this->modelNames['collection_model_var_name']}()
     {
         return \$this->hasMany({$this->modelNames['model_name']}::class);
     }
 ";
             if ($lastBracePos !== false) {
-                $updated_content = substr_replace($parentModelContent, $replace."\n", $lastBracePos, 0);
-                file_put_contents($parentModelClassPath, $updated_content);
+                $modelClassContent = substr_replace($parentModelContent, $parentModelRelationMethodContent."\n", $lastBracePos, 0);
+                file_put_contents($parentModelClassPath, $modelClassContent);
                 $this->command->info($this->modelNames['parent_model_name'].' model relation updated.');
             } else {
                 $this->command->error($this->modelNames['parent_model_name'].' model relation not updated.');
